@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import type { EditorObject } from '../lib/editor'
 import { layouts, type LayoutId } from '../lib/layout'
-import { checkGlbFile, MAX_MODEL_MB, measureGlb, uploadGlb, type ModelSize } from '../lib/models'
+import { MAX_MODEL_MB, measureGlb, prepareModel, uploadGlb, type ModelSize } from '../lib/models'
 import type { ObjectOps } from '../lib/useObjectOps'
 
 export type UploadMode = 'attach' | 'new'
@@ -16,7 +16,10 @@ type Props = {
   onClose: () => void
 }
 
+type Prepared = { glb: File; size: ModelSize; warning: string | null; converted: boolean }
+
 const cm = (v: number) => Math.max(0.05, Math.round(v * 100) / 100)
+const mb = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(1)} MB`
 
 /** New object sized to the model, placed in the middle of the booth's main strip. */
 function newModelObject(fileName: string, url: string, size: ModelSize, layoutId: LayoutId): EditorObject {
@@ -42,39 +45,47 @@ export function UploadDialog({ room, layoutId, selected, initialMode, ops, onClo
   const canAttach = !!target && !target.locked
   const [mode, setMode] = useState<UploadMode>(canAttach ? initialMode : 'new')
   const [fit, setFit] = useState(true)
-  const [file, setFile] = useState<File | null>(null)
-  const [phase, setPhase] = useState<'idle' | 'checking' | 'uploading'>('idle')
+  const [prepared, setPrepared] = useState<Prepared | null>(null)
+  const [phase, setPhase] = useState<'idle' | 'preparing' | 'uploading'>('idle')
   const [progress, setProgress] = useState(0)
-  const [fileError, setFileError] = useState<string | null>(null) // blocks Upload until another file is picked
-  const [error, setError] = useState<string | null>(null) // upload errors; Upload can be retried
+  const [error, setError] = useState<string | null>(null)
   const busy = phase !== 'idle'
 
-  const pick = async (f: File | null) => {
-    setFile(f)
+  /** Check, convert (OBJ) and measure right away, so problems show before uploading. */
+  const pick = async (list: FileList | null) => {
+    const files = list ? [...list] : []
+    setPrepared(null)
     setError(null)
-    setFileError(f ? await checkGlbFile(f) : null)
-  }
-
-  const start = async () => {
-    if (!file || !room) return
-    setError(null)
-    setPhase('checking')
+    if (!files.length) return
+    setPhase('preparing')
     try {
-      const problem = await checkGlbFile(file)
-      if (problem) throw new Error(problem)
-      const size = await measureGlb(file)
-      setPhase('uploading')
-      setProgress(0)
-      const url = await uploadGlb(room, file, setProgress)
-      if (mode === 'attach' && target) ops.update(target.id, { modelUrl: url, modelFit: fit })
-      else ops.add(newModelObject(file.name, url, size, layoutId))
-      onClose()
+      const { glb, warning } = await prepareModel(files)
+      const size = await measureGlb(glb)
+      setPrepared({ glb, size, warning, converted: !files.some((f) => f === glb) })
     } catch (e) {
       setError((e as Error).message)
+    } finally {
       setPhase('idle')
     }
   }
 
+  const start = async () => {
+    if (!prepared || !room) return
+    setError(null)
+    setPhase('uploading')
+    setProgress(0)
+    try {
+      const url = await uploadGlb(room, prepared.glb, setProgress)
+      if (mode === 'attach' && target) ops.update(target.id, { modelUrl: url, modelFit: fit })
+      else ops.add(newModelObject(prepared.glb.name, url, prepared.size, layoutId))
+      onClose()
+    } catch (e) {
+      setError((e as Error).message) // Upload stays enabled so it can be retried
+      setPhase('idle')
+    }
+  }
+
+  const s = prepared?.size
   return (
     <div className="overlay">
       <div className="card">
@@ -84,17 +95,29 @@ export function UploadDialog({ room, layoutId, selected, initialMode, ops, onClo
         ) : (
           <>
             <label className="field">
-              <span>.glb file, max {MAX_MODEL_MB} MB</span>
+              <span>
+                .glb file (max {MAX_MODEL_MB} MB), or .obj + its .mtl and texture images — Ctrl+click to pick several
+              </span>
               <input
                 type="file"
-                accept=".glb,model/gltf-binary"
+                multiple
+                accept=".glb,.obj,.mtl,.png,.jpg,.jpeg,.bmp,.tga,.webp"
                 disabled={busy}
-                onChange={(e) => pick(e.target.files?.[0] ?? null)}
+                onChange={(e) => pick(e.target.files)}
               />
             </label>
-            {file && (
+            {phase === 'preparing' && <p className="muted small">Checking file…</p>}
+            {prepared && s && (
               <p className="muted small">
-                {file.name} — {(file.size / 1024 / 1024).toFixed(1)} MB
+                {prepared.converted ? `Converted to ${prepared.glb.name}` : prepared.glb.name} — {mb(prepared.glb.size)}
+                , model size {cm(s.w)} × {cm(s.d)} × {cm(s.h)} m
+              </p>
+            )}
+            {prepared?.warning && <p className="status outside">{prepared.warning}</p>}
+            {s && Math.max(s.w, s.d, s.h) > 20 && (
+              <p className="status outside">
+                The model is over 20 m — it was probably exported in centimeters or millimeters. Use auto-scale, or
+                correct W/D/H after adding it.
               </p>
             )}
 
@@ -123,7 +146,6 @@ export function UploadDialog({ room, layoutId, selected, initialMode, ops, onClo
               </label>
             )}
 
-            {phase === 'checking' && <p className="muted small">Checking file…</p>}
             {phase === 'uploading' && (
               <div className="progress" aria-label="Upload progress">
                 <div style={{ width: `${Math.round(progress * 100)}%` }} />
@@ -133,12 +155,12 @@ export function UploadDialog({ room, layoutId, selected, initialMode, ops, onClo
           </>
         )}
 
-        {(fileError ?? error) && <p className="status overlap">{fileError ?? error}</p>}
+        {error && <p className="status overlap">{error}</p>}
 
         <div className="actions">
           {room && (
-            <button className="primary" onClick={start} disabled={!file || busy || !!fileError}>
-              {busy ? 'Uploading…' : 'Upload'}
+            <button className="primary" onClick={start} disabled={!prepared || busy}>
+              {phase === 'uploading' ? 'Uploading…' : 'Upload'}
             </button>
           )}
           <button onClick={onClose} disabled={busy}>
