@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import { CrowdPanel } from './components/CrowdPanel'
 import { ObjectPanel } from './components/ObjectPanel'
 import { PeerList } from './components/PeerList'
 import { TopBar } from './components/TopBar'
@@ -11,6 +12,17 @@ import { ROTATE_STEP, useObjectOps, type ObjectOps } from './lib/useObjectOps'
 import { moverKey, useRoomSync } from './lib/useRoomSync'
 import type { User } from './lib/user'
 import { Scene, type ViewMode } from './scene/Scene'
+import type { CrowdSettings, CrowdStats } from './sim/crowd'
+
+const INITIAL_CROWD: CrowdSettings = {
+  density: 0,
+  visitorShare: 0.3,
+  playing: true,
+  showHeat: false,
+  showClearance: false,
+  restartToken: 0,
+}
+const NO_STATS: CrowdStats = { inside: 0, peak: 0, total: 0, area: 0, narrowArea: 0 }
 
 /** R / Shift+R rotate, Delete removes, Ctrl+Z undoes, Esc deselects. Ignored while typing in a field. */
 function useShortcuts(ops: ObjectOps, selectedId: string | null, select: (id: string | null) => void) {
@@ -53,6 +65,8 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [snap, setSnap] = useState(true)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [upload, setUpload] = useState<UploadMode | null>(null)
+  const [crowd, setCrowd] = useState(INITIAL_CROWD)
+  const [crowdStats, setCrowdStats] = useState(NO_STATS)
 
   const { state, actions } = useEditor()
   const objects = state.objects[layoutId]
@@ -123,8 +137,16 @@ export function Editor({ room, me, onEditUser }: Props) {
               movers={movers}
               onSelect={setSelectedId}
               ops={ops}
+              crowd={crowd}
+              onCrowdStats={setCrowdStats}
             />
           </Canvas>
+          <CrowdPanel
+            layoutId={layoutId}
+            settings={crowd}
+            onChange={(patch) => setCrowd((c) => ({ ...c, ...patch }))}
+            stats={crowdStats}
+          />
           {!roomSync.loaded && <div className="loading">Loading room…</div>}
         </main>
         <ObjectPanel

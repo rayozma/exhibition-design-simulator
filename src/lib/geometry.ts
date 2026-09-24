@@ -34,16 +34,32 @@ type OBB = { cx: number; cz: number; hw: number; hd: number; a: number }
 
 const obbOf = (f: Footprint): OBB => ({ cx: f.x, cz: f.z, hw: f.w / 2, hd: f.d / 2, a: f.rotY * DEG })
 
-function obbOfWall(wall: Wall, t: number): OBB {
+/** A wall as a footprint: length + t (walls are extended by t, as rendered) by t thick. */
+export function wallFootprint(wall: Wall, t: number): Footprint {
   const dx = wall.x2 - wall.x1
   const dz = wall.z2 - wall.z1
   return {
-    cx: (wall.x1 + wall.x2) / 2,
-    cz: (wall.z1 + wall.z2) / 2,
-    hw: (Math.hypot(dx, dz) + t) / 2, // walls are extended by t, as rendered
-    hd: t / 2,
-    a: -Math.atan2(dz, dx),
+    x: (wall.x1 + wall.x2) / 2,
+    z: (wall.z1 + wall.z2) / 2,
+    w: Math.hypot(dx, dz) + t,
+    d: t,
+    rotY: -Math.atan2(dz, dx) / DEG,
   }
+}
+
+const obbOfWall = (wall: Wall, t: number): OBB => obbOf(wallFootprint(wall, t))
+
+/** Signed distance (m) from point (x, z) to the rotated footprint: negative inside. */
+export function distToFootprint(f: Footprint, x: number, z: number): number {
+  const a = f.rotY * DEG
+  const c = Math.cos(a)
+  const s = Math.sin(a)
+  const dx = x - f.x
+  const dz = z - f.z
+  // world -> local (inverse of three.js rotation.y)
+  const qu = Math.abs(dx * c - dz * s) - f.w / 2
+  const qv = Math.abs(dx * s + dz * c) - f.d / 2
+  return Math.hypot(Math.max(qu, 0), Math.max(qv, 0)) + Math.min(Math.max(qu, qv), 0)
 }
 
 /** World-space local axes. three.js rotation.y by a maps local x to (cos a, -sin a). */

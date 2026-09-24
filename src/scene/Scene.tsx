@@ -4,7 +4,9 @@ import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
 import { activeZones, HALL_CENTER, inRects, layouts, theme, type LayoutId } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
+import type { CrowdSettings, CrowdStats } from '../sim/crowd'
 import { Booth } from './Booth'
+import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
 import { SceneObject } from './SceneObject'
 import { Zones } from './Zones'
@@ -24,6 +26,8 @@ export type SceneProps = {
   movers: Map<string, { name: string; color: string }>
   onSelect: (id: string) => void
   ops: ObjectOps
+  crowd: CrowdSettings
+  onCrowdStats: (s: CrowdStats) => void
 }
 
 /** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
@@ -83,6 +87,7 @@ export function Scene(p: SceneProps) {
           onSelect={p.onSelect}
         />
       ))}
+      <Crowd layoutId={layoutId} objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />
     </>
   )
 }

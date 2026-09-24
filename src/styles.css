@@ -426,6 +426,54 @@ button.block {
   margin-top: 16px;
 }
 
+/* Crowd panel (floats over the 3D view) */
+.crowd-panel {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  max-width: min(440px, calc(100% - 24px));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.crowd-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+button.link {
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.slider {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.slider span:last-child {
+  color: var(--muted);
+  font-size: 12px;
+  min-width: 70px;
+  text-align: right;
+}
+
+.crowd-stats {
+  margin: 0;
+  font-size: 13px;
+}
+
 @media (max-width: 700px) {
   .body {
     flex-direction: column;
