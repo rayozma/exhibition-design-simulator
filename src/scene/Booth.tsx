@@ -3,6 +3,8 @@ import { BufferGeometry, Float32BufferAttribute } from 'three'
 import { Edges } from '@react-three/drei'
 import { outlineSegments, theme, type LayoutOption, type Wall } from '../lib/layout'
 
+const noRaycast = () => null // only objects are clickable; clicks here deselect
+
 function WallMesh({ wall, h, t }: { wall: Wall; h: number; t: number }) {
   const dx = wall.x2 - wall.x1
   const dz = wall.z2 - wall.z1
@@ -11,6 +13,7 @@ function WallMesh({ wall, h, t }: { wall: Wall; h: number; t: number }) {
     <mesh
       position={[(wall.x1 + wall.x2) / 2, h / 2, (wall.z1 + wall.z2) / 2]}
       rotation-y={-Math.atan2(dz, dx)}
+      raycast={noRaycast}
     >
       {/* extend by t so wall corners close */}
       <boxGeometry args={[len + t, h, t]} />
@@ -34,12 +37,12 @@ export function Booth({ option, showWalls }: { option: LayoutOption; showWalls: 
   return (
     <group>
       {ndtFootprint.map((r, i) => (
-        <mesh key={i} position={[r.x + r.w / 2, platformH / 2, r.z + r.d / 2]}>
+        <mesh key={i} position={[r.x + r.w / 2, platformH / 2, r.z + r.d / 2]} raycast={noRaycast}>
           <boxGeometry args={[r.w, platformH, r.d]} />
           <meshStandardMaterial color={theme.boothFloor} />
         </mesh>
       ))}
-      <lineSegments geometry={outline}>
+      <lineSegments geometry={outline} raycast={noRaycast}>
         <lineBasicMaterial color={theme.ledEdge} />
       </lineSegments>
       {showWalls && walls.map((w) => <WallMesh key={w.id} wall={w} h={wallH} t={wallT} />)}

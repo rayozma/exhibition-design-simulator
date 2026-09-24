@@ -1,6 +1,9 @@
 import { OrbitControls, OrthographicCamera, PerspectiveCamera } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
+import type { EditorObject } from '../lib/editor'
+import type { Status } from '../lib/geometry'
 import { activeZones, HALL_CENTER, inRects, layouts, theme, type LayoutId } from '../lib/layout'
+import type { ObjectOps } from '../lib/useObjectOps'
 import { Booth } from './Booth'
 import { HallFloor } from './HallFloor'
 import { SceneObject } from './SceneObject'
@@ -13,6 +16,11 @@ export type SceneProps = {
   view: ViewMode
   showVolumes: boolean
   showWalls: boolean
+  objects: EditorObject[]
+  statuses: Map<string, Status>
+  selectedId: string | null
+  onSelect: (id: string) => void
+  ops: ObjectOps
 }
 
 /** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
@@ -31,7 +39,8 @@ function TopCamera() {
   )
 }
 
-export function Scene({ layoutId, view, showVolumes, showWalls }: SceneProps) {
+export function Scene(p: SceneProps) {
+  const { layoutId, view, showVolumes, showWalls } = p
   const option = layouts.options[layoutId]
   const top = view === 'top'
 
@@ -58,11 +67,15 @@ export function Scene({ layoutId, view, showVolumes, showWalls }: SceneProps) {
       <HallFloor />
       <Zones zones={activeZones(layoutId)} showVolumes={showVolumes} />
       <Booth option={option} showWalls={showWalls} />
-      {layouts.objects.map((o) => (
+      {p.objects.map((o) => (
         <SceneObject
           key={o.id}
           obj={o}
           baseY={inRects(option.ndtFootprint, o.x, o.z) ? option.platformH : 0}
+          status={p.statuses.get(o.id) ?? 'ok'}
+          selected={o.id === p.selectedId}
+          ops={p.ops}
+          onSelect={p.onSelect}
         />
       ))}
     </>

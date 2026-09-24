@@ -10,6 +10,11 @@ type Props = {
   onVolumes: (v: boolean) => void
   showWalls: boolean
   onWalls: (v: boolean) => void
+  snap: boolean
+  onSnap: (v: boolean) => void
+  canUndo: boolean
+  onUndo: () => void
+  onReset: () => void
 }
 
 export function TopBar(p: Props) {
@@ -42,6 +47,18 @@ export function TopBar(p: Props) {
         <input type="checkbox" checked={p.showWalls} onChange={(e) => p.onWalls(e.target.checked)} />
         Walls
       </label>
+      <label className="toggle">
+        <input type="checkbox" checked={p.snap} onChange={(e) => p.onSnap(e.target.checked)} />
+        Snap
+      </label>
+
+      <span className="spacer" />
+      <button onClick={p.onUndo} disabled={!p.canUndo} title="Ctrl+Z">
+        Undo
+      </button>
+      <button onClick={p.onReset} title="Restore the original positions for this layout">
+        Reset to design
+      </button>
     </header>
   )
 }
