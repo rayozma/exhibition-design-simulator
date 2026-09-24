@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { LAYOUT_IDS, layouts, type LayoutId } from '../lib/layout'
 import type { ViewMode } from '../scene/Scene'
 
@@ -15,6 +16,8 @@ type Props = {
   canUndo: boolean
   onUndo: () => void
   onReset: () => void
+  /** Rendered at the right end (presence / connection). */
+  children?: ReactNode
 }
 
 export function TopBar(p: Props) {
@@ -59,6 +62,7 @@ export function TopBar(p: Props) {
       <button onClick={p.onReset} title="Restore the original positions for this layout">
         Reset to design
       </button>
+      {p.children}
     </header>
   )
 }

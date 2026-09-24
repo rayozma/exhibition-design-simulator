@@ -19,6 +19,9 @@ export type SceneProps = {
   objects: EditorObject[]
   statuses: Map<string, Status>
   selectedId: string | null
+  /** Other users' selections / drags in this layout, by object id. */
+  peerSelections: Map<string, { name: string; color: string }>
+  movers: Map<string, { name: string; color: string }>
   onSelect: (id: string) => void
   ops: ObjectOps
 }
@@ -74,6 +77,8 @@ export function Scene(p: SceneProps) {
           baseY={inRects(option.ndtFootprint, o.x, o.z) ? option.platformH : 0}
           status={p.statuses.get(o.id) ?? 'ok'}
           selected={o.id === p.selectedId}
+          peer={p.peerSelections.get(o.id)}
+          mover={p.movers.get(o.id)}
           ops={p.ops}
           onSelect={p.onSelect}
         />

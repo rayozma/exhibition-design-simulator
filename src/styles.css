@@ -203,6 +203,178 @@ button.danger {
   margin-top: 18px;
 }
 
+.status.busy {
+  background: rgba(125, 211, 252, 0.15);
+  color: #7dd3fc;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111;
+  font-weight: 600;
+}
+
+button.primary:hover {
+  background: #fde047;
+}
+
+.small {
+  font-size: 12px;
+}
+
+/* Landing page + dialogs */
+.center-screen,
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.center-screen {
+  min-height: 100%;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.card h1,
+.card h2 {
+  margin: 0;
+}
+
+.card p {
+  margin: 0;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.swatch.active {
+  border-color: #fff;
+}
+
+.swatches input[type='color'] {
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+/* Presence */
+.peers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.conn {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.conn::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: #6b7280;
+}
+
+.conn.live::before {
+  background: #22c55e;
+}
+
+.conn.connecting::before {
+  background: #eab308;
+}
+
+.conn.offline::before {
+  background: #ef4444;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  font-size: 12px;
+  border: 1px solid #374151;
+  border-radius: 999px;
+  background: #1f2937;
+  white-space: nowrap;
+}
+
+.chip i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.chip small {
+  color: var(--muted);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  background: #7f1d1d;
+  color: #fee2e2;
+}
+
+.viewport {
+  position: relative;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 15, 26, 0.7);
+  color: var(--muted);
+  font-size: 16px;
+}
+
 @media (max-width: 700px) {
   .body {
     flex-direction: column;

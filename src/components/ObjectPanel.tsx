@@ -71,9 +71,15 @@ const STATUS_TEXT: Record<Status, string | null> = {
   overlap: 'Overlaps another object or a wall',
 }
 
-type Props = { obj: EditorObject | null; status: Status; ops: ObjectOps }
+type Props = {
+  obj: EditorObject | null
+  status: Status
+  /** Name of another user currently dragging this object. */
+  busyBy: string | null
+  ops: ObjectOps
+}
 
-export function ObjectPanel({ obj, status, ops }: Props) {
+export function ObjectPanel({ obj, status, busyBy, ops }: Props) {
   if (!obj) {
     return (
       <aside className="panel">
@@ -89,12 +95,13 @@ export function ObjectPanel({ obj, status, ops }: Props) {
     )
   }
 
-  const locked = obj.locked
+  const locked = obj.locked || !!busyBy
   const update = (patch: Partial<EditorObject>) => ops.update(obj.id, patch)
 
   return (
     <aside className="panel" key={obj.id}>
       <Field label="Name" value={obj.name} disabled={locked} onCommit={(name) => update({ name })} />
+      {busyBy && <p className="status busy">Being moved by {busyBy}</p>}
       {STATUS_TEXT[status] && <p className={`status ${status}`}>{STATUS_TEXT[status]}</p>}
 
       <h4>Dimensions (m)</h4>
@@ -122,7 +129,9 @@ export function ObjectPanel({ obj, status, ops }: Props) {
       </div>
 
       <div className="actions">
-        <button onClick={() => ops.toggleLock(obj.id)}>{locked ? 'Unlock' : 'Lock'}</button>
+        <button disabled={!!busyBy} onClick={() => ops.toggleLock(obj.id)}>
+          {obj.locked ? 'Unlock' : 'Lock'}
+        </button>
         <button onClick={() => ops.duplicate(obj.id)}>Duplicate</button>
         <button className="danger" disabled={locked} onClick={() => ops.remove(obj.id)}>
           Delete

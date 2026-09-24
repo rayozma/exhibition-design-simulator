@@ -36,17 +36,23 @@ function labelOf(obj: EditorObject) {
   return `${obj.num ? `${obj.num}. ` : ''}${short}${obj.locked ? ' [locked]' : ''}`
 }
 
+type Tag = { name: string; color: string }
+
 type Props = {
   obj: EditorObject
   baseY: number
   status: Status
   selected: boolean
+  /** Another user who has this object selected. */
+  peer?: Tag
+  /** Another user who is dragging this object right now (it can't be grabbed). */
+  mover?: Tag
   ops: ObjectOps
   onSelect: (id: string) => void
 }
 
 /** Placeholder box/cylinder for an object, sized from w/d/h, with a name label. Click to select, drag to move. */
-export const SceneObject = memo(function SceneObject({ obj, baseY, status, selected, ops, onSelect }: Props) {
+export const SceneObject = memo(function SceneObject({ obj, baseY, status, selected, peer, mover, ops, onSelect }: Props) {
   const controls = useThree((s) => s.controls) as { enabled: boolean } | null
   const drag = useRef<{ offX: number; offZ: number } | null>(null)
 
@@ -61,7 +67,7 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
     if (e.button !== 0) return
     e.stopPropagation()
     onSelect(obj.id)
-    if (obj.locked || !e.ray.intersectPlane(FLOOR, hit)) return
+    if (obj.locked || mover || !e.ray.intersectPlane(FLOOR, hit)) return
     drag.current = { offX: hit.x - obj.x, offZ: hit.z - obj.z }
     ;(e.target as unknown as Element).setPointerCapture(e.pointerId)
     if (controls) controls.enabled = false // don't orbit while dragging
@@ -92,7 +98,7 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onLostPointerCapture={endDrag}
-          onPointerOver={() => (document.body.style.cursor = obj.locked ? 'not-allowed' : 'grab')}
+          onPointerOver={() => (document.body.style.cursor = obj.locked || mover ? 'not-allowed' : 'grab')}
           onPointerOut={() => (document.body.style.cursor = '')}
         >
           {obj.shape === 'cylinder' ? <cylinderGeometry args={[0.5, 0.5, 1, 24]} /> : <boxGeometry />}
@@ -105,7 +111,27 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
             <meshBasicMaterial color={theme.ledEdge} transparent opacity={0.6} depthWrite={false} />
           </mesh>
         )}
+        {(mover ?? peer) && (
+          <mesh rotation-x={-Math.PI / 2} position-y={0.018} raycast={() => null}>
+            <planeGeometry args={[obj.w + 0.26, obj.d + 0.26]} />
+            <meshBasicMaterial color={(mover ?? peer)!.color} transparent opacity={0.55} depthWrite={false} />
+          </mesh>
+        )}
       </group>
+      {(mover ?? peer) && (
+        <Billboard position-y={obj.h + 0.12}>
+          <Text
+            fontSize={0.11}
+            anchorY="top"
+            color={(mover ?? peer)!.color}
+            outlineWidth={0.012}
+            outlineColor="#000000"
+            raycast={() => null}
+          >
+            {mover ? `moving: ${mover.name}` : peer!.name}
+          </Text>
+        </Billboard>
+      )}
       <Billboard position-y={obj.h + 0.15}>
         <Text
           fontSize={fontSize}

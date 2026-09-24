@@ -1,7 +1,9 @@
 import { useMemo, useReducer } from 'react'
 import { LAYOUT_IDS, layouts, type LayoutId, type SeedObject } from './layout'
 
-export type EditorObject = SeedObject & { locked: boolean }
+export type EditorObject = SeedObject & { locked: boolean; modelUrl?: string | null }
+
+export type ObjectsByLayout = Record<LayoutId, EditorObject[]>
 
 /** Set an object (insert or replace), or delete it with next = null. */
 export type Change = { id: string; next: EditorObject | null }
@@ -10,7 +12,7 @@ export type Change = { id: string; next: EditorObject | null }
 export type UndoEntry = { changes: { id: string; before: EditorObject | null }[] }
 
 type State = {
-  objects: Record<LayoutId, EditorObject[]>
+  objects: ObjectsByLayout
   undo: Record<LayoutId, UndoEntry[]>
 }
 
@@ -18,11 +20,25 @@ type Action =
   | { type: 'apply'; layoutId: LayoutId; changes: Change[]; undoable: boolean }
   | { type: 'pushUndo'; layoutId: LayoutId; entry: UndoEntry }
   | { type: 'undo'; layoutId: LayoutId }
-  | { type: 'reset'; layoutId: LayoutId }
+  | { type: 'load'; objects: ObjectsByLayout }
 
 const MAX_UNDO = 100
 
-const seedObjects = (): EditorObject[] => layouts.objects.map((o) => ({ ...o, locked: false }))
+export const seedObjects = (): EditorObject[] => layouts.objects.map((o) => ({ ...o, locked: false }))
+
+/** Changes that revert an undo entry (last change first). */
+export const undoChanges = (entry: UndoEntry): Change[] =>
+  [...entry.changes].reverse().map((c) => ({ id: c.id, next: c.before }))
+
+/** Changes that turn `list` back into the seed design: drop extra objects, restore seed ones. */
+export function resetChanges(list: EditorObject[]): Change[] {
+  const seed = seedObjects()
+  const seedIds = new Set(seed.map((o) => o.id))
+  return [
+    ...list.filter((o) => !seedIds.has(o.id)).map((o) => ({ id: o.id, next: null })),
+    ...seed.map((o) => ({ id: o.id, next: o })),
+  ]
+}
 
 function init(): State {
   const objects = {} as State['objects']
@@ -73,21 +89,17 @@ function reducer(state: State, action: Action): State {
       const stack = state.undo[action.layoutId]
       const entry = stack[stack.length - 1]
       if (!entry) return state
-      const changes = [...entry.changes].reverse().map((c) => ({ id: c.id, next: c.before }))
       return {
-        objects: { ...state.objects, [action.layoutId]: applyChanges(state.objects[action.layoutId], changes) },
+        objects: {
+          ...state.objects,
+          [action.layoutId]: applyChanges(state.objects[action.layoutId], undoChanges(entry)),
+        },
         undo: { ...state.undo, [action.layoutId]: stack.slice(0, -1) },
       }
     }
-    case 'reset': {
-      const seed = seedObjects()
-      const seedIds = new Set(seed.map((o) => o.id))
-      const changes: Change[] = [
-        ...state.objects[action.layoutId].filter((o) => !seedIds.has(o.id)).map((o) => ({ id: o.id, next: null })),
-        ...seed.map((o) => ({ id: o.id, next: o })),
-      ]
-      return apply(state, action.layoutId, changes, true)
-    }
+    case 'load':
+      // Replace everything with the database contents; undo stacks are kept.
+      return { ...state, objects: action.objects }
   }
 }
 
@@ -100,7 +112,7 @@ export function useEditor() {
         dispatch({ type: 'apply', layoutId, changes, undoable }),
       pushUndo: (layoutId: LayoutId, entry: UndoEntry) => dispatch({ type: 'pushUndo', layoutId, entry }),
       undo: (layoutId: LayoutId) => dispatch({ type: 'undo', layoutId }),
-      reset: (layoutId: LayoutId) => dispatch({ type: 'reset', layoutId }),
+      load: (objects: ObjectsByLayout) => dispatch({ type: 'load', objects }),
     }),
     [],
   )
