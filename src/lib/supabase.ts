@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const url = import.meta.env.VITE_SUPABASE_URL
+// Accept the project URL with a pasted API path or trailing slash ("…supabase.co/rest/v1/").
+const url = import.meta.env.VITE_SUPABASE_URL?.trim().replace(/\/(rest\/v1)?\/?$/, '')
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 /** null when .env is missing — the app then runs in local-only mode. */
