@@ -5,4 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/ndt-adipec-2026-design/',
   plugins: [react()],
+  // Listen on IPv4 localhost; on Windows the default can bind to IPv6 (::1) only.
+  server: { host: '127.0.0.1' },
 })
