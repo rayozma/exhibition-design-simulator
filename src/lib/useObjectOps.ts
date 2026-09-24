@@ -52,6 +52,11 @@ export function useObjectOps(
         const o = find(id)
         if (o && !busy(id)) set({ ...o, locked: !o.locked })
       },
+      /** Add a brand-new object (e.g. from an uploaded model) and select it. */
+      add(obj: EditorObject) {
+        set(obj)
+        select(obj.id)
+      },
       duplicate(id: string) {
         const o = find(id)
         if (!o) return

@@ -1,7 +1,13 @@
 import { useMemo, useReducer } from 'react'
 import { LAYOUT_IDS, layouts, type LayoutId, type SeedObject } from './layout'
 
-export type EditorObject = SeedObject & { locked: boolean; modelUrl?: string | null }
+export type EditorObject = SeedObject & {
+  locked: boolean
+  /** Public URL of an attached .glb; null/undefined = render the placeholder box. */
+  modelUrl?: string | null
+  /** true = scale the model to fit inside w/d/h; false = keep the model's own size. */
+  modelFit?: boolean
+}
 
 export type ObjectsByLayout = Record<LayoutId, EditorObject[]>
 

@@ -21,6 +21,7 @@ export type ObjectRow = {
   attraction: boolean
   note: string | null
   model_url: string | null
+  model_fit: boolean
   locked: boolean
   updated_by: string | null
   updated_at?: string
@@ -45,6 +46,7 @@ export function toRow(room: string, layoutId: LayoutId, o: EditorObject, updated
     attraction: o.attraction ?? false,
     note: o.note ?? null,
     model_url: o.modelUrl ?? null,
+    model_fit: o.modelFit ?? true,
     locked: o.locked,
     updated_by: updatedBy,
   }
@@ -67,6 +69,7 @@ export function fromRow(r: ObjectRow): EditorObject {
     attraction: r.attraction,
     note: r.note ?? undefined,
     modelUrl: r.model_url,
+    modelFit: r.model_fit ?? true,
     locked: r.locked,
   }
 }

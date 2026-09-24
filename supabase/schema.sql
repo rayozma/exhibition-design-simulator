@@ -27,6 +27,7 @@ create table if not exists public.objects (
   attraction  boolean not null default false,
   note        text,
   model_url   text,
+  model_fit   boolean not null default true,  -- added in phase 4 (storage.sql)
   locked      boolean not null default false,
   updated_by  text,
   updated_at  timestamptz not null default now(),

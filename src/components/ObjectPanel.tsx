@@ -77,9 +77,11 @@ type Props = {
   /** Name of another user currently dragging this object. */
   busyBy: string | null
   ops: ObjectOps
+  /** Open the upload dialog (attaches to the selected object, or adds a new one); undefined = uploads unavailable. */
+  onUpload?: () => void
 }
 
-export function ObjectPanel({ obj, status, busyBy, ops }: Props) {
+export function ObjectPanel({ obj, status, busyBy, ops, onUpload }: Props) {
   if (!obj) {
     return (
       <aside className="panel">
@@ -91,6 +93,11 @@ export function ObjectPanel({ obj, status, busyBy, ops }: Props) {
           <li>Ctrl+Z: undo</li>
           <li>Esc: deselect</li>
         </ul>
+        {onUpload && (
+          <button className="block" onClick={onUpload}>
+            Upload .glb as new object…
+          </button>
+        )}
       </aside>
     )
   }
@@ -127,6 +134,37 @@ export function ObjectPanel({ obj, status, busyBy, ops }: Props) {
           ⟳ +{ROTATE_STEP}°
         </button>
       </div>
+
+      <h4>3D model</h4>
+      {obj.modelUrl ? (
+        <>
+          <label className="radio">
+            <input
+              type="checkbox"
+              checked={obj.modelFit ?? true}
+              disabled={locked}
+              onChange={(e) => update({ modelFit: e.target.checked })}
+            />
+            Auto-scale to W × D × H
+          </label>
+          <div className="actions tight">
+            {onUpload && (
+              <button disabled={locked} onClick={onUpload}>
+                Replace…
+              </button>
+            )}
+            <button disabled={locked} onClick={() => update({ modelUrl: null })}>
+              Remove model
+            </button>
+          </div>
+        </>
+      ) : onUpload ? (
+        <button disabled={locked} onClick={onUpload}>
+          Attach .glb model…
+        </button>
+      ) : (
+        <p className="muted small">Model upload needs Supabase.</p>
+      )}
 
       <div className="actions">
         <button disabled={!!busyBy} onClick={() => ops.toggleLock(obj.id)}>

@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react'
+import { memo, useRef, useState } from 'react'
 import { Plane, Vector3 } from 'three'
 import { useThree, type ThreeEvent } from '@react-three/fiber'
 import { Billboard, Edges, Text } from '@react-three/drei'
@@ -6,6 +6,7 @@ import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
 import { DEG, theme } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
+import { ModelView } from './ModelView'
 
 const MATERIAL_COLORS: Record<string, string> = {
   'lacquer white': '#f7f7f5',
@@ -31,9 +32,9 @@ function colorOf(obj: EditorObject, status: Status) {
 }
 
 /** "Simulator table (laptop + monitor) – Display D" -> "2. Simulator table" */
-function labelOf(obj: EditorObject) {
+function labelOf(obj: EditorObject, modelFailed: boolean) {
   const short = obj.name.split(/ – | \(/)[0]
-  return `${obj.num ? `${obj.num}. ` : ''}${short}${obj.locked ? ' [locked]' : ''}`
+  return `${obj.num ? `${obj.num}. ` : ''}${short}${obj.locked ? ' [locked]' : ''}${modelFailed ? ' [model failed to load]' : ''}`
 }
 
 type Tag = { name: string; color: string }
@@ -51,10 +52,16 @@ type Props = {
   onSelect: (id: string) => void
 }
 
-/** Placeholder box/cylinder for an object, sized from w/d/h, with a name label. Click to select, drag to move. */
+/**
+ * An object with a name label: its uploaded .glb model, or a placeholder box/cylinder sized from w/d/h.
+ * Click to select, drag to move.
+ */
 export const SceneObject = memo(function SceneObject({ obj, baseY, status, selected, peer, mover, ops, onSelect }: Props) {
   const controls = useThree((s) => s.controls) as { enabled: boolean } | null
   const drag = useRef<{ offX: number; offZ: number } | null>(null)
+  const [failedUrl, setFailedUrl] = useState<string | null>(null)
+  const modelFailed = !!obj.modelUrl && failedUrl === obj.modelUrl
+  const hasModel = !!obj.modelUrl && !modelFailed
 
   const endDrag = () => {
     if (!drag.current) return
@@ -101,10 +108,34 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
           onPointerOver={() => (document.body.style.cursor = obj.locked || mover ? 'not-allowed' : 'grab')}
           onPointerOut={() => (document.body.style.cursor = '')}
         >
-          {obj.shape === 'cylinder' ? <cylinderGeometry args={[0.5, 0.5, 1, 24]} /> : <boxGeometry />}
-          <meshStandardMaterial color={colorOf(obj, status)} />
-          <Edges color={selected ? theme.ledEdge : '#475569'} threshold={20} />
+          {obj.shape === 'cylinder' && !hasModel ? <cylinderGeometry args={[0.5, 0.5, 1, 24]} /> : <boxGeometry />}
+          {hasModel ? (
+            // Invisible click target around the model; tinted only to show a warning status.
+            <meshBasicMaterial
+              color={STATUS_COLORS[status] ?? '#ffffff'}
+              transparent
+              opacity={status === 'ok' ? 0 : 0.28}
+              depthWrite={false}
+            />
+          ) : (
+            <meshStandardMaterial color={colorOf(obj, status)} />
+          )}
+          <Edges
+            visible={!hasModel || selected || status !== 'ok'}
+            color={selected ? theme.ledEdge : hasModel ? STATUS_COLORS[status] ?? '#475569' : '#475569'}
+            threshold={20}
+          />
         </mesh>
+        {obj.modelUrl && !modelFailed && (
+          <ModelView
+            url={obj.modelUrl}
+            fit={obj.modelFit ?? true}
+            w={obj.w}
+            d={obj.d}
+            h={obj.h}
+            onError={() => setFailedUrl(obj.modelUrl ?? null)}
+          />
+        )}
         {selected && (
           <mesh rotation-x={-Math.PI / 2} position-y={0.02} raycast={() => null}>
             <planeGeometry args={[obj.w + 0.12, obj.d + 0.12]} />
@@ -143,7 +174,7 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
           outlineColor="#000000"
           raycast={() => null}
         >
-          {labelOf(obj)}
+          {labelOf(obj, modelFailed)}
         </Text>
       </Billboard>
     </group>

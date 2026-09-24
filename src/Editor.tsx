@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { ObjectPanel } from './components/ObjectPanel'
 import { PeerList } from './components/PeerList'
 import { TopBar } from './components/TopBar'
+import { UploadDialog, type UploadMode } from './components/UploadDialog'
 import { useEditor } from './lib/editor'
 import { computeStatuses } from './lib/geometry'
 import { layouts, type LayoutId } from './lib/layout'
@@ -18,6 +19,7 @@ function useShortcuts(ops: ObjectOps, selectedId: string | null, select: (id: st
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).closest('input, textarea, select')) return
+      if (document.querySelector('.overlay')) return // a dialog is open
       const id = sel.current
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
         e.preventDefault()
@@ -50,6 +52,7 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [showWalls, setShowWalls] = useState(true)
   const [snap, setSnap] = useState(true)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [upload, setUpload] = useState<UploadMode | null>(null)
 
   const { state, actions } = useEditor()
   const objects = state.objects[layoutId]
@@ -129,8 +132,19 @@ export function Editor({ room, me, onEditUser }: Props) {
           status={selected ? statuses.get(selected.id) ?? 'ok' : 'ok'}
           busyBy={selected ? movers.get(selected.id)?.name ?? null : null}
           ops={ops}
+          onUpload={room ? () => setUpload(selected ? 'attach' : 'new') : undefined}
         />
       </div>
+      {upload && (
+        <UploadDialog
+          room={room}
+          layoutId={layoutId}
+          selected={selected}
+          initialMode={upload}
+          ops={ops}
+          onClose={() => setUpload(null)}
+        />
+      )}
     </div>
   )
 }
