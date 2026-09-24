@@ -1,0 +1,1 @@
+# ndt-adipec-2026-design
