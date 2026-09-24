@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { CrowdPanel } from './components/CrowdPanel'
 import { ObjectPanel } from './components/ObjectPanel'
 import { PeerList } from './components/PeerList'
+import { SnapshotsDialog } from './components/SnapshotsDialog'
 import { TopBar } from './components/TopBar'
 import { UploadDialog, type UploadMode } from './components/UploadDialog'
 import { useEditor } from './lib/editor'
@@ -11,6 +12,7 @@ import { layouts, type LayoutId } from './lib/layout'
 import { ROTATE_STEP, useObjectOps, type ObjectOps } from './lib/useObjectOps'
 import { moverKey, useRoomSync } from './lib/useRoomSync'
 import type { User } from './lib/user'
+import { Capture, type CaptureFn } from './scene/Capture'
 import { Scene, type ViewMode } from './scene/Scene'
 import type { CrowdSettings, CrowdStats } from './sim/crowd'
 
@@ -67,6 +69,8 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [upload, setUpload] = useState<UploadMode | null>(null)
   const [crowd, setCrowd] = useState(INITIAL_CROWD)
   const [crowdStats, setCrowdStats] = useState(NO_STATS)
+  const [showSnapshots, setShowSnapshots] = useState(false)
+  const capture = useRef<CaptureFn | null>(null)
 
   const { state, actions } = useEditor()
   const objects = state.objects[layoutId]
@@ -107,6 +111,7 @@ export function Editor({ room, me, onEditUser }: Props) {
         canUndo={state.undo[layoutId].length > 0}
         onUndo={ops.undo}
         onReset={ops.reset}
+        onSnapshots={() => setShowSnapshots(true)}
       >
         <PeerList
           status={roomSync.status}
@@ -140,6 +145,7 @@ export function Editor({ room, me, onEditUser }: Props) {
               crowd={crowd}
               onCrowdStats={setCrowdStats}
             />
+            <Capture register={capture} />
           </Canvas>
           <CrowdPanel
             layoutId={layoutId}
@@ -165,6 +171,17 @@ export function Editor({ room, me, onEditUser }: Props) {
           initialMode={upload}
           ops={ops}
           onClose={() => setUpload(null)}
+        />
+      )}
+      {showSnapshots && (
+        <SnapshotsDialog
+          room={room}
+          layoutId={layoutId}
+          objects={objects}
+          me={me}
+          ops={ops}
+          capture={() => capture.current}
+          onClose={() => setShowSnapshots(false)}
         />
       )}
     </div>

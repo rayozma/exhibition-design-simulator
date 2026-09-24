@@ -1,5 +1,13 @@
 import { useMemo, useRef } from 'react'
-import { resetChanges, undoChanges, type Change, type EditorActions, type EditorObject, type UndoEntry } from './editor'
+import {
+  replaceChanges,
+  resetChanges,
+  undoChanges,
+  type Change,
+  type EditorActions,
+  type EditorObject,
+  type UndoEntry,
+} from './editor'
 import { clampToHall, normDeg, snapTo } from './geometry'
 import type { LayoutId } from './layout'
 import type { SyncApi } from './useRoomSync'
@@ -84,6 +92,11 @@ export function useObjectOps(
         if (!window.confirm(`Reset layout ${l} to the original design for everyone in this room? (You can undo this.)`))
           return
         commit(resetChanges(list))
+      },
+      /** Replace the current layout with a snapshot (one undo step; saved for everyone). */
+      restore(objects: EditorObject[]) {
+        commit(replaceChanges(latest.current.objects, objects))
+        select(null)
       },
 
       // Dragging: live moves are broadcast, not saved; on drop one undo entry is pushed and the result saved.

@@ -36,15 +36,17 @@ export const seedObjects = (): EditorObject[] => layouts.objects.map((o) => ({ .
 export const undoChanges = (entry: UndoEntry): Change[] =>
   [...entry.changes].reverse().map((c) => ({ id: c.id, next: c.before }))
 
-/** Changes that turn `list` back into the seed design: drop extra objects, restore seed ones. */
-export function resetChanges(list: EditorObject[]): Change[] {
-  const seed = seedObjects()
-  const seedIds = new Set(seed.map((o) => o.id))
+/** Changes that turn `list` into `target`: drop objects not in target, set all target objects. */
+export function replaceChanges(list: EditorObject[], target: EditorObject[]): Change[] {
+  const keep = new Set(target.map((o) => o.id))
   return [
-    ...list.filter((o) => !seedIds.has(o.id)).map((o) => ({ id: o.id, next: null })),
-    ...seed.map((o) => ({ id: o.id, next: o })),
+    ...list.filter((o) => !keep.has(o.id)).map((o) => ({ id: o.id, next: null })),
+    ...target.map((o) => ({ id: o.id, next: o })),
   ]
 }
+
+/** Changes that turn `list` back into the seed design. */
+export const resetChanges = (list: EditorObject[]) => replaceChanges(list, seedObjects())
 
 function init(): State {
   const objects = {} as State['objects']

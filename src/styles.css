@@ -426,6 +426,53 @@ button.block {
   margin-top: 16px;
 }
 
+/* Snapshots dialog */
+.card.wide {
+  max-width: 560px;
+}
+
+.card h4 {
+  margin: 8px 0 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.save-row {
+  display: flex;
+  gap: 8px;
+}
+
+.save-row input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  padding: 5px 8px;
+  color: var(--text);
+  background: #0b1220;
+  border: 1px solid #374151;
+  border-radius: 6px;
+}
+
+.snapshot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.snapshot {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
 /* Crowd panel (floats over the 3D view) */
 .crowd-panel {
   position: absolute;

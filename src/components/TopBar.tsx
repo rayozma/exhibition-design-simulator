@@ -16,6 +16,7 @@ type Props = {
   canUndo: boolean
   onUndo: () => void
   onReset: () => void
+  onSnapshots: () => void
   /** Rendered at the right end (presence / connection). */
   children?: ReactNode
 }
@@ -61,6 +62,9 @@ export function TopBar(p: Props) {
       </button>
       <button onClick={p.onReset} title="Restore the original positions for this layout">
         Reset to design
+      </button>
+      <button onClick={p.onSnapshots} title="Save / restore named versions, export JSON or PNG">
+        Snapshots & export
       </button>
       {p.children}
     </header>

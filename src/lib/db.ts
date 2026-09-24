@@ -98,6 +98,37 @@ export async function deleteObjects(room: string, layoutId: LayoutId, ids: strin
   if (error) throw new Error(error.message)
 }
 
+export type Snapshot = {
+  id: string
+  name: string
+  created_by: string | null
+  created_at: string
+  data: { objects: EditorObject[] }
+}
+
+export async function fetchSnapshots(room: string, layoutId: LayoutId): Promise<Snapshot[]> {
+  const { data, error } = await db()
+    .from('snapshots')
+    .select('id, name, created_by, created_at, data')
+    .eq('room', room)
+    .eq('layout_id', layoutId)
+    .order('created_at', { ascending: false })
+  if (error) throw new Error(error.message)
+  return data as Snapshot[]
+}
+
+export async function saveSnapshot(room: string, layoutId: LayoutId, name: string, objects: EditorObject[], by: string) {
+  const { error } = await db()
+    .from('snapshots')
+    .insert({ room, layout_id: layoutId, name, data: { objects }, created_by: by })
+  if (error) throw new Error(error.message)
+}
+
+export async function deleteSnapshot(room: string, id: string) {
+  const { error } = await db().from('snapshots').delete().eq('room', room).eq('id', id)
+  if (error) throw new Error(error.message)
+}
+
 /** Fill a new room with the seed design for every layout option. Existing rows are left alone. */
 export async function seedRoom(room: string) {
   const rows = LAYOUT_IDS.flatMap((l) => seedObjects().map((o) => toRow(room, l, o, 'seed')))
