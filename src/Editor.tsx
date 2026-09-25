@@ -162,7 +162,8 @@ export function Editor({ room, me, onEditUser }: Props) {
       )}
       <div className="body">
         <main className="viewport">
-          <Canvas dpr={[1, 2]} onPointerMissed={() => setSelectedId(null)}>
+          {/* flat = no filmic tone mapping, which would dull whites and the zone colors */}
+          <Canvas dpr={[1, 2]} flat onPointerMissed={() => setSelectedId(null)}>
             <Scene
               layoutId={layoutId}
               view={view}

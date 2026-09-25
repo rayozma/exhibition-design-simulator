@@ -54,8 +54,11 @@ export function Scene(p: SceneProps) {
   return (
     <>
       <color attach="background" args={[theme.hall]} />
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[10, 25, 12]} intensity={1.4} />
+      {/* Soft, bright lighting so white lacquer reads as white, not gray. */}
+      <hemisphereLight args={['#ffffff', '#9aa3b2', 1.0]} />
+      <ambientLight intensity={0.25} />
+      <directionalLight position={[8, 22, 16]} intensity={1.2} />
+      <directionalLight position={[28, 12, -4]} intensity={0.45} />
 
       {top ? (
         <TopCamera />

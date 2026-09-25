@@ -99,14 +99,22 @@ export function insideRects(f: Footprint, rects: Rect[]): boolean {
 
 export type Status = 'ok' | 'outside' | 'overlap'
 
+type Named = Footprint & { id: string; name: string; category: string }
+
+const isSeat = (o: Named) => /chair|stool/i.test(o.name)
+const isTable = (o: Named) => o.category === 'furniture' && /table/i.test(o.name)
+/** Chairs and stools tucked under a table overlap it on plan by design, so that isn't a clash. */
+const tuckedIn = (a: Named, b: Named) => (isSeat(a) && isTable(b)) || (isSeat(b) && isTable(a))
+
 /** Per object: 'overlap' (hits another object or a wall) beats 'outside' (leaves the NDT footprint). */
-export function computeStatuses(objs: (Footprint & { id: string })[], option: LayoutOption): Map<string, Status> {
+export function computeStatuses(objs: Named[], option: LayoutOption): Map<string, Status> {
   const boxes = objs.map(obbOf)
   const walls = option.walls.map((w) => obbOfWall(w, option.wallT))
   const result = new Map<string, Status>()
   objs.forEach((o, i) => {
     const hit =
-      boxes.some((b, j) => j !== i && obbOverlap(boxes[i], b)) || walls.some((w) => obbOverlap(boxes[i], w))
+      boxes.some((b, j) => j !== i && !tuckedIn(o, objs[j]) && obbOverlap(boxes[i], b)) ||
+      walls.some((w) => obbOverlap(boxes[i], w))
     result.set(o.id, hit ? 'overlap' : insideRects(o, option.ndtFootprint) ? 'ok' : 'outside')
   })
   return result

@@ -7,6 +7,7 @@ import type { Status } from '../lib/geometry'
 import { DEG, theme } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
 import { ModelView } from './ModelView'
+import { kindOf, ProcModel } from './ProcModels'
 
 const MATERIAL_COLORS: Record<string, string> = {
   'lacquer white': '#f7f7f5',
@@ -64,6 +65,9 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
   const [failedUrl, setFailedUrl] = useState<string | null>(null)
   const modelFailed = !!obj.modelUrl && failedUrl === obj.modelUrl
   const hasModel = !!obj.modelUrl && !modelFailed
+  // Built-in shaped model (chair, stool, display…) unless an uploaded model replaces it.
+  const proc = hasModel ? null : kindOf(obj)
+  const hidden = hasModel || !!proc // footprint box only serves as click target / warning tint
 
   const endDrag = () => {
     if (!drag.current) return
@@ -111,7 +115,7 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
           onPointerOut={() => (document.body.style.cursor = '')}
         >
           {obj.shape === 'cylinder' && !hasModel ? <cylinderGeometry args={[0.5, 0.5, 1, 24]} /> : <boxGeometry />}
-          {hasModel ? (
+          {hidden ? (
             // Invisible click target around the model; tinted only to show a warning status.
             <meshBasicMaterial
               color={STATUS_COLORS[status] ?? '#ffffff'}
@@ -123,11 +127,12 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
             <meshStandardMaterial color={colorOf(obj, status)} />
           )}
           <Edges
-            visible={!hasModel || selected || status !== 'ok'}
-            color={selected ? theme.ledEdge : hasModel ? STATUS_COLORS[status] ?? '#475569' : '#475569'}
+            visible={!hidden || selected || status !== 'ok'}
+            color={selected ? theme.ledEdge : hidden ? STATUS_COLORS[status] ?? '#475569' : '#475569'}
             threshold={20}
           />
         </mesh>
+        {proc && <ProcModel kind={proc} obj={obj} c={baseColorOf(obj)} />}
         {obj.modelUrl && !modelFailed && (
           <ModelView
             url={obj.modelUrl}
