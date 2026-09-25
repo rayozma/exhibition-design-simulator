@@ -2,7 +2,7 @@
 
 A web app for designing exhibition booths together, in 3D, in the browser — like a simple Canva for booth layouts, with a walk-through and a crowd simulation.
 
-- Designs listed on the home page. Start from a blank hall or a template (e.g. the **NDTCCS booth at ADIPEC 2026**, Al Masaood Energy pavilion)
+- Designs listed on the home page. Start from a blank hall or a template 
 - Each design has its own hall, surrounding zones (other booths, walkways), your booth (outline, platform, walls) and entrances
 - Move, rotate, lock, duplicate and delete objects. Warnings for overlaps (red) and objects outside the booth (yellow)
 - Everyone who opens a design edits it live, no sign-in. You can see who is online, what they are moving, and their avatars in walk mode
@@ -17,7 +17,7 @@ Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deplo
 
 ## Using the app
 
-1. Open the site. Pick a design from the list, or under **New design** type a name, choose a template (**Blank hall** or **ADIPEC 2026 – NDTCCS booth**) and click **Create design**. On first visit, enter a display name, a color and your walk-mode avatar.
+1. Open the site. Pick a design from the list, or under **New design** type a name, choose a template and click **Create design**. On first visit, enter a display name, a color and your walk-mode avatar.
 2. Everyone who opens the site can see and join every design. **Copy link** in the top bar gives a direct link to the design you're in; **✎** renames it.
 
 | Action | How |
@@ -45,7 +45,7 @@ Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deplo
 | Crowd | Panel at the bottom-left: Empty / Low / High, density, "stop at booth" share, heatmap, clearance |
 | Snapshots / export | **Snapshots & export** in the top bar |
 
-**Colors:** red means the object overlaps another object or a wall. Yellow means part of it is outside the NDT booth footprint. A colored ring means another person has the object selected. "moving: Name" means someone is dragging it, and it can't be grabbed until they let go.
+**Colors:** red means the object overlaps another object or a wall. Yellow means part of it is outside the booth footprint. A colored ring means another person has the object selected. "moving: Name" means someone is dragging it, and it can't be grabbed until they let go.
 
 The crowd simulation runs only in your own browser and isn't shared.
 
@@ -62,7 +62,7 @@ npm install
 npm run dev
 ```
 
-Open http://127.0.0.1:5173/ndt-adipec-2026-design/.
+Open http://127.0.0.1:5173/exhibition-design-simulator/.
 
 Without Supabase settings the app runs in **local-only mode**: editing works, but there are no rooms, sync, uploads or snapshots.
 
@@ -117,7 +117,7 @@ This is acceptable for booth layout drafts. **Don't put confidential information
 
 ```
 src/
-  data/layouts.json      data behind the "ADIPEC 2026 – NDTCCS booth" template
+  data/layouts.json      data behind the template
   App.tsx                landing page / name prompt / editor
   Editor.tsx             editing screen: state, panels, dialogs
   components/            top bar, side panel, dialogs, crowd panel (plain CSS in styles.css)
