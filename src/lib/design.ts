@@ -33,6 +33,8 @@ export type Design = {
   pavilion: PavilionSpec | null
   /** Objects a new room starts with, and what "Reset to design" restores. */
   seed: SeedObject[]
+  /** Id of the save that produced this version (lets a client recognize its own saves coming back). */
+  rev?: string
 }
 
 export const NEW_LAYOUT_ID = 'main'

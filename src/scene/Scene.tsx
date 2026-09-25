@@ -2,7 +2,7 @@ import { OrbitControls, OrthographicCamera, PerspectiveCamera } from '@react-thr
 import { useThree } from '@react-three/fiber'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import { useMemo } from 'react'
+import { useMemo, type ComponentProps } from 'react'
 import { hallCenter, type Design } from '../lib/design'
 import { DesignContext } from '../lib/DesignContext'
 import { inRects, theme } from '../lib/layout'
@@ -15,6 +15,7 @@ import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
 import { Pavilion } from './Pavilion'
 import { SceneObject } from './SceneObject'
+import { LayoutEditor } from './LayoutEditor'
 import { WalkMode } from './WalkMode'
 import { Zones } from './Zones'
 
@@ -42,6 +43,8 @@ export type SceneProps = {
   walkers: Walker[]
   onWalkMove: (x: number, z: number, heading: number) => void
   onWalkLeave: () => void
+  /** Layout editing (zones, booth areas, walls, entrances); null = editing objects as usual. */
+  layout: ComponentProps<typeof LayoutEditor> | null
 }
 
 /** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
@@ -124,9 +127,10 @@ export function Scene(p: SceneProps) {
           mover={p.movers.get(o.id)}
           ops={p.ops}
           onSelect={p.onSelect}
-          interactive={!walk}
+          interactive={!walk && !p.layout}
         />
       ))}
+      {p.layout && !walk && <LayoutEditor {...p.layout} />}
       <Avatars walkers={p.walkers} layoutId={design.layoutId} />
       <Crowd objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />
     </DesignContext.Provider>

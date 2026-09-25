@@ -17,6 +17,8 @@ type Props = {
   onUndo: () => void
   onReset: () => void
   onSnapshots: () => void
+  layoutMode: boolean
+  onLayoutMode: (on: boolean) => void
   /** Name of the open design. */
   designName: string
   onRename?: () => void
@@ -42,6 +44,14 @@ export function TopBar(p: Props) {
           ✎
         </button>
       )}
+
+      <button
+        className={p.layoutMode ? 'active' : ''}
+        onClick={() => p.onLayoutMode(!p.layoutMode)}
+        title="Edit the hall, zones, your booth outline, walls and entrances"
+      >
+        {p.layoutMode ? 'Done editing layout' : 'Edit layout'}
+      </button>
 
       <div className="group" role="group" aria-label="View">
         {(

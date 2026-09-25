@@ -107,10 +107,11 @@ type Props = {
 export function Crowd({ objects, settings, onStats }: Props) {
   const design = useDesign()
   const sim = useMemo(() => new CrowdSim(), [])
-  // Rebuild routes only after objects stop moving (dragging changes them every frame).
-  const settled = useSettled(objects, 300, design)
+  // Rebuild routes only after objects and the layout stop changing (dragging changes them every frame).
+  const input = useMemo(() => ({ objects, design }), [objects, design])
+  const settled = useSettled(input, 300, design.layoutId)
   const active = settings.density > 0 || settings.showClearance
-  const nav = useMemo(() => (active ? buildNav(design, settled) : null), [active, design, settled])
+  const nav = useMemo(() => (active ? buildNav(settled.design, settled.objects) : null), [active, settled])
 
   useEffect(() => sim.setNav(nav), [sim, nav])
   useEffect(() => sim.setDensity(settings.density), [sim, settings.density])

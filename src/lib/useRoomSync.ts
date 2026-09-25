@@ -60,7 +60,11 @@ export function useRoomSync(
   actions: EditorActions,
   layoutId: LayoutId,
   selectedIds: string[],
+  /** Called with the room row when someone saves the room (design edits, rename). */
+  onRoomRow?: (row: { name?: string; design?: unknown }) => void,
 ) {
+  const onRoomRef = useRef(onRoomRow)
+  onRoomRef.current = onRoomRow
   const enabled = !!(room && supabase && me)
   const [status, setStatus] = useState<SyncStatus>(room && supabase ? 'connecting' : 'local')
   const [loaded, setLoaded] = useState(!(room && supabase))
@@ -123,6 +127,9 @@ export function useRoomSync(
         config: { presence: { key: TAB_ID }, broadcast: { self: false } },
       })
       ch.on('postgres_changes', { event: '*', schema: 'public', table: 'objects', filter: `room=eq.${room}` }, onRow)
+        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rooms', filter: `id=eq.${room}` }, (p) =>
+          onRoomRef.current?.(p.new as { name?: string; design?: unknown }),
+        )
         .on('broadcast', { event: 'drag' }, ({ payload }) => {
           const m = payload as DragMsg
           const mine = (id: string) => myDrag.current.has(moverKey(m.layoutId, id))

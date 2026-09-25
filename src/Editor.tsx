@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { CrowdPanel } from './components/CrowdPanel'
+import { LayoutPanel } from './components/LayoutPanel'
 import { ObjectList } from './components/ObjectList'
 import { ObjectPanel } from './components/ObjectPanel'
 import { PeerList } from './components/PeerList'
@@ -13,6 +14,8 @@ import { adipecTemplate, type Design } from './lib/design'
 import { DesignContext } from './lib/DesignContext'
 import { seedObjects, useEditor, type EditorObject, type UndoEntry } from './lib/editor'
 import { computeStatuses } from './lib/geometry'
+import type { LayoutSel, LayoutTool } from './lib/layoutEdit'
+import { useDesignEditor } from './lib/useDesignEditor'
 import { ROTATE_STEP, useObjectOps, type ObjectOps } from './lib/useObjectOps'
 import { moverKey, useRoomSync } from './lib/useRoomSync'
 import type { User } from './lib/user'
@@ -109,6 +112,8 @@ export function Editor(props: Props) {
     }
   }, [room])
 
+  const setDesign = useCallback((design: Design) => setLoaded((l) => (l ? { ...l, design } : l)), [])
+
   if (!loaded) {
     return (
       <div className="center-screen">
@@ -123,8 +128,9 @@ export function Editor(props: Props) {
     <EditorView
       {...props}
       design={loaded.design}
+      setDesign={setDesign}
       name={loaded.name}
-      onRenamed={(name) => setLoaded((l) => (l ? { ...l, name } : l))}
+      onRenamed={(name) => setLoaded((l) => (l && l.name !== name ? { ...l, name } : l))}
     />
   )
 }
@@ -137,10 +143,15 @@ function EditorView({
   me,
   onEditUser,
   design,
+  setDesign,
   name,
   onRenamed,
-}: Props & { design: Design; name: string; onRenamed: (name: string) => void }) {
+}: Props & { design: Design; setDesign: (d: Design) => void; name: string; onRenamed: (name: string) => void }) {
   const layoutId = design.layoutId
+  const [layoutMode, setLayoutMode] = useState(false)
+  const [layoutTool, setLayoutTool] = useState<LayoutTool>('select')
+  const [layoutSel, setLayoutSel] = useState<LayoutSel>(null)
+  const designEditor = useDesignEditor(room, design, setDesign)
   const [view, setView] = useState<ViewMode>('perspective')
   const [walkLocked, setWalkLocked] = useState(false)
   const [showVolumes, setShowVolumes] = useState(false)
@@ -190,10 +201,29 @@ function EditorView({
     })
   }, [])
 
-  const roomSync = useRoomSync(room, me, actions, layoutId, selectedIds)
+  // Someone else saved the room: new layout and/or new name.
+  const onRoomRow = useCallback(
+    (row: { name?: string; design?: unknown }) => {
+      if (row.design !== undefined) designEditor.remote(row.design)
+      if (row.name) onRenamed(row.name)
+    },
+    [designEditor, onRenamed],
+  )
+  const roomSync = useRoomSync(room, me, actions, layoutId, selectedIds, onRoomRow)
   const ops = useObjectOps(actions, roomSync.sync, design, objects, state.undo[layoutId] ?? NO_UNDO, snap, selectedIds, setSelection)
   const allIds = useMemo(() => objects.map((o) => o.id), [objects])
-  useShortcuts(ops, selectedIds, setSelection, allIds, view !== 'walk')
+  useShortcuts(ops, selectedIds, setSelection, allIds, view !== 'walk' && !layoutMode)
+
+  const toggleLayoutMode = (on: boolean) => {
+    setLayoutMode(on)
+    setLayoutTool('select')
+    setLayoutSel(null)
+    if (on) {
+      setSelection([])
+      setView('top') // the plan is the easiest place to edit the layout
+      setWalkLocked(false)
+    }
+  }
 
   const statuses = useMemo(() => computeStatuses(objects, design.booth), [objects, design.booth])
 
@@ -223,7 +253,10 @@ function EditorView({
         onView={(v) => {
           setView(v)
           setWalkLocked(false)
+          if (v === 'walk') setLayoutMode(false)
         }}
+        layoutMode={layoutMode}
+        onLayoutMode={toggleLayoutMode}
         showVolumes={showVolumes}
         onVolumes={setShowVolumes}
         showWalls={showWalls}
@@ -242,13 +275,14 @@ function EditorView({
       >
         <PeerList status={roomSync.status} me={me} peers={roomSync.peers} objects={state.objects} onEditUser={onEditUser} />
       </TopBar>
-      {(roomSync.error || roomError) && (
+      {(roomSync.error || roomError || designEditor.error) && (
         <div className="banner">
-          {roomSync.error ?? roomError}
+          {roomSync.error ?? roomError ?? designEditor.error}
           <button
             onClick={() => {
               roomSync.clearError()
               setRoomError(null)
+              designEditor.clearError()
             }}
           >
             Dismiss
@@ -258,7 +292,7 @@ function EditorView({
       <div className="body">
         <main className="viewport">
           {/* flat = no filmic tone mapping, which would dull whites and the zone colors */}
-          <Canvas dpr={[1, 2]} flat onPointerMissed={() => view !== 'walk' && setSelection([])}>
+          <Canvas dpr={[1, 2]} flat onPointerMissed={() => view !== 'walk' && !layoutMode && setSelection([])}>
             <Scene
               design={design}
               view={view}
@@ -278,6 +312,18 @@ function EditorView({
               walkers={walkers}
               onWalkMove={(x, z, heading) => roomSync.sync.walkMove(layoutId, x, z, heading)}
               onWalkLeave={roomSync.sync.walkEnd}
+              layout={
+                layoutMode
+                  ? {
+                      tool: layoutTool,
+                      sel: layoutSel,
+                      onSelect: setLayoutSel,
+                      onDrawn: () => setLayoutTool('select'),
+                      snapStep: snap ? 0.25 : 0.05,
+                      editor: designEditor,
+                    }
+                  : null
+              }
             />
             <Capture register={capture} />
           </Canvas>
@@ -302,6 +348,11 @@ function EditorView({
           />
           {!roomSync.loaded && <div className="loading">Loading design…</div>}
         </main>
+        {layoutMode ? (
+          <aside className="panel">
+            <LayoutPanel tool={layoutTool} onTool={setLayoutTool} sel={layoutSel} onSelect={setLayoutSel} editor={designEditor} />
+          </aside>
+        ) : (
         <Sidebar
           selectedCount={selectedObjs.length}
           objectCount={objects.length}
@@ -316,6 +367,7 @@ function EditorView({
           }
           list={<ObjectList objects={objects} statuses={statuses} selectedIds={selectedIds} onSelect={select} ops={ops} />}
         />
+        )}
       </div>
       {upload && (
         <UploadDialog
