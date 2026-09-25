@@ -83,6 +83,7 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [walkLocked, setWalkLocked] = useState(false)
   const [showVolumes, setShowVolumes] = useState(false)
   const [showWalls, setShowWalls] = useState(true)
+  const [showPavilion, setShowPavilion] = useState(false)
   const [snap, setSnap] = useState(true)
   const [selection, setSelection] = useState<string[]>([])
   const [upload, setUpload] = useState<UploadMode | null>(null)
@@ -169,6 +170,8 @@ export function Editor({ room, me, onEditUser }: Props) {
         onVolumes={setShowVolumes}
         showWalls={showWalls}
         onWalls={setShowWalls}
+        showPavilion={showPavilion}
+        onPavilion={setShowPavilion}
         snap={snap}
         onSnap={setSnap}
         canUndo={state.undo[layoutId].length > 0}
@@ -203,6 +206,7 @@ export function Editor({ room, me, onEditUser }: Props) {
               view={view}
               showVolumes={showVolumes}
               showWalls={showWalls}
+              showPavilion={showPavilion}
               objects={objects}
               statuses={statuses}
               selectedIds={selectedIds}

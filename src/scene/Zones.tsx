@@ -1,17 +1,23 @@
 import { Text } from '@react-three/drei'
-import { textColorOn, type Zone } from '../lib/layout'
+import { layouts, textColorOn, type Zone } from '../lib/layout'
 
 const noRaycast = () => null // zones are never selectable
 
-function ZoneRect({ zone, showVolume }: { zone: Zone; showVolume: boolean }) {
-  const volume = showVolume && zone.h > 0
+/**
+ * Floor rectangle + name for one pavilion zone. In `realistic` (Pavilion view) mode, exhibitor
+ * zones get neutral carpet instead of their planning color, walkways stay white, and the
+ * translucent volume is replaced by the booth shells drawn by <Pavilion>.
+ */
+function ZoneRect({ zone, showVolume, realistic }: { zone: Zone; showVolume: boolean; realistic: boolean }) {
+  const volume = showVolume && !realistic && zone.h > 0
   const labelY = volume ? zone.h + 0.02 : 0.02
+  const floor = realistic && !zone.walkable ? layouts.pavilion.colors.carpet : zone.color
 
   return (
     <group position={[zone.x + zone.w / 2, 0, zone.z + zone.d / 2]}>
       <mesh rotation-x={-Math.PI / 2} position-y={0.006} raycast={noRaycast}>
         <planeGeometry args={[zone.w, zone.d]} />
-        <meshBasicMaterial color={zone.color} />
+        <meshBasicMaterial color={floor} />
       </mesh>
       {volume && (
         <mesh position-y={zone.h / 2} raycast={noRaycast}>
@@ -27,7 +33,7 @@ function ZoneRect({ zone, showVolume }: { zone: Zone; showVolume: boolean }) {
         textAlign="center"
         anchorX="center"
         anchorY="middle"
-        color={textColorOn(zone.color)}
+        color={textColorOn(floor)}
         raycast={noRaycast}
       >
         {zone.name}
@@ -36,11 +42,11 @@ function ZoneRect({ zone, showVolume }: { zone: Zone; showVolume: boolean }) {
   )
 }
 
-export function Zones({ zones, showVolumes }: { zones: Zone[]; showVolumes: boolean }) {
+export function Zones({ zones, showVolumes, realistic }: { zones: Zone[]; showVolumes: boolean; realistic: boolean }) {
   return (
     <group>
       {zones.map((z) => (
-        <ZoneRect key={z.id} zone={z} showVolume={showVolumes} />
+        <ZoneRect key={z.id} zone={z} showVolume={showVolumes} realistic={realistic} />
       ))}
     </group>
   )

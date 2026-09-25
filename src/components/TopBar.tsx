@@ -10,6 +10,8 @@ type Props = {
   showVolumes: boolean
   onVolumes: (v: boolean) => void
   showWalls: boolean
+  showPavilion: boolean
+  onPavilion: (v: boolean) => void
   onWalls: (v: boolean) => void
   snap: boolean
   onSnap: (v: boolean) => void
@@ -72,6 +74,10 @@ export function TopBar(p: Props) {
       <label className="toggle">
         <input type="checkbox" checked={p.showVolumes} onChange={(e) => p.onVolumes(e.target.checked)} />
         Zone volumes
+      </label>
+      <label className="toggle" title="Approximate look of the whole Al Masaood pavilion (from event photos)">
+        <input type="checkbox" checked={p.showPavilion} onChange={(e) => p.onPavilion(e.target.checked)} />
+        Pavilion
       </label>
       <label className="toggle">
         <input type="checkbox" checked={p.showWalls} onChange={(e) => p.onWalls(e.target.checked)} />

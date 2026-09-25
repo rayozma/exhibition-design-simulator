@@ -8,6 +8,7 @@ import type { CrowdSettings, CrowdStats } from '../sim/crowd'
 import { Booth } from './Booth'
 import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
+import { Pavilion } from './Pavilion'
 import { SceneObject } from './SceneObject'
 import { WalkMode } from './WalkMode'
 import { Zones } from './Zones'
@@ -19,6 +20,8 @@ export type SceneProps = {
   view: ViewMode
   showVolumes: boolean
   showWalls: boolean
+  /** Show the Al Masaood pavilion structure and booth shells (visual only). */
+  showPavilion: boolean
   objects: EditorObject[]
   statuses: Map<string, Status>
   selectedIds: string[]
@@ -85,7 +88,8 @@ export function Scene(p: SceneProps) {
       )}
 
       <HallFloor />
-      <Zones zones={activeZones(layoutId)} showVolumes={showVolumes} />
+      <Zones zones={activeZones(layoutId)} showVolumes={showVolumes} realistic={p.showPavilion} />
+      {p.showPavilion && <Pavilion layoutId={layoutId} />}
       <Booth option={option} showWalls={showWalls} />
       {p.objects.map((o) => (
         <SceneObject

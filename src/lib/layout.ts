@@ -57,11 +57,23 @@ export type Theme = {
   accent: string
 }
 
+/** Look of the whole Al Masaood pavilion, for the "Pavilion" view toggle (visual only). */
+export type PavilionSpec = {
+  name: string
+  note?: string
+  rect: Rect
+  cornerRadius: number
+  deck: Rect & { y: number; thickness: number; radius: number; columnsEvery: number }
+  portals: { x: number; z1: number; z2: number; h: number }[]
+  colors: { hull: string; accent: string; led: string; underside: string; shell: string; carpet: string; glass: string }
+}
+
 export type LayoutsFile = {
   meta: { title: string; event: string; units: string; coords: string; sources: string[] }
   hall: { w: number; d: number; note?: string }
   theme: Theme
   entrances: Entrance[]
+  pavilion: PavilionSpec
   crowdPresets: { empty: number; low: number; high: number; unit: string; note: string }
   zones: Zone[]
   options: Record<LayoutId, LayoutOption>

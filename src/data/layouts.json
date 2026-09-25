@@ -15,6 +15,18 @@
     { "id": "aisle_west", "aisle": "south", "x1": 0, "z1": 15, "x2": 0, "z2": 18 },
     { "id": "aisle_east", "aisle": "south", "x1": 33, "z1": 15, "x2": 33, "z2": 18 }
   ],
+  "pavilion": {
+    "name": "AL MASAOOD ENERGY",
+    "note": "Approximate look of the Al Masaood Energy pavilion from event photos (ship-like structure with rounded ends and an upper deck). The deck position is an assumption: moved easily by editing deck x/z/w/d.",
+    "rect": { "x": 0, "z": 0, "w": 33, "d": 15 },
+    "cornerRadius": 2.5,
+    "deck": { "x": 0, "z": 0, "w": 33, "d": 4, "y": 3.6, "thickness": 0.5, "radius": 2, "columnsEvery": 6 },
+    "portals": [
+      { "x": 0.4, "z1": 6, "z2": 9, "h": 3.4 },
+      { "x": 32.6, "z1": 6, "z2": 9, "h": 3.4 }
+    ],
+    "colors": { "hull": "#f3f4f6", "accent": "#f97316", "led": "#38bdf8", "underside": "#1f2937", "shell": "#eef0f3", "carpet": "#cfd5dd", "glass": "#bfe3ff" }
+  },
   "crowdPresets": { "empty": 0, "low": 0.15, "high": 0.8, "unit": "people per m2 of walkable area", "note": "high calibrated from packed-walkway reference photos (~0.8-1 p/m2)" },
   "zones": [
     { "id": "bgp", "name": "BGP", "x": 0, "z": 0, "w": 33, "d": 4, "color": "#0000ff", "h": 2.5 },
