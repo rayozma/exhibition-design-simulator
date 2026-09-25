@@ -4,7 +4,8 @@
     "event": "NDTCCS @ ADIPEC, 2-5 Nov 2026, Abu Dhabi — Al Masaood Energy pavilion",
     "units": "meters, degrees",
     "coords": "origin = hall NW corner; x east 0-33, z south 0-18 (pavilion 0-15 + outer aisle 15-18), y up. Object x/z = footprint center. rotY rotates the w/d footprint.",
-    "sources": ["ADIPEC 2026 Latest Layout 09-09-2026", "ADIPEC 2026 Latest Layout 23-09-2026", "NDTCCS - ADIPEC 20260912 (Karya Imaji Warna)"]
+    "sources": ["ADIPEC 2026 Latest Layout 09-09-2026", "ADIPEC 2026 Latest Layout 23-09-2026", "NDTCCS - ADIPEC 20260912 (Karya Imaji Warna)"],
+    "colorNote": "Object colors follow the Karya Imaji Warna renders (20260912): white glossy lacquer displays, counter and furniture with gold stripe accents and cyan LED edges; only the electronics (TV, drone, underwater robot) are black."
   },
   "hall": { "w": 33, "d": 18, "note": "pavilion 33 x 15 plus a 3 m public aisle along the south side (z 15-18); aisle width is an assumption" },
   "theme": { "floor": "#1e3a8a", "hall": "#0b0f1a", "boothFloor": "#f5f5f5", "wall": "#f0f0f0", "ledEdge": "#7dd3fc", "accent": "#facc15" },
@@ -67,22 +68,22 @@
     }
   },
   "objects": [
-    { "id": "item1", "num": 1, "name": "Voliro T Drone on Display A", "category": "display", "x": 6.6, "z": 10.2, "w": 0.8, "d": 0.8, "h": 1.5, "rotY": 0, "material": "lacquer white", "attraction": true },
-    { "id": "item2", "num": 2, "name": "Simulator table (laptop + monitor) – Display D", "category": "display", "x": 10.6, "z": 10.7, "w": 1.0, "d": 0.7, "h": 1.0, "rotY": 90, "material": "lacquer white", "attraction": true },
-    { "id": "item3", "num": 3, "name": "Interactive AI & Digital platform (TV on stand)", "category": "screen", "x": 2.5, "z": 10.2, "w": 1.2, "d": 0.6, "h": 2.0, "rotY": 90, "material": "black", "attraction": true, "note": "no spec in PDF; size estimated" },
-    { "id": "item4", "num": 4, "name": "City & Site mockup on diorama display", "category": "display", "x": 7.7, "z": 10.2, "w": 1.0, "d": 1.0, "h": 0.8, "rotY": 0, "material": "lacquer white", "attraction": true },
-    { "id": "item5", "num": 5, "name": "Underwater robot W6 with UT tool – Display C (low)", "category": "display", "x": 10.55, "z": 9.28, "w": 0.9, "d": 0.55, "h": 0.5, "rotY": 0, "material": "lacquer white", "attraction": true, "note": "Display C = 0.9 x 1.1, split low/high" },
-    { "id": "item6", "num": 6, "name": "IRIS array equipment with probe – Display C (high)", "category": "display", "x": 10.55, "z": 9.83, "w": 0.9, "d": 0.55, "h": 1.0, "rotY": 0, "material": "lacquer white", "attraction": true },
-    { "id": "item7", "num": 7, "name": "Visual & LiTable for Training (laptop + TV) – Display E", "category": "display", "x": 10.55, "z": 12.0, "w": 1.0, "d": 0.7, "h": 1.0, "rotY": 90, "material": "lacquer white", "attraction": true },
-    { "id": "item8", "num": 8, "name": "Counter for Valsem", "category": "counter", "x": 10.2, "z": 14.6, "w": 1.4, "d": 0.7, "h": 1.0, "rotY": 0, "material": "lacquer white", "attraction": true, "note": "H 0.8/1.0 two-level" },
-    { "id": "meet_table", "name": "Round meeting table", "category": "furniture", "shape": "cylinder", "x": 4.2, "z": 10.0, "w": 1.0, "d": 1.0, "h": 0.75, "rotY": 0, "attraction": true },
-    { "id": "chair1", "name": "Chair", "category": "furniture", "x": 3.7, "z": 9.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": 45 },
-    { "id": "chair2", "name": "Chair", "category": "furniture", "x": 4.7, "z": 9.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": -45 },
-    { "id": "chair3", "name": "Chair", "category": "furniture", "x": 3.7, "z": 10.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": 135 },
-    { "id": "chair4", "name": "Chair", "category": "furniture", "x": 4.7, "z": 10.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": -135 },
-    { "id": "stool1", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "x": 8.5, "z": 10.6, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
-    { "id": "stool2", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "x": 5.6, "z": 10.6, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
-    { "id": "stool3", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "x": 9.75, "z": 14.0, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
-    { "id": "stool4", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "x": 10.15, "z": 14.0, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 }
+    { "id": "item1", "num": 1, "name": "Voliro T Drone on Display A", "category": "display", "x": 6.6, "z": 10.2, "w": 0.8, "d": 0.8, "h": 1.5, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
+    { "id": "item2", "num": 2, "name": "Simulator table (laptop + monitor) – Display D", "category": "display", "x": 10.6, "z": 10.7, "w": 1.0, "d": 0.7, "h": 1.0, "rotY": 90, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
+    { "id": "item3", "num": 3, "name": "Interactive AI & Digital platform (TV on stand)", "category": "screen", "x": 2.5, "z": 10.2, "w": 1.2, "d": 0.6, "h": 2.0, "rotY": 90, "material": "black", "color": "#1c1c1c","attraction": true, "note": "no spec in PDF; size estimated" },
+    { "id": "item4", "num": 4, "name": "City & Site mockup on diorama display", "category": "display", "x": 7.7, "z": 10.2, "w": 1.0, "d": 1.0, "h": 0.8, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
+    { "id": "item5", "num": 5, "name": "Underwater robot W6 with UT tool – Display C (low)", "category": "display", "x": 10.55, "z": 9.28, "w": 0.9, "d": 0.55, "h": 0.5, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true, "note": "Display C = 0.9 x 1.1, split low/high" },
+    { "id": "item6", "num": 6, "name": "IRIS array equipment with probe – Display C (high)", "category": "display", "x": 10.55, "z": 9.83, "w": 0.9, "d": 0.55, "h": 1.0, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
+    { "id": "item7", "num": 7, "name": "Visual & LiTable for Training (laptop + TV) – Display E", "category": "display", "x": 10.55, "z": 12.0, "w": 1.0, "d": 0.7, "h": 1.0, "rotY": 90, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
+    { "id": "item8", "num": 8, "name": "Counter for Valsem", "category": "counter", "x": 10.2, "z": 14.6, "w": 1.4, "d": 0.7, "h": 1.0, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true, "note": "H 0.8/1.0 two-level" },
+    { "id": "meet_table", "name": "Round meeting table", "category": "furniture", "shape": "cylinder", "material": "white", "color": "#fbfbf9","x": 4.2, "z": 10.0, "w": 1.0, "d": 1.0, "h": 0.75, "rotY": 0, "attraction": true },
+    { "id": "chair1", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 3.7, "z": 9.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": 45 },
+    { "id": "chair2", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 4.7, "z": 9.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": -45 },
+    { "id": "chair3", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 3.7, "z": 10.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": 135 },
+    { "id": "chair4", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 4.7, "z": 10.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": -135 },
+    { "id": "stool1", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 8.5, "z": 10.6, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
+    { "id": "stool2", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 5.6, "z": 10.6, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
+    { "id": "stool3", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 9.75, "z": 14.0, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
+    { "id": "stool4", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 10.15, "z": 14.0, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 }
   ]
 }
