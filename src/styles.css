@@ -630,6 +630,48 @@ textarea.remarks {
   overflow-y: auto;
 }
 
+.new-design {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.new-design > input {
+  font: inherit;
+  padding: 6px 8px;
+  color: var(--text);
+  background: #0b1220;
+  border: 1px solid #374151;
+  border-radius: 6px;
+}
+
+.templates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.template {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  align-items: start;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.template input {
+  grid-row: span 2;
+  margin-top: 3px;
+}
+
+.template.active {
+  border-color: var(--accent);
+  background: rgba(250, 204, 21, 0.06);
+}
+
 .room-item {
   display: flex;
   flex-direction: column;

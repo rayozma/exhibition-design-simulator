@@ -1,6 +1,6 @@
 import raw from '../data/layouts.json'
 
-export type LayoutId = 'A' | 'B'
+/** Shared geometry types and helpers. The ADIPEC data in layouts.json is only a template (see design.ts). */
 
 export type Rect = { x: number; z: number; w: number; d: number }
 
@@ -18,10 +18,11 @@ export type Wall = { id: string; x1: number; z1: number; x2: number; z2: number 
 /** Where crowd agents enter/leave. Entrances sharing an `aisle` are the two ends of one corridor. */
 export type Entrance = { id: string; aisle?: string; x1: number; z1: number; x2: number; z2: number }
 
+/** Your booth within a design: footprint rectangles, platform and walls. */
 export type LayoutOption = {
   label: string
   removeZones: string[]
-  ndtFootprint: Rect[]
+  footprint: Rect[]
   platformH: number
   walls: Wall[]
   wallH: number
@@ -76,24 +77,14 @@ export type LayoutsFile = {
   pavilion: PavilionSpec
   crowdPresets: { empty: number; low: number; high: number; unit: string; note: string }
   zones: Zone[]
-  options: Record<LayoutId, LayoutOption>
+  options: Record<'A' | 'B', LayoutOption>
   objects: SeedObject[]
 }
 
 export const layouts = raw as unknown as LayoutsFile
 export const theme = layouts.theme
-export const LAYOUT_IDS = Object.keys(layouts.options) as LayoutId[]
-
-/** Hall center on the floor, used as camera / orbit target. */
-export const HALL_CENTER: [number, number, number] = [layouts.hall.w / 2, 0, layouts.hall.d / 2]
 
 export const DEG = Math.PI / 180
-
-/** Pavilion zones for a layout option = all zones minus the option's removeZones. */
-export function activeZones(id: LayoutId): Zone[] {
-  const removed = new Set(layouts.options[id].removeZones)
-  return layouts.zones.filter((z) => !removed.has(z.id))
-}
 
 /** True if point (x, z) lies inside any of the rects (edges inclusive). */
 export function inRects(rects: Rect[], x: number, z: number): boolean {

@@ -2,7 +2,10 @@ import { OrbitControls, OrthographicCamera, PerspectiveCamera } from '@react-thr
 import { useThree } from '@react-three/fiber'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import { activeZones, HALL_CENTER, inRects, layouts, theme, type LayoutId } from '../lib/layout'
+import { useMemo } from 'react'
+import { hallCenter, type Design } from '../lib/design'
+import { DesignContext } from '../lib/DesignContext'
+import { inRects, theme } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
 import type { CrowdSettings, CrowdStats } from '../sim/crowd'
 import type { Walker } from '../lib/useRoomSync'
@@ -18,7 +21,7 @@ import { Zones } from './Zones'
 export type ViewMode = 'perspective' | 'top' | 'walk'
 
 export type SceneProps = {
-  layoutId: LayoutId
+  design: Design
   view: ViewMode
   showVolumes: boolean
   showWalls: boolean
@@ -42,13 +45,14 @@ export type SceneProps = {
 }
 
 /** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
-function TopCamera() {
+function TopCamera({ design }: { design: Design }) {
   const size = useThree((s) => s.size)
-  const zoom = Math.min(size.width / (layouts.hall.w + 2), size.height / (layouts.hall.d + 2))
+  const zoom = Math.min(size.width / (design.hall.w + 2), size.height / (design.hall.d + 2))
+  const c = hallCenter(design)
   return (
     <OrthographicCamera
       makeDefault
-      position={[HALL_CENTER[0], 50, HALL_CENTER[2]]}
+      position={[c[0], 50, c[2]]}
       up={[0, 0, -1]}
       zoom={zoom}
       near={0.1}
@@ -58,14 +62,21 @@ function TopCamera() {
 }
 
 export function Scene(p: SceneProps) {
-  const { layoutId, view, showVolumes, showWalls } = p
-  const option = layouts.options[layoutId]
+  const { design, view, showVolumes, showWalls } = p
+  const option = design.booth
+  const center = useMemo(() => hallCenter(design), [design])
+  // Overview camera: back from the hall far enough to see all of it.
+  const overview = useMemo<[number, number, number]>(
+    () => [center[0], Math.max(12, design.hall.w * 0.55), design.hall.d + Math.max(12, design.hall.w * 0.6)],
+    [center, design.hall.w, design.hall.d],
+  )
   const top = view === 'top'
   const walk = view === 'walk'
   const selected = new Set(p.selectedIds)
 
   return (
-    <>
+    // The canvas has its own React renderer, so the design is provided again inside it.
+    <DesignContext.Provider value={design}>
       <color attach="background" args={[theme.hall]} />
       {/* Soft, bright lighting so white lacquer reads as white, not gray. */}
       <hemisphereLight args={['#ffffff', '#9aa3b2', 1.0]} />
@@ -75,7 +86,6 @@ export function Scene(p: SceneProps) {
 
       {walk ? (
         <WalkMode
-          layoutId={layoutId}
           objects={p.objects}
           onLockChange={p.onWalkLock}
           onMove={p.onWalkMove}
@@ -84,15 +94,15 @@ export function Scene(p: SceneProps) {
       ) : (
         <>
           {top ? (
-            <TopCamera />
+            <TopCamera design={design} />
           ) : (
-            <PerspectiveCamera makeDefault position={[HALL_CENTER[0], 18, 30]} fov={45} near={0.1} far={300} />
+            <PerspectiveCamera makeDefault position={overview} fov={45} near={0.1} far={400} />
           )}
           {/* re-mount controls per view so they bind to the new camera */}
           <OrbitControls
             key={view}
             makeDefault
-            target={HALL_CENTER}
+            target={center}
             enableRotate={!top}
             maxPolarAngle={top ? Math.PI : Math.PI / 2.1}
           />
@@ -100,14 +110,14 @@ export function Scene(p: SceneProps) {
       )}
 
       <HallFloor />
-      <Zones zones={activeZones(layoutId)} showVolumes={showVolumes} realistic={p.showPavilion} />
-      {p.showPavilion && <Pavilion layoutId={layoutId} />}
+      <Zones zones={design.zones} showVolumes={showVolumes} realistic={p.showPavilion && !!design.pavilion} />
+      {p.showPavilion && design.pavilion && <Pavilion spec={design.pavilion} />}
       <Booth option={option} showWalls={showWalls} />
       {p.objects.map((o) => (
         <SceneObject
           key={o.id}
           obj={o}
-          baseY={inRects(option.ndtFootprint, o.x, o.z) ? option.platformH : 0}
+          baseY={inRects(option.footprint, o.x, o.z) ? option.platformH : 0}
           status={p.statuses.get(o.id) ?? 'ok'}
           selected={selected.has(o.id)}
           peer={p.peerSelections.get(o.id)}
@@ -117,8 +127,8 @@ export function Scene(p: SceneProps) {
           interactive={!walk}
         />
       ))}
-      <Avatars walkers={p.walkers} layoutId={layoutId} />
-      <Crowd layoutId={layoutId} objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />
-    </>
+      <Avatars walkers={p.walkers} layoutId={design.layoutId} />
+      <Crowd objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />
+    </DesignContext.Provider>
   )
 }

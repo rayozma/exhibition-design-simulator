@@ -1,25 +1,24 @@
-# NDT ADIPEC 2026 Design
+# Exhibition Design & Simulator
 
-A web app for arranging the **NDTCCS booth at ADIPEC 2026** (2–5 Nov 2026, Abu Dhabi, Al Masaood Energy pavilion) together, in 3D, in the browser.
+A web app for designing exhibition booths together, in 3D, in the browser — like a simple Canva for booth layouts, with a walk-through and a crowd simulation.
 
-- Hall, pavilion zones, booth platform and walls built from [`src/data/layouts.json`](src/data/layouts.json)
-- Two layout options: **A** (09 Sep, NDT 29 m²) and **B** (23 Sep, NDT 39 m²), each with its own object positions
+- Designs listed on the home page. Start from a blank hall or a template (e.g. the **NDTCCS booth at ADIPEC 2026**, Al Masaood Energy pavilion)
+- Each design has its own hall, surrounding zones (other booths, walkways), your booth (outline, platform, walls) and entrances
 - Move, rotate, lock, duplicate and delete objects. Warnings for overlaps (red) and objects outside the booth (yellow)
-- Named rooms listed on the home page. Anyone can open a room, and everyone in it edits live, no sign-in. You can see who is online and what they are moving
+- Everyone who opens a design edits it live, no sign-in. You can see who is online, what they are moving, and their avatars in walk mode
 - Per-object colors, editable in the side panel
 - Upload `.glb` or `.obj` 3D models for objects
 - Crowd simulation with booth occupancy, density heatmap and narrow-passage warnings
 - Named snapshots, JSON export and PNG screenshots
 
-Live site: `https://rayozma.github.io/ndt-adipec-2026-design/` (after deployment, see below).
+Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deployment, see below).
 
 ---
 
 ## Using the app
 
-1. Open the site. Pick an existing room from the list, or type a name and click **Create room**. On first visit, enter a display name and pick a color.
-2. Everyone who opens the site can see and join every room. **Copy link** in the top bar gives a direct link to the room you're in; **✎** renames it.
-3. Pick layout **A** or **B** in the top bar. Each layout keeps its own positions.
+1. Open the site. Pick a design from the list, or under **New design** type a name, choose a template (**Blank hall** or **ADIPEC 2026 – NDTCCS booth**) and click **Create design**. On first visit, enter a display name, a color and your walk-mode avatar.
+2. Everyone who opens the site can see and join every design. **Copy link** in the top bar gives a direct link to the design you're in; **✎** renames it.
 
 | Action | How |
 |---|---|
@@ -29,11 +28,11 @@ Live site: `https://rayozma.github.io/ndt-adipec-2026-design/` (after deployment
 | Exact values | Type number, name, size, position or rotation in the right panel (**Selected** tab), then press Enter |
 | Object list and remarks | **Objects** tab in the right panel: every object with number, name, size and status, and a remarks box (saved for everyone) |
 | Walk through the booth | **Walk** in the top bar, then **Click to start walking**. Mouse to look, W A S D or arrows to walk, Shift to run, Esc to release the mouse |
-| Delete a room | **Delete** next to the room on the home page, then enter the room-delete password |
+| Delete a design | **Delete** next to the design on the home page, then enter the delete password |
 | Color | Color picker in the right panel (placeholder boxes only; uploaded models keep their own materials) |
 | Lock / duplicate / delete | Buttons in the right panel (Delete key also works) |
 | Undo your last action | Ctrl+Z or **Undo** |
-| Back to the original design | **Reset to design** (for everyone in the room, can be undone) |
+| Back to the starting objects | **Reset to design** (for everyone in the design, can be undone) |
 | 2D plan / 3D view | Button in the top bar |
 | 3D model | Right panel → **Attach .glb model…** (or with nothing selected: **Upload .glb as new object…**). For OBJ, select the `.obj` together with its `.mtl` and texture files |
 | Crowd | Panel at the bottom-left: Empty / Low / High, density, "stop at booth" share, heatmap, clearance |
@@ -50,8 +49,8 @@ The crowd simulation runs only in your own browser and isn't shared.
 Requirements: [Node.js](https://nodejs.org) 22 or newer (24 recommended) and git.
 
 ```powershell
-git clone https://github.com/rayozma/ndt-adipec-2026-design.git
-cd ndt-adipec-2026-design
+git clone https://github.com/rayozma/exhibition-design-simulator.git
+cd exhibition-design-simulator
 npm install
 npm run dev
 ```
@@ -66,14 +65,15 @@ Without Supabase settings the app runs in **local-only mode**: editing works, bu
 2. **SQL Editor → New query**: paste all of [`supabase/schema.sql`](supabase/schema.sql) and click **Run**.
 3. **SQL Editor → New query**: paste all of [`supabase/storage.sql`](supabase/storage.sql) and click **Run**.
 4. **SQL Editor → New query**: paste all of [`supabase/rooms-and-colors.sql`](supabase/rooms-and-colors.sql) and click **Run**.
-5. **SQL Editor → New query**: paste all of [`supabase/delete-room.sql`](supabase/delete-room.sql) and click **Run**. Then set the room-delete password with the one-line `insert into public.app_secrets …` shown at the top of that file (replace `YOUR-PASSWORD`). The password is never stored in this repository.
-6. Copy the settings file and fill it in:
+5. **SQL Editor → New query**: paste all of [`supabase/delete-room.sql`](supabase/delete-room.sql) and click **Run**. Then set the delete password with the one-line `insert into public.app_secrets …` shown at the top of that file (replace `YOUR-PASSWORD`). The password is never stored in this repository.
+6. **SQL Editor → New query**: paste all of [`supabase/designs.sql`](supabase/designs.sql) and click **Run**.
+7. Copy the settings file and fill it in:
    ```powershell
    Copy-Item .env.example .env
    ```
    - `VITE_SUPABASE_URL` is the Project URL, for example `https://abcdefgh.supabase.co` (from **Project Settings → Data API** or the **Connect** button), with nothing after `.co`.
    - `VITE_SUPABASE_ANON_KEY` is the **Publishable** key (`sb_publishable_…`) or the legacy **anon** key (from **Project Settings → API Keys**). Never use the secret / service_role key.
-7. Restart `npm run dev`.
+8. Restart `npm run dev`.
 
 `.env` is listed in `.gitignore` and must never be committed.
 
@@ -88,7 +88,7 @@ One-time setup on GitHub:
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. Push to `main` (or open **Actions → Deploy to GitHub Pages → Run workflow**).
 
-After 1–2 minutes the site is live at `https://rayozma.github.io/ndt-adipec-2026-design/`.
+After 1–2 minutes the site is live at `https://rayozma.github.io/exhibition-design-simulator/`.
 
 If you rename the repository, also change `base` in [`vite.config.ts`](vite.config.ts) to the new name.
 
@@ -98,8 +98,8 @@ If you rename the repository, also change `base` in [`vite.config.ts`](vite.conf
 
 - The Supabase key in the app is public by design: anyone who opens the site can see it in the browser.
 - Without sign-in, the database rules can't tell users apart. They only require a well-formed room id.
-- **Rooms are public.** The home page lists every room, so anyone who can open the site can open, edit, rename or reset any room. There is no "private room".
-- Deleting a whole room needs the room-delete password, which is checked inside the database. That protects against accidental deletion from the app; it doesn't stop someone technical from clearing a room's objects through the public API.
+- **Designs are public.** The home page lists every design, so anyone who can open the site can open, edit, rename or reset any design. There is no "private design".
+- Deleting a whole design needs the delete password, which is checked inside the database. That protects against accidental deletion from the app; it doesn't stop someone technical from clearing a design's objects through the public API.
 - Uploaded model files are publicly downloadable by URL. The app can't overwrite or delete them.
 
 This is acceptable for booth layout drafts. **Don't put confidential information here.** To restrict access properly, add Supabase Auth (for example anonymous sign-ins) plus a room-members table, and tighten the policies in `supabase/schema.sql`.
@@ -110,13 +110,14 @@ This is acceptable for booth layout drafts. **Don't put confidential information
 
 ```
 src/
-  data/layouts.json      seed design: hall, zones, layout options, objects, crowd presets
+  data/layouts.json      data behind the "ADIPEC 2026 – NDTCCS booth" template
   App.tsx                landing page / name prompt / editor
   Editor.tsx             editing screen: state, panels, dialogs
   components/            top bar, side panel, dialogs, crowd panel (plain CSS in styles.css)
   scene/                 three.js scene (@react-three/fiber): floor, zones, booth, objects, models, crowd
   lib/
-    layout.ts            types + helpers for layouts.json
+    design.ts            the Design type (hall, zones, booth, entrances, …) and templates
+    layout.ts            shared geometry types and helpers
     geometry.ts          snapping, hall bounds, overlap and footprint checks
     editor.ts            local state per layout option + undo
     useObjectOps.ts      edit operations (move, rotate, lock, duplicate, delete, undo, reset, restore)
@@ -131,9 +132,12 @@ supabase/
   schema.sql             tables, row-level security, realtime
   storage.sql            model bucket, upload policy, model_fit column
   rooms-and-colors.sql   rooms table (home page list), per-object color column
-  delete-room.sql        password-protected room deletion (password set separately, not in the repo)
+  delete-room.sql        password-protected deletion (password set separately, not in the repo)
+  designs.sql            design document per room, flexible layout ids, realtime on rooms
 ```
 
-**Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east (0–33), z points south (0–18: the pavilion is z 0–15, plus a 3 m public aisle at z 15–18 that the NDT leg opens onto), y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint. The aisle width is an assumption; change the `aisle_south` zone and `hall.d` in `layouts.json` if the real plan differs.
+**Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east, z points south, y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint.
+
+**Data:** a design is stored as JSON on its room row (`rooms.design`); its objects are rows in `objects` with `layout_id = design.layoutId`. Rooms created before designs existed were ADIPEC rooms: on first open they get the ADIPEC design (layout B, where their objects already are). Their old layout-A rows are kept untouched in the table.
 
 **Commands:** `npm run dev` (development server), `npm run build` (type-check + production build into `dist/`), `npm run preview` (serve the build locally).

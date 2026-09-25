@@ -1,5 +1,5 @@
 import type { EditorObject } from './editor'
-import { layouts, type LayoutId } from './layout'
+import { APP_TITLE, type Design } from './design'
 
 /** Save a Blob as a file via a temporary download link. */
 export function downloadBlob(blob: Blob, filename: string) {
@@ -13,25 +13,24 @@ export function downloadBlob(blob: Blob, filename: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
-/** "ndt-adipec-B-2026-09-24-1705" */
-export function exportName(layoutId: LayoutId) {
+/** "design-2026-09-24-1705" */
+export function exportName(_design: Design) {
   const d = new Date()
   const pad = (n: number) => String(n).padStart(2, '0')
-  return `ndt-adipec-${layoutId}-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`
+  return `design-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`
 }
 
 const mm = (v: number) => Math.round(v * 1000) / 1000
 
-/** Current layout as JSON, with object fields in the same shape as layouts.json. */
-export function layoutJson(layoutId: LayoutId, objects: EditorObject[], room: string | null) {
+/** The design (hall, zones, booth, entrances) and its objects as JSON. */
+export function layoutJson(design: Design, objects: EditorObject[], room: string | null) {
   return {
-    title: layouts.meta.title,
+    app: APP_TITLE,
     exportedAt: new Date().toISOString(),
     room,
-    layoutId,
-    layoutLabel: layouts.options[layoutId].label,
-    units: layouts.meta.units,
-    coords: layouts.meta.coords,
+    units: 'meters, degrees',
+    coords: 'origin = hall NW corner; x east, z south, y up. Object x/z = footprint center; rotY rotates the w/d footprint.',
+    design: { ...design, seed: undefined },
     objects: objects.map((o) => ({
       id: o.id,
       ...(o.num !== undefined && { num: o.num }),
@@ -54,7 +53,7 @@ export function layoutJson(layoutId: LayoutId, objects: EditorObject[], room: st
   }
 }
 
-export function downloadLayoutJson(layoutId: LayoutId, objects: EditorObject[], room: string | null) {
-  const json = JSON.stringify(layoutJson(layoutId, objects, room), null, 2)
-  downloadBlob(new Blob([json], { type: 'application/json' }), `${exportName(layoutId)}.json`)
+export function downloadLayoutJson(design: Design, objects: EditorObject[], room: string | null) {
+  const json = JSON.stringify(layoutJson(design, objects, room), null, 2)
+  downloadBlob(new Blob([json], { type: 'application/json' }), `${exportName(design)}.json`)
 }

@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js'
 import { deleteObjects, fetchRoom, fromRow, upsertObjects, type ObjectRow } from './db'
 import type { Change, EditorActions, EditorObject } from './editor'
-import type { LayoutId } from './layout'
+/** Key of the open design's objects (Design.layoutId). */
+type LayoutId = string
 import { supabase } from './supabase'
 import { TAB_ID, type User } from './user'
 

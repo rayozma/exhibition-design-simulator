@@ -2,14 +2,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { deleteSnapshot, fetchSnapshots, saveSnapshot, type Snapshot } from '../lib/db'
 import type { EditorObject } from '../lib/editor'
 import { downloadBlob, downloadLayoutJson, exportName } from '../lib/exportLayout'
-import { layouts, type LayoutId } from '../lib/layout'
+import { useDesign } from '../lib/DesignContext'
 import type { ObjectOps } from '../lib/useObjectOps'
 import { TAB_ID, type User } from '../lib/user'
 import type { CaptureFn } from '../scene/Capture'
 
 type Props = {
   room: string | null
-  layoutId: LayoutId
   objects: EditorObject[]
   me: User | null
   ops: ObjectOps
@@ -20,12 +19,14 @@ type Props = {
 const when = (iso: string) =>
   new Date(iso).toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
 
-const defaultName = (layoutId: LayoutId) =>
-  `Layout ${layoutId} – ${new Date().toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`
+const defaultName = () =>
+  `Snapshot – ${new Date().toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`
 
 /** Save / restore named snapshots of the current layout option, and export JSON / PNG. */
-export function SnapshotsDialog({ room, layoutId, objects, me, ops, capture, onClose }: Props) {
-  const [name, setName] = useState(() => defaultName(layoutId))
+export function SnapshotsDialog({ room, objects, me, ops, capture, onClose }: Props) {
+  const design = useDesign()
+  const layoutId = design.layoutId
+  const [name, setName] = useState(defaultName)
   const [list, setList] = useState<Snapshot[] | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -58,12 +59,12 @@ export function SnapshotsDialog({ room, layoutId, objects, me, ops, capture, onC
   const save = () =>
     run(async () => {
       await saveSnapshot(room!, layoutId, name.trim(), objects, `${me?.name ?? 'anon'}#${TAB_ID}`)
-      setName(defaultName(layoutId))
+      setName(defaultName())
       await load()
     })
 
   const restore = (s: Snapshot) => {
-    if (!window.confirm(`Replace layout ${layoutId} with "${s.name}" for everyone in this room? (You can undo this.)`))
+    if (!window.confirm(`Replace all objects with snapshot "${s.name}" for everyone in this design? (You can undo this.)`))
       return
     ops.restore(s.data.objects)
     onClose()
@@ -81,14 +82,14 @@ export function SnapshotsDialog({ room, layoutId, objects, me, ops, capture, onC
     run(async () => {
       const blob = await capture()?.()
       if (!blob) throw new Error('Could not capture the 3D view.')
-      downloadBlob(blob, `${exportName(layoutId)}.png`)
+      downloadBlob(blob, `${exportName(design)}.png`)
     })
 
   return (
     <div className="overlay">
       <div className="card wide">
-        <h2>Snapshots — layout {layoutId}</h2>
-        <p className="muted small">{layouts.options[layoutId].label}</p>
+        <h2>Snapshots</h2>
+        <p className="muted small">Saved versions of this design's objects.</p>
 
         {room ? (
           <>
@@ -107,7 +108,7 @@ export function SnapshotsDialog({ room, layoutId, objects, me, ops, capture, onC
 
             <div className="snapshot-list">
               {list === null && !error && <p className="muted small">Loading…</p>}
-              {list?.length === 0 && <p className="muted small">No snapshots of layout {layoutId} yet.</p>}
+              {list?.length === 0 && <p className="muted small">No snapshots yet.</p>}
               {list?.map((s) => (
                 <div key={s.id} className="snapshot">
                   <div>
@@ -132,9 +133,9 @@ export function SnapshotsDialog({ room, layoutId, objects, me, ops, capture, onC
 
         {error && <p className="status overlap">{error}</p>}
 
-        <h4>Export current view of layout {layoutId}</h4>
+        <h4>Export</h4>
         <div className="actions tight">
-          <button onClick={() => downloadLayoutJson(layoutId, objects, room)}>Download JSON</button>
+          <button onClick={() => downloadLayoutJson(design, objects, room)}>Download JSON</button>
           <button disabled={busy} onClick={png}>
             Download PNG
           </button>

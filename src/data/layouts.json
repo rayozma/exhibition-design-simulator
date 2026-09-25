@@ -53,7 +53,7 @@
     "A": {
       "label": "09 Sep – NDT 29 m²",
       "removeZones": [],
-      "ndtFootprint": [ { "x": 2, "z": 9, "w": 9, "d": 2 }, { "x": 8.25, "z": 11, "w": 2.75, "d": 4 } ],
+      "footprint": [ { "x": 2, "z": 9, "w": 9, "d": 2 }, { "x": 8.25, "z": 11, "w": 2.75, "d": 4 } ],
       "platformH": 0.1,
       "walls": [
         { "id": "strip_back", "x1": 2, "z1": 11, "x2": 8.25, "z2": 11 },
@@ -66,7 +66,7 @@
     "B": {
       "label": "23 Sep – NDT 39 m²",
       "removeZones": ["eneroil"],
-      "ndtFootprint": [ { "x": 2, "z": 9, "w": 14, "d": 2 }, { "x": 8.25, "z": 11, "w": 2.75, "d": 4 } ],
+      "footprint": [ { "x": 2, "z": 9, "w": 14, "d": 2 }, { "x": 8.25, "z": 11, "w": 2.75, "d": 4 } ],
       "platformH": 0.1,
       "walls": [
         { "id": "strip_back", "x1": 2, "z1": 11, "x2": 8.25, "z2": 11 },

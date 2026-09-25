@@ -1,5 +1,8 @@
+import { adipecTemplate, parseDesign, type Design } from './design'
 import { seedObjects, type EditorObject, type ObjectsByLayout } from './editor'
-import { LAYOUT_IDS, type LayoutId } from './layout'
+
+/** Key of a design's objects (Design.layoutId). */
+type LayoutId = string
 import { NETWORK_ERROR, supabase } from './supabase'
 
 /** Friendlier text for network failures (supabase-js reports them as "TypeError: Failed to fetch"). */
@@ -89,8 +92,8 @@ function db() {
 export async function fetchRoom(room: string): Promise<ObjectsByLayout> {
   const { data, error } = await db().from('objects').select('*').eq('room', room).order('id')
   if (error) throw new Error(clean(error.message))
-  const out = Object.fromEntries(LAYOUT_IDS.map((id) => [id, [] as EditorObject[]])) as ObjectsByLayout
-  for (const r of data as ObjectRow[]) out[r.layout_id]?.push(fromRow(r))
+  const out: ObjectsByLayout = {}
+  for (const r of data as ObjectRow[]) (out[r.layout_id] ??= []).push(fromRow(r))
   return out
 }
 
@@ -108,6 +111,8 @@ export async function deleteObjects(room: string, layoutId: LayoutId, ids: strin
 export type Room = {
   id: string
   name: string
+  /** The design document (hall, zones, booth, …); null for rooms made before designs existed. */
+  design: unknown | null
   created_by: string | null
   created_at: string
   updated_at: string
@@ -120,13 +125,17 @@ export async function fetchRooms(): Promise<Room[]> {
   return data as Room[]
 }
 
-export async function createRoom(id: string, name: string, by: string) {
-  const { error } = await db().from('rooms').insert({ id, name, created_by: by })
+export async function createRoom(id: string, name: string, by: string, design: Design) {
+  const { error } = await db().from('rooms').insert({ id, name, created_by: by, design })
   if (error) throw new Error(roomsError(error.message))
 }
 
-/** Make sure the room has a row (rooms made before the rooms table existed get a default name), then return it. */
-export async function ensureRoom(id: string): Promise<Room> {
+/**
+ * Load a room with its design. Rooms made before the rooms table get a row with a default name;
+ * rooms made before designs existed were all ADIPEC rooms, so they get the ADIPEC design (layout B,
+ * where their objects already are) saved on first open.
+ */
+export async function ensureRoom(id: string): Promise<Room & { design: Design }> {
   const client = db()
   const { error: upErr } = await client
     .from('rooms')
@@ -134,7 +143,18 @@ export async function ensureRoom(id: string): Promise<Room> {
   if (upErr) throw new Error(roomsError(upErr.message))
   const { data, error } = await client.from('rooms').select('*').eq('id', id).single()
   if (error) throw new Error(roomsError(error.message))
-  return data as Room
+  const room = data as Room
+  const parsed = parseDesign(room.design)
+  if (parsed) return { ...room, design: parsed }
+  const design = adipecTemplate()
+  await saveDesign(id, design)
+  return { ...room, design }
+}
+
+/** Save a room's design document (hall, zones, booth, entrances…). */
+export async function saveDesign(id: string, design: Design) {
+  const { error } = await db().from('rooms').update({ design }).eq('id', id)
+  if (error) throw new Error(roomsError(error.message))
 }
 
 export async function renameRoom(id: string, name: string) {
@@ -156,7 +176,9 @@ export async function deleteRoom(id: string, password: string): Promise<boolean>
 }
 
 const roomsError = (raw: string, msg = clean(raw)) =>
-  /relation .*rooms.* does not exist|schema cache/i.test(msg)
+  /column .*design.* does not exist|could not find the .design. column/i.test(msg)
+    ? 'The design column is missing. Run supabase/designs.sql in the Supabase SQL Editor.'
+    : /relation .*rooms.* does not exist|schema cache/i.test(msg)
     ? 'The rooms table is missing. Run supabase/rooms-and-colors.sql in the Supabase SQL Editor.'
     : msg
 
@@ -191,9 +213,10 @@ export async function deleteSnapshot(room: string, id: string) {
   if (error) throw new Error(clean(error.message))
 }
 
-/** Fill a new room with the seed design for every layout option. Existing rows are left alone. */
-export async function seedRoom(room: string) {
-  const rows = LAYOUT_IDS.flatMap((l) => seedObjects().map((o) => toRow(room, l, o, 'seed')))
+/** Fill a new room with its design's starting objects. Existing rows are left alone. */
+export async function seedRoom(room: string, design: Design) {
+  const rows = seedObjects(design.seed).map((o) => toRow(room, design.layoutId, o, 'seed'))
+  if (!rows.length) return
   const { error } = await db()
     .from('objects')
     .upsert(rows, { onConflict: 'room,layout_id,id', ignoreDuplicates: true })

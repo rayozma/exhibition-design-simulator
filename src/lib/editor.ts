@@ -1,5 +1,8 @@
 import { useMemo, useReducer } from 'react'
-import { LAYOUT_IDS, layouts, type LayoutId, type SeedObject } from './layout'
+import type { SeedObject } from './layout'
+
+/** Key of a design's objects in the objects table (Design.layoutId). */
+type LayoutId = string
 
 export type EditorObject = SeedObject & {
   locked: boolean
@@ -30,7 +33,8 @@ type Action =
 
 const MAX_UNDO = 100
 
-export const seedObjects = (): EditorObject[] => layouts.objects.map((o) => ({ ...o, locked: false }))
+/** Editable copies of a design's starting objects. */
+export const seedObjects = (seed: SeedObject[]): EditorObject[] => seed.map((o) => ({ ...o, locked: false }))
 
 /** Changes that revert an undo entry (last change first). */
 export const undoChanges = (entry: UndoEntry): Change[] =>
@@ -45,18 +49,11 @@ export function replaceChanges(list: EditorObject[], target: EditorObject[]): Ch
   ]
 }
 
-/** Changes that turn `list` back into the seed design. */
-export const resetChanges = (list: EditorObject[]) => replaceChanges(list, seedObjects())
+/** Changes that turn `list` back into the design's starting objects. */
+export const resetChanges = (list: EditorObject[], seed: SeedObject[]) => replaceChanges(list, seedObjects(seed))
 
-function init(): State {
-  const objects = {} as State['objects']
-  const undo = {} as State['undo']
-  for (const id of LAYOUT_IDS) {
-    objects[id] = seedObjects()
-    undo[id] = []
-  }
-  return { objects, undo }
-}
+/** Nothing loaded yet; a design's objects arrive with load() (from the database or its seed). */
+const init = (): State => ({ objects: {}, undo: {} })
 
 function applyChanges(list: EditorObject[], changes: Change[]): EditorObject[] {
   let out = list
@@ -73,11 +70,11 @@ function applyChanges(list: EditorObject[], changes: Change[]): EditorObject[] {
 }
 
 function pushUndo(state: State, layoutId: LayoutId, entry: UndoEntry): State['undo'] {
-  return { ...state.undo, [layoutId]: [...state.undo[layoutId], entry].slice(-MAX_UNDO) }
+  return { ...state.undo, [layoutId]: [...(state.undo[layoutId] ?? []), entry].slice(-MAX_UNDO) }
 }
 
 function apply(state: State, layoutId: LayoutId, changes: Change[], undoable: boolean): State {
-  const list = state.objects[layoutId]
+  const list = state.objects[layoutId] ?? []
   const entry: UndoEntry = {
     changes: changes.map((c) => ({ id: c.id, before: list.find((o) => o.id === c.id) ?? null })),
   }
@@ -94,13 +91,13 @@ function reducer(state: State, action: Action): State {
     case 'pushUndo':
       return { ...state, undo: pushUndo(state, action.layoutId, action.entry) }
     case 'undo': {
-      const stack = state.undo[action.layoutId]
+      const stack = state.undo[action.layoutId] ?? []
       const entry = stack[stack.length - 1]
       if (!entry) return state
       return {
         objects: {
           ...state.objects,
-          [action.layoutId]: applyChanges(state.objects[action.layoutId], undoChanges(entry)),
+          [action.layoutId]: applyChanges(state.objects[action.layoutId] ?? [], undoChanges(entry)),
         },
         undo: { ...state.undo, [action.layoutId]: stack.slice(0, -1) },
       }

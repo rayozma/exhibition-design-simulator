@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createRoom, deleteRoom, fetchRooms, seedRoom, type Room } from '../lib/db'
-import { layouts } from '../lib/layout'
+import { APP_TITLE, parseDesign, TEMPLATES } from '../lib/design'
 import { loadUser, newRoomId } from '../lib/user'
 
 const when = (iso: string) =>
@@ -10,10 +10,11 @@ const open = (id: string) => {
   location.search = `?room=${id}`
 }
 
-/** Home page: the list of existing rooms, plus a form to create a new one (seeded with the design). */
+/** Home page: all designs (each one a shared, live room), plus a form to create a new one from a template. */
 export function Landing() {
   const [rooms, setRooms] = useState<Room[] | null>(null)
   const [name, setName] = useState('')
+  const [template, setTemplate] = useState(TEMPLATES[0].id)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [deleting, setDeleting] = useState<{ id: string; password: string; error: string | null } | null>(null)
@@ -50,11 +51,12 @@ export function Landing() {
     setError(null)
     try {
       const id = newRoomId()
-      await createRoom(id, trimmed, loadUser()?.name ?? 'anon')
-      await seedRoom(id)
+      const design = (TEMPLATES.find((t) => t.id === template) ?? TEMPLATES[0]).make()
+      await createRoom(id, trimmed, loadUser()?.name ?? 'anon', design)
+      await seedRoom(id, design)
       open(id)
     } catch (e) {
-      setError(`Could not create the room: ${(e as Error).message}`)
+      setError(`Could not create the design: ${(e as Error).message}`)
       setBusy(false)
     }
   }
@@ -62,38 +64,63 @@ export function Landing() {
   return (
     <div className="center-screen">
       <div className="card wide">
-        <h1>{layouts.meta.title}</h1>
-        <p className="muted">{layouts.meta.event}</p>
+        <h1>{APP_TITLE}</h1>
+        <p className="muted">Plan exhibition booths in 3D, together: layout, objects, walk-through and crowd simulation.</p>
 
+        <h4>New design</h4>
         <form
-          className="save-row"
+          className="new-design"
           onSubmit={(e) => {
             e.preventDefault()
             create()
           }}
         >
           <input
-            placeholder="New room name, e.g. Option B – marketing review"
+            placeholder="Design name, e.g. Gulf Expo 2027 – main booth"
             value={name}
             maxLength={80}
             disabled={busy}
             onChange={(e) => setName(e.target.value)}
-            aria-label="New room name"
+            aria-label="New design name"
           />
+          <div className="templates" role="radiogroup" aria-label="Start from">
+            {TEMPLATES.map((t) => (
+              <label key={t.id} className={`template ${template === t.id ? 'active' : ''}`}>
+                <input
+                  type="radio"
+                  name="template"
+                  checked={template === t.id}
+                  disabled={busy}
+                  onChange={() => setTemplate(t.id)}
+                />
+                <strong>{t.name}</strong>
+                <span className="muted small">{t.description}</span>
+              </label>
+            ))}
+          </div>
           <button className="primary" type="submit" disabled={busy || !name.trim()}>
-            {busy ? 'Creating…' : 'Create room'}
+            {busy ? 'Creating…' : 'Create design'}
           </button>
         </form>
 
-        <h4>Rooms</h4>
+        <h4>Designs</h4>
         <div className="snapshot-list">
           {rooms === null && !error && <p className="muted small">Loading…</p>}
-          {rooms?.length === 0 && <p className="muted small">No rooms yet. Create the first one above.</p>}
+          {rooms?.length === 0 && <p className="muted small">No designs yet. Create the first one above.</p>}
           {rooms?.map((r) => (
             <div key={r.id} className="room-item">
               <div className="room-line">
                 <button className="room-row" onClick={() => open(r.id)}>
                   <strong>{r.name}</strong>
+                  {(() => {
+                    const d = parseDesign(r.design)
+                    return (
+                      <span className="muted small">
+                        {d ? `${d.hall.w} × ${d.hall.d} m hall` : 'ADIPEC 2026 – NDTCCS booth'}
+                        {d?.event ? ` · ${d.event}` : ''}
+                      </span>
+                    )
+                  })()}
                   <span className="muted small">
                     edited {when(r.updated_at)}
                     {r.created_by && r.created_by !== 'migration' ? ` · created by ${r.created_by}` : ''}
@@ -101,8 +128,8 @@ export function Landing() {
                 </button>
                 <button
                   className="danger"
-                  title="Delete this room (password required)"
-                  aria-label={`Delete room ${r.name}`}
+                  title="Delete this design (password required)"
+                  aria-label={`Delete design ${r.name}`}
                   onClick={() => setDeleting(deleting?.id === r.id ? null : { id: r.id, password: '', error: null })}
                 >
                   Delete
@@ -119,7 +146,7 @@ export function Landing() {
                   <input
                     type="password"
                     autoFocus
-                    placeholder="Password to delete this room"
+                    placeholder="Password to delete this design"
                     value={deleting.password}
                     disabled={deleteBusy}
                     onChange={(e) => setDeleting({ ...deleting, password: e.target.value, error: null })}
@@ -137,7 +164,7 @@ export function Landing() {
 
         {error && <p className="status overlap">{error}</p>}
         <p className="muted small">
-          Every room is a shared, live layout. Anyone who opens this page can join any room and edit it.
+          Every design is shared and live: anyone who opens this page can open any design and edit it together with others.
         </p>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import type { EditorObject } from '../lib/editor'
 import { wallFootprint, type Footprint } from '../lib/geometry'
-import { activeZones, DEG, inRects, layouts, type Entrance, type LayoutId, type Rect } from '../lib/layout'
+import { walkableRects, type Design } from '../lib/design'
+import { DEG, inRects, type Entrance, type Rect } from '../lib/layout'
 
 export const CELL = 0.25 // m
 export const AGENT_RADIUS = 0.2 // obstacles are inflated by this for walking
@@ -159,22 +160,13 @@ function runs(cols: number, rows: number, open: Uint8Array, di: number, dj: numb
   return out
 }
 
-/** Walkable = walkable zones (walkway, open gap) + the NDT footprint. */
-export const walkableRects = (layoutId: LayoutId): Rect[] => [
-  ...activeZones(layoutId).filter((z) => z.walkable),
-  ...layouts.options[layoutId].ndtFootprint,
-]
-
-/** Walkable area in m² (before subtracting objects); the base for "people per m²". */
-export const walkableArea = (layoutId: LayoutId) => walkableRects(layoutId).reduce((s, r) => s + r.w * r.d, 0)
-
-/** Rasterize the walkable area for a layout option and precompute routes to every attraction and entrance. */
-export function buildNav(layoutId: LayoutId, objects: EditorObject[]): NavGrid {
-  const opt = layouts.options[layoutId]
-  const cols = Math.round(layouts.hall.w / CELL)
-  const rows = Math.round(layouts.hall.d / CELL)
+/** Rasterize a design's walkable area and precompute routes to every attraction and entrance. */
+export function buildNav(design: Design, objects: EditorObject[]): NavGrid {
+  const opt = design.booth
+  const cols = Math.ceil(design.hall.w / CELL)
+  const rows = Math.ceil(design.hall.d / CELL)
   const n = cols * rows
-  const walkRects = walkableRects(layoutId)
+  const walkRects = walkableRects(design)
   const obstacles = [...objects, ...opt.walls.map((w) => wallFootprint(w, opt.wallT))].map(shapeOf)
 
   const free = new Uint8Array(n) // walkable and clear by AGENT_RADIUS
@@ -228,7 +220,7 @@ export function buildNav(layoutId: LayoutId, objects: EditorObject[]): NavGrid {
     .filter((a) => a.sources.length)
     .map((a) => ({ id: a.id, field: flowField(cols, rows, free, a.sources) }))
 
-  const entrances = layouts.entrances
+  const entrances = design.entrances
     .map((e) => ({
       id: e.id,
       aisle: e.aisle,
@@ -270,7 +262,7 @@ export function buildNav(layoutId: LayoutId, objects: EditorObject[]): NavGrid {
     narrow,
     narrowArea: narrowCells * CELL * CELL,
     walkableArea: walkRects.reduce((s, r) => s + r.w * r.d, 0),
-    footprint: opt.ndtFootprint,
+    footprint: opt.footprint,
     platformH: opt.platformH,
     attractions,
     entrances,

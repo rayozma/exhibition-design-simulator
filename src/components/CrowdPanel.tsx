@@ -1,26 +1,26 @@
 import { useState } from 'react'
-import { layouts, type LayoutId } from '../lib/layout'
+import { walkableArea } from '../lib/design'
+import { useDesign } from '../lib/DesignContext'
 import type { CrowdSettings, CrowdStats } from '../sim/crowd'
-import { MIN_CLEARANCE, walkableArea } from '../sim/navGrid'
+import { MIN_CLEARANCE } from '../sim/navGrid'
 
 type Props = {
-  layoutId: LayoutId
   settings: CrowdSettings
   onChange: (patch: Partial<CrowdSettings>) => void
   stats: CrowdStats
 }
 
-const p = layouts.crowdPresets
-const MODES = [
-  ['Empty', p.empty],
-  ['Low', p.low],
-  ['High', p.high],
-] as const
-
 /** Floating panel over the 3D view: crowd mode, density, play/pause, stats and overlays. */
-export function CrowdPanel({ layoutId, settings, onChange, stats }: Props) {
+export function CrowdPanel({ settings, onChange, stats }: Props) {
   const [open, setOpen] = useState(true)
-  const area = walkableArea(layoutId)
+  const design = useDesign()
+  const area = walkableArea(design)
+  const p = design.crowdPresets
+  const MODES = [
+    ['Empty', p.empty],
+    ['Low', p.low],
+    ['High', p.high],
+  ] as const
   const s = settings
 
   return (

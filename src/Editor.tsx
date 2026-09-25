@@ -9,9 +9,10 @@ import { SnapshotsDialog } from './components/SnapshotsDialog'
 import { TopBar } from './components/TopBar'
 import { UploadDialog, type UploadMode } from './components/UploadDialog'
 import { ensureRoom, renameRoom } from './lib/db'
-import { useEditor, type EditorObject } from './lib/editor'
+import { adipecTemplate, type Design } from './lib/design'
+import { DesignContext } from './lib/DesignContext'
+import { seedObjects, useEditor, type EditorObject, type UndoEntry } from './lib/editor'
 import { computeStatuses } from './lib/geometry'
-import { layouts, type LayoutId } from './lib/layout'
 import { ROTATE_STEP, useObjectOps, type ObjectOps } from './lib/useObjectOps'
 import { moverKey, useRoomSync } from './lib/useRoomSync'
 import type { User } from './lib/user'
@@ -77,8 +78,69 @@ type Props = {
   onEditUser: () => void
 }
 
-export function Editor({ room, me, onEditUser }: Props) {
-  const [layoutId, setLayoutId] = useState<LayoutId>('B')
+/** Loads the room and its design (retrying every 5 s if the server can't be reached), then shows the editor. */
+export function Editor(props: Props) {
+  const { room } = props
+  const [loaded, setLoaded] = useState<{ design: Design; name: string } | null>(() =>
+    room ? null : { design: adipecTemplate(), name: 'Local design (not saved)' },
+  )
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!room) return
+    let stop = false
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const attempt = () =>
+      ensureRoom(room)
+        .then((r) => {
+          if (stop) return
+          setLoaded({ design: r.design, name: r.name })
+          setError(null)
+        })
+        .catch((e: Error) => {
+          if (stop) return
+          setError(e.message)
+          timer = setTimeout(attempt, 5000)
+        })
+    attempt()
+    return () => {
+      stop = true
+      clearTimeout(timer)
+    }
+  }, [room])
+
+  if (!loaded) {
+    return (
+      <div className="center-screen">
+        <div className="card">
+          <p className="muted">Loading design…</p>
+          {error && <p className="status overlap">{error} Retrying…</p>}
+        </div>
+      </div>
+    )
+  }
+  return (
+    <EditorView
+      {...props}
+      design={loaded.design}
+      name={loaded.name}
+      onRenamed={(name) => setLoaded((l) => (l ? { ...l, name } : l))}
+    />
+  )
+}
+
+const NO_OBJECTS: EditorObject[] = []
+const NO_UNDO: UndoEntry[] = []
+
+function EditorView({
+  room,
+  me,
+  onEditUser,
+  design,
+  name,
+  onRenamed,
+}: Props & { design: Design; name: string; onRenamed: (name: string) => void }) {
+  const layoutId = design.layoutId
   const [view, setView] = useState<ViewMode>('perspective')
   const [walkLocked, setWalkLocked] = useState(false)
   const [showVolumes, setShowVolumes] = useState(false)
@@ -91,48 +153,27 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [crowdStats, setCrowdStats] = useState(NO_STATS)
   const [showSnapshots, setShowSnapshots] = useState(false)
   const capture = useRef<CaptureFn | null>(null)
-  const [roomName, setRoomName] = useState<string | null>(null)
   const [roomError, setRoomError] = useState<string | null>(null)
-
-  // Register the room in the rooms list (older rooms get a default name) and show its name.
-  // Keeps retrying every 5 s if the server can't be reached, then clears the error.
-  useEffect(() => {
-    if (!room) return
-    let stop = false
-    let timer: ReturnType<typeof setTimeout> | undefined
-    const attempt = () =>
-      ensureRoom(room)
-        .then((r) => {
-          if (stop) return
-          setRoomName(r.name)
-          setRoomError(null)
-        })
-        .catch((e: Error) => {
-          if (stop) return
-          setRoomError(e.message)
-          timer = setTimeout(attempt, 5000)
-        })
-    attempt()
-    return () => {
-      stop = true
-      clearTimeout(timer)
-    }
-  }, [room])
 
   const rename = async () => {
     if (!room) return
-    const next = window.prompt('Room name', roomName ?? '')?.trim()
-    if (!next || next === roomName) return
+    const next = window.prompt('Design name', name)?.trim().slice(0, 80)
+    if (!next || next === name) return
     try {
-      await renameRoom(room, next.slice(0, 80))
-      setRoomName(next.slice(0, 80))
+      await renameRoom(room, next)
+      onRenamed(next)
     } catch (e) {
       setRoomError(`Rename failed: ${(e as Error).message}`)
     }
   }
 
   const { state, actions } = useEditor()
-  const objects = state.objects[layoutId]
+  const objects = state.objects[layoutId] ?? NO_OBJECTS
+
+  // Local-only mode has no database: start from the design's own objects.
+  useEffect(() => {
+    if (!room) actions.load({ [layoutId]: seedObjects(design.seed) })
+  }, [room, actions, layoutId, design.seed])
 
   // Only ids that exist in the current layout count as selected (objects can be deleted by others).
   const selectedObjs = useMemo(
@@ -150,11 +191,11 @@ export function Editor({ room, me, onEditUser }: Props) {
   }, [])
 
   const roomSync = useRoomSync(room, me, actions, layoutId, selectedIds)
-  const ops = useObjectOps(actions, roomSync.sync, layoutId, objects, state.undo[layoutId], snap, selectedIds, setSelection)
+  const ops = useObjectOps(actions, roomSync.sync, design, objects, state.undo[layoutId] ?? NO_UNDO, snap, selectedIds, setSelection)
   const allIds = useMemo(() => objects.map((o) => o.id), [objects])
   useShortcuts(ops, selectedIds, setSelection, allIds, view !== 'walk')
 
-  const statuses = useMemo(() => computeStatuses(objects, layouts.options[layoutId]), [objects, layoutId])
+  const statuses = useMemo(() => computeStatuses(objects, design.booth), [objects, design.booth])
 
   // Other users' selections and drags, for this layout only.
   const peerSelections = useMemo(() => {
@@ -175,10 +216,9 @@ export function Editor({ room, me, onEditUser }: Props) {
   const single = selectedObjs.length === 1 ? selectedObjs[0] : null
 
   return (
+    <DesignContext.Provider value={design}>
     <div className="app">
       <TopBar
-        layoutId={layoutId}
-        onLayout={setLayoutId}
         view={view}
         onView={(v) => {
           setView(v)
@@ -192,11 +232,11 @@ export function Editor({ room, me, onEditUser }: Props) {
         onPavilion={setShowPavilion}
         snap={snap}
         onSnap={setSnap}
-        canUndo={state.undo[layoutId].length > 0}
+        canUndo={(state.undo[layoutId] ?? NO_UNDO).length > 0}
         onUndo={ops.undo}
         onReset={ops.reset}
         onSnapshots={() => setShowSnapshots(true)}
-        roomName={room ? roomName : undefined}
+        designName={name}
         onRename={room ? rename : undefined}
         onHome={room ? () => (location.href = location.pathname) : undefined}
       >
@@ -220,7 +260,7 @@ export function Editor({ room, me, onEditUser }: Props) {
           {/* flat = no filmic tone mapping, which would dull whites and the zone colors */}
           <Canvas dpr={[1, 2]} flat onPointerMissed={() => view !== 'walk' && setSelection([])}>
             <Scene
-              layoutId={layoutId}
+              design={design}
               view={view}
               showVolumes={showVolumes}
               showWalls={showWalls}
@@ -256,12 +296,11 @@ export function Editor({ room, me, onEditUser }: Props) {
             </>
           )}
           <CrowdPanel
-            layoutId={layoutId}
             settings={crowd}
             onChange={(patch) => setCrowd((c) => ({ ...c, ...patch }))}
             stats={crowdStats}
           />
-          {!roomSync.loaded && <div className="loading">Loading room…</div>}
+          {!roomSync.loaded && <div className="loading">Loading design…</div>}
         </main>
         <Sidebar
           selectedCount={selectedObjs.length}
@@ -281,7 +320,6 @@ export function Editor({ room, me, onEditUser }: Props) {
       {upload && (
         <UploadDialog
           room={room}
-          layoutId={layoutId}
           selected={single}
           initialMode={upload}
           ops={ops}
@@ -291,7 +329,6 @@ export function Editor({ room, me, onEditUser }: Props) {
       {showSnapshots && (
         <SnapshotsDialog
           room={room}
-          layoutId={layoutId}
           objects={objects}
           me={me}
           ops={ops}
@@ -300,5 +337,6 @@ export function Editor({ room, me, onEditUser }: Props) {
         />
       )}
     </div>
+    </DesignContext.Provider>
   )
 }

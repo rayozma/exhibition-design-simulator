@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { EditorObject } from '../lib/editor'
-import { layouts, type LayoutId } from '../lib/layout'
+import type { Design } from '../lib/design'
+import { useDesign } from '../lib/DesignContext'
 import { MAX_MODEL_MB, measureGlb, prepareModel, uploadGlb, type ModelSize } from '../lib/models'
 import type { ObjectOps } from '../lib/useObjectOps'
 
@@ -8,7 +9,6 @@ export type UploadMode = 'attach' | 'new'
 
 type Props = {
   room: string | null
-  layoutId: LayoutId
   /** Object selected when the dialog opened (target for "attach"). */
   selected: EditorObject | null
   initialMode: UploadMode
@@ -21,9 +21,9 @@ type Prepared = { glb: File; size: ModelSize; warning: string | null; converted:
 const cm = (v: number) => Math.max(0.05, Math.round(v * 100) / 100)
 const mb = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(1)} MB`
 
-/** New object sized to the model, placed in the middle of the booth's main strip. */
-function newModelObject(fileName: string, url: string, size: ModelSize, layoutId: LayoutId): EditorObject {
-  const r = layouts.options[layoutId].ndtFootprint[0]
+/** New object sized to the model, placed in the middle of the booth (or the hall if there is no booth). */
+function newModelObject(fileName: string, url: string, size: ModelSize, design: Design): EditorObject {
+  const r = design.booth.footprint[0] ?? { x: 0, z: 0, w: design.hall.w, d: design.hall.d }
   return {
     id: `model-${crypto.randomUUID().slice(0, 8)}`,
     name: fileName.replace(/\.glb$/i, ''),
@@ -40,7 +40,8 @@ function newModelObject(fileName: string, url: string, size: ModelSize, layoutId
   }
 }
 
-export function UploadDialog({ room, layoutId, selected, initialMode, ops, onClose }: Props) {
+export function UploadDialog({ room, selected, initialMode, ops, onClose }: Props) {
+  const design = useDesign()
   const target = useRef(selected).current // keep the target even if selection changes
   const canAttach = !!target && !target.locked
   const [mode, setMode] = useState<UploadMode>(canAttach ? initialMode : 'new')
@@ -77,7 +78,7 @@ export function UploadDialog({ room, layoutId, selected, initialMode, ops, onClo
     try {
       const url = await uploadGlb(room, prepared.glb, setProgress)
       if (mode === 'attach' && target) ops.update(target.id, { modelUrl: url, modelFit: fit })
-      else ops.add(newModelObject(prepared.glb.name, url, prepared.size, layoutId))
+      else ops.add(newModelObject(prepared.glb.name, url, prepared.size, design))
       onClose()
     } catch (e) {
       setError((e as Error).message) // Upload stays enabled so it can be retried

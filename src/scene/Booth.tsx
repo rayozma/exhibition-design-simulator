@@ -24,19 +24,19 @@ function WallMesh({ wall, h, t }: { wall: Wall; h: number; t: number }) {
 }
 
 export function Booth({ option, showWalls }: { option: LayoutOption; showWalls: boolean }) {
-  const { ndtFootprint, platformH, walls, wallH, wallT } = option
+  const { footprint, platformH, walls, wallH, wallT } = option
 
   const outline = useMemo(() => {
     const y = platformH + 0.005
-    const pts = outlineSegments(ndtFootprint).flatMap(([x1, z1, x2, z2]) => [x1, y, z1, x2, y, z2])
+    const pts = outlineSegments(footprint).flatMap(([x1, z1, x2, z2]) => [x1, y, z1, x2, y, z2])
     const g = new BufferGeometry()
     g.setAttribute('position', new Float32BufferAttribute(pts, 3))
     return g
-  }, [ndtFootprint, platformH])
+  }, [footprint, platformH])
 
   return (
     <group>
-      {ndtFootprint.map((r, i) => (
+      {footprint.map((r, i) => (
         <mesh key={i} position={[r.x + r.w / 2, platformH / 2, r.z + r.d / 2]} raycast={noRaycast}>
           <boxGeometry args={[r.w, platformH, r.d]} />
           <meshStandardMaterial color={theme.boothFloor} />

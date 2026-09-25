@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { BufferGeometry, Float32BufferAttribute } from 'three'
-import { layouts, theme } from '../lib/layout'
+import { useDesign } from '../lib/DesignContext'
+import { theme } from '../lib/layout'
 
 const STEP = 0.5
 const MAJOR_EVERY = 10 // every 5 m
@@ -24,7 +25,7 @@ function gridGeometry(w: number, d: number, major: boolean) {
 }
 
 export function HallFloor() {
-  const { w, d } = layouts.hall
+  const { w, d } = useDesign().hall
   const minor = useMemo(() => gridGeometry(w, d, false), [w, d])
   const major = useMemo(() => gridGeometry(w, d, true), [w, d])
 

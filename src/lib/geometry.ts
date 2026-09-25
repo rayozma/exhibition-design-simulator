@@ -1,4 +1,4 @@
-import { DEG, inRects, layouts, type LayoutOption, type Rect, type Wall } from './layout'
+import { DEG, inRects, type LayoutOption, type Rect, type Wall } from './layout'
 
 /** Anything with a rotated w × d footprint centered at (x, z). */
 export type Footprint = { x: number; z: number; w: number; d: number; rotY: number }
@@ -23,9 +23,9 @@ export function halfExtents(f: Footprint) {
 const clamp = (v: number, lo: number, hi: number) => (lo > hi ? (lo + hi) / 2 : Math.min(hi, Math.max(lo, v)))
 
 /** Move the footprint's center so the whole footprint stays inside the hall. */
-export function clampToHall<T extends Footprint>(f: T): T {
+export function clampToHall<T extends Footprint>(f: T, hall: { w: number; d: number }): T {
   const { hx, hz } = halfExtents(f)
-  const { w, d } = layouts.hall
+  const { w, d } = hall
   return { ...f, x: clamp(f.x, hx, w - hx), z: clamp(f.z, hz, d - hz) }
 }
 
@@ -115,7 +115,7 @@ export function computeStatuses(objs: Named[], option: LayoutOption): Map<string
     const hit =
       boxes.some((b, j) => j !== i && !tuckedIn(o, objs[j]) && obbOverlap(boxes[i], b)) ||
       walls.some((w) => obbOverlap(boxes[i], w))
-    result.set(o.id, hit ? 'overlap' : insideRects(o, option.ndtFootprint) ? 'ok' : 'outside')
+    result.set(o.id, hit ? 'overlap' : insideRects(o, option.footprint) ? 'ok' : 'outside')
   })
   return result
 }

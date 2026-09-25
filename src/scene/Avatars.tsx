@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef } from 'react'
 import { Billboard, Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { MeshStandardMaterial, type Group } from 'three'
-import { inRects, layouts, type LayoutId } from '../lib/layout'
+import { useDesign } from '../lib/DesignContext'
+import { inRects } from '../lib/layout'
 import type { Walker } from '../lib/useRoomSync'
 import { avatarOutfit } from '../sim/outfits'
 import { partColor, partGeometries, PARTS } from './CrowdFigures'
@@ -23,14 +24,14 @@ function Avatar({ walker, geos }: { walker: Walker; geos: ReturnType<typeof part
   useEffect(() => () => mats.forEach((m) => m?.dispose()), [mats])
 
   const ref = useRef<Group>(null)
-  const opt = layouts.options[walker.layoutId as LayoutId]
+  const opt = useDesign().booth
 
   // Glide between the ~10 Hz position updates.
   useFrame((_, dt) => {
     const g = ref.current
     if (!g) return
     const k = Math.min(1, dt * 10)
-    const y = inRects(opt.ndtFootprint, walker.x, walker.z) ? opt.platformH : 0
+    const y = inRects(opt.footprint, walker.x, walker.z) ? opt.platformH : 0
     if (g.userData.placed) {
       g.position.x += (walker.x - g.position.x) * k
       g.position.z += (walker.z - g.position.z) * k
@@ -63,7 +64,7 @@ function Avatar({ walker, geos }: { walker: Walker; geos: ReturnType<typeof part
 }
 
 /** Avatars of the other users who are in walk mode on this layout option. */
-export function Avatars({ walkers, layoutId }: { walkers: Walker[]; layoutId: LayoutId }) {
+export function Avatars({ walkers, layoutId }: { walkers: Walker[]; layoutId: string }) {
   const geos = useMemo(partGeometries, [])
   useEffect(() => () => Object.values(geos).forEach((g) => g.dispose()), [geos])
   return (

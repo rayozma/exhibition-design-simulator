@@ -9,7 +9,8 @@ import {
   type UndoEntry,
 } from './editor'
 import { clampToHall, normDeg, snapTo } from './geometry'
-import { DEG, type LayoutId } from './layout'
+import type { Design } from './design'
+import { DEG } from './layout'
 import type { SyncApi } from './useRoomSync'
 
 export const ROTATE_STEP = 15
@@ -25,15 +26,17 @@ const copyId = (id: string) => `${id.replace(/-[0-9a-f]{8}$/, '')}-${crypto.rand
 export function useObjectOps(
   actions: EditorActions,
   sync: SyncApi,
-  layoutId: LayoutId,
+  design: Design,
   objects: EditorObject[],
   undoStack: UndoEntry[],
   snap: boolean,
   selection: string[],
   setSelection: (ids: string[]) => void,
 ) {
-  const latest = useRef({ layoutId, objects, undoStack, snap, selection })
-  latest.current = { layoutId, objects, undoStack, snap, selection }
+  const layoutId = design.layoutId
+  const latest = useRef({ layoutId, design, objects, undoStack, snap, selection })
+  latest.current = { layoutId, design, objects, undoStack, snap, selection }
+  const clamp = <T extends EditorObject>(o: T) => clampToHall(o, latest.current.design.hall)
   /** Objects being dragged, as they were when the drag started. */
   const dragGroup = useRef<{ id: string; before: EditorObject[] } | null>(null)
 
@@ -48,7 +51,7 @@ export function useObjectOps(
       actions.apply(latest.current.layoutId, changes, undoable)
       sync.persist(latest.current.layoutId, changes)
     }
-    const setAll = (next: EditorObject[]) => commit(next.map((o) => ({ id: o.id, next: clampToHall(o) })))
+    const setAll = (next: EditorObject[]) => commit(next.map((o) => ({ id: o.id, next: clamp(o) })))
 
     return {
       /** Numeric edits from the side panel (one object). */
@@ -129,10 +132,10 @@ export function useObjectOps(
         sync.persist(l, undoChanges(entry))
       },
       reset() {
-        const { layoutId: l, objects: list } = latest.current
-        if (!window.confirm(`Reset layout ${l} to the original design for everyone in this room? (You can undo this.)`))
+        const { objects: list } = latest.current
+        if (!window.confirm(`Reset every object to the design's starting layout for everyone in this design? (You can undo this.)`))
           return
-        commit(resetChanges(list))
+        commit(resetChanges(list, latest.current.design.seed))
       },
       /** Replace the current layout with a snapshot (one undo step; saved for everyone). */
       restore(objects: EditorObject[]) {
@@ -152,10 +155,10 @@ export function useObjectOps(
         const lead = g?.before.find((o) => o.id === id)
         if (!g || !lead) return
         const s = latest.current.snap
-        const target = clampToHall({ ...lead, x: s ? snapTo(x) : x, z: s ? snapTo(z) : z })
+        const target = clamp({ ...lead, x: s ? snapTo(x) : x, z: s ? snapTo(z) : z })
         const dx = target.x - lead.x
         const dz = target.z - lead.z
-        const next = g.before.map((o) => clampToHall({ ...o, x: o.x + dx, z: o.z + dz }))
+        const next = g.before.map((o) => clamp({ ...o, x: o.x + dx, z: o.z + dz }))
         actions.apply(latest.current.layoutId, next.map((o) => ({ id: o.id, next: o })), false)
         sync.dragMove(latest.current.layoutId, next)
       },

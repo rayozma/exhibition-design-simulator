@@ -1,10 +1,8 @@
 import type { ReactNode } from 'react'
-import { LAYOUT_IDS, layouts, type LayoutId } from '../lib/layout'
+import { useDesign } from '../lib/DesignContext'
 import type { ViewMode } from '../scene/Scene'
 
 type Props = {
-  layoutId: LayoutId
-  onLayout: (id: LayoutId) => void
   view: ViewMode
   onView: (v: ViewMode) => void
   showVolumes: boolean
@@ -19,8 +17,8 @@ type Props = {
   onUndo: () => void
   onReset: () => void
   onSnapshots: () => void
-  /** Current room's name (shared mode); undefined in local-only mode. */
-  roomName?: string | null
+  /** Name of the open design. */
+  designName: string
   onRename?: () => void
   onHome?: () => void
   /** Rendered at the right end (presence / connection). */
@@ -28,34 +26,22 @@ type Props = {
 }
 
 export function TopBar(p: Props) {
+  const hasPavilion = !!useDesign().pavilion
   return (
     <header className="topbar">
       {p.onHome && (
-        <button onClick={p.onHome} title="Back to the list of rooms">
-          ← Rooms
+        <button onClick={p.onHome} title="Back to all designs">
+          ← Designs
         </button>
       )}
-      <strong className="title" title={p.onHome ? 'Room name' : undefined}>
-        {p.roomName ?? (p.onHome ? '…' : layouts.meta.title)}
+      <strong className="title" title="Design name">
+        {p.designName}
       </strong>
       {p.onRename && (
-        <button className="link" onClick={p.onRename} title="Rename this room" aria-label="Rename room">
+        <button className="link" onClick={p.onRename} title="Rename this design" aria-label="Rename design">
           ✎
         </button>
       )}
-
-      <div className="group" role="group" aria-label="Layout option">
-        {LAYOUT_IDS.map((id) => (
-          <button
-            key={id}
-            className={id === p.layoutId ? 'active' : ''}
-            onClick={() => p.onLayout(id)}
-            title={layouts.options[id].note ?? layouts.options[id].label}
-          >
-            <b>{id}</b> {layouts.options[id].label}
-          </button>
-        ))}
-      </div>
 
       <div className="group" role="group" aria-label="View">
         {(
@@ -75,10 +61,12 @@ export function TopBar(p: Props) {
         <input type="checkbox" checked={p.showVolumes} onChange={(e) => p.onVolumes(e.target.checked)} />
         Zone volumes
       </label>
-      <label className="toggle" title="Approximate look of the whole Al Masaood pavilion (from event photos)">
-        <input type="checkbox" checked={p.showPavilion} onChange={(e) => p.onPavilion(e.target.checked)} />
-        Pavilion
-      </label>
+      {hasPavilion && (
+        <label className="toggle" title="Approximate look of the whole Al Masaood pavilion (from event photos)">
+          <input type="checkbox" checked={p.showPavilion} onChange={(e) => p.onPavilion(e.target.checked)} />
+          Pavilion
+        </label>
+      )}
       <label className="toggle">
         <input type="checkbox" checked={p.showWalls} onChange={(e) => p.onWalls(e.target.checked)} />
         Walls

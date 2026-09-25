@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
 import { Line, Text } from '@react-three/drei'
 import { ExtrudeGeometry, MeshStandardMaterial, Path, Shape } from 'three'
-import { activeZones, inRects, layouts, type LayoutId, type Rect, type Zone } from '../lib/layout'
-import { walkableRects } from '../sim/navGrid'
+import { walkableRects } from '../lib/design'
+import { useDesign } from '../lib/DesignContext'
+import { inRects, type PavilionSpec, type Rect, type Zone } from '../lib/layout'
 
 /**
  * Visual-only approximation of the Al Masaood Energy pavilion (from event photos): a ship-like
@@ -11,8 +12,7 @@ import { walkableRects } from '../sim/navGrid'
  * Nothing here is selectable or affects the crowd.
  */
 
-const P = layouts.pavilion
-const C = P.colors
+type Colors = PavilionSpec['colors']
 const noRaycast = () => {}
 
 /** Rounded rectangle in the x/z plane (Shape x = world x, Shape y = world z), grown by `grow` m. */
@@ -49,7 +49,8 @@ const outline = (shape: Shape, y: number): [number, number, number][] =>
 const mat = (color: string, extra: ConstructorParameters<typeof MeshStandardMaterial>[0] = {}) =>
   new MeshStandardMaterial({ color, roughness: 0.4, ...extra })
 
-function Deck() {
+function Deck({ P }: { P: PavilionSpec }) {
+  const C = P.colors
   const d = P.deck
   const parts = useMemo(() => {
     const top = d.y + d.thickness
@@ -70,7 +71,7 @@ function Deck() {
         column: mat(C.hull, { roughness: 0.3 }),
       },
     }
-  }, [d])
+  }, [d, C])
 
   const columns = useMemo(() => {
     const xs: number[] = []
@@ -106,9 +107,9 @@ function Deck() {
 }
 
 /** White arch over a walkway entrance, with LED trim on the inside. */
-function Portal({ x, z1, z2, h }: (typeof P.portals)[number]) {
+function Portal({ x, z1, z2, h, C }: PavilionSpec['portals'][number] & { C: Colors }) {
   const t = 0.3
-  const m = useMemo(() => mat(C.hull, { roughness: 0.25 }), [])
+  const m = useMemo(() => mat(C.hull, { roughness: 0.25 }), [C.hull])
   const led: [number, number, number][] = [
     [x, 0.05, z1 + t / 2 + 0.01],
     [x, h - 0.51, z1 + t / 2 + 0.01],
@@ -182,14 +183,15 @@ function shellWalls(zone: Zone, walk: Rect[]): Wall[] {
   return walls
 }
 
-function Shells({ layoutId }: { layoutId: LayoutId }) {
+function Shells({ C }: { C: Colors }) {
+  const design = useDesign()
   const walls = useMemo(() => {
-    const walk = walkableRects(layoutId)
-    return activeZones(layoutId)
+    const walk = walkableRects(design)
+    return design.zones
       .filter((z) => !z.walkable && z.h > 0)
       .flatMap((z) => shellWalls(z, walk))
-  }, [layoutId])
-  const shell = useMemo(() => mat(C.shell, { roughness: 0.5 }), [])
+  }, [design])
+  const shell = useMemo(() => mat(C.shell, { roughness: 0.5 }), [C.shell])
   const accents = useMemo(() => new Map<string, MeshStandardMaterial>(), [])
   const accentMat = (c: string) => {
     let m = accents.get(c)
@@ -212,14 +214,15 @@ function Shells({ layoutId }: { layoutId: LayoutId }) {
   )
 }
 
-export function Pavilion({ layoutId }: { layoutId: LayoutId }) {
-  const waterline = useMemo(() => outline(roundedRect(P.rect, P.cornerRadius, -0.05), 0.03), [])
+export function Pavilion({ spec: P }: { spec: PavilionSpec }) {
+  const C = P.colors
+  const waterline = useMemo(() => outline(roundedRect(P.rect, P.cornerRadius, -0.05), 0.03), [P])
   return (
     <group>
-      <Shells layoutId={layoutId} />
-      <Deck />
+      <Shells C={C} />
+      <Deck P={P} />
       {P.portals.map((p, i) => (
-        <Portal key={i} {...p} />
+        <Portal key={i} {...p} C={C} />
       ))}
       <Line points={waterline} color={C.led} lineWidth={3} raycast={noRaycast} />
     </group>

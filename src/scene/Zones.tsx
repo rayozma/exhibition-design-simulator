@@ -1,5 +1,6 @@
 import { Text } from '@react-three/drei'
-import { layouts, textColorOn, type Zone } from '../lib/layout'
+import { useDesign } from '../lib/DesignContext'
+import { textColorOn, type Zone } from '../lib/layout'
 
 const noRaycast = () => null // zones are never selectable
 
@@ -11,7 +12,8 @@ const noRaycast = () => null // zones are never selectable
 function ZoneRect({ zone, showVolume, realistic }: { zone: Zone; showVolume: boolean; realistic: boolean }) {
   const volume = showVolume && !realistic && zone.h > 0
   const labelY = volume ? zone.h + 0.02 : 0.02
-  const floor = realistic && !zone.walkable ? layouts.pavilion.colors.carpet : zone.color
+  const carpet = useDesign().pavilion?.colors.carpet ?? '#cfd5dd'
+  const floor = realistic && !zone.walkable ? carpet : zone.color
 
   return (
     <group position={[zone.x + zone.w / 2, 0, zone.z + zone.d / 2]}>

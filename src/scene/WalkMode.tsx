@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { PerspectiveCamera, PointerLockControls } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { Vector3, type PerspectiveCamera as PerspectiveCameraImpl } from 'three'
 import type { EditorObject } from '../lib/editor'
 import { distToFootprint, wallFootprint, type Footprint } from '../lib/geometry'
-import { inRects, layouts, type LayoutId } from '../lib/layout'
-import { walkableRects } from '../sim/navGrid'
+import { walkableRects } from '../lib/design'
+import { useDesign } from '../lib/DesignContext'
+import { inRects } from '../lib/layout'
 
 export const WALK_START_ID = 'walk-start'
 
@@ -26,7 +27,6 @@ const KEYS: Record<string, 'f' | 'b' | 'l' | 'r'> = {
 }
 
 type Props = {
-  layoutId: LayoutId
   objects: EditorObject[]
   onLockChange: (locked: boolean) => void
   /** Called every frame with where I am (the sync layer throttles), and once when walk mode ends. */
@@ -36,11 +36,12 @@ type Props = {
 
 /**
  * First-person walking: click the "Start walking" button to capture the mouse (look around),
- * WASD / arrows to move, Shift to run, Esc to release the mouse. Starts on the walkway facing the booth.
+ * WASD / arrows to move, Shift to run, Esc to release the mouse. Starts just outside the booth, facing it.
  */
-export function WalkMode({ layoutId, objects, onLockChange, onMove, onLeave }: Props) {
-  const opt = layouts.options[layoutId]
-  const walkRects = useMemo(() => walkableRects(layoutId), [layoutId])
+export function WalkMode({ objects, onLockChange, onMove, onLeave }: Props) {
+  const design = useDesign()
+  const opt = design.booth
+  const walkRects = useMemo(() => walkableRects(design), [design])
   const obstacles: Footprint[] = useMemo(
     () => [...objects, ...opt.walls.map((w) => wallFootprint(w, opt.wallT))],
     [objects, opt],
@@ -70,24 +71,38 @@ export function WalkMode({ layoutId, objects, onLockChange, onMove, onLeave }: P
     }
   }, [])
 
-  // Start on the walkway in front of the booth, looking into it (+z = south).
-  const start = useMemo(() => {
-    const r = opt.ndtFootprint[0]
-    return new Vector3(r.x + r.w / 2, EYE, 7.5)
-  }, [opt])
+  const canStand = (x: number, z: number) =>
+    inRects(walkRects, x, z) && obstacles.every((o) => distToFootprint(o, x, z) > RADIUS)
+
+  // Start (once, when walk mode opens) at the free walkable spot outside the booth closest to it,
+  // looking at the booth's center. Falls back to the booth center.
+  const [start] = useState(() => {
+    const r = opt.footprint[0] ?? { x: design.hall.w / 2 - 1, z: design.hall.d / 2 - 1, w: 2, d: 2 }
+    const target = new Vector3(r.x + r.w / 2, EYE, r.z + r.d / 2)
+    let best: Vector3 | null = null
+    let bestD = Infinity
+    for (let x = 0.25; x < design.hall.w; x += 0.5) {
+      for (let z = 0.25; z < design.hall.d; z += 0.5) {
+        if (inRects(opt.footprint, x, z) || !canStand(x, z)) continue
+        const dd = Math.hypot(x - target.x, z - target.z)
+        if (dd > 1.5 && dd < bestD) {
+          bestD = dd
+          best = new Vector3(x, EYE, z)
+        }
+      }
+    }
+    return { pos: best ?? target.clone(), look: target }
+  })
   const cam = useRef<PerspectiveCameraImpl>(null)
   useEffect(() => {
-    cam.current?.position.copy(start)
-    cam.current?.lookAt(start.x, EYE, start.z + 5)
+    cam.current?.position.copy(start.pos)
+    cam.current?.lookAt(start.look)
   }, [start])
 
   // Tell others when I stop walking (switching view, or leaving the room).
   const leave = useRef(onLeave)
   leave.current = onLeave
   useEffect(() => () => leave.current(), [])
-
-  const canStand = (x: number, z: number) =>
-    inRects(walkRects, x, z) && obstacles.every((o) => distToFootprint(o, x, z) > RADIUS)
 
   const tmp = useMemo(() => ({ fwd: new Vector3(), side: new Vector3() }), [])
   useFrame((_, dt) => {
@@ -114,7 +129,7 @@ export function WalkMode({ layoutId, objects, onLockChange, onMove, onLeave }: P
       else if (canStand(p.x, p.z + dz)) p.z += dz
     }
     // Step up onto the booth platform.
-    p.y = EYE + (inRects(opt.ndtFootprint, p.x, p.z) ? opt.platformH : 0)
+    p.y = EYE + (inRects(opt.footprint, p.x, p.z) ? opt.platformH : 0)
     // Share position and facing (heading in three.js rotation.y terms: 0 = facing +z).
     camera.getWorldDirection(tmp.fwd)
     onMove(p.x, p.z, Math.atan2(tmp.fwd.x, tmp.fwd.z))

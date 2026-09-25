@@ -1,5 +1,5 @@
-import { inRects, layouts } from '../lib/layout'
-import { cellOf, cellX, cellZ, type FlowField, type NavGrid } from './navGrid'
+import { inRects } from '../lib/layout'
+import { CELL, cellOf, cellX, cellZ, type FlowField, type NavGrid } from './navGrid'
 import { baldBlackSuit, randomOutfit, type Outfit } from './outfits'
 
 export const MAX_AGENTS = 400
@@ -64,14 +64,15 @@ export class CrowdSim {
   visitorShare = 0.3
   peak = 0
   inside = 0
-  readonly heatCols = layouts.hall.w
-  readonly heatRows = layouts.hall.d
+  /** Heatmap / neighbour grid in 1 m cells, sized to the hall of the current design. */
+  heatCols = 1
+  heatRows = 1
   /** Average people per m² in 1 m cells. */
-  heat = new Float32Array(layouts.hall.w * layouts.hall.d)
+  heat = new Float32Array(1)
   heatVersion = 0
   private heatTimer = 0
   private warm = true // next top-up places agents anywhere (instead of at entrances)
-  private bucketHead = new Int32Array(layouts.hall.w * layouts.hall.d)
+  private bucketHead = new Int32Array(1)
   private bucketNext = new Int32Array(MAX_AGENTS)
 
   get targetCount() {
@@ -80,6 +81,18 @@ export class CrowdSim {
 
   setNav(nav: NavGrid | null) {
     this.nav = nav
+    if (nav) {
+      // Hall size may differ between designs (or change while editing the layout).
+      const cols = Math.ceil(nav.cols * CELL)
+      const rows = Math.ceil(nav.rows * CELL)
+      if (cols !== this.heatCols || rows !== this.heatRows) {
+        this.heatCols = cols
+        this.heatRows = rows
+        this.heat = new Float32Array(cols * rows)
+        this.bucketHead = new Int32Array(cols * rows)
+        this.heatVersion++
+      }
+    }
     // Routes changed: re-plan everyone (dwellers keep dwelling).
     for (const a of this.agents) if (a.dwell <= 0) this.plan(a)
   }

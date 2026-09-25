@@ -2,13 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { DataTexture, LinearFilter, NearestFilter, SRGBColorSpace } from 'three'
 import type { EditorObject } from '../lib/editor'
-import { layouts, type LayoutId } from '../lib/layout'
+import { useDesign } from '../lib/DesignContext'
 import { CrowdSim, MAX_AGENTS, type CrowdSettings, type CrowdStats } from '../sim/crowd'
-import { buildNav, type NavGrid } from '../sim/navGrid'
+import { buildNav, CELL, type NavGrid } from '../sim/navGrid'
 import { CrowdFigures } from './CrowdFigures'
 
 const noRaycast = () => {}
-const { w: HALL_W, d: HALL_D } = layouts.hall
 
 /** `value`, but only after it has stopped changing for `ms` (immediately when `resetKey` changes). */
 function useSettled<T>(value: T, ms: number, resetKey: unknown): T {
@@ -44,19 +43,20 @@ function heatColor(v: number, out: Uint8Array, o: number) {
   out[o + 3] = Math.min(1, v / 0.3) * 160
 }
 
-/** Flat plane over the whole hall showing a texture (row 0 of the data = north edge). */
-function HallOverlay({ tex, y }: { tex: DataTexture; y: number }) {
+/** Flat plane from the hall's NW corner, w × d m, showing a texture (row 0 of the data = north edge). */
+function HallOverlay({ tex, y, w, d }: { tex: DataTexture; y: number; w: number; d: number }) {
   return (
-    <mesh rotation-x={-Math.PI / 2} position={[HALL_W / 2, y, HALL_D / 2]} raycast={noRaycast}>
-      <planeGeometry args={[HALL_W, HALL_D]} />
+    <mesh rotation-x={-Math.PI / 2} position={[w / 2, y, d / 2]} raycast={noRaycast}>
+      <planeGeometry args={[w, d]} />
       <meshBasicMaterial map={tex} transparent depthWrite={false} />
     </mesh>
   )
 }
 
-function HeatOverlay({ sim }: { sim: CrowdSim }) {
-  const cols = sim.heatCols
-  const rows = sim.heatRows
+/** Density heatmap in 1 m cells over the nav grid's area. */
+function HeatOverlay({ sim, nav }: { sim: CrowdSim; nav: NavGrid }) {
+  const cols = Math.ceil(nav.cols * CELL)
+  const rows = Math.ceil(nav.rows * CELL)
   const tex = useMemo(() => {
     const t = new DataTexture(new Uint8Array(cols * rows * 4), cols, rows)
     t.magFilter = LinearFilter
@@ -67,7 +67,7 @@ function HeatOverlay({ sim }: { sim: CrowdSim }) {
   useEffect(() => () => tex.dispose(), [tex])
   const version = useRef(-1)
   useFrame(() => {
-    if (sim.heatVersion === version.current) return
+    if (sim.heatVersion === version.current || sim.heat.length !== cols * rows) return
     version.current = sim.heatVersion
     const data = tex.image.data as Uint8Array
     for (let j = 0; j < rows; j++) {
@@ -75,7 +75,7 @@ function HeatOverlay({ sim }: { sim: CrowdSim }) {
     }
     tex.needsUpdate = true
   })
-  return <HallOverlay tex={tex} y={0.13} />
+  return <HallOverlay tex={tex} y={0.13} w={cols} d={rows} />
 }
 
 function ClearanceOverlay({ nav }: { nav: NavGrid }) {
@@ -94,30 +94,30 @@ function ClearanceOverlay({ nav }: { nav: NavGrid }) {
     return t
   }, [nav])
   useEffect(() => () => tex.dispose(), [tex])
-  return <HallOverlay tex={tex} y={0.125} />
+  return <HallOverlay tex={tex} y={0.125} w={nav.cols * CELL} d={nav.rows * CELL} />
 }
 
 type Props = {
-  layoutId: LayoutId
   objects: EditorObject[]
   settings: CrowdSettings
   onStats: (s: CrowdStats) => void
 }
 
 /** Local crowd simulation (not synced): instanced figures, optional heatmap and clearance overlays. */
-export function Crowd({ layoutId, objects, settings, onStats }: Props) {
+export function Crowd({ objects, settings, onStats }: Props) {
+  const design = useDesign()
   const sim = useMemo(() => new CrowdSim(), [])
   // Rebuild routes only after objects stop moving (dragging changes them every frame).
-  const settled = useSettled(objects, 300, layoutId)
+  const settled = useSettled(objects, 300, design)
   const active = settings.density > 0 || settings.showClearance
-  const nav = useMemo(() => (active ? buildNav(layoutId, settled) : null), [active, layoutId, settled])
+  const nav = useMemo(() => (active ? buildNav(design, settled) : null), [active, design, settled])
 
   useEffect(() => sim.setNav(nav), [sim, nav])
   useEffect(() => sim.setDensity(settings.density), [sim, settings.density])
   useEffect(() => {
     sim.visitorShare = settings.visitorShare
   }, [sim, settings.visitorShare])
-  useEffect(() => sim.restart(), [sim, layoutId, settings.restartToken])
+  useEffect(() => sim.restart(), [sim, design.layoutId, settings.restartToken])
   useEffect(() => sim.resetPeak(), [sim, settings.density, settings.visitorShare])
 
   const lastStats = useRef({ t: 0, key: '' })
@@ -148,7 +148,7 @@ export function Crowd({ layoutId, objects, settings, onStats }: Props) {
   return (
     <group>
       <CrowdFigures sim={sim} nav={nav} />
-      {settings.showHeat && settings.density > 0 && <HeatOverlay sim={sim} />}
+      {settings.showHeat && settings.density > 0 && nav && <HeatOverlay sim={sim} nav={nav} />}
       {settings.showClearance && nav && <ClearanceOverlay nav={nav} />}
     </group>
   )
