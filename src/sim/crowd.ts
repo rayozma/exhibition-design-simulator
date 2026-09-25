@@ -1,5 +1,6 @@
 import { inRects, layouts } from '../lib/layout'
 import { cellOf, cellX, cellZ, type FlowField, type NavGrid } from './navGrid'
+import { randomOutfit, type Outfit } from './outfits'
 
 export const MAX_AGENTS = 400
 
@@ -24,7 +25,6 @@ const STUCK_AFTER = 6 // s without getting closer to the goal -> pick another go
 const SEPARATION = 0.55 // m, agents push apart inside this distance
 const HEAT_EVERY = 0.5 // s
 const HEAT_KEEP = 0.92 // exponential moving average: ~6 s memory
-const SHIRTS = [0xe11d48, 0x2563eb, 0x16a34a, 0xf59e0b, 0x7c3aed, 0x0891b2, 0xf97316, 0x64748b, 0xf8fafc, 0x111827]
 
 type Agent = {
   x: number
@@ -42,7 +42,9 @@ type Agent = {
   visitsLeft: number
   lastAttraction: number
   spawnEntrance: number
-  color: number
+  outfit: Outfit
+  /** Facing direction (radians, three.js rotation.y: 0 = facing +z). */
+  heading: number
   dead: boolean
 }
 
@@ -162,7 +164,8 @@ export class CrowdSim {
       visitsLeft: role === 'visitor' ? 1 + Math.floor(Math.random() * MAX_VISITS) : 0,
       lastAttraction: -1,
       spawnEntrance,
-      color: pick(SHIRTS),
+      outfit: randomOutfit(),
+      heading: Math.random() * Math.PI * 2,
       dead: false,
     }
     this.plan(a)
@@ -287,6 +290,13 @@ export class CrowdSim {
       if (sp > max) {
         a.vx *= max / sp
         a.vz *= max / sp
+      }
+      // Turn to face the walking direction (smoothly; standing people keep their heading).
+      if (sp > 0.15) {
+        const target = Math.atan2(a.vx, a.vz)
+        let diff = target - a.heading
+        diff = Math.atan2(Math.sin(diff), Math.cos(diff)) // shortest way round
+        a.heading += diff * Math.min(1, dt * 8)
       }
 
       // Move, sliding along blocked cells.
