@@ -21,7 +21,12 @@ type Props = {
 /** Connection status, you, and everyone else online with what they have selected. */
 export function PeerList({ status, me, peers, objects, onEditUser }: Props) {
   const [copied, setCopied] = useState(false)
-  const nameOf = (p: Peer) => objects[p.layoutId]?.find((o) => o.id === p.selectedId)?.name.split(/ – | \(/)[0]
+  /** "Chair" or "Chair +2" for several selected objects. */
+  const nameOf = (p: Peer) => {
+    const first = objects[p.layoutId]?.find((o) => o.id === p.selectedIds[0])?.name.split(/ – | \(/)[0]
+    if (!first) return undefined
+    return p.selectedIds.length > 1 ? `${first} +${p.selectedIds.length - 1}` : first
+  }
 
   const copyLink = async () => {
     try {

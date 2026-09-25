@@ -12,6 +12,12 @@ export const supabase =
   url && key
     ? createClient(url, key, {
         auth: { persistSession: false }, // no sign-in in this app
-        realtime: { params: { eventsPerSecond: 20 } }, // room for ~10 Hz drag broadcasts + presence
+        realtime: {
+          params: { eventsPerSecond: 20 }, // room for ~10 Hz drag broadcasts + presence
+          // Send keep-alive heartbeats from a Web Worker: browsers throttle timers in background
+          // tabs, which made the connection drop ("Offline — reconnecting") after switching tabs.
+          worker: true,
+          heartbeatIntervalMs: 15000,
+        },
       })
     : null

@@ -138,6 +138,19 @@ export async function renameRoom(id: string, name: string) {
   if (error) throw new Error(roomsError(error.message))
 }
 
+/** Delete a room with everything in it. Returns false if the password is wrong. */
+export async function deleteRoom(id: string, password: string): Promise<boolean> {
+  const { data, error } = await db().rpc('delete_room', { p_room: id, p_password: password })
+  if (error) {
+    throw new Error(
+      /delete_room|function .* does not exist|schema cache/i.test(error.message) && !/not set up/i.test(error.message)
+        ? 'Room deletion is not set up. Run supabase/delete-room.sql in the Supabase SQL Editor.'
+        : error.message,
+    )
+  }
+  return data === true
+}
+
 const roomsError = (msg: string) =>
   /relation .*rooms.* does not exist|schema cache/i.test(msg)
     ? 'The rooms table is missing. Run supabase/rooms-and-colors.sql in the Supabase SQL Editor.'

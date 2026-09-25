@@ -9,9 +9,10 @@ import { Booth } from './Booth'
 import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
 import { SceneObject } from './SceneObject'
+import { WalkMode } from './WalkMode'
 import { Zones } from './Zones'
 
-export type ViewMode = 'perspective' | 'top'
+export type ViewMode = 'perspective' | 'top' | 'walk'
 
 export type SceneProps = {
   layoutId: LayoutId
@@ -20,14 +21,15 @@ export type SceneProps = {
   showWalls: boolean
   objects: EditorObject[]
   statuses: Map<string, Status>
-  selectedId: string | null
+  selectedIds: string[]
   /** Other users' selections / drags in this layout, by object id. */
   peerSelections: Map<string, { name: string; color: string }>
   movers: Map<string, { name: string; color: string }>
-  onSelect: (id: string) => void
+  onSelect: (id: string, additive: boolean) => void
   ops: ObjectOps
   crowd: CrowdSettings
   onCrowdStats: (s: CrowdStats) => void
+  onWalkLock: (locked: boolean) => void
 }
 
 /** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
@@ -50,6 +52,8 @@ export function Scene(p: SceneProps) {
   const { layoutId, view, showVolumes, showWalls } = p
   const option = layouts.options[layoutId]
   const top = view === 'top'
+  const walk = view === 'walk'
+  const selected = new Set(p.selectedIds)
 
   return (
     <>
@@ -60,19 +64,25 @@ export function Scene(p: SceneProps) {
       <directionalLight position={[8, 22, 16]} intensity={1.2} />
       <directionalLight position={[28, 12, -4]} intensity={0.45} />
 
-      {top ? (
-        <TopCamera />
+      {walk ? (
+        <WalkMode layoutId={layoutId} objects={p.objects} onLockChange={p.onWalkLock} />
       ) : (
-        <PerspectiveCamera makeDefault position={[HALL_CENTER[0], 18, 30]} fov={45} near={0.1} far={300} />
+        <>
+          {top ? (
+            <TopCamera />
+          ) : (
+            <PerspectiveCamera makeDefault position={[HALL_CENTER[0], 18, 30]} fov={45} near={0.1} far={300} />
+          )}
+          {/* re-mount controls per view so they bind to the new camera */}
+          <OrbitControls
+            key={view}
+            makeDefault
+            target={HALL_CENTER}
+            enableRotate={!top}
+            maxPolarAngle={top ? Math.PI : Math.PI / 2.1}
+          />
+        </>
       )}
-      {/* re-mount controls per view so they bind to the new camera */}
-      <OrbitControls
-        key={view}
-        makeDefault
-        target={HALL_CENTER}
-        enableRotate={!top}
-        maxPolarAngle={top ? Math.PI : Math.PI / 2.1}
-      />
 
       <HallFloor />
       <Zones zones={activeZones(layoutId)} showVolumes={showVolumes} />
@@ -83,11 +93,12 @@ export function Scene(p: SceneProps) {
           obj={o}
           baseY={inRects(option.ndtFootprint, o.x, o.z) ? option.platformH : 0}
           status={p.statuses.get(o.id) ?? 'ok'}
-          selected={o.id === p.selectedId}
+          selected={selected.has(o.id)}
           peer={p.peerSelections.get(o.id)}
           mover={p.movers.get(o.id)}
           ops={p.ops}
           onSelect={p.onSelect}
+          interactive={!walk}
         />
       ))}
       <Crowd layoutId={layoutId} objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />

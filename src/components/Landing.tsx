@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createRoom, fetchRooms, seedRoom, type Room } from '../lib/db'
+import { createRoom, deleteRoom, fetchRooms, seedRoom, type Room } from '../lib/db'
 import { layouts } from '../lib/layout'
 import { loadUser, newRoomId } from '../lib/user'
 
@@ -16,6 +16,26 @@ export function Landing() {
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState<{ id: string; password: string; error: string | null } | null>(null)
+  const [deleteBusy, setDeleteBusy] = useState(false)
+
+  const remove = async (r: Room) => {
+    if (!deleting) return
+    setDeleteBusy(true)
+    try {
+      const ok = await deleteRoom(r.id, deleting.password)
+      if (!ok) {
+        setDeleting({ ...deleting, error: 'Wrong password.' })
+        return
+      }
+      setRooms((list) => list?.filter((x) => x.id !== r.id) ?? null)
+      setDeleting(null)
+    } catch (e) {
+      setDeleting({ ...deleting, error: (e as Error).message })
+    } finally {
+      setDeleteBusy(false)
+    }
+  }
 
   useEffect(() => {
     fetchRooms()
@@ -70,13 +90,48 @@ export function Landing() {
           {rooms === null && !error && <p className="muted small">Loading…</p>}
           {rooms?.length === 0 && <p className="muted small">No rooms yet. Create the first one above.</p>}
           {rooms?.map((r) => (
-            <button key={r.id} className="room-row" onClick={() => open(r.id)}>
-              <strong>{r.name}</strong>
-              <span className="muted small">
-                edited {when(r.updated_at)}
-                {r.created_by && r.created_by !== 'migration' ? ` · created by ${r.created_by}` : ''}
-              </span>
-            </button>
+            <div key={r.id} className="room-item">
+              <div className="room-line">
+                <button className="room-row" onClick={() => open(r.id)}>
+                  <strong>{r.name}</strong>
+                  <span className="muted small">
+                    edited {when(r.updated_at)}
+                    {r.created_by && r.created_by !== 'migration' ? ` · created by ${r.created_by}` : ''}
+                  </span>
+                </button>
+                <button
+                  className="danger"
+                  title="Delete this room (password required)"
+                  aria-label={`Delete room ${r.name}`}
+                  onClick={() => setDeleting(deleting?.id === r.id ? null : { id: r.id, password: '', error: null })}
+                >
+                  Delete
+                </button>
+              </div>
+              {deleting?.id === r.id && (
+                <form
+                  className="save-row"
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    remove(r)
+                  }}
+                >
+                  <input
+                    type="password"
+                    autoFocus
+                    placeholder="Password to delete this room"
+                    value={deleting.password}
+                    disabled={deleteBusy}
+                    onChange={(e) => setDeleting({ ...deleting, password: e.target.value, error: null })}
+                    aria-label="Delete password"
+                  />
+                  <button className="danger" type="submit" disabled={deleteBusy || !deleting.password}>
+                    {deleteBusy ? 'Deleting…' : 'Delete for everyone'}
+                  </button>
+                  {deleting.error && <p className="status overlap">{deleting.error}</p>}
+                </form>
+              )}
+            </div>
           ))}
         </div>
 

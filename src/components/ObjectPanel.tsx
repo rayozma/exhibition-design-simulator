@@ -1,70 +1,8 @@
-import { useEffect, useState } from 'react'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
 import { ROTATE_STEP, type ObjectOps } from '../lib/useObjectOps'
 import { baseColorOf } from '../scene/SceneObject'
-
-const fmt = (v: number) => String(Math.round(v * 100) / 100)
-
-/** Text input that commits on blur / Enter (so one edit = one undo step). */
-function Field(props: {
-  label: string
-  value: string
-  disabled?: boolean
-  numeric?: boolean
-  onCommit: (text: string) => void
-}) {
-  const [text, setText] = useState(props.value)
-  useEffect(() => setText(props.value), [props.value]) // follow drags / undo
-
-  const commit = () => {
-    if (text !== props.value) props.onCommit(text)
-  }
-  return (
-    <label className="field">
-      <span>{props.label}</span>
-      <input
-        type={props.numeric ? 'number' : 'text'}
-        step="any"
-        value={text}
-        disabled={props.disabled}
-        onChange={(e) => setText(e.target.value)}
-        onBlur={commit}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') e.currentTarget.blur()
-          if (e.key === 'Escape') {
-            setText(props.value)
-            e.currentTarget.blur()
-          }
-        }}
-      />
-    </label>
-  )
-}
-
-function NumberField(props: {
-  label: string
-  value: number
-  min?: number
-  disabled?: boolean
-  onCommit: (v: number) => void
-}) {
-  const [bad, setBad] = useState(0) // bump to re-sync the input after invalid input
-  return (
-    <Field
-      key={bad}
-      numeric
-      label={props.label}
-      value={fmt(props.value)}
-      disabled={props.disabled}
-      onCommit={(t) => {
-        const n = parseFloat(t)
-        if (Number.isFinite(n) && (props.min === undefined || n >= props.min)) props.onCommit(n)
-        else setBad((b) => b + 1)
-      }}
-    />
-  )
-}
+import { Field, NumberField, NumberTagField, RemarksField } from './fields'
 
 const STATUS_TEXT: Record<Status, string | null> = {
   ok: null,
@@ -73,42 +11,105 @@ const STATUS_TEXT: Record<Status, string | null> = {
 }
 
 type Props = {
-  obj: EditorObject | null
-  status: Status
-  /** Name of another user currently dragging this object. */
-  busyBy: string | null
+  /** Selected objects (0, 1 or more). */
+  objs: EditorObject[]
+  statuses: Map<string, Status>
+  /** Other user dragging an object, by object id. */
+  busyBy: (id: string) => string | null
   ops: ObjectOps
   /** Open the upload dialog (attaches to the selected object, or adds a new one); undefined = uploads unavailable. */
   onUpload?: () => void
 }
 
-export function ObjectPanel({ obj, status, busyBy, ops, onUpload }: Props) {
-  if (!obj) {
-    return (
-      <aside className="panel">
-        <p className="muted">Click an object to select it.</p>
-        <ul className="help">
-          <li>Drag: move on the floor</li>
-          <li>R / Shift+R: rotate ±{ROTATE_STEP}°</li>
-          <li>Delete: delete selected</li>
-          <li>Ctrl+Z: undo</li>
-          <li>Esc: deselect</li>
-        </ul>
-        {onUpload && (
-          <button className="block" onClick={onUpload}>
-            Upload .glb as new object…
-          </button>
-        )}
-      </aside>
-    )
-  }
+function Help({ onUpload }: { onUpload?: () => void }) {
+  return (
+    <>
+      <p className="muted">Click an object to select it. Ctrl/Shift+click to select several.</p>
+      <ul className="help">
+        <li>Drag: move (drags the whole selection)</li>
+        <li>R / Shift+R: rotate ±{ROTATE_STEP}°</li>
+        <li>Delete: delete selected</li>
+        <li>Ctrl+Z: undo</li>
+        <li>Esc: deselect</li>
+      </ul>
+      {onUpload && (
+        <button className="block" onClick={onUpload}>
+          Upload .glb / .obj as new object…
+        </button>
+      )}
+    </>
+  )
+}
 
+/** Several objects selected: shared actions. */
+function MultiPanel({ objs, ops }: { objs: EditorObject[]; ops: ObjectOps }) {
+  const ids = objs.map((o) => o.id)
+  const allLocked = objs.every((o) => o.locked)
+  return (
+    <>
+      <h4>{objs.length} objects selected</h4>
+      <ul className="help">
+        {objs.map((o) => (
+          <li key={o.id}>
+            {o.num !== undefined ? `${o.num}. ` : ''}
+            {o.name}
+            {o.locked ? ' (locked)' : ''}
+          </li>
+        ))}
+      </ul>
+      <p className="muted small">Drag any of them to move them together. Locked objects stay put.</p>
+
+      <h4>Rotate around their center</h4>
+      <div className="actions tight">
+        <button onClick={() => ops.rotate(ids, -ROTATE_STEP)} title="Shift+R">
+          ⟲ −{ROTATE_STEP}°
+        </button>
+        <button onClick={() => ops.rotate(ids, ROTATE_STEP)} title="R">
+          ⟳ +{ROTATE_STEP}°
+        </button>
+      </div>
+
+      <h4>Color for all</h4>
+      <div className="color-row">
+        <input type="color" value={baseColorOf(objs[0])} onChange={(e) => ops.updateMany(ids, { color: e.target.value })} />
+        <button onClick={() => ops.updateMany(ids, { color: undefined })}>Reset colors</button>
+      </div>
+
+      <div className="actions">
+        <button onClick={() => ops.toggleLock(ids)}>{allLocked ? 'Unlock all' : 'Lock all'}</button>
+        <button onClick={() => ops.duplicate(ids)}>Duplicate</button>
+        <button className="danger" onClick={() => ops.remove(ids)}>
+          Delete
+        </button>
+      </div>
+    </>
+  )
+}
+
+/** One object selected: every property, editable. */
+function SinglePanel({
+  obj,
+  status,
+  busyBy,
+  ops,
+  onUpload,
+}: {
+  obj: EditorObject
+  status: Status
+  busyBy: string | null
+  ops: ObjectOps
+  onUpload?: () => void
+}) {
   const locked = obj.locked || !!busyBy
   const update = (patch: Partial<EditorObject>) => ops.update(obj.id, patch)
+  const ids = [obj.id]
 
   return (
-    <aside className="panel" key={obj.id}>
-      <Field label="Name" value={obj.name} disabled={locked} onCommit={(name) => update({ name })} />
+    <div key={obj.id}>
+      <div className="row-name">
+        <NumberTagField value={obj.num} disabled={locked} onCommit={(num) => update({ num })} />
+        <Field label="Name" value={obj.name} disabled={locked} onCommit={(name) => update({ name })} />
+      </div>
       {busyBy && <p className="status busy">Being moved by {busyBy}</p>}
       {STATUS_TEXT[status] && <p className={`status ${status}`}>{STATUS_TEXT[status]}</p>}
 
@@ -128,13 +129,16 @@ export function ObjectPanel({ obj, status, busyBy, ops, onUpload }: Props) {
       <h4>Rotation (°)</h4>
       <div className="row3">
         <NumberField label="Y" value={obj.rotY} disabled={locked} onCommit={(rotY) => update({ rotY })} />
-        <button disabled={locked} onClick={() => ops.rotate(obj.id, -ROTATE_STEP)} title="Shift+R">
+        <button disabled={locked} onClick={() => ops.rotate(ids, -ROTATE_STEP)} title="Shift+R">
           ⟲ −{ROTATE_STEP}°
         </button>
-        <button disabled={locked} onClick={() => ops.rotate(obj.id, ROTATE_STEP)} title="R">
+        <button disabled={locked} onClick={() => ops.rotate(ids, ROTATE_STEP)} title="R">
           ⟳ +{ROTATE_STEP}°
         </button>
       </div>
+
+      <h4>Remarks</h4>
+      <RemarksField value={obj.note ?? ''} rows={3} disabled={!!busyBy} onCommit={(t) => ops.annotate(obj.id, t)} />
 
       <h4>Color</h4>
       <div className="color-row">
@@ -143,7 +147,7 @@ export function ObjectPanel({ obj, status, busyBy, ops, onUpload }: Props) {
           value={baseColorOf(obj)}
           disabled={locked}
           onChange={(e) => update({ color: e.target.value })}
-          title="Color of the placeholder box (uploaded models keep their own materials)"
+          title="Main color of the built-in model (uploaded models keep their own materials)"
         />
         <span className="muted small">{obj.color ?? `default${obj.material ? ` (${obj.material})` : ''}`}</span>
         {obj.color && (
@@ -178,21 +182,37 @@ export function ObjectPanel({ obj, status, busyBy, ops, onUpload }: Props) {
         </>
       ) : onUpload ? (
         <button disabled={locked} onClick={onUpload}>
-          Attach .glb model…
+          Attach .glb / .obj model…
         </button>
       ) : (
         <p className="muted small">Model upload needs Supabase.</p>
       )}
 
       <div className="actions">
-        <button disabled={!!busyBy} onClick={() => ops.toggleLock(obj.id)}>
+        <button disabled={!!busyBy} onClick={() => ops.toggleLock(ids)}>
           {obj.locked ? 'Unlock' : 'Lock'}
         </button>
-        <button onClick={() => ops.duplicate(obj.id)}>Duplicate</button>
-        <button className="danger" disabled={locked} onClick={() => ops.remove(obj.id)}>
+        <button onClick={() => ops.duplicate(ids)}>Duplicate</button>
+        <button className="danger" disabled={locked} onClick={() => ops.remove(ids)}>
           Delete
         </button>
       </div>
-    </aside>
+    </div>
+  )
+}
+
+/** "Selected" tab: help (nothing selected), one object's properties, or actions for several. */
+export function ObjectPanel({ objs, statuses, busyBy, ops, onUpload }: Props) {
+  if (!objs.length) return <Help onUpload={onUpload} />
+  if (objs.length > 1) return <MultiPanel objs={objs} ops={ops} />
+  const obj = objs[0]
+  return (
+    <SinglePanel
+      obj={obj}
+      status={statuses.get(obj.id) ?? 'ok'}
+      busyBy={busyBy(obj.id)}
+      ops={ops}
+      onUpload={onUpload}
+    />
   )
 }

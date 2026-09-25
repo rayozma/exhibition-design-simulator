@@ -55,9 +55,19 @@ export function TopBar(p: Props) {
         ))}
       </div>
 
-      <button onClick={() => p.onView(p.view === 'top' ? 'perspective' : 'top')}>
-        {p.view === 'top' ? '3D view' : '2D plan'}
-      </button>
+      <div className="group" role="group" aria-label="View">
+        {(
+          [
+            ['perspective', '3D'],
+            ['top', '2D plan'],
+            ['walk', 'Walk'],
+          ] as const
+        ).map(([v, label]) => (
+          <button key={v} className={p.view === v ? 'active' : ''} onClick={() => p.onView(v)}>
+            {label}
+          </button>
+        ))}
+      </div>
 
       <label className="toggle">
         <input type="checkbox" checked={p.showVolumes} onChange={(e) => p.onVolumes(e.target.checked)} />

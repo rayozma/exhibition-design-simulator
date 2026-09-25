@@ -160,7 +160,7 @@ function runs(cols: number, rows: number, open: Uint8Array, di: number, dj: numb
 }
 
 /** Walkable = walkable zones (walkway, open gap) + the NDT footprint. */
-const walkableRects = (layoutId: LayoutId): Rect[] => [
+export const walkableRects = (layoutId: LayoutId): Rect[] => [
   ...activeZones(layoutId).filter((z) => z.walkable),
   ...layouts.options[layoutId].ndtFootprint,
 ]

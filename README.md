@@ -23,10 +23,13 @@ Live site: `https://rayozma.github.io/ndt-adipec-2026-design/` (after deployment
 
 | Action | How |
 |---|---|
-| Select | Click an object (click empty floor or press Esc to deselect) |
-| Move | Drag it on the floor. **Snap** (top bar) moves in 0.25 m steps |
-| Rotate | R / Shift+R, or the ⟲ ⟳ buttons (15° steps) |
-| Exact values | Type name, size, position or rotation in the right panel, then press Enter |
+| Select | Click an object (click empty floor or press Esc to deselect). **Ctrl/Shift+click** adds or removes objects, **Ctrl+A** selects all |
+| Move | Drag it on the floor; with several selected, they move together. **Snap** (top bar) moves in 0.25 m steps |
+| Rotate | R / Shift+R, or the ⟲ ⟳ buttons (15° steps). Several objects turn around their common center |
+| Exact values | Type number, name, size, position or rotation in the right panel (**Selected** tab), then press Enter |
+| Object list and remarks | **Objects** tab in the right panel: every object with number, name, size and status, and a remarks box (saved for everyone) |
+| Walk through the booth | **Walk** in the top bar, then **Click to start walking**. Mouse to look, W A S D or arrows to walk, Shift to run, Esc to release the mouse |
+| Delete a room | **Delete** next to the room on the home page, then enter the room-delete password |
 | Color | Color picker in the right panel (placeholder boxes only; uploaded models keep their own materials) |
 | Lock / duplicate / delete | Buttons in the right panel (Delete key also works) |
 | Undo your last action | Ctrl+Z or **Undo** |
@@ -63,13 +66,14 @@ Without Supabase settings the app runs in **local-only mode**: editing works, bu
 2. **SQL Editor → New query**: paste all of [`supabase/schema.sql`](supabase/schema.sql) and click **Run**.
 3. **SQL Editor → New query**: paste all of [`supabase/storage.sql`](supabase/storage.sql) and click **Run**.
 4. **SQL Editor → New query**: paste all of [`supabase/rooms-and-colors.sql`](supabase/rooms-and-colors.sql) and click **Run**.
-5. Copy the settings file and fill it in:
+5. **SQL Editor → New query**: paste all of [`supabase/delete-room.sql`](supabase/delete-room.sql) and click **Run**. Then set the room-delete password with the one-line `insert into public.app_secrets …` shown at the top of that file (replace `YOUR-PASSWORD`). The password is never stored in this repository.
+6. Copy the settings file and fill it in:
    ```powershell
    Copy-Item .env.example .env
    ```
    - `VITE_SUPABASE_URL` is the Project URL, for example `https://abcdefgh.supabase.co` (from **Project Settings → Data API** or the **Connect** button), with nothing after `.co`.
    - `VITE_SUPABASE_ANON_KEY` is the **Publishable** key (`sb_publishable_…`) or the legacy **anon** key (from **Project Settings → API Keys**). Never use the secret / service_role key.
-6. Restart `npm run dev`.
+7. Restart `npm run dev`.
 
 `.env` is listed in `.gitignore` and must never be committed.
 
@@ -95,6 +99,7 @@ If you rename the repository, also change `base` in [`vite.config.ts`](vite.conf
 - The Supabase key in the app is public by design: anyone who opens the site can see it in the browser.
 - Without sign-in, the database rules can't tell users apart. They only require a well-formed room id.
 - **Rooms are public.** The home page lists every room, so anyone who can open the site can open, edit, rename or reset any room. There is no "private room".
+- Deleting a whole room needs the room-delete password, which is checked inside the database. That protects against accidental deletion from the app; it doesn't stop someone technical from clearing a room's objects through the public API.
 - Uploaded model files are publicly downloadable by URL. The app can't overwrite or delete them.
 
 This is acceptable for booth layout drafts. **Don't put confidential information here.** To restrict access properly, add Supabase Auth (for example anonymous sign-ins) plus a room-members table, and tighten the policies in `supabase/schema.sql`.
@@ -126,6 +131,7 @@ supabase/
   schema.sql             tables, row-level security, realtime
   storage.sql            model bucket, upload policy, model_fit column
   rooms-and-colors.sql   rooms table (home page list), per-object color column
+  delete-room.sql        password-protected room deletion (password set separately, not in the repo)
 ```
 
 **Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east (0–33), z points south (0–18: the pavilion is z 0–15, plus a 3 m public aisle at z 15–18 that the NDT leg opens onto), y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint. The aisle width is an assumption; change the `aisle_south` zone and `hall.d` in `layouts.json` if the real plan differs.

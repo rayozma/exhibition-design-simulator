@@ -52,14 +52,27 @@ type Props = {
   /** Another user who is dragging this object right now (it can't be grabbed). */
   mover?: Tag
   ops: ObjectOps
-  onSelect: (id: string) => void
+  /** additive = Ctrl/Shift/Cmd held: add to or remove from the selection. */
+  onSelect: (id: string, additive: boolean) => void
+  /** false in walk mode: no selecting or dragging. */
+  interactive: boolean
 }
 
 /**
- * An object with a name label: its uploaded .glb model, or a placeholder box/cylinder sized from w/d/h.
- * Click to select, drag to move.
+ * An object with a name label: its uploaded .glb model, or a built-in shaped model sized from w/d/h.
+ * Click to select (Ctrl/Shift+click for several), drag to move.
  */
-export const SceneObject = memo(function SceneObject({ obj, baseY, status, selected, peer, mover, ops, onSelect }: Props) {
+export const SceneObject = memo(function SceneObject({
+  obj,
+  baseY,
+  status,
+  selected,
+  peer,
+  mover,
+  ops,
+  onSelect,
+  interactive,
+}: Props) {
   const controls = useThree((s) => s.controls) as { enabled: boolean } | null
   const drag = useRef<{ offX: number; offZ: number } | null>(null)
   const [failedUrl, setFailedUrl] = useState<string | null>(null)
@@ -73,13 +86,15 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
     if (!drag.current) return
     drag.current = null
     if (controls) controls.enabled = true
-    ops.dragEnd(obj.id)
+    ops.dragEnd()
   }
 
   const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
-    if (e.button !== 0) return
+    if (e.button !== 0 || !interactive) return
     e.stopPropagation()
-    onSelect(obj.id)
+    const additive = e.shiftKey || e.ctrlKey || e.metaKey
+    onSelect(obj.id, additive)
+    if (additive) return // toggling selection, not dragging
     if (obj.locked || mover || !e.ray.intersectPlane(FLOOR, hit)) return
     drag.current = { offX: hit.x - obj.x, offZ: hit.z - obj.z }
     ;(e.target as unknown as Element).setPointerCapture(e.pointerId)
@@ -111,7 +126,9 @@ export const SceneObject = memo(function SceneObject({ obj, baseY, status, selec
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onLostPointerCapture={endDrag}
-          onPointerOver={() => (document.body.style.cursor = obj.locked || mover ? 'not-allowed' : 'grab')}
+          onPointerOver={() => {
+            if (interactive) document.body.style.cursor = obj.locked || mover ? 'not-allowed' : 'grab'
+          }}
           onPointerOut={() => (document.body.style.cursor = '')}
         >
           {obj.shape === 'cylinder' && !hasModel ? <cylinderGeometry args={[0.5, 0.5, 1, 24]} /> : <boxGeometry />}
