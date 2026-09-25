@@ -1,6 +1,10 @@
 import { seedObjects, type EditorObject, type ObjectsByLayout } from './editor'
 import { LAYOUT_IDS, type LayoutId } from './layout'
-import { supabase } from './supabase'
+import { NETWORK_ERROR, supabase } from './supabase'
+
+/** Friendlier text for network failures (supabase-js reports them as "TypeError: Failed to fetch"). */
+export const clean = (msg: string) =>
+  /failed to fetch|networkerror|load failed/i.test(msg) ? NETWORK_ERROR : msg.replace(/^TypeError: /, '')
 
 /** Shape of a row in public.objects (see supabase/schema.sql). */
 export type ObjectRow = {
@@ -84,7 +88,7 @@ function db() {
 
 export async function fetchRoom(room: string): Promise<ObjectsByLayout> {
   const { data, error } = await db().from('objects').select('*').eq('room', room).order('id')
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
   const out = Object.fromEntries(LAYOUT_IDS.map((id) => [id, [] as EditorObject[]])) as ObjectsByLayout
   for (const r of data as ObjectRow[]) out[r.layout_id]?.push(fromRow(r))
   return out
@@ -93,12 +97,12 @@ export async function fetchRoom(room: string): Promise<ObjectsByLayout> {
 export async function upsertObjects(room: string, layoutId: LayoutId, objs: EditorObject[], updatedBy: string) {
   const rows = objs.map((o) => toRow(room, layoutId, o, updatedBy))
   const { error } = await db().from('objects').upsert(rows, { onConflict: 'room,layout_id,id' })
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
 }
 
 export async function deleteObjects(room: string, layoutId: LayoutId, ids: string[]) {
   const { error } = await db().from('objects').delete().eq('room', room).eq('layout_id', layoutId).in('id', ids)
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
 }
 
 export type Room = {
@@ -151,7 +155,7 @@ export async function deleteRoom(id: string, password: string): Promise<boolean>
   return data === true
 }
 
-const roomsError = (msg: string) =>
+const roomsError = (raw: string, msg = clean(raw)) =>
   /relation .*rooms.* does not exist|schema cache/i.test(msg)
     ? 'The rooms table is missing. Run supabase/rooms-and-colors.sql in the Supabase SQL Editor.'
     : msg
@@ -171,7 +175,7 @@ export async function fetchSnapshots(room: string, layoutId: LayoutId): Promise<
     .eq('room', room)
     .eq('layout_id', layoutId)
     .order('created_at', { ascending: false })
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
   return data as Snapshot[]
 }
 
@@ -179,12 +183,12 @@ export async function saveSnapshot(room: string, layoutId: LayoutId, name: strin
   const { error } = await db()
     .from('snapshots')
     .insert({ room, layout_id: layoutId, name, data: { objects }, created_by: by })
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
 }
 
 export async function deleteSnapshot(room: string, id: string) {
   const { error } = await db().from('snapshots').delete().eq('room', room).eq('id', id)
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
 }
 
 /** Fill a new room with the seed design for every layout option. Existing rows are left alone. */
@@ -193,5 +197,5 @@ export async function seedRoom(room: string) {
   const { error } = await db()
     .from('objects')
     .upsert(rows, { onConflict: 'room,layout_id,id', ignoreDuplicates: true })
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(clean(error.message))
 }

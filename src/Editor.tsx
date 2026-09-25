@@ -95,11 +95,28 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [roomError, setRoomError] = useState<string | null>(null)
 
   // Register the room in the rooms list (older rooms get a default name) and show its name.
+  // Keeps retrying every 5 s if the server can't be reached, then clears the error.
   useEffect(() => {
     if (!room) return
-    ensureRoom(room)
-      .then((r) => setRoomName(r.name))
-      .catch((e: Error) => setRoomError(e.message))
+    let stop = false
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const attempt = () =>
+      ensureRoom(room)
+        .then((r) => {
+          if (stop) return
+          setRoomName(r.name)
+          setRoomError(null)
+        })
+        .catch((e: Error) => {
+          if (stop) return
+          setRoomError(e.message)
+          timer = setTimeout(attempt, 5000)
+        })
+    attempt()
+    return () => {
+      stop = true
+      clearTimeout(timer)
+    }
   }, [room])
 
   const rename = async () => {
