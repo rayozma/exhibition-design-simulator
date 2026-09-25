@@ -65,7 +65,10 @@ export function Landing() {
     <div className="center-screen">
       <div className="card wide">
         <h1>{APP_TITLE}</h1>
-        <p className="muted">Plan exhibition booths in 3D, together: layout, objects, walk-through and crowd simulation.</p>
+        <p className="muted">
+          Plan exhibition booths in 3D, together: layout, objects, walk-through and crowd simulation.{' '}
+          <a href="?guide">Read the quick guide</a>
+        </p>
 
         <h4>New design</h4>
         <form

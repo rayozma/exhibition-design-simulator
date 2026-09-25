@@ -687,6 +687,110 @@ textarea.remarks {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
+/* Guide page */
+.guide {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  line-height: 1.55;
+  overflow-y: auto;
+  height: 100%;
+}
+
+#root:has(.guide) {
+  overflow-y: auto;
+}
+
+.guide h1 {
+  margin: 12px 0 4px;
+}
+
+.guide h2 {
+  margin: 28px 0 8px;
+  font-size: 18px;
+}
+
+.guide a {
+  color: #7dd3fc;
+}
+
+.guide ul,
+.guide ol {
+  padding-left: 20px;
+}
+
+.guide li {
+  margin-bottom: 6px;
+}
+
+.guide-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.guide section {
+  scroll-margin-top: 16px;
+}
+
+.guide table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+.guide td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide footer {
+  margin-top: 32px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0 5px;
+  font: 12px ui-monospace, Consolas, monospace;
+  border: 1px solid #4b5563;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: #1f2937;
+}
+
+.tag {
+  padding: 0 6px;
+  border-radius: 4px;
+  color: #111;
+}
+
+.tag.red {
+  background: #ef4444;
+}
+
+.tag.yellow {
+  background: #facc15;
+}
+
+a.button-link {
+  font-size: 14px;
+  padding: 5px 10px;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  background: #1f2937;
+}
+
+a.button-link:hover {
+  background: #273449;
+}
+
 /* Measure tool */
 .measure-hint {
   position: absolute;

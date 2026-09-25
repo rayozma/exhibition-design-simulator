@@ -111,6 +111,9 @@ export function TopBar(p: Props) {
       <button onClick={p.onSnapshots} title="Save / restore named versions, export JSON or PNG">
         Snapshots & export
       </button>
+      <a className="button-link" href="?guide" target="_blank" rel="noopener" title="Quick guide (opens in a new tab)">
+        Guide
+      </a>
       {p.children}
     </header>
   )

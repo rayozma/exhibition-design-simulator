@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { DialogHost } from './components/DialogHost'
+import { GuidePage } from './components/GuidePage'
 import { Landing } from './components/Landing'
 import { UserDialog } from './components/UserDialog'
 import { Editor } from './Editor'
@@ -7,6 +8,7 @@ import { supabase } from './lib/supabase'
 import { loadUser, roomFromUrl, saveUser, type User } from './lib/user'
 
 const room = roomFromUrl()
+const guide = new URLSearchParams(location.search).has('guide')
 
 /**
  * Without Supabase config: local-only editor.
@@ -16,6 +18,7 @@ export function App() {
   const [user, setUser] = useState<User | null>(loadUser)
   const [editingUser, setEditingUser] = useState(false)
 
+  if (guide) return <GuidePage />
   if (supabase && !room)
     return (
       <>
