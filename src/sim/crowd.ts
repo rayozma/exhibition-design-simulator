@@ -19,6 +19,11 @@ export type CrowdSettings = {
 export type CrowdStats = { inside: number; peak: number; total: number; area: number; narrowArea: number }
 
 const MAX_VISITS = 3
+// The bald man in the black suit keeps walking around: short stops, never leaves,
+// and now and then strolls along a walkway to an entrance and turns back.
+const ROAMER_DWELL_MIN = 3
+const ROAMER_DWELL_MAX = 8
+const ROAMER_STROLL = 0.35 // chance his next goal is an entrance instead of a display
 const DWELL_MIN = 5
 const DWELL_MAX = 30
 const STUCK_AFTER = 6 // s without getting closer to the goal -> pick another goal
@@ -111,6 +116,14 @@ export class CrowdSim {
     a.stuckT = 0
     const c = cellOf(nav, a.x, a.z)
     const reachable = (f: FlowField) => c >= 0 && f.dist[c] < Infinity
+    if (a.outfit.bald) {
+      const displays = nav.attractions.map((_, i) => i).filter((i) => i !== a.lastAttraction && reachable(nav.attractions[i].field))
+      const ends = nav.entrances.map((_, i) => i).filter((i) => reachable(nav.entrances[i].field))
+      if (ends.length && (Math.random() < ROAMER_STROLL || !displays.length)) a.goal = { kind: 'exit', idx: pick(ends) }
+      else if (displays.length) a.goal = { kind: 'attraction', idx: pick(displays) }
+      else a.goal = null
+      return
+    }
     if (a.role === 'visitor' && a.visitsLeft > 0) {
       const options = nav.attractions.map((_, i) => i).filter((i) => i !== a.lastAttraction && reachable(nav.attractions[i].field))
       if (options.length) {
@@ -132,7 +145,7 @@ export class CrowdSim {
   private spawn(anywhere: boolean) {
     const nav = this.nav
     if (!nav || !nav.freeCells.length) return
-    // Exactly one bald man in a black suit is always in the crowd (a visitor, so he browses the booth).
+    // Exactly one bald man in a black suit is always in the crowd; he roams (see plan()).
     const needBald = !this.agents.some((a) => a.outfit.bald)
     const role = needBald || Math.random() < this.visitorShare ? 'visitor' : 'passer'
     let cell: number
@@ -160,7 +173,7 @@ export class CrowdSim {
       speed: rand(1.0, 1.4),
       role,
       goal: null,
-      dwell: anywhere && role === 'visitor' && Math.random() < 0.3 ? rand(0, DWELL_MAX) : 0,
+      dwell: anywhere && role === 'visitor' && !needBald && Math.random() < 0.3 ? rand(0, DWELL_MAX) : 0,
       bestDist: Infinity,
       stuckT: 0,
       visitsLeft: role === 'visitor' ? 1 + Math.floor(Math.random() * MAX_VISITS) : 0,
@@ -183,7 +196,11 @@ export class CrowdSim {
 
     // Keep the population at the target density.
     const target = this.targetCount
-    if (this.agents.length > target) this.agents.length = target
+    if (this.agents.length > target) {
+      // Fewer people: drop the newest arrivals, but keep the bald man.
+      const keep = this.agents.filter((a, i) => i < target || a.outfit.bald)
+      this.agents = keep.length > target ? keep.filter((a) => a.outfit.bald).concat(keep.filter((a) => !a.outfit.bald)).slice(0, target) : keep
+    }
     for (let k = 0; this.agents.length < target && k < (this.warm ? MAX_AGENTS : 4); k++) this.spawn(this.warm)
     this.warm = false
 
@@ -228,12 +245,17 @@ export class CrowdSim {
         } else if (field.dist[c] === 0) {
           // Arrived.
           if (a.goal?.kind === 'exit') {
-            a.dead = true
-            continue
+            if (a.outfit.bald) {
+              this.plan(a) // reached the end of the walkway: turn around
+            } else {
+              a.dead = true
+              continue
+            }
+          } else {
+            a.lastAttraction = a.goal?.idx ?? -1
+            a.visitsLeft--
+            a.dwell = a.outfit.bald ? rand(ROAMER_DWELL_MIN, ROAMER_DWELL_MAX) : rand(DWELL_MIN, DWELL_MAX)
           }
-          a.lastAttraction = a.goal?.idx ?? -1
-          a.visitsLeft--
-          a.dwell = rand(DWELL_MIN, DWELL_MAX)
         } else {
           // Blocked for a while (e.g. a crowd around the display)? Try another goal.
           if (field.dist[c] < a.bestDist - 0.1) {
