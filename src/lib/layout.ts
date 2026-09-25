@@ -30,12 +30,19 @@ export type LayoutOption = {
   note?: string
 }
 
+/** Geometric shape of an object without a built-in model or upload. */
+export type ShapeKind = 'box' | 'cylinder' | 'sphere' | 'cone' | 'wedge' | 'panel' | 'sign'
+
 export type SeedObject = {
   id: string
   num?: number
   name: string
   category: string
-  shape?: 'box' | 'cylinder'
+  shape?: ShapeKind
+  /** Text on a sign (shape "sign"). */
+  text?: string
+  /** Built-in model to draw (e.g. "chair"); unset = decided from name / category. */
+  kind?: string
   x: number
   z: number
   w: number

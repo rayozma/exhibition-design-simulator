@@ -1,10 +1,10 @@
 import { memo, useRef, useState } from 'react'
-import { Plane, Vector3 } from 'three'
+import { BoxGeometry, ConeGeometry, CylinderGeometry, Plane, SphereGeometry, Vector3, type BufferGeometry } from 'three'
 import { useThree, type ThreeEvent } from '@react-three/fiber'
 import { Billboard, Edges, Text } from '@react-three/drei'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import { DEG, theme } from '../lib/layout'
+import { DEG, textColorOn, theme, type ShapeKind } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
 import { ModelView } from './ModelView'
 import { kindOf, ProcModel } from './ProcModels'
@@ -20,6 +20,25 @@ const STATUS_COLORS: Record<Status, string | null> = {
   ok: null,
   outside: '#facc15',
   overlap: '#ef4444',
+}
+
+/** Unit-size geometries (1 × 1 × 1, centered) for the basic shapes; objects scale them to w × h × d. */
+function wedgeGeometry() {
+  // A box whose top front edge is pulled down to the floor: a ramp rising toward the back (-z).
+  const g = new BoxGeometry(1, 1, 1)
+  const pos = g.attributes.position
+  for (let i = 0; i < pos.count; i++) if (pos.getY(i) > 0 && pos.getZ(i) > 0) pos.setY(i, -0.5)
+  g.computeVertexNormals()
+  return g
+}
+const SHAPE_GEOMETRY: Record<ShapeKind, BufferGeometry> = {
+  box: new BoxGeometry(1, 1, 1),
+  panel: new BoxGeometry(1, 1, 1),
+  sign: new BoxGeometry(1, 1, 1),
+  cylinder: new CylinderGeometry(0.5, 0.5, 1, 32),
+  sphere: new SphereGeometry(0.5, 32, 20),
+  cone: new ConeGeometry(0.5, 1, 32),
+  wedge: wedgeGeometry(),
 }
 
 const FLOOR = new Plane(new Vector3(0, 1, 0), 0)
@@ -131,7 +150,7 @@ export const SceneObject = memo(function SceneObject({
           }}
           onPointerOut={() => (document.body.style.cursor = '')}
         >
-          {obj.shape === 'cylinder' && !hasModel ? <cylinderGeometry args={[0.5, 0.5, 1, 24]} /> : <boxGeometry />}
+          <primitive object={hidden ? (obj.shape === 'cylinder' ? SHAPE_GEOMETRY.cylinder : SHAPE_GEOMETRY.box) : SHAPE_GEOMETRY[obj.shape ?? 'box'] ?? SHAPE_GEOMETRY.box} attach="geometry" />
           {hidden ? (
             // Invisible click target around the model; tinted only to show a warning status.
             <meshBasicMaterial
@@ -150,6 +169,21 @@ export const SceneObject = memo(function SceneObject({
           />
         </mesh>
         {proc && <ProcModel kind={proc} obj={obj} c={baseColorOf(obj)} />}
+        {!hidden && obj.shape === 'sign' && obj.text && (
+          // Sign text on the front face (+z), sized to fit.
+          <Text
+            position={[0, obj.h / 2, obj.d / 2 + 0.005]}
+            fontSize={Math.min(obj.h * 0.45, (obj.w * 1.7) / Math.max(4, obj.text.length))}
+            maxWidth={obj.w * 0.92}
+            textAlign="center"
+            anchorX="center"
+            anchorY="middle"
+            color={textColorOn(baseColorOf(obj))}
+            raycast={() => null}
+          >
+            {obj.text}
+          </Text>
+        )}
         {obj.modelUrl && !modelFailed && (
           <ModelView
             url={obj.modelUrl}

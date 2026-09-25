@@ -21,6 +21,15 @@ export type ProcKind =
   | 'chair'
   | 'stool'
   | 'roundTable'
+  | 'plant'
+  | 'rollup'
+  | 'ledWall'
+  | 'highTable'
+
+export const PROC_KINDS: ProcKind[] = [
+  'plinth', 'robotPlinth', 'irisPlinth', 'deskSim', 'deskTraining', 'counter', 'droneStand',
+  'diorama', 'tvStand', 'chair', 'stool', 'roundTable', 'plant', 'rollup', 'ledWall', 'highTable',
+]
 
 const BY_ID: Record<string, ProcKind> = {
   item1: 'droneStand',
@@ -36,6 +45,8 @@ const BY_ID: Record<string, ProcKind> = {
 
 /** Which built-in model to draw, or null for a plain box (e.g. uploaded "model" objects without a file). */
 export function kindOf(obj: EditorObject): ProcKind | null {
+  if (obj.kind) return (PROC_KINDS as string[]).includes(obj.kind) ? (obj.kind as ProcKind) : null
+  if (obj.category === 'shape') return null // basic shapes are drawn as plain geometry
   const base = obj.id.replace(/-[0-9a-f]{8}$/, '') // duplicates keep their original's look
   if (BY_ID[base]) return BY_ID[base]
   if (/chair/i.test(obj.name)) return 'chair'
@@ -296,6 +307,59 @@ export function ProcModel({ kind, obj, c }: { kind: ProcKind; obj: EditorObject;
           <Part cyl p={[0, (h - seat) / 2, 0]} s={[0.05, h - seat, 0.05]} m={mat(CHROME, 'metal')} />
           <Part ring p={[0, h * 0.38, 0]} s={[0.26, 0.26, 0.26]} r={[Math.PI / 2, 0, 0]} m={mat(CHROME, 'metal')} />
           <Part cyl p={[0, 0.01, 0]} s={[w * 0.9, 0.02, w * 0.9]} m={mat(CHROME, 'metal')} />
+        </>
+      )
+    }
+
+    case 'plant': {
+      // Potted plant: dark pot, soil, rounded foliage.
+      const potH = Math.min(0.45, h * 0.35)
+      const leaf = h - potH
+      return (
+        <>
+          <Part cyl p={[0, potH / 2, 0]} s={[w * 0.6, potH, d * 0.6]} m={mat('#374151', 'matte')} />
+          <Part cyl p={[0, potH - 0.02, 0]} s={[w * 0.55, 0.02, d * 0.55]} m={mat('#3f2a1d', 'matte')} />
+          <mesh position={[0, potH + leaf * 0.5, 0]} scale={[w, leaf, d]} material={mat(c || '#2f7d32', 'matte')} raycast={noRaycast}>
+            <sphereGeometry args={[0.5, 14, 10]} />
+          </mesh>
+        </>
+      )
+    }
+
+    case 'rollup': {
+      // Roll-up banner: flat base cassette, pole, printed panel (front = +z).
+      return (
+        <>
+          <Part p={[0, 0.05, 0]} s={[w, 0.1, Math.max(0.2, d)]} m={mat('#9ca3af', 'metal')} />
+          <Part p={[0, h / 2, -0.02]} s={[0.025, h, 0.025]} m={mat('#9ca3af', 'metal')} />
+          <Part p={[0, 0.1 + (h - 0.1) / 2, 0.01]} s={[w * 0.96, h - 0.1, 0.01]} m={mat(c)} />
+          <Part p={[0, h * 0.72, 0.017]} s={[w * 0.8, h * 0.18, 0.002]} m={mat(GOLD, 'gold')} />
+        </>
+      )
+    }
+
+    case 'ledWall': {
+      // LED video wall: dark frame with a glowing screen facing +z, on two feet.
+      const foot = Math.min(0.3, h * 0.12)
+      return (
+        <>
+          {[-1, 1].map((sx) => (
+            <Part key={sx} p={[sx * w * 0.35, foot / 2, 0]} s={[0.12, foot, Math.max(0.4, d * 3)]} m={mat(DARK, 'matte')} />
+          ))}
+          <Part p={[0, foot + (h - foot) / 2, 0]} s={[w, h - foot, Math.max(0.05, d)]} m={mat(DARK, 'matte')} />
+          <Part p={[0, foot + (h - foot) / 2, Math.max(0.05, d) / 2 + 0.002]} s={[w - 0.06, h - foot - 0.06, 0.002]} m={mat(SCREEN_BLUE, 'screen')} />
+        </>
+      )
+    }
+
+    case 'highTable': {
+      // Cocktail (standing) table: round top, slim chrome column, round base.
+      const top = 0.03
+      return (
+        <>
+          <Part cyl p={[0, h - top / 2, 0]} s={[w, top, d]} m={mat(c)} />
+          <Part cyl p={[0, (h - top) / 2, 0]} s={[0.07, h - top, 0.07]} m={mat(CHROME, 'metal')} />
+          <Part cyl p={[0, 0.01, 0]} s={[w * 0.7, 0.02, d * 0.7]} m={mat(CHROME, 'metal')} />
         </>
       )
     }

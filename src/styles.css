@@ -540,6 +540,70 @@ textarea.remarks {
   background: #ef4444;
 }
 
+/* Add tab */
+.add-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-panel h4 {
+  margin: 8px 0 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.shape-grid button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 2px;
+  font-size: 11px;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.catalog-item {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  font-size: 13px;
+  padding: 5px 8px;
+}
+
+.catalog-item i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid #4b5563;
+}
+
+.shape-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.shape-switch button {
+  font-size: 12px;
+  padding: 3px 8px;
+}
+
 /* Layout editing */
 .layout-panel {
   display: flex;

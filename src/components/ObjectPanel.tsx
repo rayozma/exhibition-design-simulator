@@ -1,8 +1,19 @@
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
+import type { ShapeKind } from '../lib/layout'
 import { ROTATE_STEP, type ObjectOps } from '../lib/useObjectOps'
 import { baseColorOf } from '../scene/SceneObject'
 import { Field, NumberField, NumberTagField, RemarksField } from './fields'
+
+const SHAPES: [ShapeKind, string][] = [
+  ['box', 'Box'],
+  ['cylinder', 'Cylinder'],
+  ['sphere', 'Sphere'],
+  ['cone', 'Cone'],
+  ['wedge', 'Ramp'],
+  ['panel', 'Panel'],
+  ['sign', 'Sign'],
+]
 
 const STATUS_TEXT: Record<Status, string | null> = {
   ok: null,
@@ -24,7 +35,7 @@ type Props = {
 function Help({ onUpload }: { onUpload?: () => void }) {
   return (
     <>
-      <p className="muted">Click an object to select it. Ctrl/Shift+click to select several.</p>
+      <p className="muted">Click an object to select it. Ctrl/Shift+click to select several. Add new things in the + Add tab.</p>
       <ul className="help">
         <li>Drag: move (drags the whole selection)</li>
         <li>R / Shift+R: rotate ±{ROTATE_STEP}°</li>
@@ -136,6 +147,32 @@ function SinglePanel({
           ⟳ +{ROTATE_STEP}°
         </button>
       </div>
+
+      {obj.category === 'shape' && (
+        <>
+          <h4>Shape</h4>
+          <div className="shape-switch">
+            {SHAPES.map(([shape, label]) => (
+              <button key={shape} className={(obj.shape ?? 'box') === shape ? 'active' : ''} disabled={locked} onClick={() => update({ shape })}>
+                {label}
+              </button>
+            ))}
+          </div>
+          {obj.shape === 'sign' && (
+            <Field label="Sign text" value={obj.text ?? ''} disabled={locked} onCommit={(text) => update({ text })} />
+          )}
+        </>
+      )}
+
+      <label className="radio" title="In the crowd simulation, booth visitors walk to and stop at objects marked like this">
+        <input
+          type="checkbox"
+          checked={!!obj.attraction}
+          disabled={locked}
+          onChange={(e) => update({ attraction: e.target.checked || undefined })}
+        />
+        Visitors stop here (crowd)
+      </label>
 
       <h4>Remarks</h4>
       <RemarksField value={obj.note ?? ''} rows={3} disabled={!!busyBy} onCommit={(t) => ops.annotate(obj.id, t)} />

@@ -1,4 +1,5 @@
 import { adipecTemplate, parseDesign, type Design } from './design'
+import type { ShapeKind } from './layout'
 import { seedObjects, type EditorObject, type ObjectsByLayout } from './editor'
 
 /** Key of a design's objects (Design.layoutId). */
@@ -17,7 +18,9 @@ export type ObjectRow = {
   num: number | null
   name: string
   category: string
-  shape: 'box' | 'cylinder'
+  shape: ShapeKind
+  text: string | null
+  kind: string | null
   w: number
   d: number
   h: number
@@ -44,6 +47,8 @@ export function toRow(room: string, layoutId: LayoutId, o: EditorObject, updated
     name: o.name,
     category: o.category,
     shape: o.shape ?? 'box',
+    text: o.text ?? null,
+    kind: o.kind ?? null,
     w: o.w,
     d: o.d,
     h: o.h,
@@ -68,6 +73,8 @@ export function fromRow(r: ObjectRow): EditorObject {
     name: r.name,
     category: r.category,
     shape: r.shape,
+    text: r.text ?? undefined,
+    kind: r.kind ?? undefined,
     w: r.w,
     d: r.d,
     h: r.h,

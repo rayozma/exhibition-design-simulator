@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import { AddPanel } from './components/AddPanel'
 import { CrowdPanel } from './components/CrowdPanel'
 import { LayoutPanel } from './components/LayoutPanel'
 import { ObjectList } from './components/ObjectList'
@@ -356,6 +357,7 @@ function EditorView({
         <Sidebar
           selectedCount={selectedObjs.length}
           objectCount={objects.length}
+          add={<AddPanel objects={objects} ops={ops} onUpload={room ? () => setUpload('new') : undefined} />}
           selected={
             <ObjectPanel
               objs={selectedObjs}
