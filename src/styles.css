@@ -593,6 +593,13 @@ textarea.remarks {
   border: 1px solid #4b5563;
 }
 
+.library-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+  align-items: center;
+}
+
 .shape-switch {
   display: flex;
   flex-wrap: wrap;

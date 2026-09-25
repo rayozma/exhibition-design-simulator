@@ -1,4 +1,6 @@
-import { BASIC_SHAPES, ITEMS, makeObject, type CatalogItem } from '../lib/catalog'
+import { useCallback, useEffect, useState } from 'react'
+import { BASIC_SHAPES, fromTemplate, ITEMS, makeObject, type CatalogItem } from '../lib/catalog'
+import { deleteLibraryItem, fetchLibrary, LIBRARY_CHANGED, type LibraryItem } from '../lib/db'
 import { useDesign } from '../lib/DesignContext'
 import type { EditorObject } from '../lib/editor'
 import type { ObjectOps } from '../lib/useObjectOps'
@@ -20,12 +22,74 @@ type Props = {
   ops: ObjectOps
   /** Uploading a .glb / .obj; undefined = not available (local-only mode). */
   onUpload?: () => void
+  /** Show the shared library (needs Supabase). */
+  library: boolean
+}
+
+/** Items saved with "Save to library", shared by all designs. */
+function Library({ onAdd }: { onAdd: (it: LibraryItem) => void }) {
+  const [items, setItems] = useState<LibraryItem[] | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const load = useCallback(() => {
+    fetchLibrary()
+      .then((l) => {
+        setItems(l)
+        setError(null)
+      })
+      .catch((e: Error) => setError(e.message))
+  }, [])
+  useEffect(() => {
+    load()
+    window.addEventListener(LIBRARY_CHANGED, load)
+    return () => window.removeEventListener(LIBRARY_CHANGED, load)
+  }, [load])
+
+  const remove = async (it: LibraryItem) => {
+    if (!window.confirm(`Delete "${it.name}" from the library for everyone? (Objects already placed in designs stay.)`)) return
+    try {
+      await deleteLibraryItem(it.id)
+      load()
+    } catch (e) {
+      setError((e as Error).message)
+    }
+  }
+
+  return (
+    <>
+      <h4>Your library</h4>
+      {error && <p className="status overlap">{error}</p>}
+      {items === null && !error && <p className="muted small">Loading…</p>}
+      {items?.length === 0 && (
+        <p className="muted small">Empty. Select any object (or a combined one) and click Save to library.</p>
+      )}
+      <div className="item-list">
+        {items?.map((it) => (
+          <div key={it.id} className="library-row">
+            <button className="catalog-item" onClick={() => onAdd(it)} title={it.created_by ? `Saved by ${it.created_by.split('#')[0]}` : undefined}>
+              <i style={{ background: it.item.color ?? '#94a3b8' }} />
+              <span>
+                {it.name}
+                {it.item.parts ? <span className="muted small"> · {it.item.parts.items.length} parts</span> : null}
+              </span>
+              <span className="muted small">
+                {fmt(it.item.w)} × {fmt(it.item.d)} × {fmt(it.item.h)} m
+              </span>
+            </button>
+            <button className="link" onClick={() => remove(it)} title="Delete from the library" aria-label={`Delete ${it.name} from the library`}>
+              ✕
+            </button>
+          </div>
+        ))}
+      </div>
+    </>
+  )
 }
 
 /** "Add" tab: basic shapes and ready-made items. Click to add; it appears in a free spot, selected. */
-export function AddPanel({ objects, ops, onUpload }: Props) {
+export function AddPanel({ objects, ops, onUpload, library }: Props) {
   const design = useDesign()
   const add = (item: CatalogItem) => ops.add(makeObject(item, design, objects))
+  const addSaved = (it: LibraryItem) => ops.add(fromTemplate({ ...it.item, name: it.name }, design, objects))
 
   return (
     <div className="add-panel">
@@ -55,6 +119,8 @@ export function AddPanel({ objects, ops, onUpload }: Props) {
           </button>
         ))}
       </div>
+
+      {library && <Library onAdd={addSaved} />}
 
       {onUpload && (
         <>

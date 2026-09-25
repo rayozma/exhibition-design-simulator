@@ -1,5 +1,5 @@
 import { adipecTemplate, parseDesign, type Design } from './design'
-import type { ShapeKind } from './layout'
+import type { CompositeParts, ShapeKind } from './layout'
 import { seedObjects, type EditorObject, type ObjectsByLayout } from './editor'
 
 /** Key of a design's objects (Design.layoutId). */
@@ -21,6 +21,8 @@ export type ObjectRow = {
   shape: ShapeKind
   text: string | null
   kind: string | null
+  elev: number | null
+  parts: CompositeParts | null
   w: number
   d: number
   h: number
@@ -49,6 +51,8 @@ export function toRow(room: string, layoutId: LayoutId, o: EditorObject, updated
     shape: o.shape ?? 'box',
     text: o.text ?? null,
     kind: o.kind ?? null,
+    elev: o.elev ? o.elev : null,
+    parts: o.parts ?? null,
     w: o.w,
     d: o.d,
     h: o.h,
@@ -75,6 +79,8 @@ export function fromRow(r: ObjectRow): EditorObject {
     shape: r.shape,
     text: r.text ?? undefined,
     kind: r.kind ?? undefined,
+    elev: r.elev ?? undefined,
+    parts: r.parts && Array.isArray(r.parts.items) ? r.parts : undefined,
     w: r.w,
     d: r.d,
     h: r.h,
@@ -188,6 +194,40 @@ const roomsError = (raw: string, msg = clean(raw)) =>
     : /relation .*rooms.* does not exist|schema cache/i.test(msg)
     ? 'The rooms table is missing. Run supabase/rooms-and-colors.sql in the Supabase SQL Editor.'
     : msg
+
+/** A reusable object shared by all designs: everything except where it stands. */
+export type LibraryTemplate = Omit<EditorObject, 'id' | 'x' | 'z' | 'locked' | 'note'>
+export type LibraryItem = { id: string; name: string; item: LibraryTemplate; created_by: string | null; created_at: string }
+
+/** The template of an object, for saving to the library. */
+export function toTemplate(o: EditorObject): LibraryTemplate {
+  const { id: _id, x: _x, z: _z, locked: _locked, note: _note, ...rest } = o
+  return { ...rest, rotY: 0 }
+}
+
+const libraryError = (raw: string, msg = clean(raw)) =>
+  /relation .*library_items.* does not exist|could not find the table|schema cache/i.test(msg)
+    ? 'The library is not set up. Run supabase/library.sql in the Supabase SQL Editor.'
+    : msg
+
+export async function fetchLibrary(): Promise<LibraryItem[]> {
+  const { data, error } = await db().from('library_items').select('*').order('created_at', { ascending: false }).limit(300)
+  if (error) throw new Error(libraryError(error.message))
+  return data as LibraryItem[]
+}
+
+export async function saveLibraryItem(name: string, item: LibraryTemplate, by: string) {
+  const { error } = await db().from('library_items').insert({ name, item, created_by: by })
+  if (error) throw new Error(libraryError(error.message))
+}
+
+export async function deleteLibraryItem(id: string) {
+  const { error } = await db().from('library_items').delete().eq('id', id)
+  if (error) throw new Error(libraryError(error.message))
+}
+
+/** Tell open library lists to reload (after saving or deleting). */
+export const LIBRARY_CHANGED = 'library-changed'
 
 export type Snapshot = {
   id: string

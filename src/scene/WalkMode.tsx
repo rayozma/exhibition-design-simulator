@@ -5,6 +5,7 @@ import { Vector3, type PerspectiveCamera as PerspectiveCameraImpl } from 'three'
 import type { EditorObject } from '../lib/editor'
 import { distToFootprint, wallFootprint, type Footprint } from '../lib/geometry'
 import { walkableRects } from '../lib/design'
+import { HEADROOM } from '../sim/navGrid'
 import { useDesign } from '../lib/DesignContext'
 import { inRects } from '../lib/layout'
 
@@ -43,7 +44,7 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave }: Props) {
   const opt = design.booth
   const walkRects = useMemo(() => walkableRects(design), [design])
   const obstacles: Footprint[] = useMemo(
-    () => [...objects, ...opt.walls.map((w) => wallFootprint(w, opt.wallT))],
+    () => [...objects.filter((o) => (o.elev ?? 0) < HEADROOM), ...opt.walls.map((w) => wallFootprint(w, opt.wallT))],
     [objects, opt],
   )
 

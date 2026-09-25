@@ -99,22 +99,34 @@ export function insideRects(f: Footprint, rects: Rect[]): boolean {
 
 export type Status = 'ok' | 'outside' | 'overlap'
 
-type Named = Footprint & { id: string; name: string; category: string }
+type Named = Footprint & { id: string; name: string; category: string; h: number; elev?: number }
+
+/** Height ranges [base, top] overlap (by more than the tolerance)? */
+const heightsOverlap = (a0: number, a1: number, b0: number, b1: number) => Math.min(a1, b1) - Math.max(a0, b0) > TOLERANCE
 
 const isSeat = (o: Named) => /chair|stool/i.test(o.name)
 const isTable = (o: Named) => o.category === 'furniture' && /table/i.test(o.name)
 /** Chairs and stools tucked under a table overlap it on plan by design, so that isn't a clash. */
 const tuckedIn = (a: Named, b: Named) => (isSeat(a) && isTable(b)) || (isSeat(b) && isTable(a))
 
-/** Per object: 'overlap' (hits another object or a wall) beats 'outside' (leaves the NDT footprint). */
+/**
+ * Per object: 'overlap' (hits another object or a wall) beats 'outside' (leaves the booth footprint).
+ * Objects only clash if they also overlap in height, so a screen lifted above a counter is fine.
+ */
 export function computeStatuses(objs: Named[], option: LayoutOption): Map<string, Status> {
   const boxes = objs.map(obbOf)
   const walls = option.walls.map((w) => obbOfWall(w, option.wallT))
   const result = new Map<string, Status>()
   objs.forEach((o, i) => {
+    const e0 = o.elev ?? 0
+    const e1 = e0 + o.h
     const hit =
-      boxes.some((b, j) => j !== i && !tuckedIn(o, objs[j]) && obbOverlap(boxes[i], b)) ||
-      walls.some((w) => obbOverlap(boxes[i], w))
+      boxes.some((b, j) => {
+        if (j === i || tuckedIn(o, objs[j])) return false
+        const q = objs[j]
+        return heightsOverlap(e0, e1, q.elev ?? 0, (q.elev ?? 0) + q.h) && obbOverlap(boxes[i], b)
+      }) ||
+      (heightsOverlap(e0, e1, 0, option.wallH) && walls.some((w) => obbOverlap(boxes[i], w)))
     result.set(o.id, hit ? 'overlap' : insideRects(o, option.footprint) ? 'ok' : 'outside')
   })
   return result

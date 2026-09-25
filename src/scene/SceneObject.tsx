@@ -1,12 +1,14 @@
 import { memo, useRef, useState } from 'react'
-import { BoxGeometry, ConeGeometry, CylinderGeometry, Plane, SphereGeometry, Vector3, type BufferGeometry } from 'three'
+import { Plane, Vector3 } from 'three'
 import { useThree, type ThreeEvent } from '@react-three/fiber'
 import { Billboard, Edges, Text } from '@react-three/drei'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import { DEG, textColorOn, theme, type ShapeKind } from '../lib/layout'
+import { DEG, textColorOn, theme } from '../lib/layout'
+import { SHAPE_GEOMETRY } from './shapeGeometry'
 import type { ObjectOps } from '../lib/useObjectOps'
 import { ModelView } from './ModelView'
+import { CompositeModel } from './CompositeModel'
 import { kindOf, ProcModel } from './ProcModels'
 
 const MATERIAL_COLORS: Record<string, string> = {
@@ -20,25 +22,6 @@ const STATUS_COLORS: Record<Status, string | null> = {
   ok: null,
   outside: '#facc15',
   overlap: '#ef4444',
-}
-
-/** Unit-size geometries (1 × 1 × 1, centered) for the basic shapes; objects scale them to w × h × d. */
-function wedgeGeometry() {
-  // A box whose top front edge is pulled down to the floor: a ramp rising toward the back (-z).
-  const g = new BoxGeometry(1, 1, 1)
-  const pos = g.attributes.position
-  for (let i = 0; i < pos.count; i++) if (pos.getY(i) > 0 && pos.getZ(i) > 0) pos.setY(i, -0.5)
-  g.computeVertexNormals()
-  return g
-}
-const SHAPE_GEOMETRY: Record<ShapeKind, BufferGeometry> = {
-  box: new BoxGeometry(1, 1, 1),
-  panel: new BoxGeometry(1, 1, 1),
-  sign: new BoxGeometry(1, 1, 1),
-  cylinder: new CylinderGeometry(0.5, 0.5, 1, 32),
-  sphere: new SphereGeometry(0.5, 32, 20),
-  cone: new ConeGeometry(0.5, 1, 32),
-  wedge: wedgeGeometry(),
 }
 
 const FLOOR = new Plane(new Vector3(0, 1, 0), 0)
@@ -98,8 +81,10 @@ export const SceneObject = memo(function SceneObject({
   const modelFailed = !!obj.modelUrl && failedUrl === obj.modelUrl
   const hasModel = !!obj.modelUrl && !modelFailed
   // Built-in shaped model (chair, stool, display…) unless an uploaded model replaces it.
-  const proc = hasModel ? null : kindOf(obj)
-  const hidden = hasModel || !!proc // footprint box only serves as click target / warning tint
+  const lift = obj.elev ?? 0
+  const composite = !hasModel && obj.parts ? obj.parts : null
+  const proc = hasModel || composite ? null : kindOf(obj)
+  const hidden = hasModel || !!proc || !!composite // footprint box only serves as click target / warning tint
 
   const endDrag = () => {
     if (!drag.current) return
@@ -136,7 +121,7 @@ export const SceneObject = memo(function SceneObject({
   const fontSize = Math.min(0.16, Math.max(0.1, Math.max(obj.w, obj.d) * 0.2))
 
   return (
-    <group position={[obj.x, baseY, obj.z]}>
+    <group position={[obj.x, baseY + lift, obj.z]}>
       <group rotation-y={obj.rotY * DEG}>
         <mesh
           position-y={obj.h / 2}
@@ -169,6 +154,7 @@ export const SceneObject = memo(function SceneObject({
           />
         </mesh>
         {proc && <ProcModel kind={proc} obj={obj} c={baseColorOf(obj)} />}
+        {composite && <CompositeModel parts={composite} w={obj.w} d={obj.d} h={obj.h} />}
         {!hidden && obj.shape === 'sign' && obj.text && (
           // Sign text on the front face (+z), sized to fit.
           <Text
@@ -195,13 +181,13 @@ export const SceneObject = memo(function SceneObject({
           />
         )}
         {selected && (
-          <mesh rotation-x={-Math.PI / 2} position-y={0.02} raycast={() => null}>
+          <mesh rotation-x={-Math.PI / 2} position-y={0.02 - lift} raycast={() => null}>
             <planeGeometry args={[obj.w + 0.12, obj.d + 0.12]} />
             <meshBasicMaterial color={theme.ledEdge} transparent opacity={0.6} depthWrite={false} />
           </mesh>
         )}
         {(mover ?? peer) && (
-          <mesh rotation-x={-Math.PI / 2} position-y={0.018} raycast={() => null}>
+          <mesh rotation-x={-Math.PI / 2} position-y={0.018 - lift} raycast={() => null}>
             <planeGeometry args={[obj.w + 0.26, obj.d + 0.26]} />
             <meshBasicMaterial color={(mover ?? peer)!.color} transparent opacity={0.55} depthWrite={false} />
           </mesh>

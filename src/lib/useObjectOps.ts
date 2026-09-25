@@ -8,6 +8,7 @@ import {
   type EditorObject,
   type UndoEntry,
 } from './editor'
+import { breakApart, combinable, combine } from './composite'
 import { clampToHall, normDeg, snapTo } from './geometry'
 import type { Design } from './design'
 import { DEG } from './layout'
@@ -122,6 +123,22 @@ export function useObjectOps(
         if (!window.confirm(`Delete ${what}?${note}`)) return
         commit(objs.map((o) => ({ id: o.id, next: null })))
         setSelection([])
+      },
+      /** Merge the selected objects into one combined object (uploaded 3D files are left out). */
+      combine(ids: string[], name: string) {
+        const objs = editables(ids).filter(combinable)
+        if (objs.length < 2) return
+        const group = clamp(combine(objs, name, `group-${crypto.randomUUID().slice(0, 8)}`))
+        commit([...objs.map((o) => ({ id: o.id, next: null })), { id: group.id, next: group }])
+        setSelection([group.id])
+      },
+      /** Turn a combined object back into its separate parts (selected afterwards). */
+      breakApart(id: string) {
+        const o = find(id)
+        if (!editable(o) || !o.parts) return
+        const parts = breakApart(o, (p) => `${p.kind ?? p.shape ?? 'part'}-${crypto.randomUUID().slice(0, 8)}`).map(clamp)
+        commit([{ id: o.id, next: null }, ...parts.map((p) => ({ id: p.id, next: p }))])
+        setSelection(parts.map((p) => p.id))
       },
       /** Undo this user's last action in the current layout, and save the restored values. */
       undo() {

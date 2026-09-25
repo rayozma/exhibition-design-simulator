@@ -8,6 +8,8 @@ export const AGENT_RADIUS = 0.2 // obstacles are inflated by this for walking
 const GOAL_RING = 0.8 // an attraction is "visited" from within this distance of its footprint
 const ENTRANCE_REACH = 0.35 // cells this close to an entrance segment count as that entrance
 export const MIN_CLEARANCE = 1.2 // passages narrower than this are flagged
+/** Objects lifted this high (m) hang above people's heads and don't block walking. */
+export const HEADROOM = 2.1
 const SQRT2 = Math.SQRT2
 
 /** Walking distance (m) from every cell to the nearest source cell, plus the next cell to step to. */
@@ -167,7 +169,10 @@ export function buildNav(design: Design, objects: EditorObject[]): NavGrid {
   const rows = Math.ceil(design.hall.d / CELL)
   const n = cols * rows
   const walkRects = walkableRects(design)
-  const obstacles = [...objects, ...opt.walls.map((w) => wallFootprint(w, opt.wallT))].map(shapeOf)
+  const obstacles = [
+    ...objects.filter((o) => (o.elev ?? 0) < HEADROOM),
+    ...opt.walls.map((w) => wallFootprint(w, opt.wallT)),
+  ].map(shapeOf)
 
   const free = new Uint8Array(n) // walkable and clear by AGENT_RADIUS
   const open = new Uint8Array(n) // walkable and not inside an obstacle (for clearance)

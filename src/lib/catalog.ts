@@ -96,6 +96,13 @@ export function findSpot(design: Design, objects: EditorObject[], w: number, d: 
   return fallback ?? { x: cx, z: cz }
 }
 
+/** A new editor object from a saved library template, placed in a free spot. */
+export function fromTemplate(t: Omit<EditorObject, 'id' | 'x' | 'z' | 'locked'>, design: Design, objects: EditorObject[]): EditorObject {
+  const { x, z } = findSpot(design, objects, t.w, t.d)
+  const slug = t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 20) || 'item'
+  return { ...t, id: `${slug}-${crypto.randomUUID().slice(0, 8)}`, x, z, rotY: 0, locked: false }
+}
+
 /** A new editor object from a catalog item, placed in a free spot. */
 export function makeObject(item: CatalogItem, design: Design, objects: EditorObject[]): EditorObject {
   const { x, z } = findSpot(design, objects, item.w, item.d)

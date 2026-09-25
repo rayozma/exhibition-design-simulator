@@ -33,6 +33,29 @@ export type LayoutOption = {
 /** Geometric shape of an object without a built-in model or upload. */
 export type ShapeKind = 'box' | 'cylinder' | 'sphere' | 'cone' | 'wedge' | 'panel' | 'sign'
 
+/** One piece of a combined object, in the object's own coordinates (center of its footprint, y up from its base). */
+export type CompositePart = {
+  name?: string
+  category?: string
+  /** Built-in model, or a basic shape. */
+  kind?: string
+  shape?: ShapeKind
+  x: number
+  /** Height of the part's base above the object's base. */
+  y: number
+  z: number
+  w: number
+  d: number
+  h: number
+  rotY: number
+  color?: string
+  material?: string
+  text?: string
+}
+
+/** Parts of a combined object, laid out for a `base` size; the object scales them to its own w/d/h. */
+export type CompositeParts = { base: { w: number; d: number; h: number }; items: CompositePart[] }
+
 export type SeedObject = {
   id: string
   num?: number
@@ -43,6 +66,10 @@ export type SeedObject = {
   text?: string
   /** Built-in model to draw (e.g. "chair"); unset = decided from name / category. */
   kind?: string
+  /** Lift: height of the object's base above the floor / platform (m). */
+  elev?: number
+  /** A combined object: drawn from these parts instead of a single shape or model. */
+  parts?: CompositeParts
   x: number
   z: number
   w: number

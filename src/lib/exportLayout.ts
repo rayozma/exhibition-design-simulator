@@ -39,6 +39,8 @@ export function layoutJson(design: Design, objects: EditorObject[], room: string
       ...(o.shape && { shape: o.shape }),
       ...(o.text && { text: o.text }),
       ...(o.kind && { kind: o.kind }),
+      ...(o.elev && { elev: mm(o.elev) }),
+      ...(o.parts && { parts: o.parts }),
       x: mm(o.x),
       z: mm(o.z),
       w: mm(o.w),

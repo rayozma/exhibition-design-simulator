@@ -19,7 +19,7 @@ import type { LayoutSel, LayoutTool } from './lib/layoutEdit'
 import { useDesignEditor } from './lib/useDesignEditor'
 import { ROTATE_STEP, useObjectOps, type ObjectOps } from './lib/useObjectOps'
 import { moverKey, useRoomSync } from './lib/useRoomSync'
-import type { User } from './lib/user'
+import { TAB_ID, type User } from './lib/user'
 import { Capture, type CaptureFn } from './scene/Capture'
 import { Scene, type ViewMode } from './scene/Scene'
 import { WALK_START_ID } from './scene/WalkMode'
@@ -357,7 +357,7 @@ function EditorView({
         <Sidebar
           selectedCount={selectedObjs.length}
           objectCount={objects.length}
-          add={<AddPanel objects={objects} ops={ops} onUpload={room ? () => setUpload('new') : undefined} />}
+          add={<AddPanel objects={objects} ops={ops} onUpload={room ? () => setUpload('new') : undefined} library={!!room} />}
           selected={
             <ObjectPanel
               objs={selectedObjs}
@@ -365,6 +365,7 @@ function EditorView({
               busyBy={(id) => movers.get(id)?.name ?? null}
               ops={ops}
               onUpload={room ? () => setUpload(single ? 'attach' : 'new') : undefined}
+              libraryBy={room ? `${me?.name ?? 'anon'}#${TAB_ID}` : undefined}
             />
           }
           list={<ObjectList objects={objects} statuses={statuses} selectedIds={selectedIds} onSelect={select} ops={ops} />}

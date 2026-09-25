@@ -45,6 +45,7 @@ const BY_ID: Record<string, ProcKind> = {
 
 /** Which built-in model to draw, or null for a plain box (e.g. uploaded "model" objects without a file). */
 export function kindOf(obj: EditorObject): ProcKind | null {
+  if (obj.parts) return null // combined objects draw their parts
   if (obj.kind) return (PROC_KINDS as string[]).includes(obj.kind) ? (obj.kind as ProcKind) : null
   if (obj.category === 'shape') return null // basic shapes are drawn as plain geometry
   const base = obj.id.replace(/-[0-9a-f]{8}$/, '') // duplicates keep their original's look
