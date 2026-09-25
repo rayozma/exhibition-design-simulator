@@ -274,6 +274,15 @@ button.primary:hover {
   gap: 6px;
 }
 
+.dialog-input {
+  font: inherit;
+  padding: 6px 8px;
+  color: var(--text);
+  background: #0b1220;
+  border: 1px solid #374151;
+  border-radius: 6px;
+}
+
 .avatar-picks {
   display: flex;
   flex-wrap: wrap;

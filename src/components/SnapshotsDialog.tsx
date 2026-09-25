@@ -3,6 +3,7 @@ import { deleteSnapshot, fetchSnapshots, saveSnapshot, type Snapshot } from '../
 import type { EditorObject } from '../lib/editor'
 import { downloadBlob, downloadLayoutJson, exportName } from '../lib/exportLayout'
 import { useDesign } from '../lib/DesignContext'
+import { askConfirm } from '../lib/dialogs'
 import type { ObjectOps } from '../lib/useObjectOps'
 import { TAB_ID, type User } from '../lib/user'
 import type { CaptureFn } from '../scene/Capture'
@@ -63,15 +64,18 @@ export function SnapshotsDialog({ room, objects, me, ops, capture, onClose }: Pr
       await load()
     })
 
-  const restore = (s: Snapshot) => {
-    if (!window.confirm(`Replace all objects with snapshot "${s.name}" for everyone in this design? (You can undo this.)`))
-      return
+  const restore = async (s: Snapshot) => {
+    const yes = await askConfirm(`Restore snapshot "${s.name}"?`, {
+      message: 'Replaces all objects for everyone in this design. You can undo this.',
+      okLabel: 'Restore',
+    })
+    if (!yes) return
     ops.restore(s.data.objects)
     onClose()
   }
 
-  const remove = (s: Snapshot) => {
-    if (!window.confirm(`Delete snapshot "${s.name}"?`)) return
+  const remove = async (s: Snapshot) => {
+    if (!(await askConfirm(`Delete snapshot "${s.name}"?`, { okLabel: 'Delete', danger: true }))) return
     run(async () => {
       await deleteSnapshot(room!, s.id)
       await load()

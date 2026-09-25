@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { askText } from '../lib/dialogs'
 import type { ObjectsByLayout } from '../lib/editor'
 import type { Peer, SyncStatus } from '../lib/useRoomSync'
 import type { User } from '../lib/user'
@@ -34,7 +35,7 @@ export function PeerList({ status, me, peers, objects, onEditUser }: Props) {
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
     } catch {
-      window.prompt('Copy this room link:', location.href)
+      await askText('Copy this link', location.href, { message: 'Select the link and copy it (Ctrl+C).', okLabel: 'Done' })
     }
   }
 

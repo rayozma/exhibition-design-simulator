@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { BASIC_SHAPES, fromTemplate, ITEMS, makeObject, type CatalogItem } from '../lib/catalog'
 import { deleteLibraryItem, fetchLibrary, LIBRARY_CHANGED, type LibraryItem } from '../lib/db'
+import { askConfirm } from '../lib/dialogs'
 import { useDesign } from '../lib/DesignContext'
 import type { EditorObject } from '../lib/editor'
 import type { ObjectOps } from '../lib/useObjectOps'
@@ -45,7 +46,12 @@ function Library({ onAdd }: { onAdd: (it: LibraryItem) => void }) {
   }, [load])
 
   const remove = async (it: LibraryItem) => {
-    if (!window.confirm(`Delete "${it.name}" from the library for everyone? (Objects already placed in designs stay.)`)) return
+    const yes = await askConfirm(`Delete "${it.name}" from the library?`, {
+      message: 'It disappears from the library for everyone. Objects already placed in designs stay.',
+      okLabel: 'Delete',
+      danger: true,
+    })
+    if (!yes) return
     try {
       await deleteLibraryItem(it.id)
       load()

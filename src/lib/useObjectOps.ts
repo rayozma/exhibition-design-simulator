@@ -9,6 +9,7 @@ import {
   type UndoEntry,
 } from './editor'
 import { breakApart, combinable, combine } from './composite'
+import { askConfirm } from './dialogs'
 import { clampToHall, normDeg, snapTo } from './geometry'
 import type { Design } from './design'
 import { DEG } from './layout'
@@ -114,14 +115,16 @@ export function useObjectOps(
         setAll(copies)
         setSelection(copies.map((o) => o.id))
       },
-      remove(ids: string[]) {
+      async remove(ids: string[]) {
         const objs = editables(ids)
         if (!objs.length) return
         const skipped = ids.length - objs.length
         const what = objs.length === 1 ? `"${objs[0].name}"` : `${objs.length} objects`
-        const note = skipped ? ` (${skipped} locked or in use will be kept)` : ''
-        if (!window.confirm(`Delete ${what}?${note}`)) return
-        commit(objs.map((o) => ({ id: o.id, next: null })))
+        const note = skipped ? `${skipped} locked or in use will be kept.` : undefined
+        if (!(await askConfirm(`Delete ${what}?`, { message: note, okLabel: 'Delete', danger: true }))) return
+        // Re-read after the dialog: only delete what still exists and is still editable.
+        const still = editables(objs.map((o) => o.id))
+        commit(still.map((o) => ({ id: o.id, next: null })))
         setSelection([])
       },
       /** Merge the selected objects into one combined object (uploaded 3D files are left out). */
@@ -148,11 +151,13 @@ export function useObjectOps(
         actions.undo(l)
         sync.persist(l, undoChanges(entry))
       },
-      reset() {
-        const { objects: list } = latest.current
-        if (!window.confirm(`Reset every object to the design's starting layout for everyone in this design? (You can undo this.)`))
-          return
-        commit(resetChanges(list, latest.current.design.seed))
+      async reset() {
+        const yes = await askConfirm('Reset to design?', {
+          message: "Puts every object back to the design's starting layout, for everyone in this design. You can undo this.",
+          okLabel: 'Reset',
+        })
+        if (!yes) return
+        commit(resetChanges(latest.current.objects, latest.current.design.seed))
       },
       /** Replace the current layout with a snapshot (one undo step; saved for everyone). */
       restore(objects: EditorObject[]) {

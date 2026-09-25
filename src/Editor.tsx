@@ -13,6 +13,7 @@ import { UploadDialog, type UploadMode } from './components/UploadDialog'
 import { ensureRoom, renameRoom } from './lib/db'
 import { adipecTemplate, type Design } from './lib/design'
 import { DesignContext } from './lib/DesignContext'
+import { askText } from './lib/dialogs'
 import { seedObjects, useEditor, type EditorObject, type UndoEntry } from './lib/editor'
 import { computeStatuses } from './lib/geometry'
 import type { LayoutSel, LayoutTool } from './lib/layoutEdit'
@@ -169,7 +170,7 @@ function EditorView({
 
   const rename = async () => {
     if (!room) return
-    const next = window.prompt('Design name', name)?.trim().slice(0, 80)
+    const next = (await askText('Rename design', name, { okLabel: 'Rename' }))?.slice(0, 80)
     if (!next || next === name) return
     try {
       await renameRoom(room, next)

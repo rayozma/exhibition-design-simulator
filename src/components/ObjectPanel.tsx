@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { combinable } from '../lib/composite'
 import { LIBRARY_CHANGED, saveLibraryItem, toTemplate } from '../lib/db'
+import { askText } from '../lib/dialogs'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
 import type { ShapeKind } from '../lib/layout'
@@ -42,7 +43,7 @@ function SaveToLibrary({ obj, by }: { obj: EditorObject; by: string }) {
   const [state, setState] = useState<'idle' | 'saving' | 'saved'>('idle')
   const [error, setError] = useState<string | null>(null)
   const save = async () => {
-    const name = window.prompt('Name in the library', obj.name)?.trim().slice(0, 80)
+    const name = (await askText('Save to library', obj.name, { message: 'Name in the library (shared by all designs)', okLabel: 'Save' }))?.slice(0, 80)
     if (!name) return
     setState('saving')
     setError(null)
@@ -90,9 +91,9 @@ function Help({ onUpload }: { onUpload?: () => void }) {
 function MultiPanel({ objs, ops }: { objs: EditorObject[]; ops: ObjectOps }) {
   const ids = objs.map((o) => o.id)
   const parts = objs.filter((o) => combinable(o) && !o.locked)
-  const combineNow = () => {
-    const name = window.prompt('Name for the combined object', 'Custom object')?.trim().slice(0, 80)
-    if (name) ops.combine(ids, name)
+  const combineNow = async () => {
+    const name = await askText('Combine into one object', 'Custom object', { message: 'Name for the combined object', okLabel: 'Combine' })
+    if (name) ops.combine(ids, name.slice(0, 80))
   }
   const allLocked = objs.every((o) => o.locked)
   return (

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { DialogHost } from './components/DialogHost'
 import { Landing } from './components/Landing'
 import { UserDialog } from './components/UserDialog'
 import { Editor } from './Editor'
@@ -15,7 +16,13 @@ export function App() {
   const [user, setUser] = useState<User | null>(loadUser)
   const [editingUser, setEditingUser] = useState(false)
 
-  if (supabase && !room) return <Landing />
+  if (supabase && !room)
+    return (
+      <>
+        <Landing />
+        <DialogHost />
+      </>
+    )
 
   const askUser = !!supabase && (!user || editingUser)
   return (
@@ -32,6 +39,7 @@ export function App() {
           onCancel={user ? () => setEditingUser(false) : undefined}
         />
       )}
+      <DialogHost />
     </>
   )
 }
