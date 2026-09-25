@@ -5,6 +5,8 @@ import type { Status } from '../lib/geometry'
 import { activeZones, HALL_CENTER, inRects, layouts, theme, type LayoutId } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
 import type { CrowdSettings, CrowdStats } from '../sim/crowd'
+import type { Walker } from '../lib/useRoomSync'
+import { Avatars } from './Avatars'
 import { Booth } from './Booth'
 import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
@@ -33,6 +35,10 @@ export type SceneProps = {
   crowd: CrowdSettings
   onCrowdStats: (s: CrowdStats) => void
   onWalkLock: (locked: boolean) => void
+  /** Other users walking in first-person mode. */
+  walkers: Walker[]
+  onWalkMove: (x: number, z: number, heading: number) => void
+  onWalkLeave: () => void
 }
 
 /** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
@@ -68,7 +74,13 @@ export function Scene(p: SceneProps) {
       <directionalLight position={[28, 12, -4]} intensity={0.45} />
 
       {walk ? (
-        <WalkMode layoutId={layoutId} objects={p.objects} onLockChange={p.onWalkLock} />
+        <WalkMode
+          layoutId={layoutId}
+          objects={p.objects}
+          onLockChange={p.onWalkLock}
+          onMove={p.onWalkMove}
+          onLeave={p.onWalkLeave}
+        />
       ) : (
         <>
           {top ? (
@@ -105,6 +117,7 @@ export function Scene(p: SceneProps) {
           interactive={!walk}
         />
       ))}
+      <Avatars walkers={p.walkers} layoutId={layoutId} />
       <Crowd layoutId={layoutId} objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />
     </>
   )

@@ -25,7 +25,7 @@ const noRaycast = () => {}
  * Low-poly person, 1.7 m tall, feet at the origin, facing +z. Drawn as separate parts so each
  * part gets its own per-person color: robe/trousers, torso, head, headcloth, agal, hair.
  */
-function partGeometries(): Record<Part, BufferGeometry> {
+export function partGeometries(): Record<Part, BufferGeometry> {
   const headcloth = mergeGeometries([
     // Dome over the head, and cloth hanging behind and at the sides (face stays open at +z).
     new SphereGeometry(0.142, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2).translate(0, 1.585, -0.005),
@@ -43,11 +43,11 @@ function partGeometries(): Record<Part, BufferGeometry> {
   }
 }
 
-type Part = 'lower' | 'upper' | 'head' | 'headcloth' | 'agal' | 'hair'
-const PARTS: Part[] = ['lower', 'upper', 'head', 'headcloth', 'agal', 'hair']
+export type Part = 'lower' | 'upper' | 'head' | 'headcloth' | 'agal' | 'hair'
+export const PARTS: Part[] = ['lower', 'upper', 'head', 'headcloth', 'agal', 'hair']
 
 /** Color of each part for an outfit, or null = this part isn't shown. */
-function partColor(part: Part, o: Outfit): number | null {
+export function partColor(part: Part, o: Outfit): number | null {
   switch (part) {
     case 'lower':
       return o.lower
@@ -60,7 +60,7 @@ function partColor(part: Part, o: Outfit): number | null {
     case 'agal':
       return o.look === 'kandura' ? 0x111111 : null
     case 'hair':
-      return hasHeadCloth(o.look) ? null : o.head
+      return hasHeadCloth(o.look) || o.bald ? null : o.head
   }
 }
 

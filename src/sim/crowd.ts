@@ -1,6 +1,6 @@
 import { inRects, layouts } from '../lib/layout'
 import { cellOf, cellX, cellZ, type FlowField, type NavGrid } from './navGrid'
-import { randomOutfit, type Outfit } from './outfits'
+import { baldBlackSuit, randomOutfit, type Outfit } from './outfits'
 
 export const MAX_AGENTS = 400
 
@@ -132,7 +132,9 @@ export class CrowdSim {
   private spawn(anywhere: boolean) {
     const nav = this.nav
     if (!nav || !nav.freeCells.length) return
-    const role = Math.random() < this.visitorShare ? 'visitor' : 'passer'
+    // Exactly one bald man in a black suit is always in the crowd (a visitor, so he browses the booth).
+    const needBald = !this.agents.some((a) => a.outfit.bald)
+    const role = needBald || Math.random() < this.visitorShare ? 'visitor' : 'passer'
     let cell: number
     let spawnEntrance = -1
     // Entrances that have another end on the same aisle (passers-by walk from one end to the other).
@@ -164,7 +166,7 @@ export class CrowdSim {
       visitsLeft: role === 'visitor' ? 1 + Math.floor(Math.random() * MAX_VISITS) : 0,
       lastAttraction: -1,
       spawnEntrance,
-      outfit: randomOutfit(),
+      outfit: needBald ? baldBlackSuit() : randomOutfit(),
       heading: Math.random() * Math.PI * 2,
       dead: false,
     }

@@ -29,13 +29,16 @@ type Props = {
   layoutId: LayoutId
   objects: EditorObject[]
   onLockChange: (locked: boolean) => void
+  /** Called every frame with where I am (the sync layer throttles), and once when walk mode ends. */
+  onMove: (x: number, z: number, heading: number) => void
+  onLeave: () => void
 }
 
 /**
  * First-person walking: click the "Start walking" button to capture the mouse (look around),
  * WASD / arrows to move, Shift to run, Esc to release the mouse. Starts on the walkway facing the booth.
  */
-export function WalkMode({ layoutId, objects, onLockChange }: Props) {
+export function WalkMode({ layoutId, objects, onLockChange, onMove, onLeave }: Props) {
   const opt = layouts.options[layoutId]
   const walkRects = useMemo(() => walkableRects(layoutId), [layoutId])
   const obstacles: Footprint[] = useMemo(
@@ -78,6 +81,11 @@ export function WalkMode({ layoutId, objects, onLockChange }: Props) {
     cam.current?.lookAt(start.x, EYE, start.z + 5)
   }, [start])
 
+  // Tell others when I stop walking (switching view, or leaving the room).
+  const leave = useRef(onLeave)
+  leave.current = onLeave
+  useEffect(() => () => leave.current(), [])
+
   const canStand = (x: number, z: number) =>
     inRects(walkRects, x, z) && obstacles.every((o) => distToFootprint(o, x, z) > RADIUS)
 
@@ -107,6 +115,9 @@ export function WalkMode({ layoutId, objects, onLockChange }: Props) {
     }
     // Step up onto the booth platform.
     p.y = EYE + (inRects(opt.ndtFootprint, p.x, p.z) ? opt.platformH : 0)
+    // Share position and facing (heading in three.js rotation.y terms: 0 = facing +z).
+    camera.getWorldDirection(tmp.fwd)
+    onMove(p.x, p.z, Math.atan2(tmp.fwd.x, tmp.fwd.z))
   })
 
   return (

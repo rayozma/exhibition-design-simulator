@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { USER_COLORS, type User } from '../lib/user'
+import { AVATAR_LOOKS, type AvatarLook } from '../sim/outfits'
 
 type Props = { initial: User | null; onSave: (u: User) => void; onCancel?: () => void }
 
-/** Asks for a display name and color (stored in localStorage by the caller). */
+/** Asks for a display name, color and walk-mode avatar (stored in localStorage by the caller). */
 export function UserDialog({ initial, onSave, onCancel }: Props) {
   const [name, setName] = useState(initial?.name ?? '')
   const [color, setColor] = useState(initial?.color ?? USER_COLORS[Math.floor(Math.random() * USER_COLORS.length)])
+  const [avatar, setAvatar] = useState<AvatarLook>(initial?.avatar ?? 'suit')
   const trimmed = name.trim().slice(0, 30)
 
   return (
@@ -15,7 +17,7 @@ export function UserDialog({ initial, onSave, onCancel }: Props) {
         className="card"
         onSubmit={(e) => {
           e.preventDefault()
-          if (trimmed) onSave({ name: trimmed, color })
+          if (trimmed) onSave({ name: trimmed, color, avatar })
         }}
       >
         <h2>Who are you?</h2>
@@ -38,6 +40,21 @@ export function UserDialog({ initial, onSave, onCancel }: Props) {
               />
             ))}
             <input type="color" value={color} onChange={(e) => setColor(e.target.value)} title="Custom color" />
+          </div>
+        </div>
+        <div className="field">
+          <span>Avatar in walk mode (what others see)</span>
+          <div className="avatar-picks">
+            {AVATAR_LOOKS.map(([look, label]) => (
+              <button
+                key={look}
+                type="button"
+                className={look === avatar ? 'active' : ''}
+                onClick={() => setAvatar(look)}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
         <div className="actions">

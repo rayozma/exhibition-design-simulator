@@ -154,6 +154,7 @@ export function Editor({ room, me, onEditUser }: Props) {
     )
   }, [roomSync.movers, layoutId])
 
+  const walkers = useMemo(() => Object.values(roomSync.walkers), [roomSync.walkers])
   const single = selectedObjs.length === 1 ? selectedObjs[0] : null
 
   return (
@@ -217,6 +218,9 @@ export function Editor({ room, me, onEditUser }: Props) {
               crowd={crowd}
               onCrowdStats={setCrowdStats}
               onWalkLock={setWalkLocked}
+              walkers={walkers}
+              onWalkMove={(x, z, heading) => roomSync.sync.walkMove(layoutId, x, z, heading)}
+              onWalkLeave={roomSync.sync.walkEnd}
             />
             <Capture register={capture} />
           </Canvas>

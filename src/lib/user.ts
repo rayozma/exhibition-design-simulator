@@ -1,4 +1,7 @@
-export type User = { name: string; color: string }
+import type { AvatarLook } from '../sim/outfits'
+
+/** avatar = look of your figure in walk mode (others see it). */
+export type User = { name: string; color: string; avatar?: AvatarLook }
 
 const USER_KEY = 'ndt-adipec.user'
 

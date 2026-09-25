@@ -15,6 +15,8 @@ export type Outfit = {
   skin: number
   /** Headwear (ghutra / shayla) or hair color. */
   head: number
+  /** No hair (the head shows skin only). */
+  bald?: boolean
 }
 
 /** Share of each look among new arrivals (sums to 1). */
@@ -35,18 +37,20 @@ const SHIRT = [0xf8fafc, 0x93c5fd, 0x2563eb, 0x16a34a, 0xe11d48, 0xf59e0b, 0x7c3
 const TROUSERS = [0x2f3b52, 0x1f2937, 0x8b7d6b, 0x4b5563]
 const HAIR = [0x1a1410, 0x2b1d14, 0x3b2a1e, 0x6b6b6b]
 
-const pick = <T>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)]
+type Rng = () => number
 
-function randomLook(): Look {
-  let r = Math.random()
+function randomLook(rng: Rng): Look {
+  let r = rng()
   for (const [look, share] of LOOKS) {
     if ((r -= share) < 0) return look
   }
   return 'casual'
 }
 
-export function randomOutfit(): Outfit {
-  const look = randomLook()
+/** A random outfit; pass a seeded `rng` to get the same outfit every time, and `look` to fix the style. */
+export function randomOutfit(rng: Rng = Math.random, forceLook?: Look): Outfit {
+  const pick = <T>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+  const look = forceLook ?? randomLook(rng)
   const skin = pick(SKIN)
   switch (look) {
     case 'kandura': {
@@ -64,6 +68,39 @@ export function randomOutfit(): Outfit {
     case 'casual':
       return { look, lower: pick(TROUSERS), upper: pick(SHIRT), skin, head: pick(HAIR) }
   }
+}
+
+/** The one bald man in a black suit who is always somewhere in the crowd. */
+export function baldBlackSuit(): Outfit {
+  return { look: 'suit', lower: 0x0b0b0d, upper: 0x0b0b0d, skin: 0xc68c63, head: 0xc68c63, bald: true }
+}
+
+/** Small deterministic PRNG (mulberry32) seeded from a string, e.g. a user name. */
+function seeded(seed: string): Rng {
+  let h = 2166136261
+  for (let i = 0; i < seed.length; i++) h = Math.imul(h ^ seed.charCodeAt(i), 16777619)
+  return () => {
+    h = (h + 0x6d2b79f5) | 0
+    let t = Math.imul(h ^ (h >>> 15), 1 | h)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+/** Avatar styles a user can choose for walk mode. */
+export type AvatarLook = Look | 'bald'
+export const AVATAR_LOOKS: [AvatarLook, string][] = [
+  ['suit', 'Business suit'],
+  ['kandura', 'Kandura & ghutra'],
+  ['abaya', 'Abaya & shayla'],
+  ['casual', 'Smart casual'],
+  ['bald', 'Bald, black suit'],
+]
+
+/** A user's avatar: the chosen style, with colors that stay the same for the same name on every computer. */
+export function avatarOutfit(name: string, look: AvatarLook = 'suit'): Outfit {
+  if (look === 'bald') return baldBlackSuit()
+  return randomOutfit(seeded(name.trim().toLowerCase()), look)
 }
 
 /** Long robes flare to the ankle; trousers are slimmer. */
