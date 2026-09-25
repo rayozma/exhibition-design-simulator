@@ -15,6 +15,7 @@ import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
 import { Pavilion } from './Pavilion'
 import { SceneObject } from './SceneObject'
+import { MeasureLayer, Rulers, SelectionDims, type Measurement } from './Dimensions'
 import { LayoutEditor } from './LayoutEditor'
 import { WalkMode } from './WalkMode'
 import { Zones } from './Zones'
@@ -45,12 +46,14 @@ export type SceneProps = {
   onWalkLeave: () => void
   /** Layout editing (zones, booth areas, walls, entrances); null = editing objects as usual. */
   layout: ComponentProps<typeof LayoutEditor> | null
+  /** Dimensions overlay and the measure tool. */
+  dims: { show: boolean; measuring: boolean; measures: Measurement[]; onMeasure: (m: Measurement) => void }
 }
 
-/** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall. */
-function TopCamera({ design }: { design: Design }) {
+/** Orthographic camera looking straight down, north (-z) at the top, zoomed to fit the hall (+ margin for rulers). */
+function TopCamera({ design, margin }: { design: Design; margin: number }) {
   const size = useThree((s) => s.size)
-  const zoom = Math.min(size.width / (design.hall.w + 2), size.height / (design.hall.d + 2))
+  const zoom = Math.min(size.width / (design.hall.w + margin), size.height / (design.hall.d + margin))
   const c = hallCenter(design)
   return (
     <OrthographicCamera
@@ -76,6 +79,7 @@ export function Scene(p: SceneProps) {
   const top = view === 'top'
   const walk = view === 'walk'
   const selected = new Set(p.selectedIds)
+  const selectedOne = p.selectedIds.length === 1 ? p.objects.find((o) => o.id === p.selectedIds[0]) : undefined
 
   return (
     // The canvas has its own React renderer, so the design is provided again inside it.
@@ -97,7 +101,7 @@ export function Scene(p: SceneProps) {
       ) : (
         <>
           {top ? (
-            <TopCamera design={design} />
+            <TopCamera design={design} margin={p.dims.show ? 5 : 2} />
           ) : (
             <PerspectiveCamera makeDefault position={overview} fov={45} near={0.1} far={400} />
           )}
@@ -127,10 +131,13 @@ export function Scene(p: SceneProps) {
           mover={p.movers.get(o.id)}
           ops={p.ops}
           onSelect={p.onSelect}
-          interactive={!walk && !p.layout}
+          interactive={!walk && !p.layout && !p.dims.measuring}
         />
       ))}
       {p.layout && !walk && <LayoutEditor {...p.layout} />}
+      {p.dims.show && <Rulers />}
+      {p.dims.show && !p.layout && selectedOne && <SelectionDims obj={selectedOne} objects={p.objects} />}
+      <MeasureLayer active={p.dims.measuring && !walk} measures={p.dims.measures} onAdd={p.dims.onMeasure} objects={p.objects} />
       <Avatars walkers={p.walkers} layoutId={design.layoutId} />
       <Crowd objects={p.objects} settings={p.crowd} onStats={p.onCrowdStats} />
     </DesignContext.Provider>

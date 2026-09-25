@@ -19,6 +19,10 @@ type Props = {
   onSnapshots: () => void
   layoutMode: boolean
   onLayoutMode: (on: boolean) => void
+  showDims: boolean
+  onDims: (v: boolean) => void
+  measuring: boolean
+  onMeasuring: (v: boolean) => void
   /** Name of the open design. */
   designName: string
   onRename?: () => void
@@ -85,6 +89,17 @@ export function TopBar(p: Props) {
         <input type="checkbox" checked={p.snap} onChange={(e) => p.onSnap(e.target.checked)} />
         Snap
       </label>
+      <label className="toggle" title="Rulers along the hall edges; size and clearances of the selected object">
+        <input type="checkbox" checked={p.showDims} onChange={(e) => p.onDims(e.target.checked)} />
+        Dimensions
+      </label>
+      <button
+        className={p.measuring ? 'active' : ''}
+        onClick={() => p.onMeasuring(!p.measuring)}
+        title="Click two points to measure the distance (snaps to corners)"
+      >
+        📏 Measure
+      </button>
 
       <span className="spacer" />
       <button onClick={p.onUndo} disabled={!p.canUndo} title="Ctrl+Z">

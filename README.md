@@ -27,6 +27,13 @@ Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deplo
 | Rotate | R / Shift+R, or the ⟲ ⟳ buttons (15° steps). Several objects turn around their common center |
 | Exact values | Type number, name, size, position or rotation in the right panel (**Selected** tab), then press Enter |
 | Object list and remarks | **Objects** tab in the right panel: every object with number, name, size and status, and a remarks box (saved for everyone) |
+| Edit the layout | **Edit layout** in the top bar: draw zones, walkways, booth areas, walls and entrances on the plan; drag to move, drag the yellow handles to resize; hall size and booth settings in the panel |
+| Add things | **+ Add** tab: basic shapes (box, cylinder, sphere, cone, ramp, panel, sign), ready-made items, your library, or upload a .glb / .obj |
+| Stack things | **Lift** (next to X / Z): height above the floor, e.g. a screen on a counter |
+| Combine | Select several objects, **Combine into one object**; **Break apart** undoes it. **Save to library…** makes any object reusable in all designs |
+| Crowd attraction | **Visitors stop here** on any object |
+| Dimensions | **Dimensions** in the top bar: rulers along the hall, size of the selected object and its clearances to walls / objects / booth edge |
+| Measure | **📏 Measure**: click two points (snaps to corners); Esc to stop, measurements stay until cleared |
 | Walk through the booth | **Walk** in the top bar, then **Click to start walking**. Mouse to look, W A S D or arrows to walk, Shift to run, Esc to release the mouse |
 | Delete a design | **Delete** next to the design on the home page, then enter the delete password |
 | Color | Color picker in the right panel (placeholder boxes only; uploaded models keep their own materials) |
@@ -66,7 +73,7 @@ Without Supabase settings the app runs in **local-only mode**: editing works, bu
 3. **SQL Editor → New query**: paste all of [`supabase/storage.sql`](supabase/storage.sql) and click **Run**.
 4. **SQL Editor → New query**: paste all of [`supabase/rooms-and-colors.sql`](supabase/rooms-and-colors.sql) and click **Run**.
 5. **SQL Editor → New query**: paste all of [`supabase/delete-room.sql`](supabase/delete-room.sql) and click **Run**. Then set the delete password with the one-line `insert into public.app_secrets …` shown at the top of that file (replace `YOUR-PASSWORD`). The password is never stored in this repository.
-6. **SQL Editor → New query**: paste all of [`supabase/designs.sql`](supabase/designs.sql) and click **Run**.
+6. **SQL Editor → New query**: run [`supabase/designs.sql`](supabase/designs.sql), then [`supabase/shapes.sql`](supabase/shapes.sql), then [`supabase/library.sql`](supabase/library.sql), each the same way.
 7. Copy the settings file and fill it in:
    ```powershell
    Copy-Item .env.example .env
@@ -134,6 +141,8 @@ supabase/
   rooms-and-colors.sql   rooms table (home page list), per-object color column
   delete-room.sql        password-protected deletion (password set separately, not in the repo)
   designs.sql            design document per room, flexible layout ids, realtime on rooms
+  shapes.sql             more shapes, sign text, built-in model kind
+  library.sql            lift, combined-object parts, shared item library
 ```
 
 **Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east, z points south, y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint.

@@ -22,6 +22,7 @@ import { ROTATE_STEP, useObjectOps, type ObjectOps } from './lib/useObjectOps'
 import { moverKey, useRoomSync } from './lib/useRoomSync'
 import { TAB_ID, type User } from './lib/user'
 import { Capture, type CaptureFn } from './scene/Capture'
+import type { Measurement } from './scene/Dimensions'
 import { Scene, type ViewMode } from './scene/Scene'
 import { WALK_START_ID } from './scene/WalkMode'
 import type { CrowdSettings, CrowdStats } from './sim/crowd'
@@ -151,6 +152,18 @@ function EditorView({
 }: Props & { design: Design; setDesign: (d: Design) => void; name: string; onRenamed: (name: string) => void }) {
   const layoutId = design.layoutId
   const [layoutMode, setLayoutMode] = useState(false)
+  const [showDims, setShowDims] = useState(false)
+  const [measuring, setMeasuring] = useState(false)
+  const [measures, setMeasures] = useState<Measurement[]>([])
+  // Esc stops measuring.
+  useEffect(() => {
+    if (!measuring) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMeasuring(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [measuring])
   const [layoutTool, setLayoutTool] = useState<LayoutTool>('select')
   const [layoutSel, setLayoutSel] = useState<LayoutSel>(null)
   const designEditor = useDesignEditor(room, design, setDesign)
@@ -214,7 +227,7 @@ function EditorView({
   const roomSync = useRoomSync(room, me, actions, layoutId, selectedIds, onRoomRow)
   const ops = useObjectOps(actions, roomSync.sync, design, objects, state.undo[layoutId] ?? NO_UNDO, snap, selectedIds, setSelection)
   const allIds = useMemo(() => objects.map((o) => o.id), [objects])
-  useShortcuts(ops, selectedIds, setSelection, allIds, view !== 'walk' && !layoutMode)
+  useShortcuts(ops, selectedIds, setSelection, allIds, view !== 'walk' && !layoutMode && !measuring)
 
   const toggleLayoutMode = (on: boolean) => {
     setLayoutMode(on)
@@ -255,10 +268,20 @@ function EditorView({
         onView={(v) => {
           setView(v)
           setWalkLocked(false)
-          if (v === 'walk') setLayoutMode(false)
+          if (v === 'walk') {
+            setLayoutMode(false)
+            setMeasuring(false)
+          }
         }}
         layoutMode={layoutMode}
         onLayoutMode={toggleLayoutMode}
+        showDims={showDims}
+        onDims={setShowDims}
+        measuring={measuring}
+        onMeasuring={(on) => {
+          setMeasuring(on)
+          if (on && view === 'walk') setView('top')
+        }}
         showVolumes={showVolumes}
         onVolumes={setShowVolumes}
         showWalls={showWalls}
@@ -294,7 +317,7 @@ function EditorView({
       <div className="body">
         <main className="viewport">
           {/* flat = no filmic tone mapping, which would dull whites and the zone colors */}
-          <Canvas dpr={[1, 2]} flat onPointerMissed={() => view !== 'walk' && !layoutMode && setSelection([])}>
+          <Canvas dpr={[1, 2]} flat onPointerMissed={() => view !== 'walk' && !layoutMode && !measuring && setSelection([])}>
             <Scene
               design={design}
               view={view}
@@ -314,6 +337,7 @@ function EditorView({
               walkers={walkers}
               onWalkMove={(x, z, heading) => roomSync.sync.walkMove(layoutId, x, z, heading)}
               onWalkLeave={roomSync.sync.walkEnd}
+              dims={{ show: showDims, measuring, measures, onMeasure: (m) => setMeasures((l) => [...l, m]) }}
               layout={
                 layoutMode
                   ? {
@@ -342,6 +366,21 @@ function EditorView({
               </div>
               {walkLocked && <div className="walk-hint">WASD walk · Shift run · Esc release mouse</div>}
             </>
+          )}
+          {measuring && (
+            <div className="measure-hint">
+              Click two points to measure. Snaps to corners within 20 cm. Esc to stop.
+              {measures.length > 0 && (
+                <button className="link" onClick={() => setMeasures([])}>
+                  Clear {measures.length} measurement{measures.length > 1 ? 's' : ''}
+                </button>
+              )}
+            </div>
+          )}
+          {!measuring && measures.length > 0 && (
+            <button className="measure-clear" onClick={() => setMeasures([])}>
+              Clear measurements ({measures.length})
+            </button>
           )}
           <CrowdPanel
             settings={crowd}
