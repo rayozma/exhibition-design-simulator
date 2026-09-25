@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
 import { ROTATE_STEP, type ObjectOps } from '../lib/useObjectOps'
+import { baseColorOf } from '../scene/SceneObject'
 
 const fmt = (v: number) => String(Math.round(v * 100) / 100)
 
@@ -133,6 +134,23 @@ export function ObjectPanel({ obj, status, busyBy, ops, onUpload }: Props) {
         <button disabled={locked} onClick={() => ops.rotate(obj.id, ROTATE_STEP)} title="R">
           ⟳ +{ROTATE_STEP}°
         </button>
+      </div>
+
+      <h4>Color</h4>
+      <div className="color-row">
+        <input
+          type="color"
+          value={baseColorOf(obj)}
+          disabled={locked}
+          onChange={(e) => update({ color: e.target.value })}
+          title="Color of the placeholder box (uploaded models keep their own materials)"
+        />
+        <span className="muted small">{obj.color ?? `default${obj.material ? ` (${obj.material})` : ''}`}</span>
+        {obj.color && (
+          <button disabled={locked} onClick={() => update({ color: undefined })}>
+            Reset
+          </button>
+        )}
       </div>
 
       <h4>3D model</h4>

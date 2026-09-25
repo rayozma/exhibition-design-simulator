@@ -45,6 +45,7 @@ export function layoutJson(layoutId: LayoutId, objects: EditorObject[], room: st
       h: mm(o.h),
       rotY: mm(o.rotY),
       ...(o.material && { material: o.material }),
+      ...(o.color && { color: o.color }),
       ...(o.attraction && { attraction: true }),
       ...(o.note && { note: o.note }),
       ...(o.modelUrl && { modelUrl: o.modelUrl, modelFit: o.modelFit ?? true }),

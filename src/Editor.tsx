@@ -6,6 +6,7 @@ import { PeerList } from './components/PeerList'
 import { SnapshotsDialog } from './components/SnapshotsDialog'
 import { TopBar } from './components/TopBar'
 import { UploadDialog, type UploadMode } from './components/UploadDialog'
+import { ensureRoom, renameRoom } from './lib/db'
 import { useEditor } from './lib/editor'
 import { computeStatuses } from './lib/geometry'
 import { layouts, type LayoutId } from './lib/layout'
@@ -71,6 +72,28 @@ export function Editor({ room, me, onEditUser }: Props) {
   const [crowdStats, setCrowdStats] = useState(NO_STATS)
   const [showSnapshots, setShowSnapshots] = useState(false)
   const capture = useRef<CaptureFn | null>(null)
+  const [roomName, setRoomName] = useState<string | null>(null)
+  const [roomError, setRoomError] = useState<string | null>(null)
+
+  // Register the room in the rooms list (older rooms get a default name) and show its name.
+  useEffect(() => {
+    if (!room) return
+    ensureRoom(room)
+      .then((r) => setRoomName(r.name))
+      .catch((e: Error) => setRoomError(e.message))
+  }, [room])
+
+  const rename = async () => {
+    if (!room) return
+    const next = window.prompt('Room name', roomName ?? '')?.trim()
+    if (!next || next === roomName) return
+    try {
+      await renameRoom(room, next.slice(0, 80))
+      setRoomName(next.slice(0, 80))
+    } catch (e) {
+      setRoomError(`Rename failed: ${(e as Error).message}`)
+    }
+  }
 
   const { state, actions } = useEditor()
   const objects = state.objects[layoutId]
@@ -112,6 +135,9 @@ export function Editor({ room, me, onEditUser }: Props) {
         onUndo={ops.undo}
         onReset={ops.reset}
         onSnapshots={() => setShowSnapshots(true)}
+        roomName={room ? roomName : undefined}
+        onRename={room ? rename : undefined}
+        onHome={room ? () => (location.href = location.pathname) : undefined}
       >
         <PeerList
           status={roomSync.status}
@@ -121,10 +147,17 @@ export function Editor({ room, me, onEditUser }: Props) {
           onEditUser={onEditUser}
         />
       </TopBar>
-      {roomSync.error && (
+      {(roomSync.error || roomError) && (
         <div className="banner">
-          {roomSync.error}
-          <button onClick={roomSync.clearError}>Dismiss</button>
+          {roomSync.error ?? roomError}
+          <button
+            onClick={() => {
+              roomSync.clearError()
+              setRoomError(null)
+            }}
+          >
+            Dismiss
+          </button>
         </div>
       )}
       <div className="body">

@@ -28,7 +28,7 @@ export type NavGrid = {
   footprint: Rect[]
   platformH: number
   attractions: { id: string; field: FlowField }[]
-  entrances: { id: string; field: FlowField }[]
+  entrances: { id: string; aisle?: string; field: FlowField }[]
 }
 
 export const cellOf = (nav: NavGrid, x: number, z: number) => {
@@ -229,9 +229,13 @@ export function buildNav(layoutId: LayoutId, objects: EditorObject[]): NavGrid {
     .map((a) => ({ id: a.id, field: flowField(cols, rows, free, a.sources) }))
 
   const entrances = layouts.entrances
-    .map((e) => ({ id: e.id, sources: freeCells.filter((c) => distToSegment(e, cx(c), cz(c)) <= ENTRANCE_REACH) }))
+    .map((e) => ({
+      id: e.id,
+      aisle: e.aisle,
+      sources: freeCells.filter((c) => distToSegment(e, cx(c), cz(c)) <= ENTRANCE_REACH),
+    }))
     .filter((e) => e.sources.length)
-    .map((e) => ({ id: e.id, field: flowField(cols, rows, free, e.sources) }))
+    .map((e) => ({ id: e.id, aisle: e.aisle, field: flowField(cols, rows, free, e.sources) }))
 
   // Passage width through each open cell = shortest straight run of open cells (4 directions).
   const narrow = new Uint8Array(n)

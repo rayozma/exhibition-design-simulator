@@ -17,6 +17,10 @@ type Props = {
   onUndo: () => void
   onReset: () => void
   onSnapshots: () => void
+  /** Current room's name (shared mode); undefined in local-only mode. */
+  roomName?: string | null
+  onRename?: () => void
+  onHome?: () => void
   /** Rendered at the right end (presence / connection). */
   children?: ReactNode
 }
@@ -24,7 +28,19 @@ type Props = {
 export function TopBar(p: Props) {
   return (
     <header className="topbar">
-      <strong className="title">{layouts.meta.title}</strong>
+      {p.onHome && (
+        <button onClick={p.onHome} title="Back to the list of rooms">
+          ← Rooms
+        </button>
+      )}
+      <strong className="title" title={p.onHome ? 'Room name' : undefined}>
+        {p.roomName ?? (p.onHome ? '…' : layouts.meta.title)}
+      </strong>
+      {p.onRename && (
+        <button className="link" onClick={p.onRename} title="Rename this room" aria-label="Rename room">
+          ✎
+        </button>
+      )}
 
       <div className="group" role="group" aria-label="Layout option">
         {LAYOUT_IDS.map((id) => (

@@ -5,7 +5,8 @@ A web app for arranging the **NDTCCS booth at ADIPEC 2026** (2–5 Nov 2026, Abu
 - Hall, pavilion zones, booth platform and walls built from [`src/data/layouts.json`](src/data/layouts.json)
 - Two layout options: **A** (09 Sep, NDT 29 m²) and **B** (23 Sep, NDT 39 m²), each with its own object positions
 - Move, rotate, lock, duplicate and delete objects. Warnings for overlaps (red) and objects outside the booth (yellow)
-- Real-time collaboration in shared rooms, no sign-in. You can see who is online and what they are moving
+- Named rooms listed on the home page. Anyone can open a room, and everyone in it edits live, no sign-in. You can see who is online and what they are moving
+- Per-object colors, editable in the side panel
 - Upload `.glb` or `.obj` 3D models for objects
 - Crowd simulation with booth occupancy, density heatmap and narrow-passage warnings
 - Named snapshots, JSON export and PNG screenshots
@@ -16,8 +17,8 @@ Live site: `https://rayozma.github.io/ndt-adipec-2026-design/` (after deployment
 
 ## Using the app
 
-1. Open the site and click **Create a new room**. Enter a display name and pick a color.
-2. Share the room link (**Copy link** in the top bar) with your team. Everyone with the link can view and edit.
+1. Open the site. Pick an existing room from the list, or type a name and click **Create room**. On first visit, enter a display name and pick a color.
+2. Everyone who opens the site can see and join every room. **Copy link** in the top bar gives a direct link to the room you're in; **✎** renames it.
 3. Pick layout **A** or **B** in the top bar. Each layout keeps its own positions.
 
 | Action | How |
@@ -26,6 +27,7 @@ Live site: `https://rayozma.github.io/ndt-adipec-2026-design/` (after deployment
 | Move | Drag it on the floor. **Snap** (top bar) moves in 0.25 m steps |
 | Rotate | R / Shift+R, or the ⟲ ⟳ buttons (15° steps) |
 | Exact values | Type name, size, position or rotation in the right panel, then press Enter |
+| Color | Color picker in the right panel (placeholder boxes only; uploaded models keep their own materials) |
 | Lock / duplicate / delete | Buttons in the right panel (Delete key also works) |
 | Undo your last action | Ctrl+Z or **Undo** |
 | Back to the original design | **Reset to design** (for everyone in the room, can be undone) |
@@ -60,13 +62,14 @@ Without Supabase settings the app runs in **local-only mode**: editing works, bu
 1. Create a free project at https://supabase.com (**New project**, pick the region closest to your team).
 2. **SQL Editor → New query**: paste all of [`supabase/schema.sql`](supabase/schema.sql) and click **Run**.
 3. **SQL Editor → New query**: paste all of [`supabase/storage.sql`](supabase/storage.sql) and click **Run**.
-4. Copy the settings file and fill it in:
+4. **SQL Editor → New query**: paste all of [`supabase/rooms-and-colors.sql`](supabase/rooms-and-colors.sql) and click **Run**.
+5. Copy the settings file and fill it in:
    ```powershell
    Copy-Item .env.example .env
    ```
    - `VITE_SUPABASE_URL` is the Project URL, for example `https://abcdefgh.supabase.co` (from **Project Settings → Data API** or the **Connect** button), with nothing after `.co`.
    - `VITE_SUPABASE_ANON_KEY` is the **Publishable** key (`sb_publishable_…`) or the legacy **anon** key (from **Project Settings → API Keys**). Never use the secret / service_role key.
-5. Restart `npm run dev`.
+6. Restart `npm run dev`.
 
 `.env` is listed in `.gitignore` and must never be committed.
 
@@ -90,9 +93,8 @@ If you rename the repository, also change `base` in [`vite.config.ts`](vite.conf
 ## Security (no sign-in)
 
 - The Supabase key in the app is public by design: anyone who opens the site can see it in the browser.
-- Without sign-in, the database rules can't tell users apart. They only require a well-formed room id, and the app only reads its own room.
-- **The room link works like a shared password.** Its 22 random characters can't be guessed, so people without the link won't find a room.
-- Someone technical who takes the public key from the site **could still read or change data in any room**.
+- Without sign-in, the database rules can't tell users apart. They only require a well-formed room id.
+- **Rooms are public.** The home page lists every room, so anyone who can open the site can open, edit, rename or reset any room. There is no "private room".
 - Uploaded model files are publicly downloadable by URL. The app can't overwrite or delete them.
 
 This is acceptable for booth layout drafts. **Don't put confidential information here.** To restrict access properly, add Supabase Auth (for example anonymous sign-ins) plus a room-members table, and tighten the policies in `supabase/schema.sql`.
@@ -123,8 +125,9 @@ src/
 supabase/
   schema.sql             tables, row-level security, realtime
   storage.sql            model bucket, upload policy, model_fit column
+  rooms-and-colors.sql   rooms table (home page list), per-object color column
 ```
 
-**Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east (0–33), z points south (0–15), y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint.
+**Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east (0–33), z points south (0–18: the pavilion is z 0–15, plus a 3 m public aisle at z 15–18 that the NDT leg opens onto), y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint. The aisle width is an assumption; change the `aisle_south` zone and `hall.d` in `layouts.json` if the real plan differs.
 
 **Commands:** `npm run dev` (development server), `npm run build` (type-check + production build into `dist/`), `npm run preview` (serve the build locally).

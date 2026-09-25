@@ -426,6 +426,22 @@ button.block {
   margin-top: 16px;
 }
 
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-row input[type='color'] {
+  width: 40px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+
 /* Snapshots dialog */
 .card.wide {
   max-width: 560px;
@@ -461,6 +477,22 @@ button.block {
   gap: 6px;
   max-height: 40vh;
   overflow-y: auto;
+}
+
+.room-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 10px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #0f172a;
+}
+
+.room-row:hover {
+  background: #1e293b;
 }
 
 .snapshot {

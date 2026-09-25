@@ -15,7 +15,8 @@ export type Zone = Rect & {
 
 export type Wall = { id: string; x1: number; z1: number; x2: number; z2: number }
 
-export type Entrance = { id: string; x1: number; z1: number; x2: number; z2: number }
+/** Where crowd agents enter/leave. Entrances sharing an `aisle` are the two ends of one corridor. */
+export type Entrance = { id: string; aisle?: string; x1: number; z1: number; x2: number; z2: number }
 
 export type LayoutOption = {
   label: string
@@ -41,6 +42,8 @@ export type SeedObject = {
   h: number
   rotY: number
   material?: string
+  /** Display color (hex). Unset = default for the material / category. */
+  color?: string
   attraction?: boolean
   note?: string
 }
@@ -56,7 +59,7 @@ export type Theme = {
 
 export type LayoutsFile = {
   meta: { title: string; event: string; units: string; coords: string; sources: string[] }
-  hall: { w: number; d: number }
+  hall: { w: number; d: number; note?: string }
   theme: Theme
   entrances: Entrance[]
   crowdPresets: { empty: number; low: number; high: number; unit: string; note: string }

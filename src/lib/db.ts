@@ -22,6 +22,7 @@ export type ObjectRow = {
   note: string | null
   model_url: string | null
   model_fit: boolean
+  color: string | null
   locked: boolean
   updated_by: string | null
   updated_at?: string
@@ -47,6 +48,7 @@ export function toRow(room: string, layoutId: LayoutId, o: EditorObject, updated
     note: o.note ?? null,
     model_url: o.modelUrl ?? null,
     model_fit: o.modelFit ?? true,
+    color: o.color ?? null,
     locked: o.locked,
     updated_by: updatedBy,
   }
@@ -70,6 +72,7 @@ export function fromRow(r: ObjectRow): EditorObject {
     note: r.note ?? undefined,
     modelUrl: r.model_url,
     modelFit: r.model_fit ?? true,
+    color: r.color ?? undefined,
     locked: r.locked,
   }
 }
@@ -97,6 +100,48 @@ export async function deleteObjects(room: string, layoutId: LayoutId, ids: strin
   const { error } = await db().from('objects').delete().eq('room', room).eq('layout_id', layoutId).in('id', ids)
   if (error) throw new Error(error.message)
 }
+
+export type Room = {
+  id: string
+  name: string
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+/** All rooms, most recently edited first. */
+export async function fetchRooms(): Promise<Room[]> {
+  const { data, error } = await db().from('rooms').select('*').order('updated_at', { ascending: false }).limit(200)
+  if (error) throw new Error(roomsError(error.message))
+  return data as Room[]
+}
+
+export async function createRoom(id: string, name: string, by: string) {
+  const { error } = await db().from('rooms').insert({ id, name, created_by: by })
+  if (error) throw new Error(roomsError(error.message))
+}
+
+/** Make sure the room has a row (rooms made before the rooms table existed get a default name), then return it. */
+export async function ensureRoom(id: string): Promise<Room> {
+  const client = db()
+  const { error: upErr } = await client
+    .from('rooms')
+    .upsert({ id, name: `Room ${id.slice(0, 6)}` }, { onConflict: 'id', ignoreDuplicates: true })
+  if (upErr) throw new Error(roomsError(upErr.message))
+  const { data, error } = await client.from('rooms').select('*').eq('id', id).single()
+  if (error) throw new Error(roomsError(error.message))
+  return data as Room
+}
+
+export async function renameRoom(id: string, name: string) {
+  const { error } = await db().from('rooms').update({ name }).eq('id', id)
+  if (error) throw new Error(roomsError(error.message))
+}
+
+const roomsError = (msg: string) =>
+  /relation .*rooms.* does not exist|schema cache/i.test(msg)
+    ? 'The rooms table is missing. Run supabase/rooms-and-colors.sql in the Supabase SQL Editor.'
+    : msg
 
 export type Snapshot = {
   id: string

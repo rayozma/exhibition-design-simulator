@@ -116,11 +116,12 @@ export class CrowdSim {
         return
       }
     }
-    // Leave: passers go to another entrance, visitors to the nearest one.
+    // Leave: passers walk to the other end of the aisle they came in on, visitors to the nearest exit.
     const exits = nav.entrances.map((_, i) => i).filter((i) => reachable(nav.entrances[i].field))
-    const others = exits.filter((i) => i !== a.spawnEntrance && nav.entrances[i].id.startsWith('walkway'))
+    const aisle = nav.entrances[a.spawnEntrance]?.aisle
+    const sameAisle = exits.filter((i) => i !== a.spawnEntrance && aisle && nav.entrances[i].aisle === aisle)
     let idx = -1
-    if (a.role === 'passer' && others.length) idx = pick(others)
+    if (a.role === 'passer' && sameAisle.length) idx = pick(sameAisle)
     else if (exits.length) idx = exits.reduce((b, i) => (nav.entrances[i].field.dist[c] < nav.entrances[b].field.dist[c] ? i : b))
     a.goal = idx >= 0 ? { kind: 'exit', idx } : null
     if (idx < 0) a.dead = true // nowhere to go
@@ -132,11 +133,19 @@ export class CrowdSim {
     const role = Math.random() < this.visitorShare ? 'visitor' : 'passer'
     let cell: number
     let spawnEntrance = -1
+    // Entrances that have another end on the same aisle (passers-by walk from one end to the other).
+    const through = nav.entrances
+      .map((_, i) => i)
+      .filter((i) => nav.entrances.some((o, j) => j !== i && o.aisle && o.aisle === nav.entrances[i].aisle))
     if (anywhere || !nav.entrances.length) {
       cell = pick(nav.freeCells)
+      // Warm start: treat the nearest through-entrance as where this person came in.
+      if (role === 'passer' && through.length)
+        spawnEntrance = through.reduce((b, i) =>
+          nav.entrances[i].field.dist[cell] < nav.entrances[b].field.dist[cell] ? i : b,
+        )
     } else {
-      const walkway = nav.entrances.map((_, i) => i).filter((i) => nav.entrances[i].id.startsWith('walkway'))
-      spawnEntrance = role === 'passer' && walkway.length ? pick(walkway) : Math.floor(Math.random() * nav.entrances.length)
+      spawnEntrance = role === 'passer' && through.length ? pick(through) : Math.floor(Math.random() * nav.entrances.length)
       cell = pick(nav.entrances[spawnEntrance].field.sources)
     }
     const a: Agent = {

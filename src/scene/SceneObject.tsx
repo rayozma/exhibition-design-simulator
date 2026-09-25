@@ -24,11 +24,13 @@ const STATUS_COLORS: Record<Status, string | null> = {
 const FLOOR = new Plane(new Vector3(0, 1, 0), 0)
 const hit = new Vector3()
 
+/** Color when there is no warning: the object's own color, else by material, else by category. */
+export function baseColorOf(obj: EditorObject) {
+  return obj.color || (obj.material && MATERIAL_COLORS[obj.material]) || CATEGORY_COLORS[obj.category] || '#d4d4d4'
+}
+
 function colorOf(obj: EditorObject, status: Status) {
-  return (
-    STATUS_COLORS[status] ??
-    ((obj.material && MATERIAL_COLORS[obj.material]) || CATEGORY_COLORS[obj.category] || '#d4d4d4')
-  )
+  return STATUS_COLORS[status] ?? baseColorOf(obj)
 }
 
 /** "Simulator table (laptop + monitor) – Display D" -> "2. Simulator table" */
