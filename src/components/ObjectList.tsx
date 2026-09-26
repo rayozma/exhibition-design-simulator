@@ -1,15 +1,13 @@
 import { useEffect, useRef } from 'react'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import type { ObjectOps } from '../lib/useObjectOps'
-import { fmt, RemarksField } from './fields'
+import { fmt } from './fields'
 
 type Props = {
   objects: EditorObject[]
   statuses: Map<string, Status>
   selectedIds: string[]
   onSelect: (id: string, additive: boolean) => void
-  ops: ObjectOps
 }
 
 const STATUS_TITLE: Record<Status, string> = {
@@ -22,8 +20,8 @@ const STATUS_TITLE: Record<Status, string> = {
 const byNumberThenName = (a: EditorObject, b: EditorObject) =>
   (a.num ?? Infinity) - (b.num ?? Infinity) || a.name.localeCompare(b.name)
 
-/** "Objects" tab: every object with number, name, size, status and editable remarks. */
-export function ObjectList({ objects, statuses, selectedIds, onSelect, ops }: Props) {
+/** "Objects" tab: every object with number, name, size and status. */
+export function ObjectList({ objects, statuses, selectedIds, onSelect }: Props) {
   const sorted = [...objects].sort(byNumberThenName)
   const selected = new Set(selectedIds)
   const listRef = useRef<HTMLDivElement>(null)
@@ -54,7 +52,6 @@ export function ObjectList({ objects, statuses, selectedIds, onSelect, ops }: Pr
                 {fmt(o.w)} × {fmt(o.d)} × {fmt(o.h)} m
               </span>
             </button>
-            <RemarksField value={o.note ?? ''} onCommit={(t) => ops.annotate(o.id, t)} />
           </div>
         )
       })}

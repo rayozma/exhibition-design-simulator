@@ -1,19 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { PerspectiveCamera, PointerLockControls } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { Vector3, type PerspectiveCamera as PerspectiveCameraImpl } from 'three'
+import { useFrame, useThree } from '@react-three/fiber'
+import { Raycaster, Vector2, Vector3, type PerspectiveCamera as PerspectiveCameraImpl } from 'three'
 import type { EditorObject } from '../lib/editor'
 import { distToFootprint, wallFootprint, type Footprint } from '../lib/geometry'
 import { walkableRects } from '../lib/design'
 import { HEADROOM } from '../sim/navGrid'
 import { useDesign } from '../lib/DesignContext'
-import { inRects } from '../lib/layout'
+import { hasInfo, inRects } from '../lib/layout'
 
 export const WALK_START_ID = 'walk-start'
 
 const EYE = 1.6 // m above the floor
 const RADIUS = 0.25 // you can't get closer than this to objects and walls
 const WALK = 1.4 // m/s
+const REACH = 6 // m: how far away you can "look at" an object to open its info
+const CENTER = new Vector2(0, 0)
 const RUN = 3.0
 
 const KEYS: Record<string, 'f' | 'b' | 'l' | 'r'> = {
@@ -33,13 +35,16 @@ type Props = {
   /** Called every frame with where I am (the sync layer throttles), and once when walk mode ends. */
   onMove: (x: number, z: number, heading: number) => void
   onLeave: () => void
+  /** The object with an info card in the crosshair (null = none), and opening its info (E or click). */
+  onAim: (id: string | null) => void
+  onInteract: (id: string) => void
 }
 
 /**
  * First-person walking: click the "Start walking" button to capture the mouse (look around),
  * WASD / arrows to move, Shift to run, Esc to release the mouse. Starts just outside the booth, facing it.
  */
-export function WalkMode({ objects, onLockChange, onMove, onLeave }: Props) {
+export function WalkMode({ objects, onLockChange, onMove, onLeave, onAim, onInteract }: Props) {
   const design = useDesign()
   const opt = design.booth
   const walkRects = useMemo(() => walkableRects(design), [design])
@@ -100,6 +105,45 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave }: Props) {
     cam.current?.lookAt(start.look)
   }, [start])
 
+  // What the crosshair points at: the nearest object with an info card, within reach.
+  const scene = useThree((s) => s.scene)
+  const raycaster = useMemo(() => {
+    const r = new Raycaster()
+    r.far = REACH
+    return r
+  }, [])
+  const locked = useRef(false)
+  const aimed = useRef<string | null>(null)
+  const lastAim = useRef(0)
+  const latest = useRef({ objects, onAim, onInteract })
+  latest.current = { objects, onAim, onInteract }
+  const setAim = (id: string | null) => {
+    if (id === aimed.current) return
+    aimed.current = id
+    latest.current.onAim(id)
+  }
+  const interact = () => {
+    const id = aimed.current
+    if (!id || !locked.current) return
+    document.exitPointerLock() // free the mouse to read the info
+    latest.current.onInteract(id)
+  }
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code === 'KeyE') interact()
+    }
+    const onDown = (e: MouseEvent) => {
+      if (e.button === 0 && document.pointerLockElement) interact()
+    }
+    window.addEventListener('keydown', onKey)
+    document.addEventListener('mousedown', onDown)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('mousedown', onDown)
+      latest.current.onAim(null)
+    }
+  }, [])
+
   // Tell others when I stop walking (switching view, or leaving the room).
   const leave = useRef(onLeave)
   leave.current = onLeave
@@ -134,6 +178,20 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave }: Props) {
     // Share position and facing (heading in three.js rotation.y terms: 0 = facing +z).
     camera.getWorldDirection(tmp.fwd)
     onMove(p.x, p.z, Math.atan2(tmp.fwd.x, tmp.fwd.z))
+
+    // ~10×/s: which object is in the crosshair?
+    const now = performance.now()
+    if (now - lastAim.current > 100) {
+      lastAim.current = now
+      let id: string | null = null
+      if (locked.current) {
+        raycaster.setFromCamera(CENTER, camera)
+        const hit = raycaster.intersectObjects(scene.children, true).find((h) => h.object.userData.objectId)
+        const o = hit && latest.current.objects.find((ob) => ob.id === hit.object.userData.objectId)
+        if (o && hasInfo(o.info)) id = o.id
+      }
+      setAim(id)
+    }
   })
 
   return (
@@ -141,8 +199,14 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave }: Props) {
       <PerspectiveCamera ref={cam} makeDefault fov={70} near={0.05} far={200} />
       <PointerLockControls
         selector={`#${WALK_START_ID}`}
-        onLock={() => onLockChange(true)}
-        onUnlock={() => onLockChange(false)}
+        onLock={() => {
+          locked.current = true
+          onLockChange(true)
+        }}
+        onUnlock={() => {
+          locked.current = false
+          onLockChange(false)
+        }}
       />
     </>
   )

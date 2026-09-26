@@ -91,6 +91,7 @@ export function RemarksField(props: {
   disabled?: boolean
   label?: string
   rows?: number
+  placeholder?: string
   onCommit: (text: string) => void
 }) {
   const [text, setText] = useState(props.value)
@@ -100,7 +101,7 @@ export function RemarksField(props: {
       className="remarks"
       rows={props.rows ?? 2}
       value={text}
-      placeholder="Add a remark…"
+      placeholder={props.placeholder ?? 'Add a remark…'}
       disabled={props.disabled}
       onChange={(e) => setText(e.target.value)}
       onBlur={() => text !== props.value && props.onCommit(text)}

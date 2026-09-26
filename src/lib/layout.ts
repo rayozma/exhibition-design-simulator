@@ -56,6 +56,22 @@ export type CompositePart = {
 /** Parts of a combined object, laid out for a `base` size; the object scales them to its own w/d/h. */
 export type CompositeParts = { base: { w: number; d: number; h: number }; items: CompositePart[] }
 
+/** Info card shown when visitors open an object (ⓘ): what it is and why it matters to them. */
+export type ObjectInfo = {
+  title?: string
+  description?: string
+  /** "Why it's useful for visitors". */
+  why?: string
+  /** "Learn more" link. */
+  link?: string
+  /** Image URLs (uploaded or pasted links). */
+  images?: string[]
+}
+
+/** True if the card has anything to show. */
+export const hasInfo = (i: ObjectInfo | undefined): i is ObjectInfo =>
+  !!i && !!(i.title?.trim() || i.description?.trim() || i.why?.trim() || i.link?.trim() || i.images?.length)
+
 export type SeedObject = {
   id: string
   num?: number
@@ -70,6 +86,8 @@ export type SeedObject = {
   elev?: number
   /** A combined object: drawn from these parts instead of a single shape or model. */
   parts?: CompositeParts
+  /** Info card (ⓘ). */
+  info?: ObjectInfo
   x: number
   z: number
   w: number

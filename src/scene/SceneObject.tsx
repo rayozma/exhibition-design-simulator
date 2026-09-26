@@ -1,10 +1,10 @@
 import { memo, useRef, useState } from 'react'
 import { Plane, Vector3 } from 'three'
 import { useThree, type ThreeEvent } from '@react-three/fiber'
-import { Billboard, Edges, Text } from '@react-three/drei'
+import { Billboard, Edges, Html, Text } from '@react-three/drei'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import { DEG, textColorOn, theme } from '../lib/layout'
+import { DEG, hasInfo, textColorOn, theme } from '../lib/layout'
 import { SHAPE_GEOMETRY } from './shapeGeometry'
 import type { ObjectOps } from '../lib/useObjectOps'
 import { ModelView } from './ModelView'
@@ -58,6 +58,8 @@ type Props = {
   onSelect: (id: string, additive: boolean) => void
   /** false in walk mode: no selecting or dragging. */
   interactive: boolean
+  /** Open the object's info window (shown as an ⓘ badge when it has an info card). */
+  onInfo?: (id: string) => void
 }
 
 /**
@@ -74,6 +76,7 @@ export const SceneObject = memo(function SceneObject({
   ops,
   onSelect,
   interactive,
+  onInfo,
 }: Props) {
   const controls = useThree((s) => s.controls) as { enabled: boolean } | null
   const drag = useRef<{ offX: number; offZ: number } | null>(null)
@@ -125,6 +128,7 @@ export const SceneObject = memo(function SceneObject({
       <group rotation-y={obj.rotY * DEG}>
         <mesh
           position-y={obj.h / 2}
+          userData={{ objectId: obj.id }}
           scale={[obj.w, obj.h, obj.d]}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -221,6 +225,22 @@ export const SceneObject = memo(function SceneObject({
           {labelOf(obj, modelFailed)}
         </Text>
       </Billboard>
+      {onInfo && hasInfo(obj.info) && (
+        // Above the name label; a real button, so it can be clicked in 2D and 3D.
+        <Html position={[0, obj.h + 0.15, 0]} center zIndexRange={[5, 0]}>
+          <button
+            className="info-badge"
+            title={`About ${obj.info.title?.trim() || obj.name}`}
+            aria-label={`About ${obj.info.title?.trim() || obj.name}`}
+            onClick={(e) => {
+              e.stopPropagation()
+              onInfo(obj.id)
+            }}
+          >
+            i
+          </button>
+        </Html>
+      )}
     </group>
   )
 })

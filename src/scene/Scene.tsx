@@ -46,6 +46,9 @@ export type SceneProps = {
   onWalkLeave: () => void
   /** Layout editing (zones, booth areas, walls, entrances); null = editing objects as usual. */
   layout: ComponentProps<typeof LayoutEditor> | null
+  /** Open an object's info window; the object with info in the walk-mode crosshair. */
+  onInfo: (id: string) => void
+  onWalkAim: (id: string | null) => void
   /** Dimensions overlay and the measure tool. */
   dims: { show: boolean; measuring: boolean; measures: Measurement[]; onMeasure: (m: Measurement) => void }
 }
@@ -97,6 +100,8 @@ export function Scene(p: SceneProps) {
           onLockChange={p.onWalkLock}
           onMove={p.onWalkMove}
           onLeave={p.onWalkLeave}
+          onAim={p.onWalkAim}
+          onInteract={p.onInfo}
         />
       ) : (
         <>
@@ -132,6 +137,7 @@ export function Scene(p: SceneProps) {
           ops={p.ops}
           onSelect={p.onSelect}
           interactive={!walk && !p.layout && !p.dims.measuring}
+          onInfo={p.layout || p.dims.measuring ? undefined : p.onInfo}
         />
       ))}
       {p.layout && !walk && <LayoutEditor {...p.layout} />}

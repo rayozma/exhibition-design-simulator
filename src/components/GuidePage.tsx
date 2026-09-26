@@ -17,6 +17,7 @@ export function GuidePage() {
         <a href="#view">Look around</a>
         <a href="#objects">Objects</a>
         <a href="#add">Add things</a>
+        <a href="#info">Info cards</a>
         <a href="#layout">Layout</a>
         <a href="#measure">Measure</a>
         <a href="#crowd">Crowd</a>
@@ -68,7 +69,7 @@ export function GuidePage() {
           </li>
           <li>
             The <b>Selected</b> tab on the right: number, name, exact size and position, <b>Lift</b> (height above the
-            floor, to stack things), color, remarks, lock, duplicate, delete.
+            floor, to stack things), info card, color, lock, duplicate, delete.
           </li>
           <li>
             Colors warn you: <span className="tag red">red</span> = overlaps another object or a wall,{' '}
@@ -79,7 +80,7 @@ export function GuidePage() {
             the design&apos;s starting layout (can be undone too).
           </li>
           <li>
-            The <b>Objects</b> tab lists everything with sizes and a remarks box for each object.
+            The <b>Objects</b> tab lists everything with sizes and status.
           </li>
         </ul>
       </section>
@@ -107,8 +108,26 @@ export function GuidePage() {
         </ul>
       </section>
 
+      <section id="info">
+        <h2>5. Info cards (ⓘ)</h2>
+        <ul>
+          <li>
+            Objects with an info card show a blue <b>ⓘ</b> above them. Click it (2D or 3D) to open the window: pictures,
+            what it is, <i>why it&apos;s useful for you</i>, and a <i>Learn more</i> link.
+          </li>
+          <li>
+            In <b>Walk</b> view, look at the object (the dot in the middle turns blue) and press <kbd>E</kbd> or click.
+          </li>
+          <li>
+            To write one: select the object, <b>Selected</b> tab → <b>Add info card…</b>. Fill in the title, description and
+            why it&apos;s useful, add a link, and <b>Upload images</b> (big photos are shrunk automatically) or{' '}
+            <b>Add image link</b>. <b>Preview ⓘ</b> shows what visitors see.
+          </li>
+        </ul>
+      </section>
+
       <section id="layout">
-        <h2>5. Change the layout</h2>
+        <h2>6. Change the layout</h2>
         <ul>
           <li>
             Click <b>Edit layout</b>. Pick a tool and <b>drag on the plan</b> to draw: <b>Zone</b> (another exhibitor),{' '}
@@ -125,7 +144,7 @@ export function GuidePage() {
       </section>
 
       <section id="measure">
-        <h2>6. Check sizes and space</h2>
+        <h2>7. Check sizes and space</h2>
         <ul>
           <li>
             <b>Dimensions</b>: rulers along the hall. Select an object to see its size and the free space to the nearest
@@ -139,7 +158,7 @@ export function GuidePage() {
       </section>
 
       <section id="crowd">
-        <h2>7. Simulate visitors</h2>
+        <h2>8. Simulate visitors</h2>
         <ul>
           <li>
             <b>Crowd</b> panel (bottom left): <b>Low</b> / <b>High</b> or the density slider, and how many people stop at
@@ -154,7 +173,7 @@ export function GuidePage() {
       </section>
 
       <section id="together">
-        <h2>8. Work together and keep versions</h2>
+        <h2>9. Work together and keep versions</h2>
         <ul>
           <li>
             Top right: who is online. A colored ring shows what someone has selected; &quot;moving: name&quot; means they
@@ -183,6 +202,7 @@ export function GuidePage() {
               ['Ctrl + Z', 'Undo your last change'],
               ['Esc', 'Deselect, stop measuring, cancel a layout tool'],
               ['W A S D, Shift', 'Walk, run (Walk view)'],
+              ['E', 'Open the info of the object you look at (Walk view)'],
             ].map(([k, v]) => (
               <tr key={k}>
                 <td>

@@ -7,7 +7,8 @@ import type { Status } from '../lib/geometry'
 import type { ShapeKind } from '../lib/layout'
 import { ROTATE_STEP, type ObjectOps } from '../lib/useObjectOps'
 import { baseColorOf } from '../scene/SceneObject'
-import { Field, NumberField, NumberTagField, RemarksField } from './fields'
+import { Field, NumberField, NumberTagField } from './fields'
+import { InfoEditor } from './InfoEditor'
 
 const SHAPES: [ShapeKind, string][] = [
   ['box', 'Box'],
@@ -36,6 +37,9 @@ type Props = {
   onUpload?: () => void
   /** Who saves to the shared library; undefined = library unavailable (local-only mode). */
   libraryBy?: string
+  /** Room for image uploads (null = links only), and opening an object's info window. */
+  room: string | null
+  onShowInfo: (id: string) => void
 }
 
 /** "Save to library…": asks for a name, saves the object as a reusable template for all designs. */
@@ -157,6 +161,8 @@ function SinglePanel({
   ops,
   onUpload,
   libraryBy,
+  room,
+  onShowInfo,
 }: {
   obj: EditorObject
   status: Status
@@ -164,6 +170,8 @@ function SinglePanel({
   ops: ObjectOps
   onUpload?: () => void
   libraryBy?: string
+  room: string | null
+  onShowInfo: (id: string) => void
 }) {
   const locked = obj.locked || !!busyBy
   const update = (patch: Partial<EditorObject>) => ops.update(obj.id, patch)
@@ -229,8 +237,8 @@ function SinglePanel({
         Visitors stop here (crowd)
       </label>
 
-      <h4>Remarks</h4>
-      <RemarksField value={obj.note ?? ''} rows={3} disabled={!!busyBy} onCommit={(t) => ops.annotate(obj.id, t)} />
+
+      <InfoEditor key={obj.id} obj={obj} ops={ops} room={room} disabled={!!busyBy} onPreview={() => onShowInfo(obj.id)} />
 
       {!obj.parts && (
         <>
@@ -313,7 +321,7 @@ function SinglePanel({
 }
 
 /** "Selected" tab: help (nothing selected), one object's properties, or actions for several. */
-export function ObjectPanel({ objs, statuses, busyBy, ops, onUpload, libraryBy }: Props) {
+export function ObjectPanel({ objs, statuses, busyBy, ops, onUpload, libraryBy, room, onShowInfo }: Props) {
   if (!objs.length) return <Help onUpload={onUpload} />
   if (objs.length > 1) return <MultiPanel objs={objs} ops={ops} />
   const obj = objs[0]
@@ -325,6 +333,8 @@ export function ObjectPanel({ objs, statuses, busyBy, ops, onUpload, libraryBy }
       ops={ops}
       onUpload={onUpload}
       libraryBy={libraryBy}
+      room={room}
+      onShowInfo={onShowInfo}
     />
   )
 }

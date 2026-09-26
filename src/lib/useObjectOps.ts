@@ -12,7 +12,7 @@ import { breakApart, combinable, combine } from './composite'
 import { askConfirm } from './dialogs'
 import { clampToHall, normDeg, snapTo } from './geometry'
 import type { Design } from './design'
-import { DEG } from './layout'
+import { DEG, hasInfo, type ObjectInfo } from './layout'
 import type { SyncApi } from './useRoomSync'
 
 export const ROTATE_STEP = 15
@@ -60,6 +60,18 @@ export function useObjectOps(
       update(id: string, patch: Partial<EditorObject>) {
         const o = find(id)
         if (editable(o)) setAll([{ ...o, ...patch, rotY: normDeg(patch.rotY ?? o.rotY) }])
+      },
+      /** Info cards can be edited on locked objects too (only not while someone else drags it). */
+      setInfo(id: string, info: ObjectInfo) {
+        const o = find(id)
+        if (o && !busy(id)) setAll([{ ...o, info: hasInfo(info) ? info : undefined }])
+      },
+      /** Change the latest version of an object's info card (e.g. after a slow upload). */
+      patchInfo(id: string, fn: (info: ObjectInfo) => ObjectInfo) {
+        const o = find(id)
+        if (!o || busy(id)) return
+        const info = fn(o.info ?? {})
+        setAll([{ ...o, info: hasInfo(info) ? info : undefined }])
       },
       /** Remarks can be written on locked objects too (only not while someone else drags it). */
       annotate(id: string, note: string) {

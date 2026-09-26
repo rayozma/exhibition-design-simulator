@@ -26,7 +26,8 @@ Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deplo
 | Move | Drag it on the floor; with several selected, they move together. **Snap** (top bar) moves in 0.25 m steps |
 | Rotate | R / Shift+R, or the ⟲ ⟳ buttons (15° steps). Several objects turn around their common center |
 | Exact values | Type number, name, size, position or rotation in the right panel (**Selected** tab), then press Enter |
-| Object list and remarks | **Objects** tab in the right panel: every object with number, name, size and status, and a remarks box (saved for everyone) |
+| Object list | **Objects** tab in the right panel: every object with number, name, size and status |
+| Info cards | Select an object → **Selected** tab → **Add info card…**: title, description, why it's useful for visitors, link, images. Everyone opens it with the **ⓘ** above the object (2D / 3D) or by looking at it and pressing **E** in Walk view |
 | Edit the layout | **Edit layout** in the top bar: draw zones, walkways, booth areas, walls and entrances on the plan; drag to move, drag the yellow handles to resize; hall size and booth settings in the panel |
 | Add things | **+ Add** tab: basic shapes (box, cylinder, sphere, cone, ramp, panel, sign), ready-made items, your library, or upload a .glb / .obj |
 | Stack things | **Lift** (next to X / Z): height above the floor, e.g. a screen on a counter |
@@ -73,7 +74,7 @@ Without Supabase settings the app runs in **local-only mode**: editing works, bu
 3. **SQL Editor → New query**: paste all of [`supabase/storage.sql`](supabase/storage.sql) and click **Run**.
 4. **SQL Editor → New query**: paste all of [`supabase/rooms-and-colors.sql`](supabase/rooms-and-colors.sql) and click **Run**.
 5. **SQL Editor → New query**: paste all of [`supabase/delete-room.sql`](supabase/delete-room.sql) and click **Run**. Then set the delete password with the one-line `insert into public.app_secrets …` shown at the top of that file (replace `YOUR-PASSWORD`). The password is never stored in this repository.
-6. **SQL Editor → New query**: run [`supabase/designs.sql`](supabase/designs.sql), then [`supabase/shapes.sql`](supabase/shapes.sql), then [`supabase/library.sql`](supabase/library.sql), each the same way.
+6. **SQL Editor → New query**: run [`supabase/designs.sql`](supabase/designs.sql), then [`supabase/shapes.sql`](supabase/shapes.sql), then [`supabase/library.sql`](supabase/library.sql), then [`supabase/info.sql`](supabase/info.sql), each the same way.
 7. Copy the settings file and fill it in:
    ```powershell
    Copy-Item .env.example .env
@@ -143,6 +144,7 @@ supabase/
   designs.sql            design document per room, flexible layout ids, realtime on rooms
   shapes.sql             more shapes, sign text, built-in model kind
   library.sql            lift, combined-object parts, shared item library
+  info.sql               object info cards and the images bucket
 ```
 
 **Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east, z points south, y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint.

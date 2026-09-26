@@ -2,7 +2,7 @@ import { Box3, Vector3 } from 'three'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
-import { supabase, SUPABASE_KEY, SUPABASE_URL } from './supabase'
+import { slugName, uploadToBucket, UploadError } from './upload'
 
 export const MAX_MODEL_MB = 25
 const MAX_BYTES = MAX_MODEL_MB * 1024 * 1024
@@ -85,55 +85,17 @@ export async function measureGlb(file: File): Promise<ModelSize> {
   }
 }
 
-const slug = (name: string) =>
-  name
-    .replace(/\.glb$/i, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 40) || 'model'
-
-/**
- * Upload to models/<room>/<timestamp>-<name>.glb and return its public URL.
- * Uses XHR (not supabase-js) because only XHR reports upload progress.
- */
-export function uploadGlb(room: string, file: File, onProgress: (fraction: number) => void): Promise<string> {
-  if (!supabase) return Promise.reject(new Error('Supabase is not configured'))
-  const client = supabase
-  const path = `${room}/${Date.now()}-${slug(file.name)}.glb`
-
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.open('POST', `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${path}`)
-    xhr.setRequestHeader('apikey', SUPABASE_KEY)
-    // Same rule as supabase-js: new-style keys go only in "apikey"; legacy anon JWT keys also as Bearer.
-    if (!/^sb_(publishable|secret)_/.test(SUPABASE_KEY)) xhr.setRequestHeader('Authorization', `Bearer ${SUPABASE_KEY}`)
-    xhr.setRequestHeader('Content-Type', 'model/gltf-binary')
-    xhr.setRequestHeader('x-upsert', 'false')
-    xhr.setRequestHeader('cache-control', 'max-age=31536000')
-
-    xhr.upload.onprogress = (e) => e.lengthComputable && onProgress(e.loaded / e.total)
-    xhr.onerror = () => reject(new Error('Network error during upload. Check your connection and try again.'))
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        onProgress(1)
-        resolve(client.storage.from(BUCKET).getPublicUrl(path).data.publicUrl)
-        return
-      }
-      reject(new Error(uploadErrorText(xhr.status, xhr.responseText)))
-    }
-    xhr.send(file)
-  })
+/** Upload to models/<room>/<timestamp>-<name>.glb and return its public URL. */
+export async function uploadGlb(room: string, file: File, onProgress: (fraction: number) => void): Promise<string> {
+  const path = `${room}/${Date.now()}-${slugName(file.name, 'model')}.glb`
+  try {
+    return await uploadToBucket(BUCKET, path, file, 'model/gltf-binary', onProgress)
+  } catch (e) {
+    throw e instanceof UploadError ? new Error(uploadErrorText(e.status, e.message)) : e
+  }
 }
 
-function uploadErrorText(status: number, body: string): string {
-  let msg = ''
-  try {
-    const j = JSON.parse(body)
-    msg = j.message || j.error || ''
-  } catch {
-    msg = body.slice(0, 200)
-  }
+function uploadErrorText(status: number, msg: string): string {
   if (status === 413 || /exceeded the maximum/i.test(msg)) return `Upload rejected: file is larger than ${MAX_MODEL_MB} MB.`
   if (/bucket not found/i.test(msg)) return 'Upload failed: the "models" bucket does not exist. Run supabase/storage.sql in Supabase.'
   if (status === 403 || /row-level security|unauthorized/i.test(msg))

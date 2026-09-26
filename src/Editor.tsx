@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { AddPanel } from './components/AddPanel'
 import { CrowdPanel } from './components/CrowdPanel'
+import { InfoDialog } from './components/InfoDialog'
 import { LayoutPanel } from './components/LayoutPanel'
 import { ObjectList } from './components/ObjectList'
 import { ObjectPanel } from './components/ObjectPanel'
@@ -153,6 +154,9 @@ function EditorView({
   const layoutId = design.layoutId
   const [layoutMode, setLayoutMode] = useState(false)
   const [showDims, setShowDims] = useState(false)
+  /** Object whose info window is open, and the object with info in the walk-mode crosshair. */
+  const [infoId, setInfoId] = useState<string | null>(null)
+  const [walkAim, setWalkAim] = useState<string | null>(null)
   const [measuring, setMeasuring] = useState(false)
   const [measures, setMeasures] = useState<Measurement[]>([])
   // Esc stops measuring.
@@ -337,6 +341,8 @@ function EditorView({
               walkers={walkers}
               onWalkMove={(x, z, heading) => roomSync.sync.walkMove(layoutId, x, z, heading)}
               onWalkLeave={roomSync.sync.walkEnd}
+              onInfo={setInfoId}
+              onWalkAim={setWalkAim}
               dims={{ show: showDims, measuring, measures, onMeasure: (m) => setMeasures((l) => [...l, m]) }}
               layout={
                 layoutMode
@@ -365,6 +371,15 @@ function EditorView({
                 </p>
               </div>
               {walkLocked && <div className="walk-hint">WASD walk · Shift run · Esc release mouse</div>}
+              {walkLocked && <div className={`crosshair ${walkAim ? 'on' : ''}`} />}
+              {walkLocked && walkAim && (
+                <div className="aim-hint">
+                  <kbd>E</kbd> or click: {(() => {
+                    const o = objects.find((ob) => ob.id === walkAim)
+                    return o?.info?.title?.trim() || o?.name || 'info'
+                  })()}
+                </div>
+              )}
             </>
           )}
           {measuring && (
@@ -405,10 +420,12 @@ function EditorView({
               busyBy={(id) => movers.get(id)?.name ?? null}
               ops={ops}
               onUpload={room ? () => setUpload(single ? 'attach' : 'new') : undefined}
+              room={room}
+              onShowInfo={setInfoId}
               libraryBy={room ? `${me?.name ?? 'anon'}#${TAB_ID}` : undefined}
             />
           }
-          list={<ObjectList objects={objects} statuses={statuses} selectedIds={selectedIds} onSelect={select} ops={ops} />}
+          list={<ObjectList objects={objects} statuses={statuses} selectedIds={selectedIds} onSelect={select} />}
         />
         )}
       </div>
@@ -420,6 +437,9 @@ function EditorView({
           ops={ops}
           onClose={() => setUpload(null)}
         />
+      )}
+      {infoId && objects.some((o) => o.id === infoId) && (
+        <InfoDialog obj={objects.find((o) => o.id === infoId)!} onClose={() => setInfoId(null)} />
       )}
       {showSnapshots && (
         <SnapshotsDialog

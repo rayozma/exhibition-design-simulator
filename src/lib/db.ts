@@ -1,5 +1,5 @@
 import { adipecTemplate, parseDesign, type Design } from './design'
-import type { CompositeParts, ShapeKind } from './layout'
+import { hasInfo, type CompositeParts, type ObjectInfo, type ShapeKind } from './layout'
 import { seedObjects, type EditorObject, type ObjectsByLayout } from './editor'
 
 /** Key of a design's objects (Design.layoutId). */
@@ -23,6 +23,7 @@ export type ObjectRow = {
   kind: string | null
   elev: number | null
   parts: CompositeParts | null
+  info: ObjectInfo | null
   w: number
   d: number
   h: number
@@ -53,6 +54,7 @@ export function toRow(room: string, layoutId: LayoutId, o: EditorObject, updated
     kind: o.kind ?? null,
     elev: o.elev ? o.elev : null,
     parts: o.parts ?? null,
+    info: hasInfo(o.info) ? o.info : null,
     w: o.w,
     d: o.d,
     h: o.h,
@@ -81,6 +83,7 @@ export function fromRow(r: ObjectRow): EditorObject {
     kind: r.kind ?? undefined,
     elev: r.elev ?? undefined,
     parts: r.parts && Array.isArray(r.parts.items) ? r.parts : undefined,
+    info: r.info && typeof r.info === 'object' ? r.info : undefined,
     w: r.w,
     d: r.d,
     h: r.h,
