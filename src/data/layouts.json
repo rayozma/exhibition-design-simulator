@@ -4,98 +4,726 @@
     "event": "NDTCCS @ ADIPEC, 2-5 Nov 2026, Abu Dhabi — Al Masaood Energy pavilion",
     "units": "meters, degrees",
     "coords": "origin = hall NW corner; x east 0-33, z south 0-18 (pavilion 0-15 + outer aisle 15-18), y up. Object x/z = footprint center. rotY rotates the w/d footprint.",
-    "sources": ["ADIPEC 2026 Latest Layout 09-09-2026", "ADIPEC 2026 Latest Layout 23-09-2026", "NDTCCS - ADIPEC 20260912 (Karya Imaji Warna)"],
+    "sources": [
+      "ADIPEC 2026 Latest Layout 09-09-2026",
+      "ADIPEC 2026 Latest Layout 23-09-2026",
+      "NDTCCS - ADIPEC 20260912 (Karya Imaji Warna)"
+    ],
     "colorNote": "Object colors follow the Karya Imaji Warna renders (20260912): white glossy lacquer displays, counter and furniture with gold stripe accents and cyan LED edges; only the electronics (TV, drone, underwater robot) are black."
   },
-  "hall": { "w": 33, "d": 18, "note": "pavilion 33 x 15 plus a 3 m public aisle along the south side (z 15-18); aisle width is an assumption" },
-  "theme": { "floor": "#1e3a8a", "hall": "#0b0f1a", "boothFloor": "#f5f5f5", "wall": "#f0f0f0", "ledEdge": "#7dd3fc", "accent": "#facc15" },
+  "hall": {
+    "w": 33,
+    "d": 18,
+    "note": "pavilion 33 x 15 plus a 3 m public aisle along the south side (z 15-18); aisle width is an assumption"
+  },
+  "theme": {
+    "floor": "#1e3a8a",
+    "hall": "#0b0f1a",
+    "boothFloor": "#f5f5f5",
+    "wall": "#f0f0f0",
+    "ledEdge": "#7dd3fc",
+    "accent": "#facc15"
+  },
   "entrances": [
-    { "id": "walkway_west", "aisle": "walkway", "x1": 0, "z1": 6, "x2": 0, "z2": 9 },
-    { "id": "walkway_east", "aisle": "walkway", "x1": 33, "z1": 6, "x2": 33, "z2": 9 },
-    { "id": "aisle_west", "aisle": "south", "x1": 0, "z1": 15, "x2": 0, "z2": 18 },
-    { "id": "aisle_east", "aisle": "south", "x1": 33, "z1": 15, "x2": 33, "z2": 18 }
+    {
+      "id": "walkway_west",
+      "aisle": "walkway",
+      "x1": 0,
+      "z1": 6,
+      "x2": 0,
+      "z2": 9
+    },
+    {
+      "id": "walkway_east",
+      "aisle": "walkway",
+      "x1": 33,
+      "z1": 6,
+      "x2": 33,
+      "z2": 9
+    },
+    {
+      "id": "aisle_west",
+      "aisle": "south",
+      "x1": 0,
+      "z1": 15,
+      "x2": 0,
+      "z2": 18
+    },
+    {
+      "id": "aisle_east",
+      "aisle": "south",
+      "x1": 33,
+      "z1": 15,
+      "x2": 33,
+      "z2": 18
+    }
   ],
   "pavilion": {
     "name": "AL MASAOOD ENERGY",
     "note": "Approximate look of the Al Masaood Energy pavilion from event photos (ship-like structure with rounded ends and an upper deck). The deck position is an assumption: moved easily by editing deck x/z/w/d.",
-    "rect": { "x": 0, "z": 0, "w": 33, "d": 15 },
+    "rect": {
+      "x": 0,
+      "z": 0,
+      "w": 33,
+      "d": 15
+    },
     "cornerRadius": 2.5,
-    "deck": { "x": 0, "z": 0, "w": 33, "d": 4, "y": 3.6, "thickness": 0.5, "radius": 2, "columnsEvery": 6 },
+    "deck": {
+      "x": 0,
+      "z": 0,
+      "w": 33,
+      "d": 4,
+      "y": 3.6,
+      "thickness": 0.5,
+      "radius": 2,
+      "columnsEvery": 6
+    },
     "portals": [
-      { "x": 0.4, "z1": 6, "z2": 9, "h": 3.4 },
-      { "x": 32.6, "z1": 6, "z2": 9, "h": 3.4 }
+      {
+        "x": 0.4,
+        "z1": 6,
+        "z2": 9,
+        "h": 3.4
+      },
+      {
+        "x": 32.6,
+        "z1": 6,
+        "z2": 9,
+        "h": 3.4
+      }
     ],
-    "colors": { "hull": "#f3f4f6", "accent": "#f97316", "led": "#38bdf8", "underside": "#1f2937", "shell": "#eef0f3", "carpet": "#cfd5dd", "glass": "#bfe3ff" }
+    "colors": {
+      "hull": "#f3f4f6",
+      "accent": "#f97316",
+      "led": "#38bdf8",
+      "underside": "#1f2937",
+      "shell": "#eef0f3",
+      "carpet": "#cfd5dd",
+      "glass": "#bfe3ff"
+    }
   },
-  "crowdPresets": { "empty": 0, "low": 0.15, "high": 0.8, "unit": "people per m2 of walkable area", "note": "high calibrated from packed-walkway reference photos (~0.8-1 p/m2)" },
+  "crowdPresets": {
+    "empty": 0,
+    "low": 0.15,
+    "high": 0.8,
+    "unit": "people per m2 of walkable area",
+    "note": "high calibrated from packed-walkway reference photos (~0.8-1 p/m2)"
+  },
   "zones": [
-    { "id": "bgp", "name": "BGP", "x": 0, "z": 0, "w": 33, "d": 4, "color": "#0000ff", "h": 2.5 },
-    { "id": "ega", "name": "EGA Master", "x": 0, "z": 4, "w": 5, "d": 2, "color": "#d12127", "h": 2.5 },
-    { "id": "hado", "name": "HADO", "x": 5, "z": 4, "w": 5, "d": 2, "color": "#7fff00", "h": 2.5 },
-    { "id": "cosasco", "name": "Cosasco", "x": 10, "z": 4, "w": 5, "d": 2, "color": "#8b00ff", "h": 2.5 },
-    { "id": "banners", "name": "Banners", "x": 15, "z": 4, "w": 2, "d": 2, "color": "#ff0080", "h": 2.5 },
-    { "id": "zho", "name": "ZHO / Bee Cafe", "x": 17, "z": 4, "w": 4, "d": 2, "color": "#94959a", "h": 2.5 },
-    { "id": "msa", "name": "MSA", "x": 21, "z": 4, "w": 3, "d": 2, "color": "#fa8072", "h": 2.5 },
-    { "id": "pelican", "name": "Pelican", "x": 24, "z": 4, "w": 3, "d": 2, "color": "#800080", "h": 2.5 },
-    { "id": "ansell", "name": "Ansell", "x": 27, "z": 4, "w": 6, "d": 2, "color": "#80ffff", "h": 2.5 },
-    { "id": "walkway", "name": "Walkway", "x": 0, "z": 6, "w": 33, "d": 3, "color": "#ffffff", "h": 0, "walkable": true },
-    { "id": "reception", "name": "Reception", "x": 0, "z": 9, "w": 2, "d": 2, "color": "#94959a", "h": 2.5 },
-    { "id": "eneroil", "name": "Eneroil", "x": 11, "z": 9, "w": 5, "d": 2, "color": "#9999cc", "h": 2.5 },
-    { "id": "nook", "name": "Open gap", "x": 16, "z": 9, "w": 2, "d": 2, "color": "#ffffff", "h": 0, "walkable": true },
-    { "id": "stairs", "name": "Stairs & Storage", "x": 18, "z": 9, "w": 11, "d": 2, "color": "#94959a", "h": 4, "note": "stairs to pavilion upper deck" },
-    { "id": "redwing", "name": "Red Wing", "x": 29, "z": 9, "w": 4, "d": 2, "color": "#7fb2e0", "h": 2.5 },
-    { "id": "enerpac", "name": "Enerpac", "x": 0, "z": 11, "w": 8.25, "d": 4, "color": "#ffff00", "h": 2.5, "note": "7.5 m on plan; widened so NDT leg sits flush per booth design" },
-    { "id": "gutteling", "name": "Gutteling", "x": 11, "z": 11, "w": 2, "d": 4, "color": "#d12127", "h": 2.5, "note": "2.75 m on plan; narrowed by NDT leg shift" },
-    { "id": "bestebit", "name": "Bestebit", "x": 13, "z": 11, "w": 20, "d": 4, "color": "#ff8000", "h": 2.5 },
-    { "id": "aisle_south", "name": "Outer aisle", "x": 0, "z": 15, "w": 33, "d": 3, "color": "#ffffff", "h": 0, "walkable": true, "note": "public hall aisle behind the pavilion; the NDT leg opens onto it" }
+    {
+      "id": "bgp",
+      "name": "BGP",
+      "x": 0,
+      "z": 0,
+      "w": 33,
+      "d": 4,
+      "color": "#0000ff",
+      "h": 2.5
+    },
+    {
+      "id": "ega",
+      "name": "EGA Master",
+      "x": 0,
+      "z": 4,
+      "w": 5,
+      "d": 2,
+      "color": "#d12127",
+      "h": 2.5
+    },
+    {
+      "id": "hado",
+      "name": "HADO",
+      "x": 5,
+      "z": 4,
+      "w": 5,
+      "d": 2,
+      "color": "#7fff00",
+      "h": 2.5
+    },
+    {
+      "id": "cosasco",
+      "name": "Cosasco",
+      "x": 10,
+      "z": 4,
+      "w": 5,
+      "d": 2,
+      "color": "#8b00ff",
+      "h": 2.5
+    },
+    {
+      "id": "banners",
+      "name": "Banners",
+      "x": 15,
+      "z": 4,
+      "w": 2,
+      "d": 2,
+      "color": "#ff0080",
+      "h": 2.5
+    },
+    {
+      "id": "zho",
+      "name": "ZHO / Bee Cafe",
+      "x": 17,
+      "z": 4,
+      "w": 4,
+      "d": 2,
+      "color": "#94959a",
+      "h": 2.5
+    },
+    {
+      "id": "msa",
+      "name": "MSA",
+      "x": 21,
+      "z": 4,
+      "w": 3,
+      "d": 2,
+      "color": "#fa8072",
+      "h": 2.5
+    },
+    {
+      "id": "pelican",
+      "name": "Pelican",
+      "x": 24,
+      "z": 4,
+      "w": 3,
+      "d": 2,
+      "color": "#800080",
+      "h": 2.5
+    },
+    {
+      "id": "ansell",
+      "name": "Ansell",
+      "x": 27,
+      "z": 4,
+      "w": 6,
+      "d": 2,
+      "color": "#80ffff",
+      "h": 2.5
+    },
+    {
+      "id": "walkway",
+      "name": "Walkway",
+      "x": 0,
+      "z": 6,
+      "w": 33,
+      "d": 3,
+      "color": "#ffffff",
+      "h": 0,
+      "walkable": true
+    },
+    {
+      "id": "reception",
+      "name": "Reception",
+      "x": 0,
+      "z": 9,
+      "w": 2,
+      "d": 2,
+      "color": "#94959a",
+      "h": 2.5
+    },
+    {
+      "id": "eneroil",
+      "name": "Eneroil",
+      "x": 11,
+      "z": 9,
+      "w": 5,
+      "d": 2,
+      "color": "#9999cc",
+      "h": 2.5
+    },
+    {
+      "id": "nook",
+      "name": "Open gap",
+      "x": 16,
+      "z": 9,
+      "w": 2,
+      "d": 2,
+      "color": "#ffffff",
+      "h": 0,
+      "walkable": true
+    },
+    {
+      "id": "stairs",
+      "name": "Stairs & Storage",
+      "x": 18,
+      "z": 9,
+      "w": 11,
+      "d": 2,
+      "color": "#94959a",
+      "h": 4,
+      "note": "stairs to pavilion upper deck"
+    },
+    {
+      "id": "redwing",
+      "name": "Red Wing",
+      "x": 29,
+      "z": 9,
+      "w": 4,
+      "d": 2,
+      "color": "#7fb2e0",
+      "h": 2.5
+    },
+    {
+      "id": "enerpac",
+      "name": "Enerpac",
+      "x": 0,
+      "z": 11,
+      "w": 8.25,
+      "d": 4,
+      "color": "#ffff00",
+      "h": 2.5,
+      "note": "7.5 m on plan; widened so NDT leg sits flush per booth design"
+    },
+    {
+      "id": "gutteling",
+      "name": "Gutteling",
+      "x": 11,
+      "z": 11,
+      "w": 2,
+      "d": 4,
+      "color": "#d12127",
+      "h": 2.5,
+      "note": "2.75 m on plan; narrowed by NDT leg shift"
+    },
+    {
+      "id": "bestebit",
+      "name": "Bestebit",
+      "x": 13,
+      "z": 11,
+      "w": 20,
+      "d": 4,
+      "color": "#ff8000",
+      "h": 2.5
+    },
+    {
+      "id": "aisle_south",
+      "name": "Outer aisle",
+      "x": 0,
+      "z": 15,
+      "w": 33,
+      "d": 3,
+      "color": "#ffffff",
+      "h": 0,
+      "walkable": true,
+      "note": "public hall aisle behind the pavilion; the NDT leg opens onto it"
+    }
   ],
   "options": {
     "A": {
       "label": "09 Sep – NDT 29 m²",
       "removeZones": [],
-      "footprint": [ { "x": 2, "z": 9, "w": 9, "d": 2 }, { "x": 8.25, "z": 11, "w": 2.75, "d": 4 } ],
+      "footprint": [
+        {
+          "x": 2,
+          "z": 9,
+          "w": 9,
+          "d": 2
+        },
+        {
+          "x": 8.25,
+          "z": 11,
+          "w": 2.75,
+          "d": 4
+        }
+      ],
       "platformH": 0.1,
       "walls": [
-        { "id": "strip_back", "x1": 2, "z1": 11, "x2": 8.25, "z2": 11 },
-        { "id": "west_end", "x1": 2, "z1": 9, "x2": 2, "z2": 11 },
-        { "id": "leg_west", "x1": 8.25, "z1": 11, "x2": 8.25, "z2": 15 },
-        { "id": "east", "x1": 11, "z1": 9, "x2": 11, "z2": 15 }
+        {
+          "id": "strip_back",
+          "x1": 2,
+          "z1": 11,
+          "x2": 8.25,
+          "z2": 11
+        },
+        {
+          "id": "west_end",
+          "x1": 2,
+          "z1": 9,
+          "x2": 2,
+          "z2": 11
+        },
+        {
+          "id": "leg_west",
+          "x1": 8.25,
+          "z1": 11,
+          "x2": 8.25,
+          "z2": 15
+        },
+        {
+          "id": "east",
+          "x1": 11,
+          "z1": 9,
+          "x2": 11,
+          "z2": 15
+        }
       ],
-      "wallH": 2.0, "wallT": 0.1
+      "wallH": 2,
+      "wallT": 0.1
     },
     "B": {
       "label": "23 Sep – NDT 39 m²",
-      "removeZones": ["eneroil"],
-      "footprint": [ { "x": 2, "z": 9, "w": 14, "d": 2 }, { "x": 8.25, "z": 11, "w": 2.75, "d": 4 } ],
+      "removeZones": [
+        "eneroil"
+      ],
+      "footprint": [
+        {
+          "x": 2,
+          "z": 9,
+          "w": 14,
+          "d": 2
+        },
+        {
+          "x": 8.25,
+          "z": 11,
+          "w": 2.75,
+          "d": 4
+        }
+      ],
       "platformH": 0.1,
       "walls": [
-        { "id": "strip_back", "x1": 2, "z1": 11, "x2": 8.25, "z2": 11 },
-        { "id": "strip_back_ext", "x1": 11, "z1": 11, "x2": 16, "z2": 11 },
-        { "id": "west_end", "x1": 2, "z1": 9, "x2": 2, "z2": 11 },
-        { "id": "leg_west", "x1": 8.25, "z1": 11, "x2": 8.25, "z2": 15 },
-        { "id": "leg_east", "x1": 11, "z1": 11, "x2": 11, "z2": 15 }
+        {
+          "id": "strip_back",
+          "x1": 2,
+          "z1": 11,
+          "x2": 8.25,
+          "z2": 11
+        },
+        {
+          "id": "strip_back_ext",
+          "x1": 11,
+          "z1": 11,
+          "x2": 16,
+          "z2": 11
+        },
+        {
+          "id": "west_end",
+          "x1": 2,
+          "z1": 9,
+          "x2": 2,
+          "z2": 11
+        },
+        {
+          "id": "leg_west",
+          "x1": 8.25,
+          "z1": 11,
+          "x2": 8.25,
+          "z2": 15
+        },
+        {
+          "id": "leg_east",
+          "x1": 11,
+          "z1": 11,
+          "x2": 11,
+          "z2": 15
+        }
       ],
-      "wallH": 2.0, "wallT": 0.1,
+      "wallH": 2,
+      "wallT": 0.1,
       "note": "Same furniture as A; x 11-16 is new empty space. East end at x=16 left open (unknown)."
     }
   },
   "objects": [
-    { "id": "item1", "num": 1, "name": "Voliro T Drone on Display A", "category": "display", "x": 6.6, "z": 10.2, "w": 0.8, "d": 0.8, "h": 1.5, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
-    { "id": "item2", "num": 2, "name": "Simulator table (laptop + monitor) – Display D", "category": "display", "x": 10.6, "z": 10.7, "w": 1.0, "d": 0.7, "h": 1.0, "rotY": 90, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
-    { "id": "item3", "num": 3, "name": "Interactive AI & Digital platform (TV on stand)", "category": "screen", "x": 2.5, "z": 10.2, "w": 1.2, "d": 0.6, "h": 2.0, "rotY": 90, "material": "black", "color": "#1c1c1c","attraction": true, "note": "no spec in PDF; size estimated" },
-    { "id": "item4", "num": 4, "name": "City & Site mockup on diorama display", "category": "display", "x": 7.7, "z": 10.2, "w": 1.0, "d": 1.0, "h": 0.8, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
-    { "id": "item5", "num": 5, "name": "Underwater robot W6 with UT tool – Display C (low)", "category": "display", "x": 10.55, "z": 9.28, "w": 0.9, "d": 0.55, "h": 0.5, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true, "note": "Display C = 0.9 x 1.1, split low/high" },
-    { "id": "item6", "num": 6, "name": "IRIS array equipment with probe – Display C (high)", "category": "display", "x": 10.55, "z": 9.83, "w": 0.9, "d": 0.55, "h": 1.0, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
-    { "id": "item7", "num": 7, "name": "Visual & LiTable for Training (laptop + TV) – Display E", "category": "display", "x": 10.55, "z": 12.0, "w": 1.0, "d": 0.7, "h": 1.0, "rotY": 90, "material": "lacquer white", "color": "#f3f2ee","attraction": true },
-    { "id": "item8", "num": 8, "name": "Counter for Valsem", "category": "counter", "x": 10.2, "z": 14.6, "w": 1.4, "d": 0.7, "h": 1.0, "rotY": 0, "material": "lacquer white", "color": "#f3f2ee","attraction": true, "note": "H 0.8/1.0 two-level" },
-    { "id": "meet_table", "name": "Round meeting table", "category": "furniture", "shape": "cylinder", "material": "white", "color": "#fbfbf9","x": 4.2, "z": 10.0, "w": 1.0, "d": 1.0, "h": 0.75, "rotY": 0, "attraction": true },
-    { "id": "chair1", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 3.7, "z": 9.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": 45 },
-    { "id": "chair2", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 4.7, "z": 9.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": -45 },
-    { "id": "chair3", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 3.7, "z": 10.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": 135 },
-    { "id": "chair4", "name": "Chair", "category": "furniture", "material": "white upholstery", "color": "#f7f7f5","x": 4.7, "z": 10.5, "w": 0.55, "d": 0.55, "h": 0.8, "rotY": -135 },
-    { "id": "stool1", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 8.5, "z": 10.6, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
-    { "id": "stool2", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 5.6, "z": 10.6, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
-    { "id": "stool3", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 9.75, "z": 14.0, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 },
-    { "id": "stool4", "name": "Bar stool", "category": "furniture", "shape": "cylinder", "material": "white seat, chrome base", "color": "#f5f5f3","x": 10.15, "z": 14.0, "w": 0.4, "d": 0.4, "h": 0.8, "rotY": 0 }
+    {
+      "id": "item1",
+      "num": 1,
+      "name": "Voliro T Drone on Display A",
+      "category": "display",
+      "x": 6.6,
+      "z": 10.2,
+      "w": 0.8,
+      "d": 0.8,
+      "h": 1.5,
+      "rotY": 0,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "info": {
+        "title": "Voliro T – contact inspection drone",
+        "description": "The Voliro T is a Swiss-made inspection drone with tiltable rotors: it can fly in any orientation and press a sensor firmly against a surface.\n\nIt measures wall thickness with ultrasonic testing (UT) directly on stacks, tanks, boilers, silos and overhead piping, at height, without scaffolding or rope access. The manufacturer reports up to 200 thickness readings per hour.\n\nAvailable in the region through Terra Drone Arabia.",
+        "why": "No scaffolding, no rope access, no people working at height. Inspections that used to need days of preparation are done in hours, with every UT reading logged at its exact position: safer for your team and less downtime for your assets.",
+        "link": "https://terra-drone.com.sa/product/voliro-t/",
+        "images": [
+          "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-voliro2.jpg",
+          "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-voliro1.png"
+        ]
+      }
+    },
+    {
+      "id": "item2",
+      "num": 2,
+      "name": "Simulator table (laptop + monitor) – Display D",
+      "category": "display",
+      "x": 10.6,
+      "z": 10.7,
+      "w": 1,
+      "d": 0.7,
+      "h": 1,
+      "rotY": 90,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "info": {
+        "title": "DJI Flight Simulator – try flying!",
+        "description": "Take the controls. The DJI Flight Simulator (Enterprise) is the professional software used to train enterprise drone pilots.\n\nIt uses a real remote controller and a physics engine with wind, ground effect and realistic crashes, in scenes such as a city, an island, a hangar, mountains and a forest, plus mission training like search and rescue.",
+        "why": "Feel what it is like to pilot an enterprise drone, safely and with no experience needed, and see how pilots can be trained before their first real flight on your site.",
+        "link": "https://www.dji.com/simulator"
+      }
+    },
+    {
+      "id": "item3",
+      "num": 3,
+      "name": "Interactive AI & Digital platform (TV on stand)",
+      "category": "screen",
+      "x": 2.5,
+      "z": 10.2,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 2,
+      "rotY": 90,
+      "material": "black",
+      "color": "#1c1c1c",
+      "attraction": true,
+      "note": "no spec in PDF; size estimated",
+      "info": {
+        "title": "Terra Drone AI & digital platforms",
+        "description": "Terra Drone's software turns drone flights into decisions:\n\n• Live streaming with AI analysis: watch drone video from anywhere, with AI detecting objects and anomalies in real time.\n• WebGIS: maps, 3D models and inspection data of your sites in one web platform, with built-in analysis tools.\n• Inspection platform: drop in the photos and videos of an inspection, and it generates the inspection report for you.",
+        "why": "Faster answers from every flight: see issues live instead of after the mission, keep all site data in one place, and cut report writing from days to minutes.",
+        "link": "https://terra-drone.co.id/"
+      }
+    },
+    {
+      "id": "item4",
+      "num": 4,
+      "name": "City & Site mockup on diorama display",
+      "category": "display",
+      "x": 7.7,
+      "z": 10.2,
+      "w": 1,
+      "d": 1,
+      "h": 0.8,
+      "rotY": 0,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "info": {
+        "title": "Drones in the city – diorama",
+        "description": "A miniature city with several drones flying over it, showing how drones already work every day: inspecting assets, monitoring sites, mapping, and responding to incidents, often launched automatically from docks, without a pilot on site.",
+        "why": "See at a glance where drones fit into your operations, from city infrastructure to oil & gas facilities, and ask us which use cases give you the fastest return."
+      }
+    },
+    {
+      "id": "item5",
+      "num": 5,
+      "name": "Underwater robot W6 with UT tool – Display C (low)",
+      "category": "display",
+      "x": 10.55,
+      "z": 9.28,
+      "w": 0.9,
+      "d": 0.55,
+      "h": 0.5,
+      "rotY": 0,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "note": "Display C = 0.9 x 1.1, split low/high",
+      "info": {
+        "title": "QYSEA FIFISH PRO W6 – underwater ROV with UT",
+        "description": "An industrial underwater drone (ROV) rated to 350 m depth, with two 4K cameras, 12,000 lumens of lighting and a modular tool interface.\n\nHere it carries an ultrasonic thickness (UT) gauge to measure the steel thickness of hulls, jetties, subsea pipelines and offshore structures underwater.",
+        "why": "Underwater inspections with fewer divers: safer, faster to deploy, and with video and thickness data recorded for every point, so you know the condition of submerged assets without taking them out of service.",
+        "link": "https://www.qysea.com/",
+        "images": [
+          "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-w6.png"
+        ]
+      }
+    },
+    {
+      "id": "item6",
+      "num": 6,
+      "name": "IRIS array equipment with probe – Display C (high)",
+      "category": "display",
+      "x": 10.55,
+      "z": 9.83,
+      "w": 0.9,
+      "d": 0.55,
+      "h": 1,
+      "rotY": 0,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "info": {
+        "title": "IRIS – tube inspection from the inside",
+        "description": "IRIS (Internal Rotary Inspection System) is an ultrasonic method for inspecting tubes from the inside. A probe with a rotating mirror, driven by water flow, scans the full circumference as it is pulled through the tube.\n\nIt measures the remaining wall thickness and finds corrosion, erosion, pitting and other wall loss on both the inner and the outer surface.",
+        "why": "Accurate wall-thickness data for every tube in boilers, heat exchangers and air coolers (fin-fans), so you plug or replace only the tubes that need it and plan shutdowns with confidence."
+      }
+    },
+    {
+      "id": "item7",
+      "num": 7,
+      "name": "Visual & LiTable for Training (laptop + TV) – Display E",
+      "category": "display",
+      "x": 10.55,
+      "z": 12,
+      "w": 1,
+      "d": 0.7,
+      "h": 1,
+      "rotY": 90,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "info": {
+        "title": "Training & certification – INTREX Kuwait",
+        "description": "INTREX (International Inspection Centre, Kuwait, since 1980) provides NDT, inspection and testing services across the Gulf. Its Training & Development division offers manpower training and certification.\n\nThis station shows its training services. INTREX is accredited to ISO 17025, ISO 9001, ISO 14001, ISO 45001 and LEEA.",
+        "why": "Qualified, certified people are the base of safe inspection. INTREX helps your team gain and keep the certifications they need, close to home in the Gulf.",
+        "link": "https://intrexkw.com/",
+        "images": [
+          "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-intrex_og.png"
+        ]
+      }
+    },
+    {
+      "id": "item8",
+      "num": 8,
+      "name": "Counter for Valsem",
+      "category": "counter",
+      "x": 10.2,
+      "z": 14.6,
+      "w": 1.4,
+      "d": 0.7,
+      "h": 1,
+      "rotY": 0,
+      "material": "lacquer white",
+      "color": "#f3f2ee",
+      "attraction": true,
+      "note": "H 0.8/1.0 two-level",
+      "info": {
+        "title": "VALSEM – talk to the team",
+        "description": "VALSEM Industries (France, since 1977) protects critical equipment during transport and storage, and keeps proof of its condition over time.\n\n• ValStrong membranes (such as ValStrong TITAN) shield equipment from corrosion and damage.\n• EXA-AIR uses embedded sensors to monitor condition in real time, with continuous traceability.\n\nVALSEM works with NDTCCS as its strategic partner in Saudi Arabia.\n\nCome to the counter to see the membranes and ask how EXA-AIR could monitor your equipment.",
+        "why": "Your equipment arrives, and stays, in the condition it left the factory, with sensor data to prove it: less corrosion damage in storage, fewer surprises at commissioning, and documented integrity for audits.",
+        "link": "https://www.valsem.com"
+      }
+    },
+    {
+      "id": "meet_table",
+      "name": "Round meeting table",
+      "category": "furniture",
+      "shape": "cylinder",
+      "material": "white",
+      "color": "#fbfbf9",
+      "x": 4.2,
+      "z": 10,
+      "w": 1,
+      "d": 1,
+      "h": 0.75,
+      "rotY": 0,
+      "attraction": true
+    },
+    {
+      "id": "chair1",
+      "name": "Chair",
+      "category": "furniture",
+      "material": "white upholstery",
+      "color": "#f7f7f5",
+      "x": 3.7,
+      "z": 9.5,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "rotY": 45
+    },
+    {
+      "id": "chair2",
+      "name": "Chair",
+      "category": "furniture",
+      "material": "white upholstery",
+      "color": "#f7f7f5",
+      "x": 4.7,
+      "z": 9.5,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "rotY": -45
+    },
+    {
+      "id": "chair3",
+      "name": "Chair",
+      "category": "furniture",
+      "material": "white upholstery",
+      "color": "#f7f7f5",
+      "x": 3.7,
+      "z": 10.5,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "rotY": 135
+    },
+    {
+      "id": "chair4",
+      "name": "Chair",
+      "category": "furniture",
+      "material": "white upholstery",
+      "color": "#f7f7f5",
+      "x": 4.7,
+      "z": 10.5,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "rotY": -135
+    },
+    {
+      "id": "stool1",
+      "name": "Bar stool",
+      "category": "furniture",
+      "shape": "cylinder",
+      "material": "white seat, chrome base",
+      "color": "#f5f5f3",
+      "x": 8.5,
+      "z": 10.6,
+      "w": 0.4,
+      "d": 0.4,
+      "h": 0.8,
+      "rotY": 0
+    },
+    {
+      "id": "stool2",
+      "name": "Bar stool",
+      "category": "furniture",
+      "shape": "cylinder",
+      "material": "white seat, chrome base",
+      "color": "#f5f5f3",
+      "x": 5.6,
+      "z": 10.6,
+      "w": 0.4,
+      "d": 0.4,
+      "h": 0.8,
+      "rotY": 0
+    },
+    {
+      "id": "stool3",
+      "name": "Bar stool",
+      "category": "furniture",
+      "shape": "cylinder",
+      "material": "white seat, chrome base",
+      "color": "#f5f5f3",
+      "x": 9.75,
+      "z": 14,
+      "w": 0.4,
+      "d": 0.4,
+      "h": 0.8,
+      "rotY": 0
+    },
+    {
+      "id": "stool4",
+      "name": "Bar stool",
+      "category": "furniture",
+      "shape": "cylinder",
+      "material": "white seat, chrome base",
+      "color": "#f5f5f3",
+      "x": 10.15,
+      "z": 14,
+      "w": 0.4,
+      "d": 0.4,
+      "h": 0.8,
+      "rotY": 0
+    }
   ]
 }
