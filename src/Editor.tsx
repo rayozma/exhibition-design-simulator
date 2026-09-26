@@ -157,6 +157,7 @@ function EditorView({
   /** Object whose info window is open, and the object with info in the walk-mode crosshair. */
   const [infoId, setInfoId] = useState<string | null>(null)
   const [walkAim, setWalkAim] = useState<string | null>(null)
+  const walkLock = useRef<(() => void) | null>(null)
   const [measuring, setMeasuring] = useState(false)
   const [measures, setMeasures] = useState<Measurement[]>([])
   // Esc stops measuring.
@@ -343,6 +344,7 @@ function EditorView({
               onWalkLeave={roomSync.sync.walkEnd}
               onInfo={setInfoId}
               onWalkAim={setWalkAim}
+              walkLockRef={walkLock}
               dims={{ show: showDims, measuring, measures, onMeasure: (m) => setMeasures((l) => [...l, m]) }}
               layout={
                 layoutMode
@@ -446,15 +448,7 @@ function EditorView({
             setInfoId(null)
             // In Walk view, go straight back to walking: capture the mouse again. Browsers only allow
             // this from a click, so closing with Esc falls back to "Click to start walking".
-            if (view === 'walk') {
-              const canvas = document.querySelector<HTMLCanvasElement>('.viewport canvas')
-              try {
-                const p = canvas?.requestPointerLock() as unknown as Promise<void> | undefined
-                p?.catch?.(() => {})
-              } catch {
-                // not allowed here (e.g. after Esc): the walk overlay asks for a click instead
-              }
-            }
+            if (view === 'walk') walkLock.current?.()
           }}
         />
       )}

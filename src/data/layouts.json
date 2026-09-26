@@ -445,6 +445,24 @@
         "images": [
           "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-voliro2.jpg",
           "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-voliro1.png"
+        ],
+        "faq": [
+          {
+            "q": "Which assets can it inspect?",
+            "a": "Stacks, storage tanks, boilers, silos and overhead piping: surfaces at height that normally need scaffolding or rope access for ultrasonic thickness readings."
+          },
+          {
+            "q": "Why does it need to touch the surface?",
+            "a": "Ultrasonic thickness measurement needs firm contact between the probe and the steel. Thanks to its tiltable rotors, the Voliro T can press the probe steadily against the surface in any direction, even on vertical walls and the underside of pipes."
+          },
+          {
+            "q": "How fast is it compared with manual inspection?",
+            "a": "The manufacturer reports up to 200 thickness readings per hour, and no scaffolding to build or remove, so inspections that took days of preparation can be done in hours."
+          },
+          {
+            "q": "Can we get this as a service?",
+            "a": "Yes, ask the team about drone UT inspection services, or about purchasing through Terra Drone Arabia."
+          }
         ]
       }
     },
@@ -466,7 +484,21 @@
         "title": "DJI Flight Simulator – try flying!",
         "description": "Take the controls. The DJI Flight Simulator (Enterprise) is the professional software used to train enterprise drone pilots.\n\nIt uses a real remote controller and a physics engine with wind, ground effect and realistic crashes, in scenes such as a city, an island, a hangar, mountains and a forest, plus mission training like search and rescue.",
         "why": "Feel what it is like to pilot an enterprise drone, safely and with no experience needed, and see how pilots can be trained before their first real flight on your site.",
-        "link": "https://www.dji.com/simulator"
+        "link": "https://www.dji.com/simulator",
+        "faq": [
+          {
+            "q": "Do I need drone experience?",
+            "a": "Not at all. Beginners are welcome: our team will guide you through your first flight."
+          },
+          {
+            "q": "Is the controller real?",
+            "a": "Yes. The simulator uses a real DJI remote controller, so what you learn feels the same as flying an actual drone."
+          },
+          {
+            "q": "Can our pilots train with it?",
+            "a": "Yes. The Enterprise version includes skills training, free flight in several environments and mission training such as search and rescue. Ask us about pilot training."
+          }
+        ]
       }
     },
     {
@@ -488,7 +520,25 @@
         "title": "Terra Drone AI & digital platforms",
         "description": "Terra Drone's software turns drone flights into decisions:\n\n• Live streaming with AI analysis: watch drone video from anywhere, with AI detecting objects and anomalies in real time.\n• WebGIS: maps, 3D models and inspection data of your sites in one web platform, with built-in analysis tools.\n• Inspection platform: drop in the photos and videos of an inspection, and it generates the inspection report for you.",
         "why": "Faster answers from every flight: see issues live instead of after the mission, keep all site data in one place, and cut report writing from days to minutes.",
-        "link": "https://terra-drone.co.id/"
+        "link": "https://terra-drone.co.id/",
+        "faq": [
+          {
+            "q": "What do I need to get an inspection report?",
+            "a": "Only the photos and videos from the inspection. Upload them to the inspection platform and it generates the report, which your inspectors can review and finalise."
+          },
+          {
+            "q": "Can several people follow a drone flight live?",
+            "a": "Yes. The live stream can be watched from anywhere, with AI highlighting objects and anomalies while the drone flies."
+          },
+          {
+            "q": "What is the WebGIS for?",
+            "a": "It brings maps, 3D models and inspection results of your sites together in one web platform, with tools to measure and analyse, so everyone works from the same up-to-date data."
+          },
+          {
+            "q": "Does it work with our drones and systems?",
+            "a": "Tell the team which drones and software you use today: we will show you how the platforms fit in."
+          }
+        ]
       }
     },
     {
@@ -508,7 +558,17 @@
       "info": {
         "title": "Drones in the city – diorama",
         "description": "A miniature city with several drones flying over it, showing how drones already work every day: inspecting assets, monitoring sites, mapping, and responding to incidents, often launched automatically from docks, without a pilot on site.",
-        "why": "See at a glance where drones fit into your operations, from city infrastructure to oil & gas facilities, and ask us which use cases give you the fastest return."
+        "why": "See at a glance where drones fit into your operations, from city infrastructure to oil & gas facilities, and ask us which use cases give you the fastest return.",
+        "faq": [
+          {
+            "q": "What missions are shown?",
+            "a": "Typical everyday drone work: inspecting assets, monitoring sites, mapping and responding to incidents across a city and an industrial area."
+          },
+          {
+            "q": "How can drones fly without a pilot on site?",
+            "a": "With a drone dock such as the DJI Dock 3, the drone launches, lands and charges by itself, while certified operators plan and supervise the missions remotely."
+          }
+        ]
       }
     },
     {
@@ -533,6 +593,20 @@
         "link": "https://www.qysea.com/",
         "images": [
           "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-w6.png"
+        ],
+        "faq": [
+          {
+            "q": "How deep can it go?",
+            "a": "The FIFISH PRO W6 is rated to 350 m depth."
+          },
+          {
+            "q": "Does it replace divers?",
+            "a": "For many inspection tasks it reduces or removes the need for divers, which is safer and faster to deploy. Some intervention work may still need divers."
+          },
+          {
+            "q": "What else can it carry?",
+            "a": "Its modular interface takes different tools, such as the UT thickness gauge shown here, a gripper arm, or imaging sonar for dark and murky water."
+          }
         ]
       }
     },
@@ -553,7 +627,21 @@
       "info": {
         "title": "IRIS – tube inspection from the inside",
         "description": "IRIS (Internal Rotary Inspection System) is an ultrasonic method for inspecting tubes from the inside. A probe with a rotating mirror, driven by water flow, scans the full circumference as it is pulled through the tube.\n\nIt measures the remaining wall thickness and finds corrosion, erosion, pitting and other wall loss on both the inner and the outer surface.",
-        "why": "Accurate wall-thickness data for every tube in boilers, heat exchangers and air coolers (fin-fans), so you plug or replace only the tubes that need it and plan shutdowns with confidence."
+        "why": "Accurate wall-thickness data for every tube in boilers, heat exchangers and air coolers (fin-fans), so you plug or replace only the tubes that need it and plan shutdowns with confidence.",
+        "faq": [
+          {
+            "q": "Which equipment is IRIS used for?",
+            "a": "Tubes in heat exchangers, boilers and air coolers (fin-fans), in both ferrous and non-ferrous materials."
+          },
+          {
+            "q": "Do the tubes need to be cleaned first?",
+            "a": "Yes. IRIS needs clean tubes filled with water, so tubes are cleaned before inspection to get accurate readings."
+          },
+          {
+            "q": "How does it compare with eddy current testing?",
+            "a": "IRIS measures the remaining wall thickness very accurately and shows exactly where the loss is. It is often used together with faster screening methods such as eddy current or RFET, to confirm and size what they find."
+          }
+        ]
       }
     },
     {
@@ -577,6 +665,20 @@
         "link": "https://intrexkw.com/",
         "images": [
           "https://hzwnwzwdbjsmakkqznla.supabase.co/storage/v1/object/public/images/FXNH1vl-xxE0IMbC9VmyRA/info-intrex_og.png"
+        ],
+        "faq": [
+          {
+            "q": "What training does INTREX offer?",
+            "a": "Manpower training and certification on inspection and testing topics. Ask the team for the current course list and schedule."
+          },
+          {
+            "q": "Is INTREX accredited?",
+            "a": "Yes: ISO 17025, ISO 9001, ISO 14001, ISO 45001 and LEEA."
+          },
+          {
+            "q": "How long has INTREX been active?",
+            "a": "Since 1980, based in Kuwait and working across the Gulf region."
+          }
         ]
       }
     },
@@ -599,7 +701,21 @@
         "title": "VALSEM – talk to the team",
         "description": "VALSEM Industries (France, since 1977) protects critical equipment during transport and storage, and keeps proof of its condition over time.\n\n• ValStrong membranes (such as ValStrong TITAN) shield equipment from corrosion and damage.\n• EXA-AIR uses embedded sensors to monitor condition in real time, with continuous traceability.\n\nVALSEM works with NDTCCS as its strategic partner in Saudi Arabia.\n\nCome to the counter to see the membranes and ask how EXA-AIR could monitor your equipment.",
         "why": "Your equipment arrives, and stays, in the condition it left the factory, with sensor data to prove it: less corrosion damage in storage, fewer surprises at commissioning, and documented integrity for audits.",
-        "link": "https://www.valsem.com"
+        "link": "https://www.valsem.com",
+        "faq": [
+          {
+            "q": "What kind of equipment can be protected?",
+            "a": "Critical industrial equipment during transport and storage, both crated and crate-less, for sectors such as energy, nuclear, aerospace and infrastructure."
+          },
+          {
+            "q": "How does EXA-AIR prove the condition of my equipment?",
+            "a": "Sensors embedded with the protection record the conditions the equipment is exposed to, and the data is kept as a continuous, traceable record, so you can show its integrity at any time."
+          },
+          {
+            "q": "Who do I contact in the region?",
+            "a": "NDTCCS is VALSEM's strategic partner in Saudi Arabia. Talk to the team at the counter."
+          }
+        ]
       }
     },
     {

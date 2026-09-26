@@ -66,11 +66,15 @@ export type ObjectInfo = {
   link?: string
   /** Image URLs (uploaded or pasted links). */
   images?: string[]
+  /** Frequently asked questions. */
+  faq?: FaqItem[]
 }
+
+export type FaqItem = { q: string; a: string }
 
 /** True if the card has anything to show. */
 export const hasInfo = (i: ObjectInfo | undefined): i is ObjectInfo =>
-  !!i && !!(i.title?.trim() || i.description?.trim() || i.why?.trim() || i.link?.trim() || i.images?.length)
+  !!i && !!(i.title?.trim() || i.description?.trim() || i.why?.trim() || i.link?.trim() || i.images?.length || i.faq?.length)
 
 export type SeedObject = {
   id: string

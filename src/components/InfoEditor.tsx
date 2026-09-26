@@ -4,6 +4,7 @@ import type { EditorObject } from '../lib/editor'
 import { isImageLink, uploadImage } from '../lib/images'
 import { hasInfo, type ObjectInfo } from '../lib/layout'
 import type { ObjectOps } from '../lib/useObjectOps'
+import { FaqEditor } from './FaqEditor'
 import { Field, RemarksField } from './fields'
 
 type Props = {
@@ -148,6 +149,12 @@ export function InfoEditor({ obj, ops, room, disabled, onPreview }: Props) {
         )}
       </div>
       {error && <p className="status overlap">{error}</p>}
+
+      <FaqEditor
+        faq={info.faq ?? []}
+        disabled={disabled}
+        onChange={(fn) => ops.patchInfo(obj.id, (cur) => ({ ...cur, faq: fn(cur.faq ?? []) }))}
+      />
 
       <div className="actions tight">
         <button className="primary" onClick={onPreview} disabled={!hasInfo(obj.info)}>

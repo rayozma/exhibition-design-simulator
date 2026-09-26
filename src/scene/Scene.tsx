@@ -2,7 +2,7 @@ import { OrbitControls, OrthographicCamera, PerspectiveCamera } from '@react-thr
 import { useThree } from '@react-three/fiber'
 import type { EditorObject } from '../lib/editor'
 import type { Status } from '../lib/geometry'
-import { useMemo, type ComponentProps } from 'react'
+import { useMemo, type ComponentProps, type MutableRefObject } from 'react'
 import { hallCenter, type Design } from '../lib/design'
 import { DesignContext } from '../lib/DesignContext'
 import { inRects, theme } from '../lib/layout'
@@ -49,6 +49,7 @@ export type SceneProps = {
   /** Open an object's info window; the object with info in the walk-mode crosshair. */
   onInfo: (id: string) => void
   onWalkAim: (id: string | null) => void
+  walkLockRef: MutableRefObject<(() => void) | null>
   /** Dimensions overlay and the measure tool. */
   dims: { show: boolean; measuring: boolean; measures: Measurement[]; onMeasure: (m: Measurement) => void }
 }
@@ -102,6 +103,7 @@ export function Scene(p: SceneProps) {
           onLeave={p.onWalkLeave}
           onAim={p.onWalkAim}
           onInteract={p.onInfo}
+          lockRef={p.walkLockRef}
         />
       ) : (
         <>

@@ -94,6 +94,20 @@ export function InfoDialog({
           </div>
         )}
 
+        {!!info.faq?.filter((f) => f.q.trim()).length && (
+          <div className="info-faq">
+            <h4>FAQ</h4>
+            {info.faq
+              .filter((f) => f.q.trim())
+              .map((f, k) => (
+                <details key={k}>
+                  <summary>{f.q}</summary>
+                  <Paragraphs text={f.a} />
+                </details>
+              ))}
+          </div>
+        )}
+
         {info.link?.trim() && (
           <a className="button-link info-link" href={info.link.trim()} target="_blank" rel="noopener noreferrer">
             Learn more ↗

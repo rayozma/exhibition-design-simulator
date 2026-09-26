@@ -916,6 +916,48 @@ a.button-link:hover {
   color: var(--accent);
 }
 
+.info-faq h4 {
+  margin: 6px 0 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.info-faq details {
+  border-bottom: 1px solid var(--border);
+  padding: 8px 2px;
+}
+
+.info-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.info-faq details p {
+  margin: 6px 0 0 16px;
+  color: #d1d5db;
+}
+
+.faq-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.faq-edit-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faq-edit-head b {
+  flex: 1;
+}
+
 .info-link {
   align-self: flex-start;
 }

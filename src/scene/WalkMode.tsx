@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type MutableRefObject } from 'react'
 import { PerspectiveCamera, PointerLockControls } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Raycaster, Vector2, Vector3, type PerspectiveCamera as PerspectiveCameraImpl } from 'three'
+import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib'
 import type { EditorObject } from '../lib/editor'
 import { distToFootprint, wallFootprint, type Footprint } from '../lib/geometry'
 import { walkableRects } from '../lib/design'
@@ -66,13 +67,30 @@ type Props = {
   /** The object with an info card in the crosshair (null = none), and opening its info (E or click). */
   onAim: (id: string | null) => void
   onInteract: (id: string) => void
+  /** Filled with a function that captures the mouse again (to resume walking after the info window). */
+  lockRef: MutableRefObject<(() => void) | null>
 }
 
 /**
  * First-person walking: click the "Start walking" button to capture the mouse (look around),
  * WASD / arrows to move, Shift to run, Esc to release the mouse. Starts just outside the booth, facing it.
  */
-export function WalkMode({ objects, onLockChange, onMove, onLeave, onAim, onInteract }: Props) {
+export function WalkMode({ objects, onLockChange, onMove, onLeave, onAim, onInteract, lockRef }: Props) {
+  // Resume walking must lock the element the controls listen on (not just any canvas).
+  const controls = useRef<PointerLockControlsImpl>(null)
+  useEffect(() => {
+    lockRef.current = () => {
+      try {
+        const p = controls.current?.lock() as unknown as Promise<void> | undefined
+        p?.catch?.(() => {}) // not allowed right now (e.g. right after Esc): the overlay asks for a click
+      } catch {
+        // same as above
+      }
+    }
+    return () => {
+      lockRef.current = null
+    }
+  }, [lockRef])
   const design = useDesign()
   const opt = design.booth
   const walkRects = useMemo(() => walkableRects(design), [design])
@@ -228,6 +246,7 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave, onAim, onInte
     <>
       <PerspectiveCamera ref={cam} makeDefault fov={70} near={0.05} far={200} />
       <PointerLockControls
+        ref={controls}
         selector={`#${WALK_START_ID}`}
         onLock={() => {
           locked.current = true
