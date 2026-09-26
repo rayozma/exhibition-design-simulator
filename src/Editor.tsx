@@ -439,7 +439,24 @@ function EditorView({
         />
       )}
       {infoId && objects.some((o) => o.id === infoId) && (
-        <InfoDialog obj={objects.find((o) => o.id === infoId)!} onClose={() => setInfoId(null)} />
+        <InfoDialog
+          obj={objects.find((o) => o.id === infoId)!}
+          continueLabel={view === 'walk' ? 'Continue walking' : undefined}
+          onClose={() => {
+            setInfoId(null)
+            // In Walk view, go straight back to walking: capture the mouse again. Browsers only allow
+            // this from a click, so closing with Esc falls back to "Click to start walking".
+            if (view === 'walk') {
+              const canvas = document.querySelector<HTMLCanvasElement>('.viewport canvas')
+              try {
+                const p = canvas?.requestPointerLock() as unknown as Promise<void> | undefined
+                p?.catch?.(() => {})
+              } catch {
+                // not allowed here (e.g. after Esc): the walk overlay asks for a click instead
+              }
+            }
+          }}
+        />
       )}
       {showSnapshots && (
         <SnapshotsDialog

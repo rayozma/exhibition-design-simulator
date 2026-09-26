@@ -18,7 +18,16 @@ function Paragraphs({ text }: { text: string }) {
 }
 
 /** The info window of an object (ⓘ): images, description, why it's useful for visitors, and a link. */
-export function InfoDialog({ obj, onClose }: { obj: EditorObject; onClose: () => void }) {
+export function InfoDialog({
+  obj,
+  onClose,
+  continueLabel,
+}: {
+  obj: EditorObject
+  onClose: () => void
+  /** Extra button that also closes, e.g. "Continue walking" in Walk view. */
+  continueLabel?: string
+}) {
   const info = obj.info ?? {}
   const images = info.images ?? []
   const [index, setIndex] = useState(0)
@@ -89,6 +98,12 @@ export function InfoDialog({ obj, onClose }: { obj: EditorObject; onClose: () =>
           <a className="button-link info-link" href={info.link.trim()} target="_blank" rel="noopener noreferrer">
             Learn more ↗
           </a>
+        )}
+
+        {continueLabel && (
+          <button className="primary block" onClick={onClose}>
+            {continueLabel}
+          </button>
         )}
       </div>
     </div>

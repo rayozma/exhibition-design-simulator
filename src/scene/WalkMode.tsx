@@ -7,7 +7,7 @@ import { distToFootprint, wallFootprint, type Footprint } from '../lib/geometry'
 import { walkableRects } from '../lib/design'
 import { HEADROOM } from '../sim/navGrid'
 import { useDesign } from '../lib/DesignContext'
-import { hasInfo, inRects } from '../lib/layout'
+import { DEG, hasInfo, inRects, type Rect } from '../lib/layout'
 
 export const WALK_START_ID = 'walk-start'
 
@@ -16,6 +16,34 @@ const RADIUS = 0.25 // you can't get closer than this to objects and walls
 const WALK = 1.4 // m/s
 const REACH = 6 // m: how far away you can "look at" an object to open its info
 const CENTER = new Vector2(0, 0)
+/** Aim assist cone: objects within this angle of the view direction count (wider for big / near ones). */
+const ASSIST_DEG = 12
+const toCam = new Vector3()
+const viewDir = new Vector3()
+
+/** The object with an info card nearest to the center of view, within reach and the assist cone. */
+function aimAssist(camera: PerspectiveCameraImpl, objects: EditorObject[], booth: { footprint: Rect[]; platformH: number }): string | null {
+  camera.getWorldDirection(viewDir)
+  let best: string | null = null
+  let bestScore = 1
+  for (const o of objects) {
+    if (!hasInfo(o.info)) continue
+    const base = (inRects(booth.footprint, o.x, o.z) ? booth.platformH : 0) + (o.elev ?? 0)
+    toCam.set(o.x, base + o.h / 2, o.z).sub(camera.position)
+    const dist = toCam.length()
+    if (dist > REACH || dist < 0.01) continue
+    const angle = viewDir.angleTo(toCam)
+    // The object's own size widens the cone: a big display is easier to point at than a small one.
+    const radius = Math.max(o.w, o.d, o.h) / 2
+    const limit = Math.max(ASSIST_DEG * DEG, Math.atan2(radius, dist))
+    const score = angle / limit // < 1 = inside the cone; smaller = closer to the middle
+    if (score < bestScore) {
+      bestScore = score
+      best = o.id
+    }
+  }
+  return best
+}
 const RUN = 3.0
 
 const KEYS: Record<string, 'f' | 'b' | 'l' | 'r'> = {
@@ -189,6 +217,8 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave, onAim, onInte
         const hit = raycaster.intersectObjects(scene.children, true).find((h) => h.object.userData.objectId)
         const o = hit && latest.current.objects.find((ob) => ob.id === hit.object.userData.objectId)
         if (o && hasInfo(o.info)) id = o.id
+        // Aim assist: otherwise take the object with info closest to the middle of the view.
+        if (!id) id = aimAssist(camera, latest.current.objects, opt)
       }
       setAim(id)
     }
