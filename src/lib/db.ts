@@ -184,7 +184,7 @@ export async function deleteRoom(id: string, password: string): Promise<boolean>
   if (error) {
     throw new Error(
       /delete_room|function .* does not exist|schema cache/i.test(error.message) && !/not set up/i.test(error.message)
-        ? 'Room deletion is not set up. Run supabase/delete-room.sql in the Supabase SQL Editor.'
+        ? 'Room deletion is not set up. Run supabase/schema.sql in the Supabase SQL Editor.'
         : error.message,
     )
   }
@@ -193,9 +193,9 @@ export async function deleteRoom(id: string, password: string): Promise<boolean>
 
 const roomsError = (raw: string, msg = clean(raw)) =>
   /column .*design.* does not exist|could not find the .design. column/i.test(msg)
-    ? 'The design column is missing. Run supabase/designs.sql in the Supabase SQL Editor.'
+    ? 'The design column is missing. Run supabase/schema.sql in the Supabase SQL Editor.'
     : /relation .*rooms.* does not exist|schema cache/i.test(msg)
-    ? 'The rooms table is missing. Run supabase/rooms-and-colors.sql in the Supabase SQL Editor.'
+    ? 'The rooms table is missing. Run supabase/schema.sql in the Supabase SQL Editor.'
     : msg
 
 /** A reusable object shared by all designs: everything except where it stands. */
@@ -210,7 +210,7 @@ export function toTemplate(o: EditorObject): LibraryTemplate {
 
 const libraryError = (raw: string, msg = clean(raw)) =>
   /relation .*library_items.* does not exist|could not find the table|schema cache/i.test(msg)
-    ? 'The library is not set up. Run supabase/library.sql in the Supabase SQL Editor.'
+    ? 'The library is not set up. Run supabase/schema.sql in the Supabase SQL Editor.'
     : msg
 
 export async function fetchLibrary(): Promise<LibraryItem[]> {

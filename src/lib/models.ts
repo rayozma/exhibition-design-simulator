@@ -97,9 +97,9 @@ export async function uploadGlb(room: string, file: File, onProgress: (fraction:
 
 function uploadErrorText(status: number, msg: string): string {
   if (status === 413 || /exceeded the maximum/i.test(msg)) return `Upload rejected: file is larger than ${MAX_MODEL_MB} MB.`
-  if (/bucket not found/i.test(msg)) return 'Upload failed: the "models" bucket does not exist. Run supabase/storage.sql in Supabase.'
+  if (/bucket not found/i.test(msg)) return 'Upload failed: the "models" bucket does not exist. Run supabase/schema.sql in Supabase.'
   if (status === 403 || /row-level security|unauthorized/i.test(msg))
-    return 'Upload not allowed by Storage policies. Run supabase/storage.sql in Supabase.'
+    return 'Upload not allowed by Storage policies. Run supabase/schema.sql in Supabase.'
   if (/mime/i.test(msg)) return 'Upload rejected: only GLB files (model/gltf-binary) are allowed.'
   return `Upload failed (${status}): ${msg || 'unknown error'}`
 }

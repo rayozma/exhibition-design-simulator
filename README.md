@@ -70,18 +70,15 @@ Without Supabase settings the app runs in **local-only mode**: editing works, bu
 ### Supabase (database, live sync, file storage)
 
 1. Create a free project at https://supabase.com (**New project**, pick the region closest to your team).
-2. **SQL Editor → New query**: paste all of [`supabase/schema.sql`](supabase/schema.sql) and click **Run**.
-3. **SQL Editor → New query**: paste all of [`supabase/storage.sql`](supabase/storage.sql) and click **Run**.
-4. **SQL Editor → New query**: paste all of [`supabase/rooms-and-colors.sql`](supabase/rooms-and-colors.sql) and click **Run**.
-5. **SQL Editor → New query**: paste all of [`supabase/delete-room.sql`](supabase/delete-room.sql) and click **Run**. Then set the delete password with the one-line `insert into public.app_secrets …` shown at the top of that file (replace `YOUR-PASSWORD`). The password is never stored in this repository.
-6. **SQL Editor → New query**: run [`supabase/designs.sql`](supabase/designs.sql), then [`supabase/shapes.sql`](supabase/shapes.sql), then [`supabase/library.sql`](supabase/library.sql), then [`supabase/info.sql`](supabase/info.sql), each the same way.
-7. Copy the settings file and fill it in:
+2. **SQL Editor → New query**: paste all of [`supabase/schema.sql`](supabase/schema.sql) and click **Run**. It sets up everything (tables, row-level security, realtime, storage buckets) and is safe to re-run, also on a project set up with the older step-by-step files.
+3. **SQL Editor → New query**: set the delete password with the one-line `insert into public.app_secrets …` shown at the top of `schema.sql` (replace `YOUR-PASSWORD`). The password is never stored in this repository.
+4. Copy the settings file and fill it in:
    ```powershell
    Copy-Item .env.example .env
    ```
    - `VITE_SUPABASE_URL` is the Project URL, for example `https://abcdefgh.supabase.co` (from **Project Settings → Data API** or the **Connect** button), with nothing after `.co`.
    - `VITE_SUPABASE_ANON_KEY` is the **Publishable** key (`sb_publishable_…`) or the legacy **anon** key (from **Project Settings → API Keys**). Never use the secret / service_role key.
-8. Restart `npm run dev`.
+5. Restart `npm run dev`.
 
 `.env` is listed in `.gitignore` and must never be committed.
 
@@ -137,14 +134,8 @@ src/
     navGrid.ts           walkable grid, routes (flow fields), clearance check
     crowd.ts             crowd simulation
 supabase/
-  schema.sql             tables, row-level security, realtime
-  storage.sql            model bucket, upload policy, model_fit column
-  rooms-and-colors.sql   rooms table (home page list), per-object color column
-  delete-room.sql        password-protected deletion (password set separately, not in the repo)
-  designs.sql            design document per room, flexible layout ids, realtime on rooms
-  shapes.sql             more shapes, sign text, built-in model kind
-  library.sql            lift, combined-object parts, shared item library
-  info.sql               object info cards and the images bucket
+  schema.sql             complete setup: tables, row-level security, realtime, storage, room deletion
+  *.sql (others)         the older step-by-step files, all included in schema.sql
 ```
 
 **Coordinates:** meters and degrees. The origin is the hall's north-west corner, x points east, z points south, y up. Object `x`/`z` is the center of its footprint, and `rotY` rotates the `w` × `d` footprint.

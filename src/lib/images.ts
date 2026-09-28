@@ -54,7 +54,7 @@ export async function uploadImage(room: string, file: File, onProgress: (fractio
   } catch (e) {
     if (!(e instanceof UploadError)) throw e
     if (/bucket not found/i.test(e.message) || e.status === 403 || /row-level security/i.test(e.message))
-      throw new Error('Image uploads are not set up. Run supabase/info.sql in the Supabase SQL Editor.')
+      throw new Error('Image uploads are not set up. Run supabase/schema.sql in the Supabase SQL Editor.')
     throw new Error(`Upload failed (${e.status}): ${e.message}`)
   }
 }
