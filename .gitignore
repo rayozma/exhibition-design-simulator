@@ -5,7 +5,11 @@ dist
 # secrets — never commit
 .env
 .env.*
-!.env.example
+
+# local-only files (kept on this computer, not in the repo)
+PROMPT.md
+.env.example
+CLAUDE.md
 
 .DS_Store
 Thumbs.db
