@@ -22,6 +22,8 @@ import { Zones } from './Zones'
 
 export type ViewMode = 'perspective' | 'top' | 'walk'
 
+const LIGHT_BG = '#e8ecf1'
+
 export type SceneProps = {
   design: Design
   view: ViewMode
@@ -29,6 +31,8 @@ export type SceneProps = {
   showWalls: boolean
   /** Show the Al Masaood pavilion structure and booth shells (visual only). */
   showPavilion: boolean
+  /** Light backdrop around the hall instead of the dark one. */
+  lightBg: boolean
   objects: EditorObject[]
   statuses: Map<string, Status>
   selectedIds: string[]
@@ -88,7 +92,7 @@ export function Scene(p: SceneProps) {
   return (
     // The canvas has its own React renderer, so the design is provided again inside it.
     <DesignContext.Provider value={design}>
-      <color attach="background" args={[theme.hall]} />
+      <color attach="background" args={[p.lightBg ? LIGHT_BG : theme.hall]} />
       {/* Soft, bright lighting so white lacquer reads as white, not gray. */}
       <hemisphereLight args={['#ffffff', '#9aa3b2', 1.0]} />
       <ambientLight intensity={0.25} />
@@ -143,7 +147,7 @@ export function Scene(p: SceneProps) {
         />
       ))}
       {p.layout && !walk && <LayoutEditor {...p.layout} />}
-      {p.dims.show && <Rulers />}
+      {p.dims.show && <Rulers onLight={p.lightBg} />}
       {p.dims.show && !p.layout && selectedOne && <SelectionDims obj={selectedOne} objects={p.objects} />}
       <MeasureLayer active={p.dims.measuring && !walk} measures={p.dims.measures} onAdd={p.dims.onMeasure} objects={p.objects} />
       <Avatars walkers={p.walkers} layoutId={design.layoutId} />

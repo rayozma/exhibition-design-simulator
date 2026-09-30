@@ -9,7 +9,9 @@ import { DEG, inRects } from '../lib/layout'
 import type { Pt } from '../lib/layoutEdit'
 
 const noRaycast = () => null
-const RULER = '#cbd5e1'
+// Rulers sit outside the hall, on the backdrop: [ticks and numbers, overall size], for a dark / light backdrop.
+const RULER_DARK = ['#cbd5e1', '#f8fafc']
+const RULER_LIGHT = ['#475569', '#0f172a']
 const DIM = '#7dd3fc'
 const GAP = '#fbbf24'
 const MEASURE = '#f472b6'
@@ -28,8 +30,9 @@ function Label({ x, y, z, text, color }: { x: number; y: number; z: number; text
 }
 
 /** Meter ticks and numbers along the hall's north and west edges, plus the overall hall size. */
-export function Rulers() {
+export function Rulers({ onLight }: { onLight: boolean }) {
   const { hall } = useDesign()
+  const [RULER, SIZE] = onLight ? RULER_LIGHT : RULER_DARK
   const labelStep = Math.max(hall.w, hall.d) > 30 ? 2 : 1
   const ticks = useMemo(() => {
     const pts: number[] = []
@@ -67,14 +70,14 @@ export function Rulers() {
           {`${z}`}
         </Text>
       ))}
-      <Text position={[hall.w / 2, 0.02, -1.45]} rotation-x={-Math.PI / 2} fontSize={0.4} color="#f8fafc" raycast={noRaycast}>
+      <Text position={[hall.w / 2, 0.02, -1.45]} rotation-x={-Math.PI / 2} fontSize={0.4} color={SIZE} raycast={noRaycast}>
         {`← ${m(hall.w)} →`}
       </Text>
       <Text
         position={[-1.45, 0.02, hall.d / 2]}
         rotation={[-Math.PI / 2, 0, Math.PI / 2]}
         fontSize={0.4}
-        color="#f8fafc"
+        color={SIZE}
         raycast={noRaycast}
       >
         {`← ${m(hall.d)} →`}

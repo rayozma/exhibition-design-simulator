@@ -37,6 +37,15 @@ const INITIAL_CROWD: CrowdSettings = {
   restartToken: 0,
 }
 const NO_STATS: CrowdStats = { inside: 0, peak: 0, total: 0, area: 0, narrowArea: 0 }
+const LIGHT_BG_KEY = 'ndt-adipec.lightBg'
+
+function loadLightBg(): boolean {
+  try {
+    return localStorage.getItem(LIGHT_BG_KEY) === '1'
+  } catch {
+    return false
+  }
+}
 
 /**
  * R / Shift+R rotate, Delete removes, Ctrl+Z undoes, Ctrl+Y or Ctrl+Shift+Z redoes, Ctrl+C / Ctrl+V copy
@@ -192,6 +201,14 @@ function EditorView({
   const [showWalls, setShowWalls] = useState(true)
   const [showPavilion, setShowPavilion] = useState(false)
   const [snap, setSnap] = useState(true)
+  const [lightBg, setLightBg] = useState(loadLightBg)
+  useEffect(() => {
+    try {
+      localStorage.setItem(LIGHT_BG_KEY, lightBg ? '1' : '0')
+    } catch {
+      // storage blocked (private mode) — the choice just won't be remembered
+    }
+  }, [lightBg])
   const [selection, setSelection] = useState<string[]>([])
   const [upload, setUpload] = useState<UploadMode | null>(null)
   const [crowd, setCrowd] = useState(INITIAL_CROWD)
@@ -309,6 +326,8 @@ function EditorView({
         onWalls={setShowWalls}
         showPavilion={showPavilion}
         onPavilion={setShowPavilion}
+        lightBg={lightBg}
+        onLightBg={setLightBg}
         snap={snap}
         onSnap={setSnap}
         canUndo={undoStack.length > 0}
@@ -347,6 +366,7 @@ function EditorView({
               showVolumes={showVolumes}
               showWalls={showWalls}
               showPavilion={showPavilion}
+              lightBg={lightBg}
               objects={objects}
               statuses={statuses}
               selectedIds={selectedIds}

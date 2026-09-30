@@ -11,6 +11,8 @@ type Props = {
   showPavilion: boolean
   onPavilion: (v: boolean) => void
   onWalls: (v: boolean) => void
+  lightBg: boolean
+  onLightBg: (v: boolean) => void
   snap: boolean
   onSnap: (v: boolean) => void
   canUndo: boolean
@@ -94,6 +96,10 @@ export function TopBar(p: Props) {
       <label className="toggle" title="Rulers along the hall edges; size and clearances of the selected object">
         <input type="checkbox" checked={p.showDims} onChange={(e) => p.onDims(e.target.checked)} />
         Dimensions
+      </label>
+      <label className="toggle" title="Light or dark backdrop around the hall">
+        <input type="checkbox" checked={p.lightBg} onChange={(e) => p.onLightBg(e.target.checked)} />
+        Light background
       </label>
       <button
         className={p.measuring ? 'active' : ''}
