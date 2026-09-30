@@ -183,7 +183,7 @@ export function GuidePage() {
             are dragging it (you can&apos;t grab it meanwhile).
           </li>
           <li>
-            <b>Snapshots &amp; export</b>: save a named version and restore it later, download the layout as JSON, or a
+            <b>Versions &amp; export</b>: save a named version (objects and layout) and restore it later, download the layout as JSON, or a
             PNG picture of the current view.
           </li>
           <li>

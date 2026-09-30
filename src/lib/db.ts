@@ -237,7 +237,8 @@ export type Snapshot = {
   name: string
   created_by: string | null
   created_at: string
-  data: { objects: EditorObject[] }
+  /** design = the layout (hall, zones, booth, entrances) at that moment; missing in snapshots saved before it was stored. */
+  data: { objects: EditorObject[]; design?: unknown }
 }
 
 export async function fetchSnapshots(room: string, layoutId: LayoutId): Promise<Snapshot[]> {
@@ -251,10 +252,10 @@ export async function fetchSnapshots(room: string, layoutId: LayoutId): Promise<
   return data as Snapshot[]
 }
 
-export async function saveSnapshot(room: string, layoutId: LayoutId, name: string, objects: EditorObject[], by: string) {
+export async function saveSnapshot(room: string, design: Design, name: string, objects: EditorObject[], by: string) {
   const { error } = await db()
     .from('snapshots')
-    .insert({ room, layout_id: layoutId, name, data: { objects }, created_by: by })
+    .insert({ room, layout_id: design.layoutId, name, data: { objects, design }, created_by: by })
   if (error) throw new Error(clean(error.message))
 }
 

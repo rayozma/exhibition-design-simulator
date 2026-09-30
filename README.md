@@ -9,7 +9,7 @@ A web app for designing exhibition booths together, in 3D, in the browser — li
 - Per-object colors, editable in the side panel
 - Upload `.glb` or `.obj` 3D models for objects
 - Crowd simulation with booth occupancy, density heatmap and narrow-passage warnings
-- Named snapshots, JSON export and PNG screenshots
+- Named versions you can go back to, JSON export and PNG screenshots
 
 Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deployment, see below).
 
@@ -44,7 +44,8 @@ Live site: `https://rayozma.github.io/exhibition-design-simulator/` (after deplo
 | 2D plan / 3D view | Button in the top bar |
 | 3D model | Right panel → **Attach .glb model…** (or with nothing selected: **Upload .glb as new object…**). For OBJ, select the `.obj` together with its `.mtl` and texture files |
 | Crowd | Panel at the bottom-left: Empty / Low / High, density, "stop at booth" share, heatmap, clearance |
-| Snapshots / export | **Snapshots & export** in the top bar |
+| Save a version / go back to it | **Versions & export** in the top bar: **Save version** stores the objects and the layout; **Restore** brings them back (for everyone in the design, can be undone) |
+| Export | **Versions & export** → Download JSON / PNG |
 
 **Colors:** red means the object overlaps another object or a wall. Yellow means part of it is outside the booth footprint. A colored ring means another person has the object selected. "moving: Name" means someone is dragging it, and it can't be grabbed until they let go.
 
@@ -65,7 +66,7 @@ npm run dev
 
 Open http://127.0.0.1:5173/exhibition-design-simulator/.
 
-Without Supabase settings the app runs in **local-only mode**: editing works, but there are no rooms, sync, uploads or snapshots.
+Without Supabase settings the app runs in **local-only mode**: editing works, but there are no rooms, sync, uploads or saved versions.
 
 ### Supabase (database, live sync, file storage)
 

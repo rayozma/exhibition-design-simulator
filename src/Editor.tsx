@@ -496,6 +496,7 @@ function EditorView({
           objects={objects}
           me={me}
           ops={ops}
+          onRestoreDesign={(d) => designEditor.commit(d)}
           capture={() => capture.current}
           onClose={() => setShowSnapshots(false)}
         />
