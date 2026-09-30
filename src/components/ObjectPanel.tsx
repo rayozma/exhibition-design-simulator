@@ -79,7 +79,8 @@ function Help({ onUpload }: { onUpload?: () => void }) {
         <li>Drag: move (drags the whole selection)</li>
         <li>R / Shift+R: rotate ±{ROTATE_STEP}°</li>
         <li>Delete: delete selected</li>
-        <li>Ctrl+Z: undo</li>
+        <li>Ctrl+Z: undo · Ctrl+Y: redo</li>
+        <li>Ctrl+C / Ctrl+V: copy / paste · Ctrl+D: duplicate</li>
         <li>Esc: deselect</li>
       </ul>
       {onUpload && (

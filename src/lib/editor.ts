@@ -23,12 +23,15 @@ export type UndoEntry = { changes: { id: string; before: EditorObject | null }[]
 type State = {
   objects: ObjectsByLayout
   undo: Record<LayoutId, UndoEntry[]>
+  /** Undone actions that can be redone; emptied by the next new action. */
+  redo: Record<LayoutId, UndoEntry[]>
 }
 
 type Action =
   | { type: 'apply'; layoutId: LayoutId; changes: Change[]; undoable: boolean }
   | { type: 'pushUndo'; layoutId: LayoutId; entry: UndoEntry }
   | { type: 'undo'; layoutId: LayoutId }
+  | { type: 'redo'; layoutId: LayoutId }
   | { type: 'load'; objects: ObjectsByLayout }
 
 const MAX_UNDO = 100
@@ -53,7 +56,7 @@ export function replaceChanges(list: EditorObject[], target: EditorObject[]): Ch
 export const resetChanges = (list: EditorObject[], seed: SeedObject[]) => replaceChanges(list, seedObjects(seed))
 
 /** Nothing loaded yet; a design's objects arrive with load() (from the database or its seed). */
-const init = (): State => ({ objects: {}, undo: {} })
+const init = (): State => ({ objects: {}, undo: {}, redo: {} })
 
 function applyChanges(list: EditorObject[], changes: Change[]): EditorObject[] {
   let out = list
@@ -69,8 +72,34 @@ function applyChanges(list: EditorObject[], changes: Change[]): EditorObject[] {
   return out
 }
 
-function pushUndo(state: State, layoutId: LayoutId, entry: UndoEntry): State['undo'] {
-  return { ...state.undo, [layoutId]: [...(state.undo[layoutId] ?? []), entry].slice(-MAX_UNDO) }
+type Stacks = Record<LayoutId, UndoEntry[]>
+
+const push = (stacks: Stacks, layoutId: LayoutId, entry: UndoEntry): Stacks => ({
+  ...stacks,
+  [layoutId]: [...(stacks[layoutId] ?? []), entry].slice(-MAX_UNDO),
+})
+
+/** A new action: remember it for undo; what was undone before can't be redone any more. */
+const pushUndo = (state: State, layoutId: LayoutId, entry: UndoEntry): Pick<State, 'undo' | 'redo'> => ({
+  undo: push(state.undo, layoutId, entry),
+  redo: state.redo[layoutId]?.length ? { ...state.redo, [layoutId]: [] } : state.redo,
+})
+
+/** Revert the last entry of one stack (undo or redo) and put its opposite on the other stack. */
+function step(state: State, layoutId: LayoutId, from: 'undo' | 'redo'): State {
+  const stack = state[from][layoutId] ?? []
+  const entry = stack[stack.length - 1]
+  if (!entry) return state
+  const list = state.objects[layoutId] ?? []
+  const ids = [...new Set(entry.changes.map((c) => c.id))]
+  const opposite: UndoEntry = { changes: ids.map((id) => ({ id, before: list.find((o) => o.id === id) ?? null })) }
+  const popped = { ...state[from], [layoutId]: stack.slice(0, -1) }
+  const pushed = push(state[from === 'undo' ? 'redo' : 'undo'], layoutId, opposite)
+  return {
+    objects: { ...state.objects, [layoutId]: applyChanges(list, undoChanges(entry)) },
+    undo: from === 'undo' ? popped : pushed,
+    redo: from === 'undo' ? pushed : popped,
+  }
 }
 
 function apply(state: State, layoutId: LayoutId, changes: Change[], undoable: boolean): State {
@@ -79,8 +108,9 @@ function apply(state: State, layoutId: LayoutId, changes: Change[], undoable: bo
     changes: changes.map((c) => ({ id: c.id, before: list.find((o) => o.id === c.id) ?? null })),
   }
   return {
+    ...state,
     objects: { ...state.objects, [layoutId]: applyChanges(list, changes) },
-    undo: undoable ? pushUndo(state, layoutId, entry) : state.undo,
+    ...(undoable ? pushUndo(state, layoutId, entry) : null),
   }
 }
 
@@ -89,26 +119,17 @@ function reducer(state: State, action: Action): State {
     case 'apply':
       return apply(state, action.layoutId, action.changes, action.undoable)
     case 'pushUndo':
-      return { ...state, undo: pushUndo(state, action.layoutId, action.entry) }
-    case 'undo': {
-      const stack = state.undo[action.layoutId] ?? []
-      const entry = stack[stack.length - 1]
-      if (!entry) return state
-      return {
-        objects: {
-          ...state.objects,
-          [action.layoutId]: applyChanges(state.objects[action.layoutId] ?? [], undoChanges(entry)),
-        },
-        undo: { ...state.undo, [action.layoutId]: stack.slice(0, -1) },
-      }
-    }
+      return { ...state, ...pushUndo(state, action.layoutId, action.entry) }
+    case 'undo':
+    case 'redo':
+      return step(state, action.layoutId, action.type)
     case 'load':
-      // Replace everything with the database contents; undo stacks are kept.
+      // Replace everything with the database contents; undo / redo stacks are kept.
       return { ...state, objects: action.objects }
   }
 }
 
-/** Local editor state: objects per layout option, plus an undo stack per layout option. */
+/** Local editor state: objects per layout option, plus undo / redo stacks per layout option. */
 export function useEditor() {
   const [state, dispatch] = useReducer(reducer, undefined, init)
   const actions = useMemo(
@@ -117,6 +138,7 @@ export function useEditor() {
         dispatch({ type: 'apply', layoutId, changes, undoable }),
       pushUndo: (layoutId: LayoutId, entry: UndoEntry) => dispatch({ type: 'pushUndo', layoutId, entry }),
       undo: (layoutId: LayoutId) => dispatch({ type: 'undo', layoutId }),
+      redo: (layoutId: LayoutId) => dispatch({ type: 'redo', layoutId }),
       load: (objects: ObjectsByLayout) => dispatch({ type: 'load', objects }),
     }),
     [],

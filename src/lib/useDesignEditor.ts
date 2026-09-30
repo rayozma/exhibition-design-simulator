@@ -8,7 +8,7 @@ const MAX_UNDO = 50
  * Editing the open design (hall, zones, booth, entrances):
  * - preview(d): show a change immediately without saving (while dragging),
  * - commit(d, before): save it for everyone and remember `before` for undo,
- * - undo(): go back to the previous version (this user's own changes only),
+ * - undo() / redo(): go back to the previous version, or forward again (this user's own changes only),
  * - remote(row): apply a design saved by someone else (own saves are recognized by their `rev`).
  * Saves run one after another; the last save wins if two people edit the layout at the same moment.
  */
@@ -16,7 +16,8 @@ export function useDesignEditor(room: string | null, design: Design, setDesign: 
   const latest = useRef(design)
   latest.current = design
   const stack = useRef<Design[]>([])
-  const [undoCount, setUndoCount] = useState(0)
+  const redoStack = useRef<Design[]>([])
+  const [counts, setCounts] = useState({ undo: 0, redo: 0 })
   const myRevs = useRef(new Set<string>())
   const queue = useRef<Promise<void>>(Promise.resolve())
   const [error, setError] = useState<string | null>(null)
@@ -33,6 +34,18 @@ export function useDesignEditor(room: string | null, design: Design, setDesign: 
       myRevs.current.add(rev)
       return { ...d, rev }
     }
+    const count = () => setCounts({ undo: stack.current.length, redo: redoStack.current.length })
+    /** Take the last version off `from`, show and save it, and keep the current one on `to`. */
+    const step = (from: typeof stack, to: typeof stack) => {
+      const target = from.current[from.current.length - 1]
+      if (!target) return
+      from.current = from.current.slice(0, -1)
+      to.current = [...to.current, latest.current].slice(-MAX_UNDO)
+      count()
+      const next = stamp(target)
+      setDesign(next)
+      save(next)
+    }
     return {
       preview(d: Design) {
         setDesign(d)
@@ -43,19 +56,17 @@ export function useDesignEditor(room: string | null, design: Design, setDesign: 
           return
         }
         stack.current = [...stack.current, before].slice(-MAX_UNDO)
-        setUndoCount(stack.current.length)
+        redoStack.current = [] // a new change: nothing to redo any more
+        count()
         const next = stamp(d)
         setDesign(next)
         save(next)
       },
       undo() {
-        const prev = stack.current[stack.current.length - 1]
-        if (!prev) return
-        stack.current = stack.current.slice(0, -1)
-        setUndoCount(stack.current.length)
-        const next = stamp(prev)
-        setDesign(next)
-        save(next)
+        step(stack, redoStack)
+      },
+      redo() {
+        step(redoStack, stack)
       },
       remote(raw: unknown) {
         const d = parseDesign(raw)
@@ -67,7 +78,7 @@ export function useDesignEditor(room: string | null, design: Design, setDesign: 
     }
   }, [room, setDesign])
 
-  return { ...api, canUndo: undoCount > 0, error, clearError: () => setError(null) }
+  return { ...api, canUndo: counts.undo > 0, canRedo: counts.redo > 0, error, clearError: () => setError(null) }
 }
 
 export type DesignEditor = ReturnType<typeof useDesignEditor>

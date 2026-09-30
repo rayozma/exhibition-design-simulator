@@ -76,7 +76,9 @@ export function GuidePage() {
             <span className="tag yellow">yellow</span> = partly outside your booth.
           </li>
           <li>
-            <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes your own last change. <b>Reset to design</b> puts every object back to
+            <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes your own last change, <kbd>Ctrl</kbd>+<kbd>Y</kbd> redoes it.{' '}
+            <kbd>Ctrl</kbd>+<kbd>C</kbd> then <kbd>Ctrl</kbd>+<kbd>V</kbd> copies the selected objects;{' '}
+            <kbd>Ctrl</kbd>+<kbd>D</kbd> duplicates them in one step. <b>Reset to design</b> puts every object back to
             the design&apos;s starting layout (can be undone too).
           </li>
           <li>
@@ -135,7 +137,8 @@ export function GuidePage() {
           </li>
           <li>
             With <b>Select</b>: drag an element to move it, drag the yellow handles to resize. Exact values, hall size and
-            wall height are in the panel. <kbd>Delete</kbd> removes, <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes.
+            wall height are in the panel. <kbd>Delete</kbd> removes, <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes,{' '}
+            <kbd>Ctrl</kbd>+<kbd>Y</kbd> redoes.
           </li>
           <li>
             Click <b>Done editing layout</b> to go back to objects.
@@ -200,6 +203,9 @@ export function GuidePage() {
               ['R / Shift + R', 'Rotate ±15°'],
               ['Delete', 'Delete selected'],
               ['Ctrl + Z', 'Undo your last change'],
+              ['Ctrl + Y or Ctrl + Shift + Z', 'Redo what you just undid'],
+              ['Ctrl + C, then Ctrl + V', 'Copy the selected objects, paste the copies'],
+              ['Ctrl + D', 'Duplicate the selected objects'],
               ['Esc', 'Deselect, stop measuring, cancel a layout tool'],
               ['W A S D, Shift', 'Walk, run (Walk view)'],
               ['E', 'Open the info of the object you look at (Walk view)'],

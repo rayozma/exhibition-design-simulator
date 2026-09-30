@@ -39,7 +39,8 @@ const INITIAL_CROWD: CrowdSettings = {
 const NO_STATS: CrowdStats = { inside: 0, peak: 0, total: 0, area: 0, narrowArea: 0 }
 
 /**
- * R / Shift+R rotate, Delete removes, Ctrl+Z undoes, Esc deselects, Ctrl+A selects all.
+ * R / Shift+R rotate, Delete removes, Ctrl+Z undoes, Ctrl+Y or Ctrl+Shift+Z redoes, Ctrl+C / Ctrl+V copy
+ * and paste, Ctrl+D duplicates, Esc deselects, Ctrl+A selects all.
  * Ignored while typing in a field, while a dialog is open, and in walk mode.
  */
 function useShortcuts(
@@ -58,15 +59,28 @@ function useShortcuts(
       if ((e.target as HTMLElement).closest('input, textarea, select')) return
       if (document.querySelector('.overlay')) return // a dialog is open
       const k = e.key.toLowerCase()
-      if ((e.ctrlKey || e.metaKey) && k === 'z') {
+      const ctrl = e.ctrlKey || e.metaKey
+      if (ctrl && (k === 'y' || (k === 'z' && e.shiftKey))) {
+        e.preventDefault()
+        ops.redo()
+      } else if (ctrl && k === 'z') {
         e.preventDefault()
         ops.undo()
-      } else if ((e.ctrlKey || e.metaKey) && k === 'a') {
+      } else if (ctrl && k === 'a') {
         e.preventDefault()
         setSelection(all)
+      } else if (ctrl && k === 'c') {
+        if (!ids.length || window.getSelection()?.toString()) return // copying text on the page
+        e.preventDefault()
+        ops.copy(ids)
+      } else if (ctrl && k === 'v') {
+        ops.paste()
+      } else if (ctrl && k === 'd') {
+        e.preventDefault() // otherwise the browser bookmarks the page
+        if (ids.length) ops.duplicate(ids)
       } else if (e.key === 'Escape') {
         setSelection([])
-      } else if (ids.length && k === 'r' && !e.ctrlKey && !e.metaKey) {
+      } else if (ids.length && k === 'r' && !ctrl) {
         ops.rotate(ids, e.shiftKey ? -ROTATE_STEP : ROTATE_STEP)
       } else if (ids.length && (e.key === 'Delete' || e.key === 'Backspace')) {
         e.preventDefault()
@@ -230,7 +244,9 @@ function EditorView({
     [designEditor, onRenamed],
   )
   const roomSync = useRoomSync(room, me, actions, layoutId, selectedIds, onRoomRow)
-  const ops = useObjectOps(actions, roomSync.sync, design, objects, state.undo[layoutId] ?? NO_UNDO, snap, selectedIds, setSelection)
+  const undoStack = state.undo[layoutId] ?? NO_UNDO
+  const redoStack = state.redo[layoutId] ?? NO_UNDO
+  const ops = useObjectOps(actions, roomSync.sync, design, objects, undoStack, redoStack, snap, selectedIds, setSelection)
   const allIds = useMemo(() => objects.map((o) => o.id), [objects])
   useShortcuts(ops, selectedIds, setSelection, allIds, view !== 'walk' && !layoutMode && !measuring)
 
@@ -295,8 +311,10 @@ function EditorView({
         onPavilion={setShowPavilion}
         snap={snap}
         onSnap={setSnap}
-        canUndo={(state.undo[layoutId] ?? NO_UNDO).length > 0}
+        canUndo={undoStack.length > 0}
         onUndo={ops.undo}
+        canRedo={redoStack.length > 0}
+        onRedo={ops.redo}
         onReset={ops.reset}
         onSnapshots={() => setShowSnapshots(true)}
         designName={name}

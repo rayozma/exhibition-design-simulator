@@ -15,6 +15,8 @@ type Props = {
   onSnap: (v: boolean) => void
   canUndo: boolean
   onUndo: () => void
+  canRedo: boolean
+  onRedo: () => void
   onReset: () => void
   onSnapshots: () => void
   layoutMode: boolean
@@ -104,6 +106,9 @@ export function TopBar(p: Props) {
       <span className="spacer" />
       <button onClick={p.onUndo} disabled={!p.canUndo} title="Ctrl+Z">
         Undo
+      </button>
+      <button onClick={p.onRedo} disabled={!p.canRedo} title="Ctrl+Y or Ctrl+Shift+Z">
+        Redo
       </button>
       <button onClick={p.onReset} title="Restore the original positions for this layout">
         Reset to design

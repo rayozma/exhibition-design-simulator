@@ -16,6 +16,8 @@ import { DEG, hasInfo, type ObjectInfo } from './layout'
 import type { SyncApi } from './useRoomSync'
 
 export const ROTATE_STEP = 15
+/** How far a copy lands from its original (m). */
+const COPY_OFFSET = 0.5
 
 /** "item1-3f9a0c12" -> "item1-<new>", so copies of copies don't grow ids forever. */
 const copyId = (id: string) => `${id.replace(/-[0-9a-f]{8}$/, '')}-${crypto.randomUUID().slice(0, 8)}`
@@ -31,16 +33,19 @@ export function useObjectOps(
   design: Design,
   objects: EditorObject[],
   undoStack: UndoEntry[],
+  redoStack: UndoEntry[],
   snap: boolean,
   selection: string[],
   setSelection: (ids: string[]) => void,
 ) {
   const layoutId = design.layoutId
-  const latest = useRef({ layoutId, design, objects, undoStack, snap, selection })
-  latest.current = { layoutId, design, objects, undoStack, snap, selection }
+  const latest = useRef({ layoutId, design, objects, undoStack, redoStack, snap, selection })
+  latest.current = { layoutId, design, objects, undoStack, redoStack, snap, selection }
   const clamp = <T extends EditorObject>(o: T) => clampToHall(o, latest.current.design.hall)
   /** Objects being dragged, as they were when the drag started. */
   const dragGroup = useRef<{ id: string; before: EditorObject[] } | null>(null)
+  /** Objects copied with Ctrl+C, and how often they were pasted (each paste lands a bit further). */
+  const clipboard = useRef<{ objs: EditorObject[]; pastes: number }>({ objs: [], pastes: 0 })
 
   return useMemo(() => {
     const find = (id: string) => latest.current.objects.find((o) => o.id === id)
@@ -54,6 +59,29 @@ export function useObjectOps(
       sync.persist(latest.current.layoutId, changes)
     }
     const setAll = (next: EditorObject[]) => commit(next.map((o) => ({ id: o.id, next: clamp(o) })))
+    /** Add unlocked copies, shifted by `offset` metres, and select them (one undo step). */
+    const addCopies = (objs: EditorObject[], offset: number) => {
+      if (!objs.length) return
+      const copies = objs.map((o) => ({
+        ...o,
+        id: copyId(o.id),
+        name: `${o.name} (copy)`,
+        x: o.x + offset,
+        z: o.z + offset,
+        locked: false,
+      }))
+      setAll(copies)
+      setSelection(copies.map((o) => o.id))
+    }
+    /** Undo or redo: revert the last entry of that stack, and save the restored values. */
+    const stepHistory = (kind: 'undo' | 'redo') => {
+      const { layoutId: l, undoStack, redoStack } = latest.current
+      const stack = kind === 'undo' ? undoStack : redoStack
+      const entry = stack[stack.length - 1]
+      if (!entry) return
+      actions[kind](l)
+      sync.persist(l, undoChanges(entry))
+    }
 
     return {
       /** Numeric edits from the side panel (one object). */
@@ -115,17 +143,19 @@ export function useObjectOps(
         setSelection([obj.id])
       },
       duplicate(ids: string[]) {
+        addCopies(ids.map(find).filter((o): o is EditorObject => !!o), COPY_OFFSET)
+      },
+      /** Remember the objects as they are now, for paste(). */
+      copy(ids: string[]) {
         const objs = ids.map(find).filter((o): o is EditorObject => !!o)
-        const copies = objs.map((o) => ({
-          ...o,
-          id: copyId(o.id),
-          name: `${o.name} (copy)`,
-          x: o.x + 0.5,
-          z: o.z + 0.5,
-          locked: false,
-        }))
-        setAll(copies)
-        setSelection(copies.map((o) => o.id))
+        if (objs.length) clipboard.current = { objs, pastes: 0 }
+      },
+      /** Add copies of what was copied; repeated pastes step further away. */
+      paste() {
+        const c = clipboard.current
+        if (!c.objs.length) return
+        c.pastes += 1
+        addCopies(c.objs, COPY_OFFSET * c.pastes)
       },
       async remove(ids: string[]) {
         const objs = editables(ids)
@@ -157,11 +187,11 @@ export function useObjectOps(
       },
       /** Undo this user's last action in the current layout, and save the restored values. */
       undo() {
-        const { layoutId: l, undoStack: stack } = latest.current
-        const entry = stack[stack.length - 1]
-        if (!entry) return
-        actions.undo(l)
-        sync.persist(l, undoChanges(entry))
+        stepHistory('undo')
+      },
+      /** Redo the action that was just undone (until the next new action). */
+      redo() {
+        stepHistory('redo')
       },
       async reset() {
         const yes = await askConfirm('Reset to design?', {

@@ -41,7 +41,7 @@ export function LayoutPanel({ tool, onTool, sel, onSelect, editor }: Props) {
   const set = (next: Design) => editor.commit(next, design)
   const { hall, booth } = design
 
-  // Delete removes the selected element, Esc cancels a tool / deselects, Ctrl+Z undoes layout changes.
+  // Delete removes the selected element, Esc cancels a tool / deselects, Ctrl+Z / Ctrl+Y undo / redo layout changes.
   const latest = useRef({ sel, tool, design })
   latest.current = { sel, tool, design }
   useEffect(() => {
@@ -49,7 +49,12 @@ export function LayoutPanel({ tool, onTool, sel, onSelect, editor }: Props) {
       if ((e.target as HTMLElement).closest('input, textarea, select')) return
       if (document.querySelector('.overlay')) return
       const { sel: s, tool: t, design: d } = latest.current
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+      const ctrl = e.ctrlKey || e.metaKey
+      const k = e.key.toLowerCase()
+      if (ctrl && (k === 'y' || (k === 'z' && e.shiftKey))) {
+        e.preventDefault()
+        editor.redo()
+      } else if (ctrl && k === 'z') {
         e.preventDefault()
         editor.undo()
       } else if (e.key === 'Escape') {
@@ -94,6 +99,9 @@ export function LayoutPanel({ tool, onTool, sel, onSelect, editor }: Props) {
       <div className="actions tight">
         <button onClick={editor.undo} disabled={!editor.canUndo} title="Ctrl+Z">
           Undo layout change
+        </button>
+        <button onClick={editor.redo} disabled={!editor.canRedo} title="Ctrl+Y or Ctrl+Shift+Z">
+          Redo
         </button>
       </div>
 
