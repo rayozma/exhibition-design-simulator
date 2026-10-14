@@ -12,8 +12,11 @@ const noRaycast = () => null // zones are never selectable
 function ZoneRect({ zone, showVolume, realistic }: { zone: Zone; showVolume: boolean; realistic: boolean }) {
   const volume = showVolume && !realistic && zone.h > 0
   const labelY = volume ? zone.h + 0.02 : 0.02
-  const carpet = useDesign().pavilion?.colors.carpet ?? '#cfd5dd'
-  const floor = realistic && !zone.walkable ? carpet : zone.color
+  const pav = useDesign().pavilion
+  const carpet = pav?.colors.carpet ?? '#cfd5dd'
+  // Walkways inside the pavilion get its own floor (e.g. glossy black) when it has one.
+  const inPavilion = !!pav && zone.x >= pav.rect.x && zone.x + zone.w <= pav.rect.x + pav.rect.w && zone.z >= pav.rect.z && zone.z + zone.d <= pav.rect.z + pav.rect.d
+  const floor = !realistic ? zone.color : !zone.walkable ? carpet : inPavilion && pav.colors.walkway ? pav.colors.walkway : zone.color
 
   return (
     <group position={[zone.x + zone.w / 2, 0, zone.z + zone.d / 2]}>

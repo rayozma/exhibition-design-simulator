@@ -129,11 +129,19 @@ export type Theme = {
 export type PavilionSpec = {
   name: string
   note?: string
+  /** "ship" (default): rounded hull with white booth shells. "eq": the Elegant Qubes structure (dark floors, back canopy, tilted header, hanging triangle, lightboxes). */
+  style?: 'ship' | 'eq'
   rect: Rect
   cornerRadius: number
   deck: Rect & { y: number; thickness: number; radius: number; columnsEvery: number }
   portals: { x: number; z1: number; z2: number; h: number }[]
-  colors: { hull: string; accent: string; led: string; underside: string; shell: string; carpet: string; glass: string }
+  colors: { hull: string; accent: string; led: string; underside: string; shell: string; carpet: string; glass: string; walkway?: string }
+  /** "eq" only: the big name panel. x/z/y = its center; tilt rolls it (deg, west end down), lean tips the top back (deg). */
+  header?: { x: number; z: number; y: number; w: number; h: number; tilt: number; lean: number }
+  /** "eq" only: hanging slab with a screen underneath; polygon of [x, z] plan points, bottom at y. */
+  canopy?: { points: [number, number][]; y: number; thickness: number }
+  /** "eq" only: glowing totems and poster lightboxes standing around the pavilion. */
+  lightboxes?: { x: number; z: number; w: number; d: number; h: number; rotY: number; kind: 'totem' | 'poster' }[]
 }
 
 export type LayoutsFile = {

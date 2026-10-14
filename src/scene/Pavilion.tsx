@@ -4,6 +4,7 @@ import { ExtrudeGeometry, MeshStandardMaterial, Path, Shape } from 'three'
 import { walkableRects } from '../lib/design'
 import { useDesign } from '../lib/DesignContext'
 import { inRects, type PavilionSpec, type Rect, type Zone } from '../lib/layout'
+import { PavilionEq } from './PavilionEq'
 
 /**
  * Visual-only approximation of the Al Masaood Energy pavilion (from event photos): a ship-like
@@ -215,6 +216,11 @@ function Shells({ C }: { C: Colors }) {
 }
 
 export function Pavilion({ spec: P }: { spec: PavilionSpec }) {
+  if (P.style === 'eq') return <PavilionEq spec={P} />
+  return <PavilionShip spec={P} />
+}
+
+function PavilionShip({ spec: P }: { spec: PavilionSpec }) {
   const C = P.colors
   const waterline = useMemo(() => outline(roundedRect(P.rect, P.cornerRadius, -0.05), 0.03), [P])
   return (

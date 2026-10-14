@@ -287,47 +287,128 @@
   },
   "pavilion": {
     "name": "AL MASAOOD ENERGY",
-    "note": "Al Masaood Energy pavilion as in the Elegant Qubes renders: grey hull with dark blue accents and an upper VIP deck. Deck position is approximate.",
+    "style": "eq",
+    "note": "Al Masaood Energy pavilion as in the Elegant Qubes renders (pages 7-10): dark glossy floor with an LED edge, back canopy on leaning pylons with a glass rail, the tilted AL MASAOOD ENERGY header, a triangular screen hanging over the walkway and lightbox totems. Open stands, no partition walls. Header, triangle and lightbox positions are read off the renders.",
     "rect": {
       "x": 0,
       "z": 0,
       "w": 33,
       "d": 15
     },
-    "cornerRadius": 2.5,
+    "cornerRadius": 0,
     "deck": {
       "x": 0,
       "z": 0,
       "w": 33,
       "d": 4,
       "y": 3.6,
-      "thickness": 0.5,
-      "radius": 2,
-      "columnsEvery": 6
+      "thickness": 0.45,
+      "radius": 0,
+      "columnsEvery": 5.5
     },
-    "portals": [
+    "portals": [],
+    "colors": {
+      "hull": "#9a9794",
+      "accent": "#0f4c63",
+      "led": "#dff6ff",
+      "underside": "#1a1a1c",
+      "shell": "#2b2b2e",
+      "carpet": "#2a2a2d",
+      "glass": "#bfe3ff",
+      "walkway": "#101012"
+    },
+    "header": {
+      "x": 6.5,
+      "z": 3.55,
+      "y": 5.7,
+      "w": 12,
+      "h": 2.8,
+      "tilt": 4,
+      "lean": -6
+    },
+    "canopy": {
+      "points": [
+        [
+          11.5,
+          4.6
+        ],
+        [
+          21.5,
+          4.6
+        ],
+        [
+          16.5,
+          11.6
+        ]
+      ],
+      "y": 5.4,
+      "thickness": 0.4
+    },
+    "lightboxes": [
       {
         "x": 0.4,
-        "z1": 6,
-        "z2": 9,
-        "h": 3.4
+        "z": 5.6,
+        "w": 0.5,
+        "d": 0.5,
+        "h": 1,
+        "rotY": 0,
+        "kind": "totem"
+      },
+      {
+        "x": 0.35,
+        "z": 9.4,
+        "w": 0.5,
+        "d": 0.5,
+        "h": 1,
+        "rotY": 0,
+        "kind": "totem"
       },
       {
         "x": 32.6,
-        "z1": 6,
-        "z2": 9,
-        "h": 3.4
+        "z": 5.6,
+        "w": 0.5,
+        "d": 0.5,
+        "h": 1,
+        "rotY": 0,
+        "kind": "totem"
+      },
+      {
+        "x": 32.6,
+        "z": 9.4,
+        "w": 0.5,
+        "d": 0.5,
+        "h": 1,
+        "rotY": 0,
+        "kind": "totem"
+      },
+      {
+        "x": 1,
+        "z": 14.85,
+        "w": 1.2,
+        "d": 0.15,
+        "h": 2.2,
+        "rotY": 0,
+        "kind": "poster"
+      },
+      {
+        "x": 20.5,
+        "z": 14.85,
+        "w": 1.2,
+        "d": 0.15,
+        "h": 2.2,
+        "rotY": 0,
+        "kind": "poster"
+      },
+      {
+        "x": 29.5,
+        "z": 14.85,
+        "w": 1.2,
+        "d": 0.15,
+        "h": 2.2,
+        "rotY": 0,
+        "kind": "poster"
       }
-    ],
-    "colors": {
-      "hull": "#8f8b88",
-      "accent": "#0f4c63",
-      "led": "#7dd3fc",
-      "underside": "#1a1a1c",
-      "shell": "#d9d6d3",
-      "carpet": "#d6d3d0",
-      "glass": "#bfe3ff"
-    }
+    ]
   },
   "surroundings": [
     {
