@@ -7,6 +7,7 @@ import {
   type SeedObject,
   type Zone,
 } from './layout'
+import eqRaw from '../data/adipec-eq.json'
 
 export const APP_TITLE = 'Exhibition Design & Simulator'
 
@@ -57,6 +58,12 @@ export function adipecTemplate(): Design {
   }
 }
 
+/** The NDT booth at ADIPEC 2026 as redesigned by Elegant Qubes (adipec-eq.json). */
+export function adipecEqTemplate(): Design {
+  const { meta: _meta, ...design } = eqRaw as unknown as Design & { meta: unknown }
+  return structuredClone(design)
+}
+
 /** A plain hall with one aisle and an empty 6 × 4 m booth, to start a design from scratch. */
 export function blankTemplate(): Design {
   return {
@@ -93,6 +100,12 @@ export const TEMPLATES: { id: string; name: string; description: string; make: (
     name: 'ADIPEC 2026 – NDTCCS booth',
     description: 'Al Masaood Energy pavilion, NDTCCS booth layout of 23 Sep, with all items',
     make: adipecTemplate,
+  },
+  {
+    id: 'adipec-eq',
+    name: 'ADIPEC 2026 – NDT booth (Elegant Qubes)',
+    description: 'Al Masaood Energy pavilion, NDT 39 m² booth from the Elegant Qubes proposal, with all counters',
+    make: adipecEqTemplate,
   },
 ]
 
