@@ -1,6 +1,6 @@
 import type { EditorObject } from '../lib/editor'
 import { wallFootprint, type Footprint } from '../lib/geometry'
-import { walkableRects, type Design } from '../lib/design'
+import { surroundingObstacles, walkableRects, type Design } from '../lib/design'
 import { DEG, inRects, type Entrance, type Rect } from '../lib/layout'
 
 export const CELL = 0.25 // m
@@ -171,6 +171,7 @@ export function buildNav(design: Design, objects: EditorObject[]): NavGrid {
   const walkRects = walkableRects(design)
   const obstacles = [
     ...objects.filter((o) => (o.elev ?? 0) < HEADROOM),
+    ...surroundingObstacles(design, HEADROOM),
     ...opt.walls.map((w) => wallFootprint(w, opt.wallT)),
   ].map(shapeOf)
 

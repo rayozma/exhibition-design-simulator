@@ -5,7 +5,7 @@ import { Raycaster, Vector2, Vector3, type PerspectiveCamera as PerspectiveCamer
 import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib'
 import type { EditorObject } from '../lib/editor'
 import { distToFootprint, wallFootprint, type Footprint } from '../lib/geometry'
-import { walkableRects } from '../lib/design'
+import { surroundingObstacles, walkableRects } from '../lib/design'
 import { HEADROOM } from '../sim/navGrid'
 import { useDesign } from '../lib/DesignContext'
 import { DEG, hasInfo, inRects, type Rect } from '../lib/layout'
@@ -95,8 +95,12 @@ export function WalkMode({ objects, onLockChange, onMove, onLeave, onAim, onInte
   const opt = design.booth
   const walkRects = useMemo(() => walkableRects(design), [design])
   const obstacles: Footprint[] = useMemo(
-    () => [...objects.filter((o) => (o.elev ?? 0) < HEADROOM), ...opt.walls.map((w) => wallFootprint(w, opt.wallT))],
-    [objects, opt],
+    () => [
+      ...objects.filter((o) => (o.elev ?? 0) < HEADROOM),
+      ...surroundingObstacles(design, HEADROOM),
+      ...opt.walls.map((w) => wallFootprint(w, opt.wallT)),
+    ],
+    [objects, opt, design],
   )
 
   const pressed = useRef({ f: false, b: false, l: false, r: false, run: false })

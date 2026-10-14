@@ -1,6 +1,7 @@
 import {
   layouts,
   type Entrance,
+  type FloorMark,
   type LayoutOption,
   type PavilionSpec,
   type Rect,
@@ -32,6 +33,10 @@ export type Design = {
   crowdPresets: { empty: number; low: number; high: number }
   /** Optional look of a surrounding pavilion structure ("Pavilion" toggle); null = none. */
   pavilion: PavilionSpec | null
+  /** Fixed surroundings drawn around the booth (other exhibitors' furniture, stairs, rooms): not editable, they block walking. */
+  surroundings?: SeedObject[]
+  /** Flat floor graphics (LED glass floors, markings): visual only. */
+  floorMarks?: FloorMark[]
   /** Objects a new room starts with, and what "Reset to design" restores. */
   seed: SeedObject[]
   /** Id of the save that produced this version (lets a client recognize its own saves coming back). */
@@ -124,6 +129,8 @@ export function parseDesign(raw: unknown): Design | null {
     booth: { ...blankTemplate().booth, ...d.booth, walls: d.booth.walls ?? [], removeZones: [] },
     entrances: Array.isArray(d.entrances) ? d.entrances : [],
     pavilion: d.pavilion ?? null,
+    surroundings: Array.isArray(d.surroundings) ? d.surroundings : [],
+    floorMarks: Array.isArray(d.floorMarks) ? d.floorMarks : [],
     seed: Array.isArray(d.seed) ? d.seed : [],
   }
 }
@@ -132,6 +139,10 @@ export const hallCenter = (d: Design): [number, number, number] => [d.hall.w / 2
 
 /** Walkable = walkable zones (walkways, aisles, open gaps) + your booth's footprint. */
 export const walkableRects = (d: Design): Rect[] => [...d.zones.filter((z) => z.walkable), ...d.booth.footprint]
+
+/** Surroundings that stand on the floor and block walking (not hanging overhead, not flat). */
+export const surroundingObstacles = (d: Design, headroom: number): SeedObject[] =>
+  (d.surroundings ?? []).filter((o) => (o.elev ?? 0) < headroom && o.h > 0.05)
 
 /** Walkable area in m² (before subtracting objects); the base for "people per m²". */
 export const walkableArea = (d: Design) => walkableRects(d).reduce((s, r) => s + r.w * r.d, 0)

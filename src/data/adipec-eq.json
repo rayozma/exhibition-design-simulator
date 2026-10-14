@@ -241,46 +241,10 @@
       }
     ],
     "platformH": 0.1,
-    "walls": [
-      {
-        "id": "strip_back_west",
-        "x1": 2,
-        "z1": 11,
-        "x2": 7.5,
-        "z2": 11
-      },
-      {
-        "id": "strip_back_east",
-        "x1": 10.25,
-        "z1": 11,
-        "x2": 16,
-        "z2": 11
-      },
-      {
-        "id": "west_end",
-        "x1": 2,
-        "z1": 9,
-        "x2": 2,
-        "z2": 11
-      },
-      {
-        "id": "leg_west",
-        "x1": 7.5,
-        "z1": 11,
-        "x2": 7.5,
-        "z2": 15
-      },
-      {
-        "id": "leg_east",
-        "x1": 10.25,
-        "z1": 11,
-        "x2": 10.25,
-        "z2": 15
-      }
-    ],
+    "walls": [],
     "wallH": 2,
     "wallT": 0.1,
-    "note": "East end at x = 16 open to the gap before the VIP stairs."
+    "note": "Open booth without walls (freestanding counters as in the renders). East end at x = 16 open to the gap before the VIP stairs."
   },
   "entrances": [
     {
@@ -365,6 +329,3495 @@
       "glass": "#bfe3ff"
     }
   },
+  "surroundings": [
+    {
+      "id": "s1",
+      "category": "decor",
+      "rotY": 0,
+      "name": "BGP display",
+      "shape": "box",
+      "x": 1.75,
+      "z": 1.85,
+      "w": 1.3,
+      "d": 1,
+      "h": 1,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s2",
+      "category": "decor",
+      "rotY": 0,
+      "name": "BGP bench counter",
+      "shape": "box",
+      "x": 2.4,
+      "z": 3.7,
+      "w": 2.2,
+      "d": 0.4,
+      "h": 0.9,
+      "color": "#d9d6d3"
+    },
+    {
+      "id": "s3",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 5.2,
+      "z": 2.2,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s4",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 5.2,
+      "z": 2.85,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s5",
+      "category": "decor",
+      "rotY": -60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 5.763,
+      "z": 1.875,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s6",
+      "category": "decor",
+      "rotY": 60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 4.637,
+      "z": 1.875,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s7",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 8.2,
+      "z": 2.2,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s8",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 8.2,
+      "z": 2.85,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s9",
+      "category": "decor",
+      "rotY": -60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 8.763,
+      "z": 1.875,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s10",
+      "category": "decor",
+      "rotY": 60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 7.637,
+      "z": 1.875,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s11",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 13.1,
+      "z": 1.85,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s12",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 14.05,
+      "z": 1.85,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s13",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 15,
+      "z": 1.85,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s14",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 15.95,
+      "z": 1.85,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s15",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 16.9,
+      "z": 1.85,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s16",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 13.1,
+      "z": 3.3,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s17",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 14.05,
+      "z": 3.3,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s18",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 15,
+      "z": 3.3,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s19",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 15.95,
+      "z": 3.3,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s20",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Pouf",
+      "shape": "box",
+      "x": 16.9,
+      "z": 3.3,
+      "w": 0.6,
+      "d": 0.6,
+      "h": 0.45,
+      "color": "#d9d4cc"
+    },
+    {
+      "id": "s21",
+      "category": "screen",
+      "rotY": 0,
+      "name": "BGP LED wall",
+      "kind": "ledWall",
+      "x": 15,
+      "z": 0.35,
+      "w": 1.8,
+      "d": 0.1,
+      "h": 2.2,
+      "color": "#1c1c1c"
+    },
+    {
+      "id": "s22",
+      "category": "decor",
+      "rotY": 0,
+      "name": "BGP display",
+      "shape": "box",
+      "x": 18.65,
+      "z": 0.85,
+      "w": 0.8,
+      "d": 0.7,
+      "h": 1,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s23",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 22.3,
+      "z": 1.9,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s24",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 22.3,
+      "z": 2.55,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s25",
+      "category": "decor",
+      "rotY": -60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 22.863,
+      "z": 1.575,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s26",
+      "category": "decor",
+      "rotY": 60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 21.737,
+      "z": 1.575,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s27",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Meeting room glass wall",
+      "shape": "box",
+      "x": 26.5,
+      "z": 2,
+      "w": 0.05,
+      "d": 4,
+      "h": 2.5,
+      "color": "#bfe3ff"
+    },
+    {
+      "id": "s28",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Meeting room glass wall",
+      "shape": "box",
+      "x": 30.5,
+      "z": 3.97,
+      "w": 5,
+      "d": 0.05,
+      "h": 2.5,
+      "color": "#bfe3ff"
+    },
+    {
+      "id": "s29",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Meeting table",
+      "shape": "box",
+      "x": 30.6,
+      "z": 1.75,
+      "w": 3,
+      "d": 0.9,
+      "h": 0.75,
+      "color": "#f3f2ee"
+    },
+    {
+      "id": "s30",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 29.4,
+      "z": 0.95,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s31",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 29.4,
+      "z": 2.55,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s32",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 30.2,
+      "z": 0.95,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s33",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 30.2,
+      "z": 2.55,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s34",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 31,
+      "z": 0.95,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s35",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 31,
+      "z": 2.55,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s36",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 31.8,
+      "z": 0.95,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s37",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 31.8,
+      "z": 2.55,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s38",
+      "category": "decor",
+      "rotY": 90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 28.7,
+      "z": 1.75,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s39",
+      "category": "screen",
+      "rotY": -90,
+      "name": "Meeting room screen",
+      "kind": "ledWall",
+      "x": 32.85,
+      "z": 1.75,
+      "w": 2,
+      "d": 0.1,
+      "h": 2,
+      "color": "#1c1c1c"
+    },
+    {
+      "id": "s40",
+      "category": "counter",
+      "rotY": 0,
+      "name": "EGA Master counter",
+      "x": 2,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "EGA MASTER"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s41",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 4,
+      "z": 4.75,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s42",
+      "category": "decor",
+      "rotY": 59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 3.4,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s43",
+      "category": "decor",
+      "rotY": -59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 4.6,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s44",
+      "category": "counter",
+      "rotY": 0,
+      "name": "HADO counter",
+      "x": 5.75,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "HADO"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s45",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 8.3,
+      "z": 4.75,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s46",
+      "category": "decor",
+      "rotY": 59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 7.7,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s47",
+      "category": "decor",
+      "rotY": -59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 8.9,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s48",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Cosasco counter",
+      "x": 10.8,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "COSASCO"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s49",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 13.2,
+      "z": 4.75,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s50",
+      "category": "decor",
+      "rotY": 59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 12.6,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s51",
+      "category": "decor",
+      "rotY": -59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 13.8,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s52",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Aveva counter",
+      "x": 15.75,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "AVEVA"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s53",
+      "category": "counter",
+      "rotY": 0,
+      "name": "MSA counter",
+      "x": 21.3,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "MSA"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s54",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Pelican counter",
+      "x": 24.7,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "PELICAN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s55",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 25.9,
+      "z": 4.75,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s56",
+      "category": "decor",
+      "rotY": 59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 25.3,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s57",
+      "category": "decor",
+      "rotY": -59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 26.5,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s58",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Ansell counter",
+      "x": 27.8,
+      "z": 5.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "ANSELL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s59",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 29.7,
+      "z": 4.75,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s60",
+      "category": "decor",
+      "rotY": 59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 29.1,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s61",
+      "category": "decor",
+      "rotY": -59.744,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 30.3,
+      "z": 4.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s62",
+      "category": "decor",
+      "rotY": 73.301,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 15.25,
+      "z": 4.45,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s63",
+      "category": "decor",
+      "rotY": -73.301,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 16.25,
+      "z": 4.45,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s64",
+      "category": "decor",
+      "rotY": 0,
+      "name": "MSA display",
+      "shape": "box",
+      "x": 21.35,
+      "z": 4.45,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 1,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s65",
+      "category": "decor",
+      "rotY": 0,
+      "name": "MSA display",
+      "shape": "box",
+      "x": 23.6,
+      "z": 4.45,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 1,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s66",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 22.45,
+      "z": 4.45,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s67",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Bee Cafe counter",
+      "x": 18.6,
+      "z": 5.4,
+      "w": 2.6,
+      "d": 0.7,
+      "h": 1.5,
+      "parts": {
+        "base": {
+          "w": 2.6,
+          "d": 0.7,
+          "h": 1.5
+        },
+        "items": [
+          {
+            "name": "Counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 2.6,
+            "d": 0.7,
+            "h": 1.05,
+            "rotY": 0,
+            "color": "#f3f2ee"
+          },
+          {
+            "name": "Top",
+            "shape": "box",
+            "x": 0,
+            "y": 1.05,
+            "z": 0,
+            "w": 2.62,
+            "d": 0.72,
+            "h": 0.04,
+            "rotY": 0,
+            "color": "#303030"
+          },
+          {
+            "name": "Coffee machine",
+            "shape": "box",
+            "x": 0.85,
+            "y": 1.09,
+            "z": -0.1,
+            "w": 0.6,
+            "d": 0.45,
+            "h": 0.41,
+            "rotY": 0,
+            "color": "#1c1c1c"
+          },
+          {
+            "name": "Sign",
+            "shape": "sign",
+            "x": -0.4,
+            "y": 0.45,
+            "z": 0.36,
+            "w": 1.2,
+            "d": 0.02,
+            "h": 0.3,
+            "rotY": 0,
+            "color": "#f2c200",
+            "text": "BEE CAFE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s68",
+      "category": "counter",
+      "rotY": -90,
+      "name": "Al Masaood reception counter",
+      "x": 0.9,
+      "z": 10,
+      "w": 1.4,
+      "d": 0.55,
+      "h": 1.1,
+      "parts": {
+        "base": {
+          "w": 1.4,
+          "d": 0.55,
+          "h": 1.1
+        },
+        "items": [
+          {
+            "name": "Counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1.4,
+            "d": 0.55,
+            "h": 1.1,
+            "rotY": 0,
+            "color": "#1f1f21"
+          },
+          {
+            "name": "Logo",
+            "shape": "sign",
+            "x": 0,
+            "y": 0.5,
+            "z": 0.285,
+            "w": 1.1,
+            "d": 0.02,
+            "h": 0.3,
+            "rotY": 0,
+            "color": "#1f1f21",
+            "text": "AL MASAOOD ENERGY"
+          },
+          {
+            "name": "Light strip",
+            "shape": "box",
+            "x": 0,
+            "y": 0.05,
+            "z": 0.28,
+            "w": 1.4,
+            "d": 0.01,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#fff4dc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s69",
+      "category": "structure",
+      "rotY": 0,
+      "name": "Stairs to VIP floor",
+      "x": 18.5,
+      "z": 10,
+      "w": 3,
+      "d": 1.6,
+      "h": 3.6,
+      "parts": {
+        "base": {
+          "w": 3,
+          "d": 1.6,
+          "h": 3.6
+        },
+        "items": [
+          {
+            "name": "Step 1",
+            "shape": "box",
+            "x": -1.375,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 0.3,
+            "rotY": 0,
+            "color": "#d4d1ce"
+          },
+          {
+            "name": "Step 2",
+            "shape": "box",
+            "x": -1.125,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 0.6,
+            "rotY": 0,
+            "color": "#c9c6c3"
+          },
+          {
+            "name": "Step 3",
+            "shape": "box",
+            "x": -0.875,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 0.9,
+            "rotY": 0,
+            "color": "#d4d1ce"
+          },
+          {
+            "name": "Step 4",
+            "shape": "box",
+            "x": -0.625,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 1.2,
+            "rotY": 0,
+            "color": "#c9c6c3"
+          },
+          {
+            "name": "Step 5",
+            "shape": "box",
+            "x": -0.375,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 1.5,
+            "rotY": 0,
+            "color": "#d4d1ce"
+          },
+          {
+            "name": "Step 6",
+            "shape": "box",
+            "x": -0.125,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 1.8,
+            "rotY": 0,
+            "color": "#c9c6c3"
+          },
+          {
+            "name": "Step 7",
+            "shape": "box",
+            "x": 0.125,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 2.1,
+            "rotY": 0,
+            "color": "#d4d1ce"
+          },
+          {
+            "name": "Step 8",
+            "shape": "box",
+            "x": 0.375,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 2.4,
+            "rotY": 0,
+            "color": "#c9c6c3"
+          },
+          {
+            "name": "Step 9",
+            "shape": "box",
+            "x": 0.625,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 2.7,
+            "rotY": 0,
+            "color": "#d4d1ce"
+          },
+          {
+            "name": "Step 10",
+            "shape": "box",
+            "x": 0.875,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 3,
+            "rotY": 0,
+            "color": "#c9c6c3"
+          },
+          {
+            "name": "Step 11",
+            "shape": "box",
+            "x": 1.125,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 3.3,
+            "rotY": 0,
+            "color": "#d4d1ce"
+          },
+          {
+            "name": "Step 12",
+            "shape": "box",
+            "x": 1.375,
+            "y": 0,
+            "z": 0,
+            "w": 0.25,
+            "d": 1.6,
+            "h": 3.6,
+            "rotY": 0,
+            "color": "#c9c6c3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s70",
+      "category": "structure",
+      "rotY": 0,
+      "name": "Storage core",
+      "x": 22.55,
+      "z": 10,
+      "w": 4.7,
+      "d": 2,
+      "h": 3.6,
+      "parts": {
+        "base": {
+          "w": 4.7,
+          "d": 2,
+          "h": 3.6
+        },
+        "items": [
+          {
+            "name": "Core",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 4.7,
+            "d": 2,
+            "h": 3.6,
+            "rotY": 0,
+            "color": "#1f1f21"
+          },
+          {
+            "name": "Logo stroke",
+            "shape": "box",
+            "x": -0.15,
+            "y": 0.6,
+            "z": -1.005,
+            "w": 0.04,
+            "d": 0.01,
+            "h": 2.2,
+            "rotY": 0,
+            "color": "#ffffff"
+          },
+          {
+            "name": "Logo stroke",
+            "shape": "box",
+            "x": 0,
+            "y": 0.8,
+            "z": -1.005,
+            "w": 0.04,
+            "d": 0.01,
+            "h": 1.8000000000000003,
+            "rotY": 0,
+            "color": "#ffffff"
+          },
+          {
+            "name": "Logo stroke",
+            "shape": "box",
+            "x": 0.15,
+            "y": 0.6,
+            "z": -1.005,
+            "w": 0.04,
+            "d": 0.01,
+            "h": 2.2,
+            "rotY": 0,
+            "color": "#ffffff"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s71",
+      "category": "counter",
+      "rotY": 180,
+      "name": "Sinffers counter",
+      "x": 26,
+      "z": 10.73,
+      "w": 1,
+      "d": 0.5,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1,
+          "d": 0.5,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 0.96,
+            "d": 0.46,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1,
+            "d": 0.42,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.01,
+            "d": 0.43,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.21,
+            "w": 1,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.158,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.485,
+            "y": 0,
+            "z": -0.21,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.16,
+            "w": 0.8,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "SINFFERS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s72",
+      "category": "counter",
+      "rotY": 180,
+      "name": "Inchcape counter",
+      "x": 28,
+      "z": 10.73,
+      "w": 1,
+      "d": 0.5,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1,
+          "d": 0.5,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 0.96,
+            "d": 0.46,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1,
+            "d": 0.42,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.01,
+            "d": 0.43,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.21,
+            "w": 1,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.158,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.485,
+            "y": 0,
+            "z": -0.21,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.16,
+            "w": 0.8,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "INCHCAPE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s73",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 30.2,
+      "z": 10,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s74",
+      "category": "decor",
+      "rotY": -90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 30.8,
+      "z": 10,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s75",
+      "category": "decor",
+      "rotY": 90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 29.6,
+      "z": 10,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s76",
+      "category": "counter",
+      "rotY": 180,
+      "name": "Red Wing counter",
+      "x": 32.1,
+      "z": 10.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "RED WING"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s77",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Enerpac display",
+      "shape": "box",
+      "x": 1.05,
+      "z": 11.9,
+      "w": 1.7,
+      "d": 1.2,
+      "h": 1.2,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s78",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Enerpac display (4 bays)",
+      "shape": "box",
+      "x": 3.5,
+      "z": 12,
+      "w": 1.8,
+      "d": 1.4,
+      "h": 0.9,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s79",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Enerpac display",
+      "shape": "box",
+      "x": 1.85,
+      "z": 13.85,
+      "w": 1.1,
+      "d": 1,
+      "h": 1.5,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s80",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Enerpac display",
+      "shape": "box",
+      "x": 3.6,
+      "z": 14.25,
+      "w": 1.4,
+      "d": 1.1,
+      "h": 1,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s81",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Enerpac display",
+      "shape": "box",
+      "x": 5.6,
+      "z": 14.5,
+      "w": 1.2,
+      "d": 0.8,
+      "h": 1.3,
+      "color": "#3b3b3e"
+    },
+    {
+      "id": "s82",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 5.4,
+      "z": 12.8,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s83",
+      "category": "decor",
+      "rotY": -90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 6,
+      "z": 12.8,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s84",
+      "category": "decor",
+      "rotY": 90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 4.8,
+      "z": 12.8,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s85",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 11.15,
+      "z": 12.3,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s86",
+      "category": "decor",
+      "rotY": -90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 11.75,
+      "z": 12.3,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s87",
+      "category": "decor",
+      "rotY": 90,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 10.55,
+      "z": 12.3,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s88",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Gutteling counter",
+      "x": 11.6,
+      "z": 14.68,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "GUTTELING"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s89",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Palm",
+      "kind": "plant",
+      "shape": "cylinder",
+      "x": 13.4,
+      "z": 11.55,
+      "w": 0.7,
+      "d": 0.7,
+      "h": 1.8,
+      "color": "#2f7d32"
+    },
+    {
+      "id": "s90",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Palm",
+      "kind": "plant",
+      "shape": "cylinder",
+      "x": 13.4,
+      "z": 12.45,
+      "w": 0.7,
+      "d": 0.7,
+      "h": 1.8,
+      "color": "#2f7d32"
+    },
+    {
+      "id": "s91",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Palm",
+      "kind": "plant",
+      "shape": "cylinder",
+      "x": 13.4,
+      "z": 13.35,
+      "w": 0.7,
+      "d": 0.7,
+      "h": 1.8,
+      "color": "#2f7d32"
+    },
+    {
+      "id": "s92",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Palm",
+      "kind": "plant",
+      "shape": "cylinder",
+      "x": 13.4,
+      "z": 14.25,
+      "w": 0.7,
+      "d": 0.7,
+      "h": 1.8,
+      "color": "#2f7d32"
+    },
+    {
+      "id": "s93",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Bestebit display table",
+      "shape": "box",
+      "x": 18.75,
+      "z": 12.4,
+      "w": 9.3,
+      "d": 0.45,
+      "h": 0.9,
+      "color": "#6b6b6e"
+    },
+    {
+      "id": "s94",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Bestebit display table",
+      "shape": "box",
+      "x": 18.15,
+      "z": 13.2,
+      "w": 8.1,
+      "d": 0.45,
+      "h": 0.9,
+      "color": "#6b6b6e"
+    },
+    {
+      "id": "s95",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Bestebit display table",
+      "shape": "box",
+      "x": 17.65,
+      "z": 14,
+      "w": 7.1,
+      "d": 0.45,
+      "h": 0.9,
+      "color": "#6b6b6e"
+    },
+    {
+      "id": "s96",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Bestebit counter",
+      "x": 25,
+      "z": 11.32,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "BESTEBIT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s97",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 25.8,
+      "z": 12.75,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s98",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 25.8,
+      "z": 13.4,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s99",
+      "category": "decor",
+      "rotY": -60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 26.363,
+      "z": 12.425,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s100",
+      "category": "decor",
+      "rotY": 60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 25.237,
+      "z": 12.425,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s101",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Side table",
+      "kind": "roundTable",
+      "shape": "cylinder",
+      "x": 28.2,
+      "z": 13.9,
+      "w": 0.5,
+      "d": 0.5,
+      "h": 0.45,
+      "color": "#2f2f31"
+    },
+    {
+      "id": "s102",
+      "category": "decor",
+      "rotY": 180,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 28.2,
+      "z": 14.55,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s103",
+      "category": "decor",
+      "rotY": -60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 28.763,
+      "z": 13.575,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s104",
+      "category": "decor",
+      "rotY": 60,
+      "name": "Armchair",
+      "kind": "chair",
+      "x": 27.637,
+      "z": 13.575,
+      "w": 0.55,
+      "d": 0.55,
+      "h": 0.8,
+      "color": "#ece6dc"
+    },
+    {
+      "id": "s105",
+      "category": "decor",
+      "rotY": 0,
+      "name": "Bestebit bench",
+      "shape": "box",
+      "x": 24.95,
+      "z": 14.55,
+      "w": 1.5,
+      "d": 0.4,
+      "h": 0.45,
+      "color": "#16324f"
+    },
+    {
+      "id": "s106",
+      "category": "counter",
+      "rotY": 0,
+      "name": "Bestebit counter",
+      "x": 31.9,
+      "z": 11.32,
+      "w": 1.2,
+      "d": 0.6,
+      "h": 1.9,
+      "parts": {
+        "base": {
+          "w": 1.2,
+          "d": 0.6,
+          "h": 1.9
+        },
+        "items": [
+          {
+            "name": "Plinth",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": 0.02,
+            "w": 1.16,
+            "d": 0.56,
+            "h": 0.06,
+            "rotY": 0,
+            "color": "#2e2e30"
+          },
+          {
+            "name": "Lockable counter",
+            "shape": "box",
+            "x": 0,
+            "y": 0.06,
+            "z": 0.04,
+            "w": 1.2,
+            "d": 0.52,
+            "h": 0.91,
+            "rotY": 0,
+            "color": "#fff4dc"
+          },
+          {
+            "name": "Counter top",
+            "shape": "box",
+            "x": 0,
+            "y": 0.97,
+            "z": 0.04,
+            "w": 1.21,
+            "d": 0.53,
+            "h": 0.03,
+            "rotY": 0,
+            "color": "#a29d99"
+          },
+          {
+            "name": "TV wall",
+            "shape": "box",
+            "x": 0,
+            "y": 0,
+            "z": -0.26,
+            "w": 1.2,
+            "d": 0.08,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#8c8784"
+          },
+          {
+            "name": "Screen",
+            "shape": "panel",
+            "x": 0,
+            "y": 1.15,
+            "z": -0.208,
+            "w": 0.72,
+            "d": 0.024,
+            "h": 0.42,
+            "rotY": 0,
+            "color": "#111114"
+          },
+          {
+            "name": "LED edge",
+            "shape": "box",
+            "x": 0.585,
+            "y": 0,
+            "z": -0.26,
+            "w": 0.03,
+            "d": 0.1,
+            "h": 1.9,
+            "rotY": 0,
+            "color": "#7dd3fc"
+          },
+          {
+            "name": "Title",
+            "shape": "sign",
+            "x": 0,
+            "y": 1.7,
+            "z": -0.21,
+            "w": 0.96,
+            "d": 0.02,
+            "h": 0.13,
+            "rotY": 0,
+            "color": "#8c8784",
+            "text": "BESTEBIT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s107",
+      "category": "screen",
+      "rotY": -90,
+      "name": "Bestebit screen",
+      "kind": "ledWall",
+      "x": 32.85,
+      "z": 14,
+      "w": 1.6,
+      "d": 0.1,
+      "h": 2,
+      "color": "#1c1c1c"
+    }
+  ],
+  "floorMarks": [
+    {
+      "id": "walkway_led_outline",
+      "name": "Walkway LED edge",
+      "points": [
+        [
+          3.7,
+          6.05
+        ],
+        [
+          24.05,
+          6.05
+        ],
+        [
+          27.3,
+          8.95
+        ],
+        [
+          2.05,
+          8.95
+        ]
+      ],
+      "edge": "#7dd3fc"
+    },
+    {
+      "id": "led_floor_west",
+      "name": "LED glass floor (west)",
+      "points": [
+        [
+          3.7,
+          6.05
+        ],
+        [
+          10.1,
+          6.05
+        ],
+        [
+          13.45,
+          8.95
+        ],
+        [
+          2.05,
+          8.95
+        ]
+      ],
+      "color": "#6fa9cc",
+      "edge": "#7dd3fc"
+    },
+    {
+      "id": "led_floor_west_f1",
+      "points": [
+        [
+          2.181,
+          8.72
+        ],
+        [
+          2.611,
+          7.965
+        ],
+        [
+          2.297,
+          8.806
+        ]
+      ],
+      "color": "#e8f6ff"
+    },
+    {
+      "id": "led_floor_west_f2",
+      "points": [
+        [
+          5.805,
+          8.231
+        ],
+        [
+          8.161,
+          8.343
+        ],
+        [
+          5.721,
+          8.586
+        ]
+      ],
+      "color": "#b9e0f5"
+    },
+    {
+      "id": "led_floor_west_f3",
+      "points": [
+        [
+          9.516,
+          6.752
+        ],
+        [
+          10.289,
+          7.294
+        ],
+        [
+          8.921,
+          6.05
+        ]
+      ],
+      "color": "#8cc4e3"
+    },
+    {
+      "id": "led_floor_west_f4",
+      "points": [
+        [
+          8.905,
+          7.407
+        ],
+        [
+          12.545,
+          8.209
+        ],
+        [
+          6.387,
+          7.441
+        ]
+      ],
+      "color": "#4f8fb8"
+    },
+    {
+      "id": "led_floor_west_f5",
+      "points": [
+        [
+          11.65,
+          8.047
+        ],
+        [
+          12.64,
+          8.249
+        ],
+        [
+          13.45,
+          8.95
+        ]
+      ],
+      "color": "#d2ecfb"
+    },
+    {
+      "id": "led_floor_west_f6",
+      "points": [
+        [
+          6.153,
+          7.023
+        ],
+        [
+          8.088,
+          6.585
+        ],
+        [
+          4.153,
+          6.494
+        ]
+      ],
+      "color": "#9fd0ea"
+    },
+    {
+      "id": "led_floor_west_f7",
+      "points": [
+        [
+          6.587,
+          6.905
+        ],
+        [
+          9.204,
+          7.055
+        ],
+        [
+          6.895,
+          7.891
+        ]
+      ],
+      "color": "#e8f6ff"
+    },
+    {
+      "id": "led_floor_west_f8",
+      "points": [
+        [
+          3.704,
+          6.843
+        ],
+        [
+          4.711,
+          6.866
+        ],
+        [
+          3.7,
+          6.05
+        ]
+      ],
+      "color": "#b9e0f5"
+    },
+    {
+      "id": "led_floor_west_f9",
+      "points": [
+        [
+          9.676,
+          6.209
+        ],
+        [
+          9.727,
+          6.05
+        ],
+        [
+          10.629,
+          7.317
+        ]
+      ],
+      "color": "#8cc4e3"
+    },
+    {
+      "id": "led_floor_west_f10",
+      "points": [
+        [
+          7.148,
+          6.53
+        ],
+        [
+          7.333,
+          6.05
+        ],
+        [
+          5.93,
+          6.332
+        ]
+      ],
+      "color": "#4f8fb8"
+    },
+    {
+      "id": "led_floor_west_f11",
+      "points": [
+        [
+          5.835,
+          7.592
+        ],
+        [
+          7.066,
+          6.896
+        ],
+        [
+          6.75,
+          7.482
+        ]
+      ],
+      "color": "#d2ecfb"
+    },
+    {
+      "id": "led_floor_west_f12",
+      "points": [
+        [
+          10.916,
+          7.892
+        ],
+        [
+          12.277,
+          7.934
+        ],
+        [
+          10.352,
+          8.385
+        ]
+      ],
+      "color": "#9fd0ea"
+    },
+    {
+      "id": "led_floor_west_f13",
+      "points": [
+        [
+          10.922,
+          7.2
+        ],
+        [
+          10.679,
+          6.551
+        ],
+        [
+          10.076,
+          6.811
+        ]
+      ],
+      "color": "#e8f6ff"
+    },
+    {
+      "id": "led_floor_west_f14",
+      "points": [
+        [
+          5.817,
+          7.185
+        ],
+        [
+          8.306,
+          8.171
+        ],
+        [
+          2.934,
+          8.018
+        ]
+      ],
+      "color": "#b9e0f5"
+    },
+    {
+      "id": "led_floor_east",
+      "name": "LED glass floor (east)",
+      "points": [
+        [
+          17.7,
+          6.05
+        ],
+        [
+          24.05,
+          6.05
+        ],
+        [
+          27.3,
+          8.95
+        ],
+        [
+          19.8,
+          8.95
+        ]
+      ],
+      "color": "#6fa9cc",
+      "edge": "#7dd3fc"
+    },
+    {
+      "id": "led_floor_east_f1",
+      "points": [
+        [
+          19.084,
+          7.23
+        ],
+        [
+          17.785,
+          6.128
+        ],
+        [
+          19.499,
+          6.499
+        ]
+      ],
+      "color": "#e8f6ff"
+    },
+    {
+      "id": "led_floor_east_f2",
+      "points": [
+        [
+          22.123,
+          6.468
+        ],
+        [
+          22.879,
+          6.711
+        ],
+        [
+          21.242,
+          7.569
+        ]
+      ],
+      "color": "#b9e0f5"
+    },
+    {
+      "id": "led_floor_east_f3",
+      "points": [
+        [
+          26.093,
+          8.633
+        ],
+        [
+          27.3,
+          8.95
+        ],
+        [
+          25.681,
+          8.047
+        ]
+      ],
+      "color": "#8cc4e3"
+    },
+    {
+      "id": "led_floor_east_f4",
+      "points": [
+        [
+          18.291,
+          6.77
+        ],
+        [
+          17.7,
+          6.05
+        ],
+        [
+          17.714,
+          6.069
+        ]
+      ],
+      "color": "#4f8fb8"
+    },
+    {
+      "id": "led_floor_east_f5",
+      "points": [
+        [
+          23.851,
+          7.469
+        ],
+        [
+          24.442,
+          6.785
+        ],
+        [
+          23.752,
+          6.778
+        ]
+      ],
+      "color": "#d2ecfb"
+    },
+    {
+      "id": "led_floor_east_f6",
+      "points": [
+        [
+          22.337,
+          8.643
+        ],
+        [
+          21.644,
+          8.615
+        ],
+        [
+          19.991,
+          8.95
+        ]
+      ],
+      "color": "#9fd0ea"
+    },
+    {
+      "id": "led_floor_east_f7",
+      "points": [
+        [
+          24.356,
+          8.724
+        ],
+        [
+          23.531,
+          8.95
+        ],
+        [
+          22.657,
+          8.95
+        ]
+      ],
+      "color": "#e8f6ff"
+    },
+    {
+      "id": "led_floor_east_f8",
+      "points": [
+        [
+          23.158,
+          8.02
+        ],
+        [
+          22.356,
+          7.297
+        ],
+        [
+          21.55,
+          8.188
+        ]
+      ],
+      "color": "#b9e0f5"
+    },
+    {
+      "id": "led_floor_east_f9",
+      "points": [
+        [
+          19.694,
+          8.281
+        ],
+        [
+          21.605,
+          8.84
+        ],
+        [
+          18.433,
+          7.062
+        ]
+      ],
+      "color": "#8cc4e3"
+    },
+    {
+      "id": "led_floor_east_f10",
+      "points": [
+        [
+          20.447,
+          8.715
+        ],
+        [
+          19.993,
+          8.95
+        ],
+        [
+          20.188,
+          7.507
+        ]
+      ],
+      "color": "#4f8fb8"
+    },
+    {
+      "id": "led_floor_east_f11",
+      "points": [
+        [
+          25.992,
+          8.548
+        ],
+        [
+          27.3,
+          8.95
+        ],
+        [
+          26.002,
+          8.338
+        ]
+      ],
+      "color": "#d2ecfb"
+    },
+    {
+      "id": "led_floor_east_f12",
+      "points": [
+        [
+          21.012,
+          8.16
+        ],
+        [
+          22.855,
+          7.895
+        ],
+        [
+          19.159,
+          7.912
+        ]
+      ],
+      "color": "#9fd0ea"
+    },
+    {
+      "id": "led_floor_east_f13",
+      "points": [
+        [
+          25.076,
+          7.67
+        ],
+        [
+          25.6,
+          7.988
+        ],
+        [
+          24.732,
+          7.24
+        ]
+      ],
+      "color": "#e8f6ff"
+    },
+    {
+      "id": "led_floor_east_f14",
+      "points": [
+        [
+          23.545,
+          7.276
+        ],
+        [
+          22.712,
+          6.785
+        ],
+        [
+          25.899,
+          8.566
+        ]
+      ],
+      "color": "#b9e0f5"
+    }
+  ],
   "seed": [
     {
       "id": "coffee_table",

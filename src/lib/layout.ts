@@ -105,6 +105,17 @@ export type SeedObject = {
   note?: string
 }
 
+/** Flat graphic on the hall floor (e.g. an LED glass floor): a polygon of [x, z] points, visual only. */
+export type FloorMark = {
+  id: string
+  name?: string
+  points: [number, number][]
+  /** Fill color; unset = outline only. */
+  color?: string
+  /** Outline color; unset = no outline. */
+  edge?: string
+}
+
 export type Theme = {
   floor: string
   hall: string

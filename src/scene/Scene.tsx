@@ -15,6 +15,7 @@ import { Crowd } from './Crowd'
 import { HallFloor } from './HallFloor'
 import { Pavilion } from './Pavilion'
 import { SceneObject } from './SceneObject'
+import { Surroundings } from './Surroundings'
 import { MeasureLayer, Rulers, SelectionDims, type Measurement } from './Dimensions'
 import { LayoutEditor } from './LayoutEditor'
 import { WalkMode } from './WalkMode'
@@ -130,6 +131,7 @@ export function Scene(p: SceneProps) {
       <HallFloor />
       <Zones zones={design.zones} showVolumes={showVolumes} realistic={p.showPavilion && !!design.pavilion} />
       {p.showPavilion && design.pavilion && <Pavilion spec={design.pavilion} />}
+      <Surroundings items={design.surroundings} marks={design.floorMarks} />
       <Booth option={option} showWalls={showWalls} />
       {p.objects.map((o) => (
         <SceneObject
