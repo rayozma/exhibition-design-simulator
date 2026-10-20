@@ -69,6 +69,10 @@ export function Landing() {
           Plan exhibition booths in 3D, together: layout, objects, walk-through and crowd simulation.{' '}
           <a href="?guide">Read the quick guide</a>
         </p>
+        <a className="button-link briefing-cta" href="?briefing">
+          <strong>ADIPEC 2026 team briefing</strong>
+          <span className="muted small">Who we are, what we offer, what's on the booth, how to talk to visitors, plus a quiz</span>
+        </a>
 
         <h4>New design</h4>
         <form

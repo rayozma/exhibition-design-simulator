@@ -97,6 +97,22 @@ create table if not exists public.library_items (
   created_at  timestamptz not null default now()
 );
 
+-- Team briefing (?briefing): one row per section, edited live by the team.
+-- kind 'booth' lists the numbered items of a design (room) with their info cards.
+-- quiz: [{ q, choices: [text, …], answer: index of the right choice, explain }].
+create table if not exists public.briefing (
+  id          text primary key check (id ~ '^[a-z0-9_-]{1,64}$'),
+  pos         double precision not null default 0,
+  kind        text not null default 'text' check (kind in ('text', 'booth')),
+  title       text not null default '',
+  body        text not null default '',
+  images      jsonb not null default '[]',
+  quiz        jsonb not null default '[]',
+  room        text check (room is null or public.valid_room(room)),
+  updated_by  text,
+  updated_at  timestamptz not null default now()
+);
+
 -- Secrets readable only inside the database (no policies = anon can't select them).
 create table if not exists public.app_secrets (
   name text primary key,
@@ -133,6 +149,10 @@ on conflict (id) do nothing;
 
 
 -- ─── 4. Triggers and functions ───────────────────────────────────────────────────────────────
+
+drop trigger if exists briefing_touch on public.briefing;
+create trigger briefing_touch before update on public.briefing
+  for each row execute function public.touch_updated_at();
 
 drop trigger if exists objects_touch on public.objects;
 create trigger objects_touch before update on public.objects
@@ -189,9 +209,10 @@ alter table public.objects       enable row level security;
 alter table public.snapshots     enable row level security;
 alter table public.library_items enable row level security;
 alter table public.app_secrets   enable row level security;
+alter table public.briefing      enable row level security;
 
 grant select, insert, update         on public.rooms to anon;
-grant select, insert, update, delete on public.objects, public.snapshots to anon;
+grant select, insert, update, delete on public.objects, public.snapshots, public.briefing to anon;
 grant select, insert, delete         on public.library_items to anon;
 revoke all on public.app_secrets from anon, authenticated;
 
@@ -228,6 +249,18 @@ create policy "library anon insert" on public.library_items for insert to anon
   with check (octet_length(item::text) < 200000); -- keep entries reasonably small
 create policy "library anon delete" on public.library_items for delete to anon using (true);
 
+-- Briefing sections: the whole team edits them (the site PIN keeps casual visitors out).
+drop policy if exists "briefing anon select" on public.briefing;
+drop policy if exists "briefing anon insert" on public.briefing;
+drop policy if exists "briefing anon update" on public.briefing;
+drop policy if exists "briefing anon delete" on public.briefing;
+create policy "briefing anon select" on public.briefing for select to anon using (true);
+create policy "briefing anon insert" on public.briefing for insert to anon
+  with check (octet_length(body) < 100000 and octet_length(quiz::text) < 100000);
+create policy "briefing anon update" on public.briefing for update to anon
+  using (true) with check (octet_length(body) < 100000 and octet_length(quiz::text) < 100000);
+create policy "briefing anon delete" on public.briefing for delete to anon using (true);
+
 
 -- ─── 6. Realtime ─────────────────────────────────────────────────────────────────────────────
 -- Broadcast row changes on objects and rooms (design edits) to everyone in the room.
@@ -236,7 +269,7 @@ do $$
 declare
   t text;
 begin
-  foreach t in array array['objects', 'rooms'] loop
+  foreach t in array array['objects', 'rooms', 'briefing'] loop
     if not exists (
       select 1 from pg_publication_tables
       where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = t

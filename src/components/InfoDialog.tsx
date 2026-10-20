@@ -108,11 +108,16 @@ export function InfoDialog({
           </div>
         )}
 
-        {info.link?.trim() && (
-          <a className="button-link info-link" href={info.link.trim()} target="_blank" rel="noopener noreferrer">
-            Learn more ↗
+        <div className="info-links">
+          {info.link?.trim() && (
+            <a className="button-link" href={info.link.trim()} target="_blank" rel="noopener noreferrer">
+              Learn more ↗
+            </a>
+          )}
+          <a className="button-link" href={`?briefing#obj-${encodeURIComponent(obj.id)}`} target="_blank" rel="noopener" title="The team briefing (opens in a new tab)">
+            Team briefing ↗
           </a>
-        )}
+        </div>
 
         {continueLabel && (
           <button className="primary block" onClick={onClose}>

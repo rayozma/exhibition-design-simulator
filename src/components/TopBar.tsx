@@ -125,6 +125,9 @@ export function TopBar(p: Props) {
       <a className="button-link" href="?guide" target="_blank" rel="noopener" title="Quick guide (opens in a new tab)">
         Guide
       </a>
+      <a className="button-link" href="?briefing" target="_blank" rel="noopener" title="ADIPEC team briefing (opens in a new tab)">
+        Briefing
+      </a>
       {p.children}
     </header>
   )

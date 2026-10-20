@@ -958,8 +958,10 @@ a.button-link:hover {
   flex: 1;
 }
 
-.info-link {
-  align-self: flex-start;
+.info-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .info-edit-images {
@@ -1281,5 +1283,394 @@ button.link {
     max-height: 40%;
     border-left: none;
     border-top: 1px solid var(--border);
+  }
+}
+
+/* Team PIN */
+.card.pin-card {
+  max-width: 340px;
+  text-align: center;
+  align-items: center;
+}
+
+.pin-boxes {
+  display: flex;
+  gap: 10px;
+}
+
+.pin-boxes input {
+  width: 48px;
+  height: 56px;
+  font: 600 24px ui-monospace, Consolas, monospace;
+  text-align: center;
+  color: var(--text);
+  background: #0b1220;
+  border: 1px solid #374151;
+  border-radius: 8px;
+}
+
+.pin-boxes input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.pin-boxes.wrong input {
+  border-color: #ef4444;
+  animation: pin-shake 0.3s;
+}
+
+@keyframes pin-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* Team briefing (?briefing) */
+a.button-link.briefing-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-color: var(--accent);
+}
+
+.briefing-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 8px;
+}
+
+.quiz-score {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+.quiz-score.done {
+  color: #111;
+  background: #4ade80;
+  border-color: #4ade80;
+}
+
+.briefing-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.briefing-head h2 {
+  flex: 1;
+}
+
+.briefing-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.briefing section {
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.add-section {
+  display: block;
+  margin: 10px 0;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.add-section:hover {
+  opacity: 1;
+  background: none;
+}
+
+.md h3 {
+  margin: 20px 0 6px;
+  font-size: 15px;
+  color: var(--accent);
+}
+
+.md h4 {
+  margin: 14px 0 4px;
+  font-size: 14px;
+}
+
+.md p {
+  margin: 8px 0;
+}
+
+.md li > ul,
+.md li > ol {
+  margin-top: 6px;
+}
+
+.md-callout {
+  margin: 12px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--accent);
+  background: rgba(250, 204, 21, 0.07);
+  border-radius: 0 6px 6px 0;
+}
+
+.md-table {
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.guide .md-table th {
+  text-align: left;
+  padding: 5px 8px;
+  border-bottom: 2px solid #374151;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.md-table td {
+  vertical-align: top;
+}
+
+.md-missing {
+  color: var(--muted);
+  border-bottom: 1px dashed #4b5563;
+  cursor: help;
+}
+
+.pre {
+  white-space: pre-line;
+}
+
+.briefing-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.briefing-images img {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  background: #0b1220;
+  border-radius: 6px;
+}
+
+.briefing-images:has(a:only-child) {
+  grid-template-columns: 1fr;
+}
+
+.booth-link {
+  margin: 12px 0;
+}
+
+.booth-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  scroll-margin-top: 16px;
+}
+
+.booth-item:target {
+  border-color: var(--accent);
+}
+
+.booth-item h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+}
+
+.booth-item p {
+  margin: 0;
+}
+
+.booth-item .briefing-images {
+  margin: 0;
+}
+
+.booth-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #111;
+  background: var(--accent);
+}
+
+.booth-item-links {
+  display: flex;
+  gap: 14px;
+}
+
+.quiz {
+  margin: 16px 0 8px;
+  padding: 8px 12px;
+  border: 1px dashed #374151;
+  border-radius: 8px;
+}
+
+.quiz summary {
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz ol {
+  margin: 10px 0 0;
+}
+
+.quiz-q {
+  margin-bottom: 14px;
+}
+
+.quiz-q p {
+  margin: 0 0 6px;
+}
+
+.quiz-choices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.quiz-choices button {
+  text-align: left;
+}
+
+.quiz-choices button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.quiz-choices button.right {
+  opacity: 1;
+  color: #111;
+  background: #4ade80;
+  border-color: #4ade80;
+}
+
+.quiz-choices button.wrong {
+  opacity: 1;
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+}
+
+.quiz-result {
+  font-size: 13px;
+}
+
+.quiz-result.right {
+  color: #4ade80;
+}
+
+.quiz-result.wrong {
+  color: #fca5a5;
+}
+
+.quiz-result button.link {
+  color: #7dd3fc;
+  font-size: 13px;
+}
+
+.briefing-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+}
+
+.briefing-editor textarea.remarks {
+  font: 13px/1.5 ui-monospace, Consolas, monospace;
+}
+
+.briefing-editor code {
+  font-size: 12px;
+  color: var(--text);
+}
+
+@media print {
+  :root {
+    color: #111;
+    background: #fff;
+  }
+  body,
+  #root,
+  .guide {
+    height: auto;
+    overflow: visible;
+  }
+  .no-print,
+  .briefing .status,
+  .quiz,
+  .guide-toc,
+  .add-section {
+    display: none !important;
+  }
+  .guide {
+    max-width: none;
+    padding: 0;
+  }
+  .guide a {
+    color: #111;
+  }
+  .md h3,
+  .info-why h4 {
+    color: #111;
+  }
+  .booth-item {
+    background: none;
+    border-color: #ccc;
+    break-inside: avoid;
+  }
+  .briefing section {
+    border-bottom-color: #ccc;
+  }
+  .guide h2 {
+    break-after: avoid;
+  }
+  .md-missing {
+    color: inherit;
+    border: none;
+  }
+  .muted,
+  .guide .md-table th {
+    color: #555;
+  }
+  .guide td,
+  .guide .md-table th {
+    border-color: #ccc;
+  }
+  .briefing-images img {
+    background: none;
+    max-height: 240px;
+  }
+  .info-faq details p,
+  .booth-item p {
+    color: #111;
   }
 }
