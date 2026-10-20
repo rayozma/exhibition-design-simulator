@@ -467,6 +467,13 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
           <li>
             Table: <code>| A | B |</code> lines, the first one is the header
           </li>
+          <li>
+            Picture beside the text below it: a line with only <code>![description](https://…/photo.jpg)</code>. For a picture at the
+            end of the section, use <i>Upload images</i> below
+          </li>
+          <li>
+            Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>
+          </li>
         </ul>
       </details>
 

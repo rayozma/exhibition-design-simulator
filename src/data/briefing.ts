@@ -13,11 +13,14 @@ const SEED: Seed[] = [
     title: 'First time at ADIPEC?',
     body: `**ADIPEC 2026 · 2–5 November 2026 · ADNEC, Abu Dhabi**
 
+![ADIPEC exhibition hall at ADNEC](https://www.adipec.com/media/qp3oxxq0/seoimage.jpg)
+
 - One of the largest oil & gas exhibitions in the world
 - 200,000 visitors last year
 - Huge venue (ADNEC) with hundreds of exhibitors
 - Come early every morning (8 AM to 4 PM)
-- Be fit: it will be a long but very exciting week`,
+- Be fit: it will be a long but very exciting week
+https://youtu.be/suRPKB9GTec`,
     quiz: [
       {
         q: 'What are the booth hours you should plan around each day?',
@@ -286,17 +289,18 @@ Samples: [Short videos]() · [Videos]()`,
 
 | Product | Folder | Brochure | Video |
 |---|---|---|---|
-| Voliro T | [Folder]() | [Brochure]() | [Video]() |
-| Rigitech Eiger | [Folder]() | [Brochure]() | [Video]() |
-| DJI M400 | [Folder]() | [Brochure]() | [Video]() |
+| [Voliro T](https://voliro.com/voliro-solution/) | [Folder]() | [Brochure]() | [Video]() |
+| [Rigitech Eiger](https://rigi.tech/eiger/) | [Folder]() | [Brochure]() | [Video]() |
+| [DJI M400](https://enterprise.dji.com/matrice-400) | [Folder]() | [Brochure]() | [Video]() |
 | Drones for cleaning | [Folder]() | [Brochure]() | [Video]() |
-| DJI Dock 3 | [Folder]() | [Brochure]() | [Video]() |
-| AheadX QP530 | [AheadX]() | [AheadX – QP530.pdf]() | [Showcase]() · [Use case: powerline inspection]() |
-| Aviro E16 | [Aviro]() | [Brochure Aviro E16.pdf]() | [Showcase: Terra Agri E16 spraying]() · [Use case: E16 spraying demo]() |
-| Elios 3 | [Elios 3 – UT]() | [Elios 3 UT Payload.pdf]() | [Elios 3 – Digitizing the industry]() |
-| DJI FlyCart 30 | [DJI FlyCart 30]() | [DJI FlyCart 30.pdf]() | [Introducing DJI FlyCart 30]() · [Use case: shore-based last mile delivery]() |
+| [DJI Dock 3](https://enterprise.dji.com/dock-3) | [Folder]() | [Brochure]() | [Video]() |
+| [AheadX QP530](https://www.aheadx.com/product/qp530a) | [AheadX]() | [AheadX – QP530.pdf]() | [Showcase]() · [Use case: powerline inspection]() |
+| [Aviro E16](https://terra-droneagri.com/shop/terra-agri-e16-spraying-drone/) | [Aviro]() | [Brochure Aviro E16.pdf]() | [Showcase: Terra Agri E16 spraying]() · [Use case: E16 spraying demo]() |
+| [Elios 3](https://www.flyability.com/elios-3) | [Elios 3 – UT]() | [Elios 3 UT Payload.pdf]() | [Elios 3 – Digitizing the industry]() |
+| [DJI FlyCart 30](https://www.dji.com/flycart-30) | [DJI FlyCart 30]() | [DJI FlyCart 30.pdf]() | [Introducing DJI FlyCart 30]() · [Use case: shore-based last mile delivery]() |
 
 ### Voliro T
+![Voliro T with UT payload](https://cdn.voliro.com/wp-content/uploads/2025/09/Voliro-T-with-UT-payload.webp)
 - For contact-based industrial inspection and NDT (Non-Destructive Testing)
 - Omnidirectional multirotor drone with 6-DOF (degrees of freedom) flight control
 - Can fly and keep stable contact on vertical, inclined and overhead surfaces
@@ -308,8 +312,10 @@ Samples: [Short videos]() · [Videos]()`,
 - Optimized for GPS-denied environments (indoor, under structures, tanks, etc)
 - Triple-redundant IMU for stability and safety
 - Ideal for oil & gas, petrochemical, power plant and ship hull inspection
+https://youtu.be/Q29N_pTc6kA
 
 ### Rigitech Eiger
+![Rigitech Eiger](https://rigi.tech/wp-content/uploads/2024/04/ER03-Closed-Canopy-EDITED_2.png)
 - Long-range automated logistics & delivery (day + night, BVLOS)
 - VTOL + fixed-wing transition flight
 - Up to 100 km one-way range (≈ 54–62 miles)
@@ -321,8 +327,10 @@ Samples: [Short videos]() · [Videos]()`,
 - Safety: ballistic parachute, redundant telemetry, failsafe logic
 - Wind-resistant (~15 m/s in fixed-wing mode) and quiet (~51–55 dB at 135 m)
 - Proven use cases: medical deliveries, offshore logistics, island connectivity
+https://youtu.be/oHd-QIXVNoc
 
 ### DJI M400
+![DJI Matrice 400](https://www-cdn.djiits.com/cms/uploads/3c9712c308bac3e36007c3a9ded88d9d.png)
 - For powerline inspection, oil & gas surveys, mapping, emergency response and asset monitoring
 - Up to 59 minutes flight time
 - Heavy lift: up to 6 kg payload
@@ -333,15 +341,19 @@ Samples: [Short videos]() · [Videos]()`,
 - RTK: centimeter-grade positioning
 - AI flight assistance & mission automation: route planning, repeatable inspection paths, AI object recognition
 - Operates from −20 °C to +50 °C
+https://youtu.be/3UrKq7xj7TI
 
 ### Drones for cleaning
+![Example of a cleaning drone (ABZ C10)](https://abzinnovation.com/wp-content/uploads/2026/01/C10-1.webp)
 - Replaces manual high-altitude work
 - High-pressure fast cleaning: 800 m²/h, 20 MPa
 - Stable high-altitude operation
 - Real-time data display
 - Multi-angle, multi-scenario coverage
+https://youtu.be/WnYeOUIdnoI
 
 ### DJI Dock 3
+![DJI Dock 3](https://www-cdn.djiits.com/cms/uploads/596a276ec8d8577111cfa9bc19f147dd.png)
 - Fully autonomous, 24/7 remote drone operations (static or mobile)
 - Vehicle-mounted or fixed deployment
 - Built for harsh conditions: −30 °C to +50 °C, IP56 dock
@@ -352,16 +364,27 @@ Samples: [Short videos]() · [Videos]()`,
 - Connectivity: Ethernet, optional 4G/5G dongle, remote-site ready
 - Open ecosystem: third-party payloads, custom integration via PSDK / E-Port
 - Ideal for utilities (power, oil & gas), infrastructure (bridges, roads), public safety, remote assets where manned access is difficult or risky
+https://youtu.be/OwUwgpqgcMA
 
 ### AheadX QP530
+![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
 - Real-time surveillance
 - VTOL (vertical take-off & landing)
 - Up to 2 hours endurance
 - Up to 60 km radius; 60–80 km straight line in one flight
 - 30x optical EO zoom camera and IR camera for night operation
 - Live stream to the command center
+https://youtu.be/r3k7v1WPDMk
+
+### Aviro E16 (Terra Agri E16)
+![Terra Agri E16 spraying drone](https://terra-droneagri.com/wp-content/uploads/2025/06/Frame-4-1024x1024.png)
+- Terra Drone's own agricultural spraying drone (Aviro / Terra Agri)
+- For crop spraying and plantation work (e.g. palm oil, bagworm control)
+- More: [terra-droneagri.com](https://terra-droneagri.com/shop/terra-agri-e16-spraying-drone/)
+https://youtu.be/1dSnaJsqZks
 
 ### Elios 3
+![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
 - BVLOS (non-entry) confined space visual inspection & 3D modeling
 - Around 8–12 minutes flight time
 - Needs a 40 cm (16") manhole
@@ -369,21 +392,27 @@ Samples: [Short videos]() · [Videos]()`,
 - LiDAR sensor produces a 3D point cloud (for visualization)
 - Up to 2 cm accuracy with the GeoSLAM feature
 - Virtual inspection in the software
+https://youtu.be/B5s-69mQTSc
 
 ### Avata INS
+![DJI Avata 2](https://www-cdn.djiits.com/cms/uploads/ac5a1e8f3668952185dbaba1c36ae2e3.png)
 - Narrow confined space inspection, internal & external
 - Around 15 minutes flight time
 - 48 MP camera with oblique lighting
 - Similar to Elios, but no thermal camera and no LiDAR
 - Fits through a 20 cm (8") space
+https://youtu.be/RNhmV4yCP6M
 
 ### DJI FlyCart 30
+![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
 - Cargo delivery
 - 1 battery: up to 35 kg payload, 7.5 km travel distance, 7.5 minutes endurance
 - 2 batteries: up to 25 kg payload, 15 km travel distance, 15 minutes endurance
 - Maximum operation radius 5 km
+https://youtu.be/Hhp11I-vGHA
 
 ### Underwater robot
+![QYSEA FIFISH V6 Expert underwater robot](https://store.qysea.com/cdn/shop/files/fifish-v6-expert.png)
 - Carries visual inspection and NDT tools to analyze material / equipment deterioration
 - 6 vector thrusters™: 6-DoF omnidirectional maneuverability at 3 knots (1.5 m/s)
 - 350 m (over 1,100 ft) depth rating covers 95 % of underwater work
@@ -393,8 +422,10 @@ Samples: [Short videos]() · [Videos]()`,
 - Standard 10 cm laser scaler for underwater measurement
 - Robotic arm lifts 10 kg to collect samples or lost items
 - Q-BOX underwater connector hub with 6 ports for a customized robotic arm with NDT tools. Accessories include 2D imaging sonar, Station Lock™, U-QPS, 360° scanning sonar, compass ruler clamp, OPSS (on-shore power supply), mud sampler, water sampler (500 mL), salinity, pH and dissolved oxygen sensors, hydrophone, etc
+https://youtu.be/k3rUdNZaBg4
 
 ### LiDAR & visual inspection robot (pipe crawler)
+![Example of a pipe inspection crawler](https://envirosight.com/wp-content/uploads/2021/07/laser_main-2-scaled.jpg)
 - LiDAR gives the robot mapping and navigation (Light Detection and Ranging: **a remote sensing method** that measures distances with pulsed laser light)
 - Travels up to 1,000 m
 - Pipes of at least 12 inch diameter
@@ -403,15 +434,18 @@ Samples: [Short videos]() · [Videos]()`,
 - Flaw measurement / location detection
 - Dimensional measurement
 - Clear, accurate cross-sectional view
+https://youtu.be/9HBf8kSVeos
 
 ### ART crawler services
+![ART crawler on an insulated pipe](https://www.mistrasgroup.com/media/noqm4ukp/masthead-art-crawler.png)
 - Digital radiography to screen for internal corrosion and corrosion under insulation (CUI) in insulated & uninsulated above-ground piping and pipelines, **even with product flowing**
 - Internal corrosion crawler: through-wall technique, pipes 4–48"
 - CUI crawler: tangential OD radiography, pipes 2–48"
 - 360° crawler: tangential OD radiography, pipes 12–60"
 - Rapid large-scale screening
 - Lines stay in service
-- Permanent digital image archive`,
+- Permanent digital image archive
+https://youtu.be/JA7Zu1fhfHU`,
     quiz: [
       {
         q: 'How much contact force can the Voliro T apply to a surface?',

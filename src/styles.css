@@ -1328,7 +1328,206 @@ button.link {
   }
 }
 
-/* Team briefing (?briefing) */
+/* Team briefing (?briefing): a light, wide reading page (dialogs on it turn light too) */
+:root:has(.briefing) {
+  --bg: #ffffff;
+  --panel: #f8fafc;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --link: #1d4ed8;
+  --heading: #a16207;
+}
+
+#root:has(.briefing) {
+  background: var(--bg);
+}
+
+.guide.briefing {
+  max-width: 1120px;
+  padding: 24px 32px 48px;
+}
+
+:root:has(.briefing) button,
+:root:has(.briefing) a.button-link {
+  color: var(--text);
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+:root:has(.briefing) button:hover,
+:root:has(.briefing) a.button-link:hover {
+  background: #e5e7eb;
+}
+
+:root:has(.briefing) button.primary,
+:root:has(.briefing) button.active {
+  color: #111;
+  background: var(--accent);
+  border-color: #eab308;
+}
+
+:root:has(.briefing) button.link {
+  background: none;
+  border: none;
+}
+
+:root:has(.briefing) button.danger {
+  color: #b91c1c;
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+:root:has(.briefing) .field input,
+:root:has(.briefing) textarea.remarks,
+:root:has(.briefing) .dialog-input {
+  color: var(--text);
+  background: #ffffff;
+  border-color: #d1d5db;
+}
+
+:root:has(.briefing) .overlay {
+  background: rgba(17, 24, 39, 0.35);
+}
+
+:root:has(.briefing) .card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.briefing a {
+  color: var(--link);
+}
+
+.briefing .md h3 {
+  color: var(--heading);
+}
+
+.briefing .info-why {
+  background: #fefce8;
+  border-left-color: #eab308;
+}
+
+.briefing .info-why h4 {
+  color: var(--heading);
+}
+
+.briefing .info-faq details p {
+  color: #374151;
+}
+
+.briefing .md-callout {
+  background: #fefce8;
+  border-left-color: #eab308;
+}
+
+.briefing .status.outside {
+  color: #854d0e;
+  background: #fef9c3;
+}
+
+.briefing .status.overlap {
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.briefing .quiz-result.right {
+  color: #15803d;
+}
+
+.briefing .quiz-result.wrong {
+  color: #b91c1c;
+}
+
+.briefing .quiz-result button.link {
+  color: var(--link);
+}
+
+.briefing .quiz-choices button.wrong {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+.briefing .quiz-score {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.briefing .booth-item {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.briefing .booth-item:target {
+  border-color: #eab308;
+}
+
+.briefing .briefing-images img {
+  background: #f3f4f6;
+}
+
+.briefing .md-table th {
+  border-bottom-color: #d1d5db;
+}
+
+.briefing .md-missing {
+  color: #9ca3af;
+  border-bottom-color: #d1d5db;
+  cursor: pointer;
+}
+
+.briefing .briefing-editor code {
+  color: #111827;
+  background: #f3f4f6;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
+.md-img {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+/* Product images next to their bullet list on wide screens */
+.md-figure {
+  float: right;
+  width: 300px;
+  max-width: 40%;
+  margin: 4px 0 12px 20px;
+}
+
+.md-figure img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.md h3 {
+  clear: both;
+}
+
+.md::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+@media (max-width: 700px) {
+  .guide.briefing {
+    padding: 16px;
+  }
+  .md-figure {
+    float: none;
+    width: auto;
+    max-width: 100%;
+    margin: 8px 0;
+  }
+}
 a.button-link.briefing-cta {
   display: flex;
   flex-direction: column;
@@ -1672,5 +1871,36 @@ a.button-link.briefing-cta {
   .info-faq details p,
   .booth-item p {
     color: #111;
+  }
+}
+
+/* YouTube videos in briefing text */
+.md-video {
+  clear: both;
+  max-width: 640px;
+  margin: 12px 0 16px;
+}
+
+.md-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  background: #000;
+}
+
+.md-video-link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+@media print {
+  .md-video iframe {
+    display: none;
+  }
+  .md-video {
+    margin: 4px 0 10px;
   }
 }

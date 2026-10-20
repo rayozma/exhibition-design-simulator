@@ -1,9 +1,13 @@
 import type { ReactNode } from 'react'
+import { askConfirm } from '../lib/dialogs'
 
 /**
  * A small markdown subset for briefing text:
  * ### / #### headings, - or 1. lists (indent 2 spaces to nest), | tables |, > callouts,
  * **bold**, *italic*, [label](https://…) and bare https links. [label]() = a link still to be added.
+ * A line with only ![alt](src) is a picture, shown to the right of the text that follows it;
+ * src is a web address or a file in the app's public/ folder (e.g. briefing/voliro-t.jpg).
+ * A line with only a YouTube link is an embedded video.
  */
 export function Markdown({ text }: { text: string }) {
   return <div className="md">{blocks(text.replace(/\r\n?/g, '\n').split('\n'))}</div>
@@ -12,6 +16,12 @@ export function Markdown({ text }: { text: string }) {
 const LIST = /^(\s*)([-*]|\d+\.)\s+(.*)$/
 const TABLE = /^\s*\|/
 const TABLE_RULE = /^\s*\|?\s*:?-{3,}/
+const IMAGE = /^\s*!\[([^\]]*)\]\(([^)\s]+)\)\s*$/
+const YOUTUBE = /^\s*https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:\S*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})\S*\s*$/
+
+/** Web address as is; a bare path is a file of this app (public/ folder), under its base URL. */
+export const imageSrc = (src: string) =>
+  /^https?:\/\//i.test(src) ? src : /^[\w./-]+$/.test(src) && !src.includes('..') ? import.meta.env.BASE_URL + src.replace(/^\//, '') : null
 
 function blocks(lines: string[]): ReactNode[] {
   const out: ReactNode[] = []
@@ -24,6 +34,9 @@ function blocks(lines: string[]): ReactNode[] {
   for (let i = 0; i < lines.length; ) {
     const line = lines[i]
     const heading = /^(#{2,4})\s+(.*)$/.exec(line)
+    const image = IMAGE.exec(line)
+    const src = image && imageSrc(image[2])
+    const video = YOUTUBE.exec(line)
     if (!line.trim()) {
       flush()
       i++
@@ -31,6 +44,34 @@ function blocks(lines: string[]): ReactNode[] {
       flush()
       const H = heading[1].length <= 3 ? 'h3' : 'h4'
       out.push(<H key={out.length}>{inline(heading[2])}</H>)
+      i++
+    } else if (image && src) {
+      flush()
+      out.push(
+        <figure key={out.length} className="md-figure">
+          <a href={src} target="_blank" rel="noopener noreferrer">
+            <img src={src} alt={image[1]} loading="lazy" />
+          </a>
+        </figure>,
+      )
+      i++
+    } else if (video) {
+      flush()
+      out.push(
+        <div key={out.length} className="md-video">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video[1]}`}
+            title="YouTube video"
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+          <a className="md-video-link" href={`https://youtu.be/${video[1]}`} target="_blank" rel="noopener noreferrer">
+            ▶ Watch on YouTube: youtu.be/{video[1]}
+          </a>
+        </div>,
+      )
       i++
     } else if (LIST.test(line)) {
       flush()
@@ -141,7 +182,14 @@ function inline(text: string): ReactNode[] {
 function MdLink({ label, href }: { label: string; href: string }) {
   if (!href)
     return (
-      <span className="md-missing" title="No link yet: edit this section and put the address between the ( )">
+      <span
+        className="md-missing"
+        role="button"
+        tabIndex={0}
+        title="No link yet"
+        onClick={() => explainMissing(label)}
+        onKeyDown={(e) => e.key === 'Enter' && explainMissing(label)}
+      >
         {label}
       </span>
     )
@@ -153,3 +201,12 @@ function MdLink({ label, href }: { label: string; href: string }) {
     </a>
   )
 }
+
+const explainMissing = (label: string) =>
+  askConfirm(`No link for “${label}” yet`, {
+    message:
+      'Nobody has added the address of this file yet. Click Edit on this section, find [' +
+      label +
+      '](), and paste the Google Drive (or other) link between the ( ). Then click Done.',
+    okLabel: 'OK',
+  })
