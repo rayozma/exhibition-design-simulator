@@ -261,17 +261,6 @@ function EditorView({
     [designEditor, onRenamed],
   )
   const roomSync = useRoomSync(room, me, actions, layoutId, selectedIds, onRoomRow)
-
-  // ?focus=<object id> (from the team briefing): select that object and open its info card once loaded.
-  const focus = useRef(new URLSearchParams(location.search).get('focus'))
-  useEffect(() => {
-    const id = focus.current
-    if (!id || !roomSync.loaded || !objects.length) return
-    focus.current = null
-    if (!objects.some((o) => o.id === id)) return
-    setSelection([id])
-    setInfoId(id)
-  }, [roomSync.loaded, objects])
   const undoStack = state.undo[layoutId] ?? NO_UNDO
   const redoStack = state.redo[layoutId] ?? NO_UNDO
   const ops = useObjectOps(actions, roomSync.sync, design, objects, undoStack, redoStack, snap, selectedIds, setSelection)

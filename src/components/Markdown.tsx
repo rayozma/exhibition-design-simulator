@@ -16,7 +16,7 @@ export function Markdown({ text }: { text: string }) {
 const LIST = /^(\s*)([-*]|\d+\.)\s+(.*)$/
 const TABLE = /^\s*\|/
 const TABLE_RULE = /^\s*\|?\s*:?-{3,}/
-const IMAGE = /^\s*!\[([^\]]*)\]\(([^)\s]+)\)\s*$/
+const IMAGE = /^\s*!\[([^\]]*)\]\((\S+)\)\s*$/ // greedy: the address may itself contain ( )
 const YOUTUBE = /^\s*https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:\S*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})\S*\s*$/
 
 /** Web address as is; a bare path is a file of this app (public/ folder), under its base URL. */

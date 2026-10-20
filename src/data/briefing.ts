@@ -105,9 +105,9 @@ We want to **introduce the drones that are currently available in Abu Dhabi**, a
     id: 'booth',
     kind: 'booth',
     title: 'Our booth & what we showcase',
-    body: `Open the live 3D design to walk through the booth before the show. The numbered items below come straight from that design, so this list always matches what is on the stand.
+    body: `Open the live 3D design to walk through the booth before the show: every numbered item on the stand has an info card (ⓘ) with its description, photos and FAQ.
 
-To change an item's description, photos or FAQ, edit its **Info card** in the 3D design (select it, then *Info card* in the Selected tab). Upload the booth render below with *Edit*.`,
+Upload the booth render below with *Edit*.`,
   },
   {
     id: 'experience',
@@ -285,19 +285,93 @@ Samples: [Short videos]() · [Videos]()`,
   {
     id: 'products',
     title: 'Product reference',
-    body: `Specs of the products we can offer, to answer visitor questions. Not all of them are on the booth: see [Our booth & what we showcase](#booth) for what's on the stand.
+    body: `Specs of the products we offer, to answer visitor questions. The first six are on the stand (see [Our booth](#booth)); the rest we can offer from Abu Dhabi.
 
-| Product | Folder | Brochure | Video |
-|---|---|---|---|
-| [Voliro T](https://voliro.com/voliro-solution/) | [Folder]() | [Brochure]() | [Video]() |
-| [Rigitech Eiger](https://rigi.tech/eiger/) | [Folder]() | [Brochure]() | [Video]() |
-| [DJI M400](https://enterprise.dji.com/matrice-400) | [Folder]() | [Brochure]() | [Video]() |
-| Drones for cleaning | [Folder]() | [Brochure]() | [Video]() |
-| [DJI Dock 3](https://enterprise.dji.com/dock-3) | [Folder]() | [Brochure]() | [Video]() |
-| [AheadX QP530](https://www.aheadx.com/product/qp530a) | [AheadX]() | [AheadX – QP530.pdf]() | [Showcase]() · [Use case: powerline inspection]() |
-| [Aviro E16](https://terra-droneagri.com/shop/terra-agri-e16-spraying-drone/) | [Aviro]() | [Brochure Aviro E16.pdf]() | [Showcase: Terra Agri E16 spraying]() · [Use case: E16 spraying demo]() |
-| [Elios 3](https://www.flyability.com/elios-3) | [Elios 3 – UT]() | [Elios 3 UT Payload.pdf]() | [Elios 3 – Digitizing the industry]() |
-| [DJI FlyCart 30](https://www.dji.com/flycart-30) | [DJI FlyCart 30]() | [DJI FlyCart 30.pdf]() | [Introducing DJI FlyCart 30]() · [Use case: shore-based last mile delivery]() |
+| Product | On booth | Folder | Brochure | Video |
+|---|---|---|---|---|
+| [VALSEM](https://www.valsem.com/) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [DJI Dock 4](https://enterprise.dji.com/dock-4) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| Digital RT | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [IRIS](https://eddyfi.com/en/technology/internal-rotary-inspection-system-iris) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [AI solutions](https://terra-drone.co.id/software/) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [Drone flight simulator](https://www.dji.com/simulator) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [Voliro T](https://voliro.com/voliro-solution/) | | [Folder]() | [Brochure]() | [Video]() |
+| [Rigitech Eiger](https://rigi.tech/eiger/) | | [Folder]() | [Brochure]() | [Video]() |
+| [DJI M400](https://enterprise.dji.com/matrice-400) | | [Folder]() | [Brochure]() | [Video]() |
+| Drones for cleaning | | [Folder]() | [Brochure]() | [Video]() |
+| [AheadX QP530](https://www.aheadx.com/product/qp530a) | | [AheadX]() | [AheadX – QP530.pdf]() | [Showcase]() · [Use case: powerline inspection]() |
+| [Elios 3](https://www.flyability.com/elios-3) | | [Elios 3 – UT]() | [Elios 3 UT Payload.pdf]() | [Elios 3 – Digitizing the industry]() |
+| [DJI FlyCart 30](https://www.dji.com/flycart-30) | | [DJI FlyCart 30]() | [DJI FlyCart 30.pdf]() | [Introducing DJI FlyCart 30]() · [Use case: shore-based last mile delivery]() |
+
+### VALSEM
+![ValStrong-protected equipment crate](https://www.valsem.com/_img/uf2boiHKRGIuVb50gE8kPdjiQIc=/844_x_475/filters:quality(95):strip_exif()/reboot/media/922c517a-414f-11e8-a99b-fa163e14ea56/b202d782-251a-11ec-8348-0242ac130004/1-1-572669612.jpg)
+- VALSEM Industries (France, since 1977) protects critical equipment during transport and storage, and keeps proof of its condition over time
+- **ValStrong** membranes (e.g. ValStrong TITAN, VCX anti-corrosion film) shield equipment from corrosion, humidity and damage, crated or crate-less
+- **EXA-AIR**: inflatable anti-shock bags and sheets that cushion equipment inside its packaging
+- **ValTRACK**: embedded sensors record the conditions the equipment is exposed to, as a continuous, traceable record for audits and commissioning
+- Standards: NF H00 310, MIL-PRF-131K, DEF STAN 82-75/2, DIN 55 531, PMUC (nuclear); ~980 industrial customers in energy, nuclear, aerospace and infrastructure
+- **NDTCCS is VALSEM's strategic partner in the GCC**: talk to the team at the VALSEM counter
+- Benefit for the customer: equipment arrives, and stays, in the condition it left the factory, with data to prove it: less corrosion damage in storage and fewer surprises at commissioning
+https://youtu.be/JYsudQpknpU
+
+### DJI Dock 4
+![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
+- DJI's newest drone-in-a-box (launched October 2026) for fully autonomous, 24/7 remote operations
+- First DJI dock with **automatic battery swap**: swap in under 25 s, landing-to-takeoff in under 45 s (Dock 3 needs ~30 min to recharge)
+- Stores up to 3 batteries with 2 charging channels; a battery charges 15–95 % in 27 minutes
+- Paired aircraft: **DJI Matrice 5TD**: up to 59 min flight time, 10 km operating radius, IP55, 450 g payload (speaker, spotlight, parachute)
+- M5TD sensors: three 50 MP cameras (wide, medium tele, 252 mm tele; up to 176x hybrid zoom), 1280×1024 thermal, 3,000 m laser rangefinder
+- Wire-level obstacle sensing: millimeter-wave radar + rotating LiDAR + 6-direction vision; onboard AI detects 17 object classes in real time
+- Built for harsh sites: −40 °C to +50 °C, dock IP56, landing in winds up to 12 m/s, battery pre-heating and air-conditioning built in
+- Needs the DJI O4 Ground Station (RTK base, Ethernet, edge-computing slot); 4G via DJI Cellular Dongle 2
+- Managed in DJI FlightHub 2: virtual cockpit, image/text object search, real-time AI alerts by SMS / email / push
+- Same 400 × 400 mm mounting pattern as Dock 3, so it fits existing sites
+- Ideal for oil & gas facilities, pipelines, utilities, security patrols and remote assets where sending people is slow or risky
+https://youtu.be/rIznH_5IniM
+
+### Digital RT (digital radiography)
+![Portable digital radiography at a refinery](https://img.youtube.com/vi/cJyVyBaAnfM/maxresdefault.jpg)
+- Radiography with a **Digital Detector Array** (flat panel) or computed radiography plates instead of film: the image is on the laptop in seconds, with no chemical processing
+- **In service**: no shutdown, no draining and no insulation removal; standardised in ISO 20769-2
+- Much shorter exposure times than film for the same source (Ir-192, Co-60 or a portable X-ray tube): lower dose, smaller exclusion zones, more shots per shift
+- **Profile (tangential) radiography** images the pipe wall edge to measure remaining wall thickness, pitting and internal / external corrosion through insulation and cladding
+- **CUI screening**: finds corrosion under insulation, wet insulation and cladding damage on insulated lines and pipe racks
+- Real-time radiography and motorised crawlers carry the detector along long pipe runs for fast go / no-go screening (see ART crawler services below)
+- Software measurement (wall thickness, density profiles), contrast enhancement and a permanent digital archive with full traceability, so campaigns can be compared
+- Also used for weld quality, flow-accelerated corrosion, erosion, blockages, valves and small-bore fittings
+- Still a radiation method: controlled areas and licensed radiographers apply
+https://youtu.be/dndIQ5X3pcM
+
+### IRIS (Internal Rotary Inspection System)
+![IRIS probes and centering devices](https://www.eddyfi.com/doc/ProductImages/STP_IRIS_CD_800x645-01.png)
+- Ultrasonic inspection of tubes **from the inside**: a probe with a rotating mirror, driven by water flow, scans the full circumference as it is pulled through the tube
+- Measures the remaining wall thickness and finds corrosion, erosion, pitting and other wall loss on both the inner and the outer surface
+- For tubes in heat exchangers, boilers and air coolers (fin-fans), ferrous and non-ferrous
+- Tubes must be cleaned and filled with water first
+- Very accurate sizing: often used together with faster screening methods (eddy current, RFET) to confirm and size what they find
+- Benefit: wall-thickness data for every tube, so the customer plugs or replaces only the tubes that need it and plans shutdowns with confidence
+https://youtu.be/yhTewrjTRMQ
+
+### AI solutions (Terra MapX, Terra Organize, Terra Stream)
+![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
+- Terra Drone's own software for the data side of drone operations, so customers get usable results, not just raw files
+- **Terra MapX**: drone mapping / photogrammetry processing: orthophotos, elevation models, point clouds, volumes and contours (confirm the final product name with the Indonesia team; Terra Drone's public mapping product is Terra Mapper)
+- **Terra Organize**: project and data management for drone operations: project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
+- **Terra Stream**: live streaming of drone video to the customer or a command center: up to 1080p with adaptive bitrate, sub-second latency, multi-viewer access control, share by link / email / WhatsApp, live telemetry overlay (altitude, speed, battery, GPS), automatic cloud recording
+- Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
+- Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
+https://youtu.be/CZL859mbue4
+
+### Drone flight simulator
+![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
+- Part of our **drone training & consultancy** offer: visitors can try flying at the booth
+- Builds stick skills, procedures and muscle memory with zero risk to aircraft, payloads, people or property
+- Uses the pilot's real DJI remote controller via USB, so the control response matches the real aircraft; DJI's physics engine reproduces each model's flight behaviour
+- Training modules: skills training (take-off, landing, path following, tests), free flight, and application training such as powerline inspection and search & rescue
+- Same flight modes as real flight (P, A, S); simulated wind, ground effect and crash physics can be switched on
+- Emergency drills: loss of GNSS, return-to-home, low battery, ATTI-mode recovery; night and bad-weather conditions
+- Repeatable scoring to assess trainees, and lower training cost and insurance exposure before real flight hours and licence practical tests (e.g. GCAA)
+https://youtu.be/Zb_XKPgr0oo
 
 ### Voliro T
 ![Voliro T with UT payload](https://cdn.voliro.com/wp-content/uploads/2025/09/Voliro-T-with-UT-payload.webp)
@@ -352,20 +426,6 @@ https://youtu.be/3UrKq7xj7TI
 - Multi-angle, multi-scenario coverage
 https://youtu.be/WnYeOUIdnoI
 
-### DJI Dock 3
-![DJI Dock 3](https://www-cdn.djiits.com/cms/uploads/596a276ec8d8577111cfa9bc19f147dd.png)
-- Fully autonomous, 24/7 remote drone operations (static or mobile)
-- Vehicle-mounted or fixed deployment
-- Built for harsh conditions: −30 °C to +50 °C, IP56 dock
-- Paired with DJI Matrice 4D / 4TD drones: IP55, anti-ice propellers, extended flight time
-- Fast charging: ~15 % to 95 % in about 27 minutes
-- Dual-dock setup alternates drones for continuous operation
-- Cloud management (DJI FlightHub 2): remote mission scheduling, health monitoring, data transfer & analytics
-- Connectivity: Ethernet, optional 4G/5G dongle, remote-site ready
-- Open ecosystem: third-party payloads, custom integration via PSDK / E-Port
-- Ideal for utilities (power, oil & gas), infrastructure (bridges, roads), public safety, remote assets where manned access is difficult or risky
-https://youtu.be/OwUwgpqgcMA
-
 ### AheadX QP530
 ![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
 - Real-time surveillance
@@ -375,13 +435,6 @@ https://youtu.be/OwUwgpqgcMA
 - 30x optical EO zoom camera and IR camera for night operation
 - Live stream to the command center
 https://youtu.be/r3k7v1WPDMk
-
-### Aviro E16 (Terra Agri E16)
-![Terra Agri E16 spraying drone](https://terra-droneagri.com/wp-content/uploads/2025/06/Frame-4-1024x1024.png)
-- Terra Drone's own agricultural spraying drone (Aviro / Terra Agri)
-- For crop spraying and plantation work (e.g. palm oil, bagworm control)
-- More: [terra-droneagri.com](https://terra-droneagri.com/shop/terra-agri-e16-spraying-drone/)
-https://youtu.be/1dSnaJsqZks
 
 ### Elios 3
 ![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
@@ -393,15 +446,6 @@ https://youtu.be/1dSnaJsqZks
 - Up to 2 cm accuracy with the GeoSLAM feature
 - Virtual inspection in the software
 https://youtu.be/B5s-69mQTSc
-
-### Avata INS
-![DJI Avata 2](https://www-cdn.djiits.com/cms/uploads/ac5a1e8f3668952185dbaba1c36ae2e3.png)
-- Narrow confined space inspection, internal & external
-- Around 15 minutes flight time
-- 48 MP camera with oblique lighting
-- Similar to Elios, but no thermal camera and no LiDAR
-- Fits through a 20 cm (8") space
-https://youtu.be/RNhmV4yCP6M
 
 ### DJI FlyCart 30
 ![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
@@ -448,54 +492,71 @@ https://youtu.be/9HBf8kSVeos
 https://youtu.be/JA7Zu1fhfHU`,
     quiz: [
       {
-        q: 'How much contact force can the Voliro T apply to a surface?',
-        choices: ['Up to 5 N', 'Up to 30 N', 'Up to 300 N', 'It does not touch surfaces'],
-        answer: 1,
+        q: "What does VALSEM protect, and when?",
+        choices: ["Critical equipment during transport and storage", "Pipelines during welding", "Drones during flight", "Tanks during cleaning"],
+        answer: 0,
+        explain: "ValStrong membranes and EXA-AIR anti-shock packaging protect equipment in transit and storage; ValTRACK sensors keep proof of its condition.",
       },
       {
-        q: 'Which NDT payloads does the Voliro T work with?',
-        choices: ['EMAT, UT, PEC and DFT', 'Only visual cameras', 'Radiography only', 'Sonar and hydrophone'],
+        q: "What is new about the DJI Dock 4 compared with Dock 3?",
+        choices: ["It swaps the battery automatically in under 25 seconds", "It is half the size", "It flies a fixed-wing drone", "It does not need a ground station"],
+        answer: 0,
+        explain: "Dock 4 swaps batteries instead of recharging: landing to takeoff in under 45 s, versus about 30 minutes on Dock 3.",
+      },
+      {
+        q: "Which drone does the DJI Dock 4 fly?",
+        choices: ["DJI Matrice 5TD", "DJI Matrice 4TD", "DJI M400", "DJI Avata 2"],
         answer: 0,
       },
       {
-        q: 'What is the DJI M400’s maximum flight time?',
-        choices: ['Up to 15 minutes', 'Up to 30 minutes', 'Up to 59 minutes', 'Up to 2 hours'],
+        q: "What is the big advantage of digital RT for in-service piping?",
+        choices: ["No shutdown, no draining and no insulation removal", "It works without any radiation", "It replaces ultrasonic testing completely", "It only works on empty pipes"],
+        answer: 0,
+      },
+      {
+        q: "What does IRIS measure, and what must be done to the tubes first?",
+        choices: ["Remaining wall thickness; tubes must be cleaned and filled with water", "Surface hardness; tubes must be dried", "Flow rate; tubes must be pressurised", "Paint thickness; tubes must be removed"],
+        answer: 0,
+      },
+      {
+        q: "Which Terra Drone software streams live drone video to a client or command center?",
+        choices: ["Terra Stream", "Terra Organize", "Terra Checklist", "Terra MapX"],
+        answer: 0,
+        explain: "Terra Stream: live video with telemetry overlay. Terra Organize manages projects and data, Terra MapX processes mapping data.",
+      },
+      {
+        q: "How much contact force can the Voliro T apply to a surface?",
+        choices: ["Up to 5 N", "Up to 30 N", "Up to 300 N", "It does not touch surfaces"],
+        answer: 1,
+      },
+      {
+        q: "Which NDT payloads does the Voliro T work with?",
+        choices: ["EMAT, UT, PEC and DFT", "Only visual cameras", "Radiography only", "Sonar and hydrophone"],
+        answer: 0,
+      },
+      {
+        q: "What is the DJI M400’s maximum flight time?",
+        choices: ["Up to 15 minutes", "Up to 30 minutes", "Up to 59 minutes", "Up to 2 hours"],
         answer: 2,
       },
       {
-        q: 'What can the DJI FlyCart 30 carry on one battery?',
-        choices: ['Up to 3 kg for 100 km', 'Up to 35 kg for 7.5 km', 'Up to 6 kg for 20 km', 'Up to 80 kg for 1 km'],
+        q: "What can the DJI FlyCart 30 carry on one battery?",
+        choices: ["Up to 3 kg for 100 km", "Up to 35 kg for 7.5 km", "Up to 6 kg for 20 km", "Up to 80 kg for 1 km"],
         answer: 1,
       },
       {
-        q: 'How far can the Rigitech Eiger fly one way?',
-        choices: ['5 km', '20 km', 'Up to 100 km', '500 km'],
+        q: "How far can the Rigitech Eiger fly one way?",
+        choices: ["5 km", "20 km", "Up to 100 km", "500 km"],
         answer: 2,
       },
       {
-        q: 'What is the smallest opening the Avata INS can fly through?',
-        choices: ['About 20 cm (8")', 'About 40 cm (16")', 'About 60 cm (24")', 'About 1 m'],
-        answer: 0,
-        explain: 'Avata: 20 cm. Elios 3 needs a 40 cm manhole and 60 cm to maneuver.',
-      },
-      {
-        q: 'How long does the DJI Dock 3 take to charge a drone from ~15 % to 95 %?',
-        choices: ['About 5 minutes', 'About 27 minutes', 'About 2 hours', 'Overnight'],
-        answer: 1,
-      },
-      {
-        q: 'What makes ART crawler services special?',
-        choices: [
-          'They screen pipes for corrosion with product still flowing',
-          'They need the line to be shut down and drained',
-          'They only work underwater',
-          'They inspect flares from the air',
-        ],
+        q: "What makes ART crawler services special?",
+        choices: ["They screen pipes for corrosion with product still flowing", "They need the line to be shut down and drained", "They only work underwater", "They inspect flares from the air"],
         answer: 0,
       },
       {
-        q: 'How deep can the underwater robot go?',
-        choices: ['35 m', '100 m', '350 m', '3,500 m'],
+        q: "How deep can the underwater robot go?",
+        choices: ["35 m", "100 m", "350 m", "3,500 m"],
         answer: 2,
       },
     ],
@@ -570,6 +631,161 @@ https://youtu.be/JA7Zu1fhfHU`,
     ],
   },
   {
+    id: 'visit',
+    title: "Who to visit at ADIPEC",
+    body: `Who to go and see when you are not needed at the booth. Agree in the morning who covers which hall, take notes in VisitConnect, and invite good contacts to our meeting table.
+
+**Our stand: 4210, Hall 4** (Al Masaood Energy pavilion, with NDTCCS as co-exhibitor). Terra Drone Corporation (Japan HQ) is also in the **Japan Pavilion, 10710, Hall 10**, next to Liberaware (confined-space drones), Synspective (SAR satellites), JGC and HORIBA.
+
+> Where things are: operators and NOCs in the **Atrium and Hall 6**; inspection and NDT companies in **Halls 1, 3, 4, 8 and 9**; subsea and marine robotics in **Hall 15**; AI and robotics partners in **Hall AI**.
+
+### Find any exhibitor
+[[exhibitor-finder]]
+
+### A. Operators, NOCs and EPCs that buy inspection and drone services
+| Company | Stand | Hall | Country | Why visit |
+|---|---|---|---|---|
+| [ADNOC](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3283) | **A210** | Atrium | UAE | Host NOC; also at AI M6 (Hall AI) and 16401 (Hall 16, Young ADIPEC). Primary target for drone inspection / methane / robotics frameworks. |
+| [XRG](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3287) | **A110** | Atrium | UAE | ADNOC's international gas/chemicals investment arm; owner of overseas assets needing integrity services. |
+| [Borouge International](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3707) | **5352** | Hall 5 | UAE | ADNOC/Borealis petrochemicals (Ruwais); Platinum sponsor; plant inspection, tank/flare/stack inspection buyer. |
+| [Mubadala Energy](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4038) | **A130** | Atrium | UAE | Abu Dhabi upstream operator (SE Asia, Egypt, UAE); shares A130 with Dolphin Energy. |
+| [Dolphin Energy](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2337) | **A130** | Atrium | UAE | Operator of the Qatar-UAE-Oman gas pipeline and Taweelah plant; pipeline ROW survey, methane and corrosion inspection buyer. |
+| [Sharjah National Oil Corporation (SNOC)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2638) | **CN47** | Concourse | UAE | Sharjah NOC (Sajaa gas, storage); Bronze sponsor; GCC operator with onshore fields and gas storage. |
+| [Dragon Oil](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2342) | **4345** | Hall 4 | UAE | Dubai-government upstream operator (Caspian, Egypt, Iraq); offshore platform inspection buyer. |
+| [Occidental of Abu Dhabi (Oxy)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2539) | **A120** | Atrium | UAE | Shah sour gas / Al Hosn partner with ADNOC; onshore asset integrity and methane programmes. |
+| [TotalEnergies](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2696) | **A232** | Atrium | UAE | ADNOC concession partner; strong drone methane (AUSEA) and robotics agenda; also AI P28 in Hall AI. |
+| [Shell](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2639) | **A230** | Atrium | UAE | ADNOC gas/LNG partner; global robotics & inspection technology buyer. |
+| [bp Exploration](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2296) | **A20** | Atrium | UAE | ADNOC Onshore/LNG partner; Platinum sponsor. |
+| [ExxonMobil (Al Khalij)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2385) | **A142** | Atrium | UAE | Upper Zakum partner; Platinum sponsor. |
+| [Eni](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2364) | **A300** | Atrium | Italy | ADNOC offshore concession partner. |
+| [INPEX Corporation](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2448) | **6230** | Hall 6 | Japan | Japan's largest E&P, ADNOC offshore partner; natural Japanese-pavilion-to-operator bridge for Terra Drone. |
+| [Chevron MEASA E&P](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3142) | **13410** | Hall 13 | USA | Partner-level sponsor; regional E&P with Platinum meeting suite. |
+| [Bapco Energies](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2287) | **6110** | Hall 6 | Bahrain | Bahrain national energy company (refinery, Awali field, gas); GCC operator with Gold meeting suite. |
+| [CNOOC Iraq](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2320) | **9434** | Hall 9 | Iraq | Missan oilfields operator; Iraq onshore inspection and surveillance demand. |
+| [CNPC International (Dubai)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3708) | **A10** | Atrium | UAE | ADNOC onshore/offshore concession partner; also BGP (seismic/survey) at 4210. |
+| [EOG Resources](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2369) | **12715** | Hall 12 | UAE | US shale operator with new Abu Dhabi unconventional concession; LDAR/methane-driven culture. |
+| [NMDC Group](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2532) | **6130** | Hall 6 | UAE | ADNOC-linked offshore EPC/marine contractor (ex-NPCC); buys survey, subsea inspection and construction monitoring. |
+| [Petrofac](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2564) | **12640** | Hall 12 | UAE | Major GCC EPC/O&M contractor; subcontracts inspection and progress-survey drones. |
+| [Saipem](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3251) | **6234** | Hall 6 | Italy | Offshore/onshore EPC with ADNOC (Hail & Ghasha); subsea robotics programme (Hydrone). |
+| [TechnipFMC](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3168) | **4420** | Hall 4 | UAE | EPC/subsea; shares 4420 with Fugro. |
+| [Samsung E&A](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2623) | **9420** | Hall 9 | South Korea | Platinum-sponsor EPC; exhibits an 'RX (Robotics Transformation) Monitoring Center' - explicit construction-robotics interest. |
+| [Tecnicas Reunidas](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2685) | **4256** | Hall 4 | Spain | EPC for ADNOC Refining/Borouge projects. |
+| [Worley](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2841) | **5240** | Hall 5 | UAE | Engineering/PMC house for ADNOC; digital asset and integrity consulting (shared stand 5240 with Linde, Descon, TAQANA, GruppOmega). |
+| [Wood](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2739) | **6350** | Hall 6 | UK | Engineering/asset-integrity consultancy for GCC operators; also AI P33. |
+| [KBR](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3525) | **7254** | Hall 7 | USA | PMC/EPC for ADNOC programmes. |
+| [Kent](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2795) | **8230** | Hall 8 | UAE | Abu Dhabi EPC/O&M contractor; Kent International Arabia (AI P9) pitches digital twins and autonomous systems. |
+| [Chiyoda Corporation](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2317) | **16455** | Hall 16 | UAE | Japanese EPC offering O&M via plantOS predictive maintenance; data-capture partner candidate. |
+| [JGC Corporation](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4086) | **10710** | Hall 10 | Japan | Japanese EPC in the same Japan Pavilion as Terra Drone - easy introduction. |
+| [AD Ports Group](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3296) | **A405** | Atrium | UAE | Platinum sponsor; ports/maritime asset owner (drone survey, hydrographic, surveillance). |
+| [Department of Energy Abu Dhabi](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3820) | **A305** | Atrium | UAE | Regulator; relevant for methane/emissions reporting and drone-operations policy. |
+
+Also exhibiting (no description yet on the ADIPEC site): SLB 4330 Hall 4, Halliburton 5250 Hall 5, Weatherford 4340 Hall 4, NESR 5350 Hall 5, Petronas 6322 Hall 6, Sinopec 8210 Hall 8, NNPC A400 Atrium, KNOC 8320 Hall 8, PTTEP 5220 Hall 5.
+
+### B. Competitors and peers: drones, robotics, inspection, NDT, asset integrity
+Know what they show, what they charge and who they talk to.
+
+| Company | Stand | Hall | Country | Why visit |
+|---|---|---|---|---|
+| [NDT Corrosion Control Services (NDTCCS)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3578) | **4210** | Hall 4 | UAE | Our partner: advanced NDT, drone inspection, underwater robotic inspection. Co-exhibitor at 4210 with BGP/CNPC, Cosasco, EGA Master. |
+| [Sigma Enterprises (Mazrui)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3923) | **1130** | Hall 1 | UAE | Closest local competitor: core segments 'Robotics, Drones & Spatial Intelligence / NDT / Geomatics'; 45+ represented brands. Sister co. Sigma Specialized Inspection (NDT services) and Evident/Olympus also at 1130. |
+| [Velosi Asset Integrity](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2717) | **16560** | Hall 16 | UAE | Asset integrity, inspection and digital solutions; second stand 11044 (Hall 11). |
+| [TRE Energies](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2697) | **15104** | Hall 15 | UAE | UAE energy services incl. NDT, integrity and surveillance. |
+| [Aries Oil Field Services](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2276) | **240** | Hall 2 | UAE | Claims to be the largest Engineering, Inspection & Maintenance firm in the Middle East. |
+| [Acumen International](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2214) | **16192** | Hall 16 | UAE | Third-party inspection, testing & certification (lifting, MRT, NDT). |
+| [Sap & Kaps Petroleum Services](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2624) | **810** | Hall 8 | UAE | Tank and pipeline integrity solutions. |
+| [Bureau Veritas](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3379) | **9330** | Hall 9 | UAE | TIC major with drone/ROV inspection lines; Bronze sponsor. |
+| [DNV](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3405) | **9150** | Hall 9 | UAE | Integrity/assurance; certification of drone & robotic inspection methods. |
+| [TUV Rheinland Middle East](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3034) | **8856** | Hall 8 | UAE | Testing, inspection and certification; NDT and asset integrity. |
+| [SGS](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2820) | **8250** | Hall 8 | UAE | TIC major; inspection services. |
+| [RINA](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3249) | **1313** | Hall 1 | Italy | Inspection, certification and engineering for energy. |
+| [Baker Hughes](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2286) | **3432** | Hall 3 | UAE | Owner of Waygate Technologies (NDT, robotic/UT inspection) and Avitas; Gold meeting suite. |
+| [Rosenxt - IDS](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2615) | **16531** | Hall 16 | Germany | ROSEN group NDT systems; 'autonomous robotics, physical AI' - also Rosenxt Group at AI P27. |
+| [EMPIT](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2972) | **13484** | Hall 13 | Germany | Current Magnetometry Inspection of buried/unpiggable pipelines with AI 3D mapping. |
+| [EVIDENT Europe (Olympus)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3767) | **3115** | Hall 3 | Czech Republic | NDT instruments (UT, PAUT, videoscopes); also at 1130 via Sigma. |
+| [DURR NDT](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2968) | **13471** | Hall 13 | Germany | Digital radiography systems for NDT. |
+| [Dakota NDT](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2330) | **CN6** | Concourse | UK | Ultrasonic thickness gauges / UT equipment. |
+| [T-ALL Inspection Group](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3702) | **12827** | Hall 12 | China | Chinese inspection group entering GCC. |
+| [Mena3D](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3007) | **8735** | Hall 8 | Germany | 3D scanning, surveying, UAV, GIS, BIM for asset digitisation - direct survey/mapping peer. |
+| [Geosoft Surtech International](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2675) | **12702** | Hall 12 | UAE | UAE survey firm: terrestrial/marine/aerial capture into digital twins. |
+| [Fugro](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3160) | **4420** | Hall 4 | UAE | Geo-data, survey, ROV/USV and asset inspection major (shares 4420 with TechnipFMC). |
+| [Dulam International](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4034) | **15009** | Hall 15 | UAE | Subsea integrity, hydrographic and ROV surveys. |
+| [IKM Subsea Middle East](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2442) | **15315** | Hall 15 | UAE | Independent ROV & subsea operator. |
+| [Sealien Robotics](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3697) | **15132** | Hall 15 | China | Subsea intelligent robots / ROVs. |
+| [QYSEA Technology](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2640) | **15005** | Hall 15 | China | Underwater ROV platforms with AI software (FIFISH). |
+| [OceanAlpha Group](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2747) | **15348** | Hall 15 | China | Unmanned surface vessels for survey. |
+| [Frogmen Technologies](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2395) | **15432** | Hall 15 | UAE | Sole GCC distributor for CHASING ROVs. |
+| [DeepOcean](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3948) | **AI S2** | Hall AI | Norway | Ocean survey/IMR services, AI strategic partner; resident-ROV/USV competitor offshore. |
+| [Liberaware](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4088) | **10710** | Hall 10 | Japan | Japanese indoor/confined-space inspection drone maker (IBIS) in the same Japan Pavilion as Terra Drone. |
+| [KT Photonics](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2858) | **3257** | Hall 3 | Canada | OGI/thermal detector cores for UAV gas-leak detection - competitor sensor supplier and potential payload partner. |
+| [SENSIA Solutions](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2632) | **AI P2** | Hall AI | Spain | AI-powered optical gas imaging (handheld & continuous) - methane monitoring peer. |
+| [Fluenta](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3408) | **9152** | Hall 9 | Norway | Ultrasonic flare gas measurement - emissions quantification peer. |
+| [LiveEO](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2484) | **AI P26** | Hall AI | Germany | Satellite-based infrastructure monitoring (pipeline ROW, encroachment) - alternative to drone surveillance. |
+| [Detect Technologies](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3620) | **AI P21** | Hall AI | India | Industrial AI for safety/reliability (computer vision on site cameras & drones). |
+| [ALTAVE](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3358) | **16305** | Hall 16 | Brazil | AI monitoring (aerostat/camera) for O&G sites - surveillance peer. |
+| [ANTEA](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3626) | **1160** | Hall 1 | UAE | RBI / asset integrity management software with digital twin (Italian pavilion stand 1160). |
+| [Cenosco](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2311) | **16556** | Hall 16 | Netherlands | Asset integrity management software (IMS) - data destination for inspection results. |
+
+### C. Potential partners and suppliers
+| Company | Stand | Hall | Country | Why visit |
+|---|---|---|---|---|
+| [Unitree](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4220) | **AI P11** | Hall AI | China | Quadruped/humanoid robot maker - ground-robot platform supplier for plant inspection. |
+| [HappyRobot](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4065) | **AI S6** | Hall AI | Spain | Robotics/AI startup in the AI zone (shared S6 with Microsoft, Celonis, IFS, KPMG). |
+| [Sinaha Technology](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4056) | **AI P15** | Hall AI | UAE | UAE AI-agent and robotics orchestration/automation integrator. |
+| [AIQ](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3164) | **AIQ Co-Host** | Hall AI | UAE | ADNOC x G42 AI joint venture, co-host of Hall AI; gatekeeper for AI/computer-vision deployments at ADNOC. |
+| [Honeywell](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2436) | **AI S10** | Hall AI | UAE | AI strategic partner and Gold sponsor (main stand 4150, Hall 4); gas detection, Forge APM, integration partner. |
+| [Siemens](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2648) | **12616** | Hall 12 | UAE | Industrial AI, digital twin; also AI P5; Siemens Energy at 3550. |
+| [Emerson](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3508) | **7351** | Hall 7 | UAE | Automation/instrumentation; wireless corrosion & gas sensing, AspenTech software. |
+| [Yokogawa UAE](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2744) | **12710** | Hall 12 | UAE | Japanese automation major with ADNOC footprint; drone/robot data integration into plant systems. |
+| [AVEVA](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3155) | **4410** | Hall 4 | UAE | Industrial software / digital twin (also AI P30) - integration target for inspection data. |
+| [Cognite](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2322) | **12540** | Hall 12 | Norway | Industrial DataOps (Cognite Data Fusion), used by Aker BP for robotics data; also AI P14. |
+| [SUPCON](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3952) | **AI S9** | Hall AI | Singapore/China | Industrial automation + robotics, AI strategic partner. |
+| [Microsoft](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3950) | **AI S6** | Hall AI | UAE | AI strategic partner; Azure/AI stack for inspection analytics. |
+| [Nvidia](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4242) | **(sponsor, no stand listed)** | Sponsor | USA | Edge AI compute (Jetson) for drones/robots; AI Innovators sponsor. |
+| [Etisalat (e&)](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4238) | **(sponsor, no stand listed)** | Sponsor | UAE | AI strategic partner; private 5G / BVLOS connectivity for UAE sites. |
+| [Speedcast Telecommunications](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3151) | **15302** | Hall 15 | UAE | Satcom/critical comms for remote and offshore drone ops. |
+| [IEC Telecom](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3387) | **9253** | Hall 9 | UAE | Satellite communication operator (remote-site connectivity). |
+| [IS-Wireless](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3945) | **15130** | Hall 15 | Poland | Private 5G (Liquid RAN) for critical infrastructure. |
+| [Al Wafa Technical Systems Services](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2242) | **CN4** | Concourse | UAE | UAE telecom/satellite/security & ELV integrator for O&G since 1992 - channel for surveillance drones. |
+| [Fortis Telecommunication Equipment Trading](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2394) | **12943** | Hall 12 | UAE | Abu Dhabi distributor of Moxa, Westermo, RealWear industrial networking. |
+| [Hanwei Electronics Group](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3732) | **12747** | Hall 12 | China | Gas sensors / methane detection hardware; digital twin cloud. |
+| [HORIBA Middle East](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4085) | **10710** | Hall 10 | Japan | Gas analyzers / emission measurement (Japan Pavilion neighbour). |
+| [Synspective](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4090) | **10710** | Hall 10 | Japan | SAR satellite data (ground deformation, pipeline/facility monitoring) - complements drone survey; Japan Pavilion neighbour. |
+| [Exail](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2380) | **15007** | Hall 15 | France | Inertial navigation, robotics, maritime and photonics - INS/payload supplier. |
+| [Three Lions Trading Company](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2691) | **16718** | Hall 16 | Bahrain | Bahrain APM/IoT integrator reselling drones & robotics - potential GCC channel partner. |
+| [United Synergy Companies Representation](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4036) | **6270** | Hall 6 | UAE | UAE exclusive agent for engineering manufacturers (robotics, NDT) - distribution partner candidate. |
+| [Kent International Arabia](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=3949) | **AI P9** | Hall AI | UAE | Digital twins, industrial AI, autonomous systems consulting. |
+| [Shape Digital](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=4183) | **AI P8** | Hall AI | Brazil | Industrial AI decision platforms for asset-heavy industries. |
+| [New York University Abu Dhabi](https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=2527) | **12910** | Hall 12 | UAE | AI & robotics research; local R&D / talent partner. |
+
+### Not exhibiting under their own name
+Aramco, QatarEnergy, KOC, PDO, OQ, ENOC, TAQA, EDGE / ADASI, Bayanat / Space42, DJI, Flyability, Skydio, Percepto, Gecko Robotics, ANYbotics, Voliro, Cyberhawk, Applus+, Intertek, Oceaneering, Mistras, Eddyfi, Aerodyne. ADNOC Onshore / Offshore / Gas / Drilling have no separate stands: meet them at the ADNOC stand (A210, Atrium).
+
+Source: the ADIPEC exhibitor list on adipec.com, 1,927 exhibitors as of 20 October 2026. Stands can still change: check the [ADIPEC exhibitor list](https://www.adipec.com/exhibition/exhibitor-list/) or the app on the day.`,
+    quiz: [
+      {
+        q: "Where is our booth at ADIPEC 2026?",
+        choices: ["Stand 4210, Hall 4 (Al Masaood Energy pavilion)", "Stand 10710, Hall 10 (Japan Pavilion)", "A210, Atrium", "Hall AI"],
+        answer: 0,
+        explain: "4210 in Hall 4 is the Al Masaood Energy pavilion. Terra Drone Corporation (Japan) is also in the Japan Pavilion at 10710, Hall 10.",
+      },
+      {
+        q: "Where do you find ADNOC and most of the operators?",
+        choices: ["Atrium (ADNOC at A210) and Hall 6", "Hall 15", "Hall AI", "Concourse"],
+        answer: 0,
+      },
+      {
+        q: "Which hall has the subsea and marine robotics companies (QYSEA, IKM, OceanAlpha)?",
+        choices: ["Hall 15", "Hall 1", "Hall 10", "Atrium"],
+        answer: 0,
+      },
+      {
+        q: "Which local company is our closest competitor on drones, NDT and geomatics?",
+        choices: ["Sigma Enterprises (Mazrui), Hall 1", "Bureau Veritas, Hall 9", "Unitree, Hall AI", "Fugro, Hall 4"],
+        answer: 0,
+      },
+    ],
+  },
+  {
     id: 'tips',
     title: 'Other tips',
     body: `- Download the app: **VisitConnect**
@@ -579,7 +795,7 @@ https://youtu.be/JA7Zu1fhfHU`,
 - **Always take notes** of your conversation with a visitor. Most important: write down their inquiry or request, on the back of their business card or in the app's notes
 - Show real equipment in action:
   - Voliro → take some measurements on the calibration block
-  - DJI Dock 3 → open and close the dock
+  - DJI Dock 4 → open and close the dock, show the battery swap
   - Bring the DJI Avata
 - The internet connection is poor there, even on the ADIPEC Wi-Fi: **download videos and files to your device beforehand**`,
     quiz: [

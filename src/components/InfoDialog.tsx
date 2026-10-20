@@ -114,7 +114,7 @@ export function InfoDialog({
               Learn more ↗
             </a>
           )}
-          <a className="button-link" href={`?briefing#obj-${encodeURIComponent(obj.id)}`} target="_blank" rel="noopener" title="The team briefing (opens in a new tab)">
+          <a className="button-link" href="?briefing#booth" target="_blank" rel="noopener" title="The team briefing (opens in a new tab)">
             Team briefing ↗
           </a>
         </div>

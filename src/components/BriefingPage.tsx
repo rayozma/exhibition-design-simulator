@@ -16,14 +16,13 @@ import {
   type QuizItem,
   type SectionPatch,
 } from '../lib/briefing'
-import { fetchRoom, fetchRooms, type Room } from '../lib/db'
+import { fetchRooms, type Room } from '../lib/db'
 import { askConfirm, askText } from '../lib/dialogs'
 import { parseDesign } from '../lib/design'
-import type { EditorObject } from '../lib/editor'
 import { isImageLink, uploadImage } from '../lib/images'
-import { hasInfo } from '../lib/layout'
 import { supabase } from '../lib/supabase'
 import { loadUser } from '../lib/user'
+import { ExhibitorFinder } from './ExhibitorFinder'
 import { Field, RemarksField } from './fields'
 import { Markdown } from './Markdown'
 import { Quiz, QuizEditor, usableQuiz } from './Quiz'
@@ -40,7 +39,7 @@ function boothRoom(rooms: Room[], chosen: string | null): Room | null {
   return rooms.find((r) => !r.design || /adipec/i.test(parseDesign(r.design)?.event ?? '')) ?? rooms[0] ?? null
 }
 
-/** Team briefing at ?briefing: sections everyone can edit live, the booth items, and a private quiz. */
+/** Team briefing at ?briefing: sections everyone can edit live, a link to the booth in 3D, and a private quiz. */
 export function BriefingPage() {
   const [sections, setSections] = useState<BriefingSection[] | null>(supabase ? null : DEFAULT_BRIEFING)
   const [error, setError] = useState<string | null>(null)
@@ -77,7 +76,7 @@ export function BriefingPage() {
     }
   }, [live])
 
-  // Content arrives after the first render: jump to #section / #obj-… once it's there.
+  // Content arrives after the first render: jump to #section once it's there.
   const jumped = useRef(false)
   useEffect(() => {
     if (jumped.current || !sections || !location.hash) return
@@ -85,18 +84,8 @@ export function BriefingPage() {
     if (el) {
       jumped.current = true
       el.scrollIntoView()
-    } else if (location.hash.startsWith('#obj-') && rooms) {
-      jumped.current = true
-      document.getElementById('booth')?.scrollIntoView()
     }
   })
-
-  // Printing: open every collapsed FAQ so it's on paper.
-  useEffect(() => {
-    const open = () => document.querySelectorAll<HTMLDetailsElement>('.briefing .booth-item details').forEach((d) => (d.open = true))
-    window.addEventListener('beforeprint', open)
-    return () => window.removeEventListener('beforeprint', open)
-  }, [])
 
   const patch = useCallback(async (id: string, p: SectionPatch) => {
     setSections((list) => list && sortSections(list.map((s) => (s.id === id ? { ...s, ...p } : s))))
@@ -183,38 +172,71 @@ export function BriefingPage() {
     saveQuizAnswers({})
   }
 
+  // Highlight the section in view in the side navigation.
+  const [active, setActive] = useState<string | null>(null)
+  useEffect(() => {
+    if (!sections?.length) return
+    const els = sections.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => !!el)
+    const io = new IntersectionObserver(
+      (entries) => {
+        const hit = entries.filter((e) => e.isIntersecting).sort((x, y) => x.boundingClientRect.top - y.boundingClientRect.top)[0]
+        if (hit) setActive(hit.target.id)
+      },
+      { rootMargin: '-15% 0px -70% 0px' },
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [sections])
+
+  const pct = quizTotals.total ? Math.round((quizTotals.right / quizTotals.total) * 100) : 0
+
   return (
     <div className="guide briefing">
-      <header>
-        <a className="no-print" href={home()}>
-          ← Back to designs
-        </a>
-        <h1>ADIPEC 2026 team briefing</h1>
-        <p className="muted">
-          Terra Drone x NDTCCS · everything you need to know before and during the show. Read it, then test yourself at the end of each
-          section.
-        </p>
-        <div className="briefing-tools no-print">
-          {quizTotals.total > 0 && (
-            <span className={`quiz-score ${quizTotals.right === quizTotals.total ? 'done' : ''}`}>
-              Your quiz: {quizTotals.right}/{quizTotals.total} right
-            </span>
-          )}
-          <button onClick={() => window.print()}>Print</button>
-          {Object.keys(answers).length > 0 && <button onClick={resetQuiz}>Clear my quiz answers</button>}
+      <div className="brief-top no-print">
+        <a href={home()}>← Back to designs</a>
+        <div className="brief-top-links">
           <a href="?guide">Simulator guide</a>
+          <button onClick={() => window.print()}>Print</button>
         </div>
-      </header>
+      </div>
 
-      {sections && sections.length > 0 && (
-        <nav className="guide-toc">
-          {sections.map((s, k) => (
-            <a key={s.id} href={`#${s.id}`}>
-              {k + 1}. {s.title || 'Untitled'}
-            </a>
-          ))}
-        </nav>
-      )}
+      <header className="brief-hero">
+        <div>
+          <div className="brief-eyebrow">Terra Drone x NDTCCS · team briefing</div>
+          <h1>ADIPEC 2026</h1>
+          <p>Everything you need to know before and during the show. Read it, then test yourself at the end of each section.</p>
+          <div className="brief-meta">
+            <span className="brief-chip">2–5 November 2026</span>
+            <span className="brief-chip">ADNEC, Abu Dhabi</span>
+            <span className="brief-chip">Our stand: 4210, Hall 4</span>
+            <span className="brief-chip">8 AM – 4 PM daily</span>
+          </div>
+        </div>
+        {quizTotals.total > 0 && (
+          <div className="brief-progress no-print">
+            <div className="brief-progress-head">
+              <span>Your quiz</span>
+              <b>
+                {quizTotals.right}/{quizTotals.total}
+              </b>
+            </div>
+            <div className="bar">
+              <div style={{ width: `${pct}%` }} />
+            </div>
+            <div className="muted small">
+              {pct === 100 ? 'All correct. Well prepared!' : `${pct}% right · answers stay on this device`}
+              {Object.keys(answers).length > 0 && (
+                <>
+                  {' · '}
+                  <button className="link" onClick={resetQuiz}>
+                    clear
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </header>
 
       {error && (
         <p className="status overlap">
@@ -227,75 +249,114 @@ export function BriefingPage() {
       {!live && <p className="status outside">Offline copy: the database is not configured, so the briefing can't be edited here.</p>}
       {!sections && !error && <p className="muted">Loading…</p>}
 
-      {sections?.map((s, k) => (
-        <section key={s.id} id={s.id}>
-          <div className="briefing-head">
-            <h2>
-              {k + 1}. {s.title || 'Untitled'}
-            </h2>
+      <div className="brief-layout">
+        {sections && sections.length > 0 && (
+          <nav className="brief-nav no-print" aria-label="Sections">
+            {sections.map((s, k) => (
+              <a key={s.id} href={`#${s.id}`} className={active === s.id ? 'active' : ''}>
+                <span className="num">{k + 1}</span>
+                {s.title || 'Untitled'}
+              </a>
+            ))}
             {live && (
-              <div className="briefing-actions no-print">
-                <button className={editing === s.id ? 'active' : ''} onClick={() => setEditing(editing === s.id ? null : s.id)}>
-                  {editing === s.id ? 'Done' : 'Edit'}
-                </button>
-                <button className="link" disabled={k === 0} onClick={() => move(k, -1)} title="Move section up" aria-label="Move section up">
-                  ↑
-                </button>
-                <button
-                  className="link"
-                  disabled={k === sections.length - 1}
-                  onClick={() => move(k, 1)}
-                  title="Move section down"
-                  aria-label="Move section down"
-                >
-                  ↓
+              <div className="brief-nav-foot">
+                <button className="link small" onClick={() => add(sections.length - 1)}>
+                  + Add a section
                 </button>
               </div>
             )}
-          </div>
+          </nav>
+        )}
 
-          {editing === s.id ? (
-            <SectionEditor
-              s={s}
-              rooms={rooms}
-              onPatch={(p) => patch(s.id, p)}
-              onQuiz={(fn) => patchQuiz(s.id, fn)}
-              onDelete={() => remove(s)}
-              onDone={() => setEditing(null)}
-            />
-          ) : (
-            <>
-              <Markdown text={s.body} />
-              <Images images={s.images} title={s.title} />
-              {s.kind === 'booth' && <BoothItems rooms={rooms} chosen={s.room} />}
-              <Quiz sectionId={s.id} quiz={s.quiz} answers={answers} onAnswer={answer} />
-              {s.updated_by && s.updated_by !== 'seed' && s.updated_at && (
-                <p className="muted small no-print">
-                  Last edited by {s.updated_by}, {when(s.updated_at)}
-                </p>
+        <main className="brief-main">
+          {sections?.map((s, k) => (
+            <section key={s.id} id={s.id}>
+              <div className="briefing-head">
+                <h2>
+                  <span className="sec-num">{k + 1}</span>
+                  {s.title || 'Untitled'}
+                </h2>
+                {live && (
+                  <div className="briefing-actions no-print">
+                    <button className={editing === s.id ? 'active' : ''} onClick={() => setEditing(editing === s.id ? null : s.id)}>
+                      {editing === s.id ? 'Done' : 'Edit'}
+                    </button>
+                    <button className="link" disabled={k === 0} onClick={() => move(k, -1)} title="Move section up" aria-label="Move section up">
+                      ↑
+                    </button>
+                    <button
+                      className="link"
+                      disabled={k === sections.length - 1}
+                      onClick={() => move(k, 1)}
+                      title="Move section down"
+                      aria-label="Move section down"
+                    >
+                      ↓
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {editing === s.id ? (
+                <SectionEditor
+                  s={s}
+                  rooms={rooms}
+                  onPatch={(p) => patch(s.id, p)}
+                  onQuiz={(fn) => patchQuiz(s.id, fn)}
+                  onDelete={() => remove(s)}
+                  onDone={() => setEditing(null)}
+                />
+              ) : (
+                <>
+                  <Body text={s.body} />
+                  <Images images={s.images} title={s.title} />
+                  {s.kind === 'booth' && <BoothLink rooms={rooms} chosen={s.room} />}
+                  <Quiz sectionId={s.id} quiz={s.quiz} answers={answers} onAnswer={answer} />
+                  {s.updated_by && s.updated_by !== 'seed' && s.updated_at && (
+                    <p className="muted small no-print">
+                      Last edited by {s.updated_by}, {when(s.updated_at)}
+                    </p>
+                  )}
+                </>
               )}
-            </>
-          )}
 
-          {live && (
-            <button className="link add-section no-print" onClick={() => add(k)}>
-              + Add a section here
+              {live && (
+                <button className="link add-section no-print" onClick={() => add(k)}>
+                  + Add a section here
+                </button>
+              )}
+            </section>
+          ))}
+
+          {live && sections?.length === 0 && (
+            <button className="no-print" onClick={() => add(-1)}>
+              + Add a section
             </button>
           )}
-        </section>
-      ))}
 
-      {live && sections?.length === 0 && (
-        <button className="no-print" onClick={() => add(-1)}>
-          + Add a section
-        </button>
-      )}
-
-      <footer className="muted small no-print">
-        Everyone with the team PIN can edit this page; changes save automatically and show up live for others. Quiz answers stay
-        private, in your browser only.
-      </footer>
+          <footer className="muted small no-print">
+            Everyone with the team PIN can edit this page; changes save automatically and show up live for others. Quiz answers stay
+            private, in your browser only.
+          </footer>
+        </main>
+      </div>
     </div>
+  )
+}
+
+/** A line with only this text puts the exhibitor search box there. */
+const FINDER = /^[ \t]*\[\[exhibitor-finder\]\][ \t]*$/m
+
+/** Section text, with the exhibitor finder where its marker line is. */
+function Body({ text }: { text: string }) {
+  if (!FINDER.test(text)) return <Markdown text={text} />
+  const [before, after] = text.split(FINDER, 2)
+  return (
+    <>
+      <Markdown text={before} />
+      <ExhibitorFinder />
+      {after?.trim() && <Markdown text={after} />}
+    </>
   )
 }
 
@@ -312,89 +373,18 @@ function Images({ images, title }: { images: string[]; title: string }) {
   )
 }
 
-/** The numbered items of the booth design, with their info cards, each linking to it in 3D. */
-function BoothItems({ rooms, chosen }: { rooms: Room[] | null; chosen: string | null }) {
+/** Button to open the booth design in 3D (the one chosen for the section, else the latest ADIPEC design). */
+function BoothLink({ rooms, chosen }: { rooms: Room[] | null; chosen: string | null }) {
   const room = rooms ? boothRoom(rooms, chosen) : null
-  const [items, setItems] = useState<EditorObject[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!room) return
-    let cancelled = false
-    setItems(null)
-    setError(null)
-    const layoutId = parseDesign(room.design)?.layoutId ?? 'B'
-    fetchRoom(room.id)
-      .then((byLayout) => {
-        if (cancelled) return
-        const list = (byLayout[layoutId] ?? []).filter((o) => o.num !== undefined || hasInfo(o.info))
-        list.sort((a, b) => (a.num ?? 999) - (b.num ?? 999) || a.name.localeCompare(b.name))
-        setItems(list)
-      })
-      .catch((e: Error) => !cancelled && setError(e.message))
-    return () => {
-      cancelled = true
-    }
-  }, [room])
-
-  if (!supabase) return <p className="muted small">The booth items show here when the database is configured.</p>
+  if (!supabase) return null
   if (!rooms) return <p className="muted small">Loading the booth…</p>
   if (!room) return <p className="muted small">No booth design yet. Create one on the home page.</p>
-
-  const open3d = `?room=${room.id}`
   return (
-    <div className="booth">
-      <p className="booth-link">
-        <a className="button-link" href={open3d} target="_blank" rel="noopener">
-          Open “{room.name}” in 3D ↗
-        </a>
-      </p>
-      {error && <p className="status overlap">Could not load the booth items: {error}</p>}
-      {!items && !error && <p className="muted small">Loading the booth items…</p>}
-      {items?.length === 0 && <p className="muted small">This design has no numbered items or info cards yet.</p>}
-      {items?.map((o) => {
-        const info = o.info ?? {}
-        const faq = (info.faq ?? []).filter((f) => f.q.trim())
-        return (
-          <article key={o.id} id={`obj-${o.id}`} className="booth-item">
-            <h3>
-              {o.num !== undefined && <span className="booth-num">{o.num}</span>}
-              {info.title?.trim() || o.name}
-            </h3>
-            {info.title?.trim() && info.title.trim() !== o.name && <p className="muted small">On the booth: {o.name}</p>}
-            {!!info.images?.length && <Images images={info.images} title={info.title?.trim() || o.name} />}
-            {info.description?.trim() && <p className="pre">{info.description.trim()}</p>}
-            {info.why?.trim() && (
-              <div className="info-why">
-                <h4>Why it&apos;s useful for visitors</h4>
-                <p className="pre">{info.why.trim()}</p>
-              </div>
-            )}
-            {faq.length > 0 && (
-              <div className="info-faq">
-                <h4>FAQ</h4>
-                {faq.map((f, k) => (
-                  <details key={k}>
-                    <summary>{f.q}</summary>
-                    <p className="pre">{f.a}</p>
-                  </details>
-                ))}
-              </div>
-            )}
-            <p className="booth-item-links no-print">
-              <a href={`${open3d}&focus=${encodeURIComponent(o.id)}`} target="_blank" rel="noopener">
-                Show in 3D ↗
-              </a>
-              {info.link?.trim() && (
-                <a href={info.link.trim()} target="_blank" rel="noopener noreferrer">
-                  Learn more ↗
-                </a>
-              )}
-            </p>
-          </article>
-        )
-      })}
-    </div>
+    <p className="booth-link">
+      <a className="button-link" href={`?room=${room.id}`} target="_blank" rel="noopener">
+        Open “{room.name}” in 3D ↗
+      </a>
+    </p>
   )
 }
 
@@ -473,6 +463,9 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
           </li>
           <li>
             Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>
+          </li>
+          <li>
+            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>
           </li>
         </ul>
       </details>
