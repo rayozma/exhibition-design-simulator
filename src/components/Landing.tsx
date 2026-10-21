@@ -62,7 +62,7 @@ export function Landing() {
   }
 
   return (
-    <div className="center-screen">
+    <div className="center-screen landing">
       <div className="card wide">
         <h1>{APP_TITLE}</h1>
         <p className="muted">
