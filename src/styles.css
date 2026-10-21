@@ -2623,3 +2623,34 @@ a.button-link.briefing-cta {
     grid-template-columns: 1fr;
   }
 }
+
+/* Service FAQ (reuses the visitor check styles) */
+.sfaq-asked {
+  font-size: 13px;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.sfaq-say {
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #111827 !important;
+}
+
+.sfaq-answer {
+  border-left-color: #111827;
+}
+
+.sfaq-answer ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.sfaq-answer li {
+  margin-bottom: 3px;
+}
+
+.sfaq-answer ul.sfaq-proof li::marker {
+  content: '✓  ';
+  color: #059669;
+}

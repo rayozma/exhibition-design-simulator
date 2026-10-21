@@ -24,6 +24,7 @@ import { isImageLink, uploadImage } from '../lib/images'
 import { supabase } from '../lib/supabase'
 import { loadUser } from '../lib/user'
 import { ExhibitorFinder } from './ExhibitorFinder'
+import { ServiceFaq } from './ServiceFaq'
 import { VisitorCheck } from './VisitorCheck'
 import { Field, RemarksField } from './fields'
 import { Markdown } from './Markdown'
@@ -346,12 +347,13 @@ export function BriefingPage() {
   )
 }
 
-/** A line with only [[name]] puts that interactive block there. */
-const WIDGETS: Record<string, () => React.ReactNode> = {
+/** A line with only [[name]] or [[name:arg]] puts that interactive block there. */
+const WIDGETS: Record<string, (arg?: string) => React.ReactNode> = {
   'exhibitor-finder': () => <ExhibitorFinder />,
   'visitor-check': () => <VisitorCheck />,
+  'service-faq': (topic) => <ServiceFaq topic={topic} />,
 }
-const WIDGET_LINE = /^[ \t]*\[\[(exhibitor-finder|visitor-check)\]\][ \t]*$/m
+const WIDGET_LINE = /^[ \t]*\[\[((?:exhibitor-finder|visitor-check|service-faq)(?::[a-z-]+)?)\]\][ \t]*$/m
 
 /** Section text, with interactive blocks where their marker lines are. */
 function Body({ text }: { text: string }) {
@@ -361,7 +363,7 @@ function Body({ text }: { text: string }) {
   return (
     <>
       {parts.map((p, k) =>
-        k % 2 ? <div key={k}>{WIDGETS[p]()}</div> : p.trim() ? <Markdown key={k} text={p} /> : null,
+        k % 2 ? <div key={k}>{WIDGETS[p.split(':')[0]](p.split(':')[1])}</div> : p.trim() ? <Markdown key={k} text={p} /> : null,
       )}
     </>
   )
@@ -472,7 +474,7 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
             Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>
           </li>
           <li>
-            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>
+            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>; service FAQ: <code>[[service-faq:survey]]</code> (survey, inspection, surveillance, methane, training, selling)
           </li>
         </ul>
       </details>

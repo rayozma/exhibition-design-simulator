@@ -191,6 +191,7 @@ Sample use cases: [Data Sample 2024]()`,
   - Exploration / seismic → reconnaissance, planning, supporting data collection, etc
   - Exploration using infra-red data (NDVI, thermal, etc)
   - Agriculture → tree counting, health assessment, estate design, etc
+[[service-faq:survey]]
 
 ### Inspection
 - **External visual**
@@ -206,25 +207,30 @@ Sample use cases: [Data Sample 2024]()`,
   - Spot UT thickness measurement of a surface (storage tank wall, roof, IPA beam, boiler wall tube)
 - **Underwater inspection**
   - High-resolution photo & video to visually inspect underwater structures & objects
+[[service-faq:inspection]]
 
 ### Surveillance
 - Real-time live-stream video for security & safety
 - First response in emergencies: real-time information to the command center
 - **Fixed wing** for large areas (e.g. pipelines), **multirotor** for small areas (e.g. facility, plant, complex)
 - Both have a zoom surveillance camera, plus an infra-red thermal camera for night operation
+[[service-faq:surveillance]]
 
 ### Gas leak & methane monitoring
 - Real-time data collection and transmission: leaks are found instantly, without exposing personnel
 - Comprehensive reports with geotagged data, aerial images and detailed analysis of detected leaks, for asset integrity
+[[service-faq:methane]]
 
 ### Drone training & consultancy
 - Training / workshops for employees: how to operate drones and how to use them in their business
 - An academy (e.g. 2–3 months) for complete knowledge of drone operations
 - Consultancy to build an internal drone program: choosing the right drone, meeting compliance requirements, etc
+[[service-faq:training]]
 
 ### Selling drones
 - We are an **official reseller of DJI Enterprise**
 - We also sell our own fixed-wing drone technology
+[[service-faq:selling]]
 
 ### Service materials
 | Service | Folder | Video | Sample data |
