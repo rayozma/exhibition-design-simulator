@@ -19,7 +19,8 @@ type Exhibitor = {
 }
 
 const DATA_URL = import.meta.env.BASE_URL + 'briefing/exhibitors.json'
-const profileUrl = (id: number) => `https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=${id}`
+const LIST_URL = 'https://www.adipec.com/exhibition/exhibitor-list/'
+const profileUrl = (id: number) =>`https://www.adipec.com/exhibition/exhibitordetails?exhibitorid=${id}`
 const MAX_SHOWN = 60
 
 /** "Hall 4" before "Hall 10", halls before Atrium / Concourse / Hall AI. */
@@ -88,6 +89,10 @@ export function ExhibitorFinder() {
               ? 'No exhibitor matches. Try fewer or different words.'
               : `${results.length} of ${data.list.length} exhibitors${results.length > MAX_SHOWN ? `, first ${MAX_SHOWN} shown` : ''}`}
           {' · '}ADIPEC list as of {data.fetched}
+          {' · '}
+          <a href={LIST_URL} target="_blank" rel="noopener noreferrer">
+            Official exhibitor list ↗
+          </a>
         </p>
       )}
       <div className="exf-list">
