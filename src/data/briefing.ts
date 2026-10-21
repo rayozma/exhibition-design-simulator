@@ -37,7 +37,7 @@ https://youtu.be/suRPKB9GTec`,
   },
   {
     id: 'who',
-    title: 'Who are we?',
+    title: "Who we are & why we're here",
     body: `We are **Terra Drone x NDTCCS**, a partnership between Terra Drone Indonesia & NDT Corrosion Control Services UAE to serve the market in the UAE, especially Abu Dhabi.
 
 ### Terra Drone, a drone startup from Japan
@@ -54,7 +54,18 @@ https://youtu.be/suRPKB9GTec`,
 - **Presence:** the whole Middle East (KSA, UAE, Oman, Bahrain, Qatar, Kuwait)
 - **No. of employees:** 3,000++
 - **Core business:** NDT inspection, advanced NDT (robotics, drones, underwater ROV, etc), lifting inspection, metallurgy & laboratory services, asset integrity management, heat treatment, cathodic protection, manpower supply, etc
-- **Key customers:** Aramco, SABIC, ADNOC, Nawah, etc`,
+- **Key customers:** Aramco, SABIC, ADNOC, Nawah, etc
+
+### Why we are in the Al Masaood pavilion
+Terra Drone & NDTCCS have been working closely with Al Masaood **as their strategic partner** in securing some major contracts with ADNOC:
+
+1. Drone center contract with ADNOC Onshore
+2. Framework agreement with ADNOC Group
+
+### Why we are at ADIPEC
+We want to **showcase drone solutions** and their benefits for the oil & gas industry.
+
+We want to **introduce the drones that are currently available in Abu Dhabi**, and the solutions that we can offer to customers.`,
     quiz: [
       {
         q: 'Where is Terra Drone headquartered, and when did it start?',
@@ -77,29 +88,12 @@ https://youtu.be/suRPKB9GTec`,
         answer: 0,
         explain: 'Terra Drone builds 3D Inspect and Terra Cloud. FlightHub 2 is DJI’s, GeoSLAM is a feature used with Elios 3.',
       },
-    ],
-  },
-  {
-    id: 'al-masaood',
-    title: 'Why are we in the Al Masaood pavilion?',
-    body: `Terra Drone & NDTCCS have been working closely with Al Masaood **as their strategic partner** in securing some major contracts with ADNOC:
-
-1. Drone center contract with ADNOC Onshore
-2. Framework agreement with ADNOC Group`,
-    quiz: [
       {
         q: 'Which ADNOC contract did we secure together with Al Masaood?',
         choices: ['Drone center contract with ADNOC Onshore', 'Offshore helicopter services', 'Pipeline construction', 'Refinery maintenance staffing'],
         answer: 0,
       },
     ],
-  },
-  {
-    id: 'why-adipec',
-    title: 'Why are we at ADIPEC?',
-    body: `We want to **showcase drone solutions** and their benefits for the oil & gas industry.
-
-We want to **introduce the drones that are currently available in Abu Dhabi**, and the solutions that we can offer to customers.`,
   },
   {
     id: 'booth',
