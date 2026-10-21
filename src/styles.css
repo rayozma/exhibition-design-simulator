@@ -2654,3 +2654,223 @@ a.button-link.briefing-cta {
   content: '✓  ';
   color: #059669;
 }
+
+/* Landing page (dark): readable links */
+.card a {
+  color: #7dd3fc;
+}
+
+/* Briefing: tap targets everywhere */
+.briefing .briefing-actions button.link {
+  padding: 6px 8px;
+}
+
+.briefing .quiz summary {
+  min-height: 32px;
+}
+
+/* ─── Briefing on phones and small tablets ──────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .brief-top {
+    padding: 6px 0 2px;
+  }
+
+  .brief-top a {
+    display: inline-block;
+    padding: 10px 0;
+  }
+
+  .brief-hero {
+    padding: 20px 18px;
+    gap: 16px;
+    border-radius: 18px;
+  }
+
+  .brief-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .brief-hero h1 {
+    font-size: 30px;
+  }
+
+  .brief-hero p {
+    font-size: 14.5px;
+  }
+
+  .brief-meta {
+    gap: 6px;
+  }
+
+  .brief-chip {
+    padding: 4px 10px;
+    font-size: 12.5px;
+  }
+
+  .brief-progress {
+    min-width: 0;
+  }
+
+  /* Section menu: a sticky strip at the top */
+  .brief-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: 0 -16px;
+    padding: 6px 12px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    background: rgba(249, 250, 251, 0.96);
+    backdrop-filter: blur(8px);
+    scrollbar-width: none;
+  }
+
+  .brief-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .brief-nav a {
+    padding: 9px 12px;
+  }
+
+  .briefing section {
+    scroll-margin-top: 64px;
+  }
+
+  /* Section title: full width; reordering is a desktop task */
+  .briefing h2 {
+    font-size: 19px;
+    gap: 10px;
+    line-height: 1.25;
+  }
+
+  .sec-num {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  .briefing .briefing-actions button.link {
+    display: none;
+  }
+
+  .briefing .briefing-actions button:not(.link) {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .briefing .quiz summary {
+    min-height: 40px;
+  }
+
+  .briefing .quiz {
+    padding: 10px 14px;
+  }
+
+  .briefing .quiz-choices button {
+    padding: 9px 14px;
+  }
+
+  .briefing .add-section {
+    padding: 8px 0;
+  }
+
+  .md-video-link {
+    padding: 8px 0;
+  }
+
+  /* Tables: one card per row, with the column name on each line */
+  .briefing .md-table {
+    overflow: visible;
+  }
+
+  .briefing .md-table table,
+  .briefing .md-table tbody,
+  .briefing .md-table tr,
+  .briefing .md-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .briefing .md-table thead {
+    display: none;
+  }
+
+  .briefing .md-table tr {
+    margin-bottom: 8px;
+    padding: 10px 12px;
+    border: 1px solid #e9ecf1;
+    border-radius: 12px;
+  }
+
+  .briefing .md-table td {
+    padding: 2px 0;
+    border: none;
+  }
+
+  .briefing .md-table td:empty {
+    display: none;
+  }
+
+  .briefing .md-table td::before {
+    content: attr(data-label);
+    display: inline-block;
+    min-width: 90px;
+    margin-right: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+
+  .briefing .md-table td:first-child {
+    padding-bottom: 4px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .briefing .md-table td:first-child::before {
+    display: none;
+  }
+
+  /* Exhibitor finder: search box full width, hall filter below */
+  .exf-bar {
+    flex-direction: column;
+  }
+
+  .exf-bar select {
+    height: 44px;
+  }
+
+  .exf-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* 16px or more: iPhones zoom into smaller form fields */
+  .exf-bar input,
+  .exf-bar select,
+  .vc-note-fields input,
+  .briefing .field input,
+  .briefing textarea.remarks,
+  .briefing select,
+  :root:has(.briefing) .dialog-input {
+    font-size: 16px;
+  }
+
+  .vc,
+  .sfaq {
+    padding: 16px 14px;
+  }
+
+  .vc-title {
+    font-size: 17px;
+  }
+
+  .briefing .vc-actions button {
+    padding: 9px 16px;
+  }
+}

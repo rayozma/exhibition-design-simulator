@@ -191,6 +191,14 @@ export function BriefingPage() {
     return () => io.disconnect()
   }, [sections])
 
+  // On phones the navigation is a horizontal strip: keep the active section in view in it.
+  useEffect(() => {
+    const nav = document.querySelector<HTMLElement>('.brief-nav')
+    const a = nav?.querySelector<HTMLElement>('a.active')
+    if (!nav || !a || nav.scrollWidth <= nav.clientWidth) return
+    nav.scrollTo({ left: a.offsetLeft - nav.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' })
+  }, [active])
+
   const pct = quizTotals.total ? Math.round((quizTotals.right / quizTotals.total) * 100) : 0
 
   return (

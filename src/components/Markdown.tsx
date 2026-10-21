@@ -156,7 +156,9 @@ function Table({ rows }: { rows: string[] }) {
           {body.map((r, j) => (
             <tr key={j}>
               {head.map((_, k) => (
-                <td key={k}>{inline(r[k] ?? '')}</td>
+                <td key={k} data-label={head[k]}>
+                  {inline(r[k] ?? '')}
+                </td>
               ))}
             </tr>
           ))}
