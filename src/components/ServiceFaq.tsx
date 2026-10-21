@@ -1,17 +1,17 @@
 import { useState } from 'react'
-import { SERVICE_TOPICS, type Answer, type FaqQuestion } from '../data/serviceFaq'
+import { SERVICE_TOPICS, type Answer, type FaqQuestion, type ServiceTopic } from '../data/serviceFaq'
 
 /**
  * Visitor FAQ for one service (or all, with a topic step first): pick the visitor's question,
  * narrow it down if needed, and get what to say, facts, proof, what to show and the next step.
  */
-export function ServiceFaq({ topic }: { topic?: string }) {
-  const fixed = SERVICE_TOPICS.find((t) => t.id === topic)
+export function ServiceFaq({ topic, topics = SERVICE_TOPICS }: { topic?: string; topics?: ServiceTopic[] }) {
+  const fixed = topics.find((t) => t.id === topic)
   const [topicId, setTopicId] = useState<string | null>(fixed?.id ?? null)
   const [qId, setQId] = useState<string | null>(null)
   const [optId, setOptId] = useState<string | null>(null)
 
-  const t = SERVICE_TOPICS.find((x) => x.id === topicId) ?? null
+  const t = topics.find((x) => x.id === topicId) ?? null
   const q: FaqQuestion | null = t?.questions.find((x) => x.id === qId) ?? null
   const opt = q?.follow?.options.find((o) => o.id === optId) ?? null
   const answer: Answer | null = q?.answer ?? opt?.answer ?? null
@@ -36,7 +36,7 @@ export function ServiceFaq({ topic }: { topic?: string }) {
 
   return (
     <div className="vc sfaq no-print">
-      <div className="vc-title">Visitor asks about {t ? t.label.toLowerCase() : 'our services'}: find the answer.</div>
+      <div className="vc-title">Visitor asks about {t ? (t.about ?? t.label.toLowerCase()) : 'our services'}: find the answer.</div>
       <div className="vc-progress">
         <span>
           Step {idx + 1} of {steps.length}
@@ -51,7 +51,7 @@ export function ServiceFaq({ topic }: { topic?: string }) {
         <>
           <div className="vc-q">Which topic?</div>
           <div className="vc-choices">
-            {SERVICE_TOPICS.map((x) => (
+            {topics.map((x) => (
               <button key={x.id} onClick={() => setTopicId(x.id)}>
                 <span>{x.label}</span>
               </button>

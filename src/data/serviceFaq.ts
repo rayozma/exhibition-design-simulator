@@ -25,7 +25,13 @@ export type FaqQuestion = {
   follow?: { q: string; options: { id: string; label: string; hint?: string; answer: Answer }[] }
 }
 
-export type ServiceTopic = { id: string; label: string; questions: FaqQuestion[] }
+export type ServiceTopic = {
+  id: string
+  label: string
+  /** How the title names it ("Visitor asks about …"); default: the label in lower case. */
+  about?: string
+  questions: FaqQuestion[]
+}
 
 // Shared answers ------------------------------------------------------------------------------
 

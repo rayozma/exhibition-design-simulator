@@ -313,6 +313,7 @@ Samples: [Short videos]() · [Videos]()`,
 - **NDTCCS is VALSEM's strategic partner in the GCC**: talk to the team at the VALSEM counter
 - Benefit for the customer: equipment arrives, and stays, in the condition it left the factory, with data to prove it: less corrosion damage in storage and fewer surprises at commissioning
 https://youtu.be/JYsudQpknpU
+[[product-faq:valsem]]
 
 ### DJI Dock 4
 ![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
@@ -328,6 +329,7 @@ https://youtu.be/JYsudQpknpU
 - Same 400 × 400 mm mounting pattern as Dock 3, so it fits existing sites
 - Ideal for oil & gas facilities, pipelines, utilities, security patrols and remote assets where sending people is slow or risky
 https://youtu.be/rIznH_5IniM
+[[product-faq:dock4]]
 
 ### Digital RT (digital radiography)
 ![Portable digital radiography at a refinery](https://img.youtube.com/vi/cJyVyBaAnfM/maxresdefault.jpg)
@@ -341,6 +343,7 @@ https://youtu.be/rIznH_5IniM
 - Also used for weld quality, flow-accelerated corrosion, erosion, blockages, valves and small-bore fittings
 - Still a radiation method: controlled areas and licensed radiographers apply
 https://youtu.be/dndIQ5X3pcM
+[[product-faq:digital-rt]]
 
 ### IRIS (Internal Rotary Inspection System)
 ![IRIS probes and centering devices](https://www.eddyfi.com/doc/ProductImages/STP_IRIS_CD_800x645-01.png)
@@ -351,6 +354,7 @@ https://youtu.be/dndIQ5X3pcM
 - Very accurate sizing: often used together with faster screening methods (eddy current, RFET) to confirm and size what they find
 - Benefit: wall-thickness data for every tube, so the customer plugs or replaces only the tubes that need it and plans shutdowns with confidence
 https://youtu.be/yhTewrjTRMQ
+[[product-faq:iris]]
 
 ### AI solutions (Terra MapX, Terra Organize, Terra Stream)
 ![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
@@ -361,6 +365,7 @@ https://youtu.be/yhTewrjTRMQ
 - Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
 - Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
 https://youtu.be/CZL859mbue4
+[[product-faq:ai]]
 
 ### Drone flight simulator
 ![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
@@ -372,6 +377,7 @@ https://youtu.be/CZL859mbue4
 - Emergency drills: loss of GNSS, return-to-home, low battery, ATTI-mode recovery; night and bad-weather conditions
 - Repeatable scoring to assess trainees, and lower training cost and insurance exposure before real flight hours and licence practical tests (e.g. GCAA)
 https://youtu.be/Zb_XKPgr0oo
+[[product-faq:simulator]]
 
 ### Voliro T
 ![Voliro T with UT payload](https://cdn.voliro.com/wp-content/uploads/2025/09/Voliro-T-with-UT-payload.webp)
@@ -387,6 +393,7 @@ https://youtu.be/Zb_XKPgr0oo
 - Triple-redundant IMU for stability and safety
 - Ideal for oil & gas, petrochemical, power plant and ship hull inspection
 https://youtu.be/Q29N_pTc6kA
+[[product-faq:voliro]]
 
 ### Rigitech Eiger
 ![Rigitech Eiger](https://rigi.tech/wp-content/uploads/2024/04/ER03-Closed-Canopy-EDITED_2.png)
@@ -402,6 +409,7 @@ https://youtu.be/Q29N_pTc6kA
 - Wind-resistant (~15 m/s in fixed-wing mode) and quiet (~51–55 dB at 135 m)
 - Proven use cases: medical deliveries, offshore logistics, island connectivity
 https://youtu.be/oHd-QIXVNoc
+[[product-faq:eiger]]
 
 ### DJI M400
 ![DJI Matrice 400](https://www-cdn.djiits.com/cms/uploads/3c9712c308bac3e36007c3a9ded88d9d.png)
@@ -416,6 +424,7 @@ https://youtu.be/oHd-QIXVNoc
 - AI flight assistance & mission automation: route planning, repeatable inspection paths, AI object recognition
 - Operates from −20 °C to +50 °C
 https://youtu.be/3UrKq7xj7TI
+[[product-faq:m400]]
 
 ### Drones for cleaning
 ![Example of a cleaning drone (ABZ C10)](https://abzinnovation.com/wp-content/uploads/2026/01/C10-1.webp)
@@ -425,6 +434,7 @@ https://youtu.be/3UrKq7xj7TI
 - Real-time data display
 - Multi-angle, multi-scenario coverage
 https://youtu.be/WnYeOUIdnoI
+[[product-faq:cleaning]]
 
 ### AheadX QP530
 ![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
@@ -435,6 +445,7 @@ https://youtu.be/WnYeOUIdnoI
 - 30x optical EO zoom camera and IR camera for night operation
 - Live stream to the command center
 https://youtu.be/r3k7v1WPDMk
+[[product-faq:aheadx]]
 
 ### Elios 3
 ![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
@@ -446,6 +457,7 @@ https://youtu.be/r3k7v1WPDMk
 - Up to 2 cm accuracy with the GeoSLAM feature
 - Virtual inspection in the software
 https://youtu.be/B5s-69mQTSc
+[[product-faq:elios]]
 
 ### DJI FlyCart 30
 ![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
@@ -454,6 +466,7 @@ https://youtu.be/B5s-69mQTSc
 - 2 batteries: up to 25 kg payload, 15 km travel distance, 15 minutes endurance
 - Maximum operation radius 5 km
 https://youtu.be/Hhp11I-vGHA
+[[product-faq:flycart]]
 
 ### Underwater robot
 ![QYSEA FIFISH V6 Expert underwater robot](https://store.qysea.com/cdn/shop/files/fifish-v6-expert.png)
@@ -467,6 +480,7 @@ https://youtu.be/Hhp11I-vGHA
 - Robotic arm lifts 10 kg to collect samples or lost items
 - Q-BOX underwater connector hub with 6 ports for a customized robotic arm with NDT tools. Accessories include 2D imaging sonar, Station Lock™, U-QPS, 360° scanning sonar, compass ruler clamp, OPSS (on-shore power supply), mud sampler, water sampler (500 mL), salinity, pH and dissolved oxygen sensors, hydrophone, etc
 https://youtu.be/k3rUdNZaBg4
+[[product-faq:rov]]
 
 ### LiDAR & visual inspection robot (pipe crawler)
 ![Example of a pipe inspection crawler](https://envirosight.com/wp-content/uploads/2021/07/laser_main-2-scaled.jpg)
@@ -479,6 +493,7 @@ https://youtu.be/k3rUdNZaBg4
 - Dimensional measurement
 - Clear, accurate cross-sectional view
 https://youtu.be/9HBf8kSVeos
+[[product-faq:crawler]]
 
 ### ART crawler services
 ![ART crawler on an insulated pipe](https://www.mistrasgroup.com/media/noqm4ukp/masthead-art-crawler.png)
@@ -489,7 +504,8 @@ https://youtu.be/9HBf8kSVeos
 - Rapid large-scale screening
 - Lines stay in service
 - Permanent digital image archive
-https://youtu.be/JA7Zu1fhfHU`,
+https://youtu.be/JA7Zu1fhfHU
+[[product-faq:art]]`,
     quiz: [
       {
         q: "What does VALSEM protect, and when?",

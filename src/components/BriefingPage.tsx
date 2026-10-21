@@ -24,6 +24,7 @@ import { isImageLink, uploadImage } from '../lib/images'
 import { supabase } from '../lib/supabase'
 import { loadUser } from '../lib/user'
 import { ExhibitorFinder } from './ExhibitorFinder'
+import { PRODUCT_TOPICS } from '../data/productFaq'
 import { ServiceFaq } from './ServiceFaq'
 import { VisitorCheck } from './VisitorCheck'
 import { Field, RemarksField } from './fields'
@@ -360,8 +361,9 @@ const WIDGETS: Record<string, (arg?: string) => React.ReactNode> = {
   'exhibitor-finder': () => <ExhibitorFinder />,
   'visitor-check': () => <VisitorCheck />,
   'service-faq': (topic) => <ServiceFaq topic={topic} />,
+  'product-faq': (id) => <ServiceFaq topic={id} topics={PRODUCT_TOPICS} />,
 }
-const WIDGET_LINE = /^[ \t]*\[\[((?:exhibitor-finder|visitor-check|service-faq)(?::[a-z-]+)?)\]\][ \t]*$/m
+const WIDGET_LINE = /^[ \t]*\[\[((?:exhibitor-finder|visitor-check|service-faq|product-faq)(?::[a-z0-9-]+)?)\]\][ \t]*$/m
 
 /** Section text, with interactive blocks where their marker lines are. */
 function Body({ text }: { text: string }) {
@@ -482,7 +484,7 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
             Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>
           </li>
           <li>
-            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>; service FAQ: <code>[[service-faq:survey]]</code> (survey, inspection, surveillance, methane, training, selling)
+            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>; service FAQ: <code>[[service-faq:survey]]</code> (survey, inspection, surveillance, methane, training, selling); product FAQ: <code>[[product-faq:voliro]]</code>
           </li>
         </ul>
       </details>
