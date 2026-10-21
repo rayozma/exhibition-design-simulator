@@ -817,6 +817,60 @@ Source: the ADIPEC exhibitor list on adipec.com, 1,927 exhibitors as of 20 Octob
     ],
   },
   {
+    id: 'visitors',
+    title: "How to handle any visitor",
+    body: `Every visitor should leave with **a concrete next step**, and we should leave with **their contact and their need written down**. Use the visitor check below while you talk, or right after: it tells you how much time to give them and what to agree on before they walk away.
+
+[[visitor-check]]
+
+### The 5 steps with every visitor
+1. **Greet**: smile, introduce your name and job title, give your business card.
+2. **Qualify**: who are they, what is their problem, what is their role, when could it happen? (The four questions of the visitor check.)
+3. **Show**: one relevant thing only: a demo on the booth, a video, or the same job we did for another customer (see [Drone work experience](#experience)).
+4. **Agree a next step**: a date for a follow-up meeting, an on-site POC, the demo day, or at least an email next week. Never end with just "thank you".
+5. **Log**: scan their badge, write the need and the next step on the back of their card or in VisitConnect (use *Copy lead note*). Tell the team lead about hot leads the same day.
+
+### Priority at a glance
+| Priority | Who | How long | Next step to agree |
+|---|---|---|---|
+| **Hot** | Buyer with a specific project, decision role and a near timeline | As long as it takes; meeting table, bring a director | Follow-up meeting within 2 weeks (date), or on-site POC |
+| **Warm** | Interested buyer, or technical person, or next-year timeline | 10–15 min with a demo | Follow-up meeting after ADIPEC, or demo day + brochure |
+| **Cold** | Just looking, no project, no role in the decision | A few minutes | Badge scan, demo day invitation |
+| **Partner** | Supplier, maker, distributor | Short; get the right contact | Meeting with our BD lead after ADIPEC |
+| **Official** | Government, regulator, authority | Important: compliance message, director if senior | Demo day; director follows up |
+| **Competitor** | Drone / inspection / NDT service company | Short and polite | None: no prices, no customer details |
+
+> **Golden rule:** if you can't say what happens next and when, the conversation is not finished.`,
+    quiz: [
+      {
+        q: "An ADNOC Onshore integrity manager has a flare inspection coming up in 3 months. What do you do before they leave?",
+        choices: ["Agree a follow-up meeting within 2 weeks (with a date) or an on-site POC", "Give a brochure and say we will be in touch", "Scan their badge only", "Ask them to email our office"],
+        answer: 0,
+        explain: "Hot lead: specific project, decision role, near timeline. Agree a dated next step at the meeting table, with a director.",
+      },
+      {
+        q: "What must every visitor conversation end with?",
+        choices: ["A concrete next step, and their need written down", "A souvenir", "A photo for social media", "A price quote"],
+        answer: 0,
+      },
+      {
+        q: "A competitor asks about our team size and current ADNOC projects. What do you do?",
+        choices: ["Stay polite, keep it general, share nothing beyond public information, and tell the team lead", "Answer everything, it is good publicity", "Ask them to leave the booth", "Give them our price list"],
+        answer: 0,
+      },
+      {
+        q: "A drone maker wants to become our supplier, but the person is a sales engineer. What is the next step?",
+        choices: ["Get the name and email of their BD or partnership contact", "Sign a distribution agreement at the booth", "Promise exclusivity in the UAE", "Ignore them, we only want customers"],
+        answer: 0,
+      },
+      {
+        q: "Where do you log the visitor's need and next step?",
+        choices: ["VisitConnect (or the back of their business card), using the lead note", "Nowhere, we will remember", "The ADIPEC Wi-Fi", "On the booth whiteboard"],
+        answer: 0,
+      },
+    ],
+  },
+  {
     id: 'conversation',
     title: 'Example conversation',
     body: `### Visitor: "Tell me who you are."

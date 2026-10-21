@@ -1,3 +1,4 @@
+import type React from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DEFAULT_BRIEFING } from '../data/briefing'
 import {
@@ -23,6 +24,7 @@ import { isImageLink, uploadImage } from '../lib/images'
 import { supabase } from '../lib/supabase'
 import { loadUser } from '../lib/user'
 import { ExhibitorFinder } from './ExhibitorFinder'
+import { VisitorCheck } from './VisitorCheck'
 import { Field, RemarksField } from './fields'
 import { Markdown } from './Markdown'
 import { Quiz, QuizEditor, usableQuiz } from './Quiz'
@@ -344,18 +346,23 @@ export function BriefingPage() {
   )
 }
 
-/** A line with only this text puts the exhibitor search box there. */
-const FINDER = /^[ \t]*\[\[exhibitor-finder\]\][ \t]*$/m
+/** A line with only [[name]] puts that interactive block there. */
+const WIDGETS: Record<string, () => React.ReactNode> = {
+  'exhibitor-finder': () => <ExhibitorFinder />,
+  'visitor-check': () => <VisitorCheck />,
+}
+const WIDGET_LINE = /^[ \t]*\[\[(exhibitor-finder|visitor-check)\]\][ \t]*$/m
 
-/** Section text, with the exhibitor finder where its marker line is. */
+/** Section text, with interactive blocks where their marker lines are. */
 function Body({ text }: { text: string }) {
-  if (!FINDER.test(text)) return <Markdown text={text} />
-  const [before, after] = text.split(FINDER, 2)
+  if (!WIDGET_LINE.test(text)) return <Markdown text={text} />
+  // split with a capture group: [text, name, text, name, …, text]
+  const parts = text.split(new RegExp(WIDGET_LINE.source, 'gm'))
   return (
     <>
-      <Markdown text={before} />
-      <ExhibitorFinder />
-      {after?.trim() && <Markdown text={after} />}
+      {parts.map((p, k) =>
+        k % 2 ? <div key={k}>{WIDGETS[p]()}</div> : p.trim() ? <Markdown key={k} text={p} /> : null,
+      )}
     </>
   )
 }
@@ -465,7 +472,7 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
             Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>
           </li>
           <li>
-            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>
+            Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>
           </li>
         </ul>
       </details>
