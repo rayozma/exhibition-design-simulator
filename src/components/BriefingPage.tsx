@@ -481,7 +481,7 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
             end of the section, use <i>Upload images</i> below
           </li>
           <li>
-            Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>
+            Video: a line with only a YouTube link, e.g. <code>https://youtu.be/…</code>, or a link to an .mp4 file
           </li>
           <li>
             Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>; service FAQ: <code>[[service-faq:survey]]</code> (survey, inspection, surveillance, methane, training, selling); product FAQ: <code>[[product-faq:voliro]]</code>

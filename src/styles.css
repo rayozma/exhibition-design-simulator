@@ -1818,14 +1818,15 @@ a.button-link.briefing-cta {
   }
 }
 
-/* YouTube videos in briefing text */
+/* Videos in briefing text (YouTube or video files) */
 .md-video {
   clear: both;
   max-width: 640px;
   margin: 12px 0 16px;
 }
 
-.md-video iframe {
+.md-video iframe,
+.md-video video {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -1841,7 +1842,8 @@ a.button-link.briefing-cta {
 }
 
 @media print {
-  .md-video iframe {
+  .md-video iframe,
+  .md-video video {
     display: none;
   }
   .md-video {
@@ -2133,7 +2135,8 @@ a.button-link.briefing-cta {
   border-left-width: 4px;
 }
 
-.briefing .md-video iframe {
+.briefing .md-video iframe,
+.briefing .md-video video {
   border-radius: 14px;
 }
 
