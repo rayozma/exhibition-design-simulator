@@ -29,6 +29,7 @@ import { ServiceFaq } from './ServiceFaq'
 import { VisitorCheck } from './VisitorCheck'
 import { Field, RemarksField } from './fields'
 import { Markdown } from './Markdown'
+import { ProductCatalog } from './ProductCatalog'
 import { Quiz, QuizEditor, usableQuiz } from './Quiz'
 
 const home = () => location.pathname
@@ -84,7 +85,8 @@ export function BriefingPage() {
   const jumped = useRef(false)
   useEffect(() => {
     if (jumped.current || !sections || !location.hash) return
-    const el = document.getElementById(decodeURIComponent(location.hash.slice(1)))
+    // #products/dji-dock-4 = a product in the catalog of section "products"
+    const el = document.getElementById(decodeURIComponent(location.hash.slice(1)).split('/')[0])
     if (el) {
       jumped.current = true
       el.scrollIntoView()
@@ -200,6 +202,8 @@ export function BriefingPage() {
     nav.scrollTo({ left: a.offsetLeft - nav.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' })
   }, [active])
 
+  const catalog = sections?.find((s) => CATALOG_LINE.test(s.body))
+
   const pct = quizTotals.total ? Math.round((quizTotals.right / quizTotals.total) * 100) : 0
 
   return (
@@ -214,7 +218,7 @@ export function BriefingPage() {
 
       <header className="brief-hero">
         <div>
-          <div className="brief-eyebrow">Terra Drone x NDTCCS · team briefing</div>
+          <div className="brief-eyebrow">Terra Drone x NDTCCS x VALSEM · team briefing</div>
           <h1>ADIPEC 2026</h1>
           <p>Everything you need to know before and during the show. Read it, then test yourself at the end of each section.</p>
           <div className="brief-meta">
@@ -223,6 +227,11 @@ export function BriefingPage() {
             <span className="brief-chip">Our stand: 4210, Hall 4</span>
             <span className="brief-chip">8 AM – 4 PM daily</span>
           </div>
+          {catalog && (
+            <a className="brief-find no-print" href={`#${catalog.id}`}>
+              <span aria-hidden="true">⌕</span> Find a product <kbd>/</kbd>
+            </a>
+          )}
         </div>
         {quizTotals.total > 0 && (
           <div className="brief-progress no-print">
@@ -320,7 +329,7 @@ export function BriefingPage() {
                 />
               ) : (
                 <>
-                  <Body text={s.body} />
+                  <Body text={s.body} sectionId={s.id} />
                   <Images images={s.images} title={s.title} />
                   {s.kind === 'booth' && <BoothLink rooms={rooms} chosen={s.room} />}
                   <Quiz sectionId={s.id} quiz={s.quiz} answers={answers} onAnswer={answer} />
@@ -365,8 +374,21 @@ const WIDGETS: Record<string, (arg?: string) => React.ReactNode> = {
 }
 const WIDGET_LINE = /^[ \t]*\[\[((?:exhibitor-finder|visitor-check|service-faq|product-faq)(?::[a-z0-9-]+)?)\]\][ \t]*$/m
 
+/** A line with only [[product-catalog]]: the rest of the section is a searchable product catalog. */
+const CATALOG_LINE = /^[ \t]*\[\[product-catalog\]\][ \t]*$/m
+
 /** Section text, with interactive blocks where their marker lines are. */
-function Body({ text }: { text: string }) {
+function Body({ text, sectionId }: { text: string; sectionId?: string }) {
+  const catalog = sectionId ? CATALOG_LINE.exec(text) : null
+  if (catalog && sectionId) {
+    const before = text.slice(0, catalog.index)
+    return (
+      <>
+        {before.trim() && <Body text={before} />}
+        <ProductCatalog sectionId={sectionId} text={text.slice(catalog.index + catalog[0].length)} render={(t) => <Body text={t} />} />
+      </>
+    )
+  }
   if (!WIDGET_LINE.test(text)) return <Markdown text={text} />
   // split with a capture group: [text, name, text, name, …, text]
   const parts = text.split(new RegExp(WIDGET_LINE.source, 'gm'))
@@ -485,6 +507,11 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
           </li>
           <li>
             Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>; service FAQ: <code>[[service-faq:survey]]</code> (survey, inspection, surveillance, methane, training, selling); product FAQ: <code>[[product-faq:voliro]]</code>
+          </li>
+          <li>
+            Product catalog: a line with only <code>[[product-catalog]]</code>; below it, <code>## Category</code> headings with{' '}
+            <code>### Product</code> entries (add <code>(on the booth)</code> to the end of a product heading to mark it). A{' '}
+            <code>## Heading</code> with no products under it folds out below the cards
           </li>
         </ul>
       </details>

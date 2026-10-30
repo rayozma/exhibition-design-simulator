@@ -38,7 +38,7 @@ https://youtu.be/suRPKB9GTec`,
   {
     id: 'who',
     title: "Who we are & why we're here",
-    body: `We are **Terra Drone x NDTCCS**, a partnership between Terra Drone Indonesia & NDT Corrosion Control Services UAE to serve the market in the UAE, especially Abu Dhabi.
+    body: `We are **Terra Drone x NDTCCS x VALSEM**: a partnership between Terra Drone Indonesia & NDT Corrosion Control Services UAE to serve the market in the UAE, especially Abu Dhabi, together with VALSEM Industries, NDTCCS's strategic partner in the GCC.
 
 ### Terra Drone, a drone startup from Japan
 - **Starting year:** 2016
@@ -55,6 +55,13 @@ https://youtu.be/suRPKB9GTec`,
 - **No. of employees:** 3,000++
 - **Core business:** NDT inspection, advanced NDT (robotics, drones, underwater ROV, etc), lifting inspection, metallurgy & laboratory services, asset integrity management, heat treatment, cathodic protection, manpower supply, etc
 - **Key customers:** Aramco, SABIC, ADNOC, Nawah, etc
+
+### VALSEM, an equipment protection company from France
+- **Starting year:** 1977
+- **HQ:** France
+- **Core business:** protecting critical equipment during transport and storage (ValStrong anti-corrosion membranes, EXA-AIR anti-shock cushioning) and keeping proof of its condition over time (ValTRACK sensors)
+- **Customers:** ~980 industrial customers in energy, nuclear, aerospace and infrastructure
+- **With us:** NDTCCS is VALSEM's strategic partner in the GCC; VALSEM has its own counter on our booth (see [VALSEM](#products/valsem) in the Product reference)
 
 ### Why we are in the Al Masaood pavilion
 Terra Drone & NDTCCS have been working closely with Al Masaood **as their strategic partner** in securing some major contracts with ADNOC:
@@ -285,37 +292,12 @@ Samples: [Short videos]() · [Videos]()`,
   {
     id: 'products',
     title: 'Product reference',
-    body: `Specs of the products we offer, to answer visitor questions. The first six are on the stand (see [Our booth](#booth)); the rest we can offer from Abu Dhabi.
+    body: `Every product we offer, to answer visitor questions. Search, or pick a category, then open a product. Products marked **On the booth** are on our stand (see [Our booth](#booth)); the rest we can offer from Abu Dhabi.
 
-| Product | On booth | Folder | Brochure | Video |
-|---|---|---|---|---|
-| [VALSEM](https://www.valsem.com/) | Yes | [Folder]() | [Brochure]() | [Video]() |
-| [DJI Dock 4](https://enterprise.dji.com/dock-4) | Yes | [Folder]() | [Brochure]() | [Video]() |
-| Digital RT | Yes | [Folder]() | [Brochure]() | [Video]() |
-| [IRIS](https://eddyfi.com/en/technology/internal-rotary-inspection-system-iris) | Yes | [Folder]() | [Brochure]() | [Video]() |
-| [AI solutions](https://terra-drone.co.id/software/) | Yes | [Folder]() | [Brochure]() | [Video]() |
-| [Drone flight simulator](https://www.dji.com/simulator) | Yes | [Folder]() | [Brochure]() | [Video]() |
-| [Voliro T](https://voliro.com/voliro-solution/) | | [Folder]() | [Brochure]() | [Video]() |
-| [Rigitech Eiger](https://rigi.tech/eiger/) | | [Folder]() | [Brochure]() | [Video]() |
-| [DJI M400](https://enterprise.dji.com/matrice-400) | | [Folder]() | [Brochure]() | [Video]() |
-| Drones for cleaning | | [Folder]() | [Brochure]() | [Video]() |
-| [AheadX QP530](https://www.aheadx.com/product/qp530a) | | [AheadX]() | [AheadX – QP530.pdf]() | [Showcase]() · [Use case: powerline inspection]() |
-| [Elios 3](https://www.flyability.com/elios-3) | | [Elios 3 – UT]() | [Elios 3 UT Payload.pdf]() | [Elios 3 – Digitizing the industry]() |
-| [DJI FlyCart 30](https://www.dji.com/flycart-30) | | [DJI FlyCart 30]() | [DJI FlyCart 30.pdf]() | [Introducing DJI FlyCart 30]() · [Use case: shore-based last mile delivery]() |
+[[product-catalog]]
 
-### VALSEM
-![ValStrong-protected equipment crate](https://www.valsem.com/_img/uf2boiHKRGIuVb50gE8kPdjiQIc=/844_x_475/filters:quality(95):strip_exif()/reboot/media/922c517a-414f-11e8-a99b-fa163e14ea56/b202d782-251a-11ec-8348-0242ac130004/1-1-572669612.jpg)
-- VALSEM Industries (France, since 1977) protects critical equipment during transport and storage, and keeps proof of its condition over time
-- **ValStrong** membranes (e.g. ValStrong TITAN, VCX anti-corrosion film) shield equipment from corrosion, humidity and damage, crated or crate-less
-- **EXA-AIR**: inflatable anti-shock bags and sheets that cushion equipment inside its packaging
-- **ValTRACK**: embedded sensors record the conditions the equipment is exposed to, as a continuous, traceable record for audits and commissioning
-- Standards: NF H00 310, MIL-PRF-131K, DEF STAN 82-75/2, DIN 55 531, PMUC (nuclear); ~980 industrial customers in energy, nuclear, aerospace and infrastructure
-- **NDTCCS is VALSEM's strategic partner in the GCC**: talk to the team at the VALSEM counter
-- Benefit for the customer: equipment arrives, and stays, in the condition it left the factory, with data to prove it: less corrosion damage in storage and fewer surprises at commissioning
-https://youtu.be/JYsudQpknpU
-[[product-faq:valsem]]
-
-### DJI Dock 4
+## Drones & docks
+### DJI Dock 4 (on the booth)
 ![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
 - DJI's newest drone-in-a-box (launched October 2026) for fully autonomous, 24/7 remote operations
 - First DJI dock with **automatic battery swap**: swap in under 25 s, landing-to-takeoff in under 45 s (Dock 3 needs ~30 min to recharge)
@@ -331,120 +313,20 @@ https://youtu.be/JYsudQpknpU
 https://youtu.be/rIznH_5IniM
 [[product-faq:dock4]]
 
-### Digital RT (digital radiography)
-![Portable digital radiography at a refinery](https://img.youtube.com/vi/cJyVyBaAnfM/maxresdefault.jpg)
-- Radiography with a **Digital Detector Array** (flat panel) or computed radiography plates instead of film: the image is on the laptop in seconds, with no chemical processing
-- **In service**: no shutdown, no draining and no insulation removal; standardised in ISO 20769-2
-- Much shorter exposure times than film for the same source (Ir-192, Co-60 or a portable X-ray tube): lower dose, smaller exclusion zones, more shots per shift
-- **Profile (tangential) radiography** images the pipe wall edge to measure remaining wall thickness, pitting and internal / external corrosion through insulation and cladding
-- **CUI screening**: finds corrosion under insulation, wet insulation and cladding damage on insulated lines and pipe racks
-- Real-time radiography and motorised crawlers carry the detector along long pipe runs for fast go / no-go screening (see ART crawler services below)
-- Software measurement (wall thickness, density profiles), contrast enhancement and a permanent digital archive with full traceability, so campaigns can be compared
-- Also used for weld quality, flow-accelerated corrosion, erosion, blockages, valves and small-bore fittings
-- Still a radiation method: controlled areas and licensed radiographers apply
-https://youtu.be/dndIQ5X3pcM
-[[product-faq:digital-rt]]
-
-### IRIS (Internal Rotary Inspection System)
-![IRIS probes and centering devices](https://www.eddyfi.com/doc/ProductImages/STP_IRIS_CD_800x645-01.png)
-- Ultrasonic inspection of tubes **from the inside**: a probe with a rotating mirror, driven by water flow, scans the full circumference as it is pulled through the tube
-- Measures the remaining wall thickness and finds corrosion, erosion, pitting and other wall loss on both the inner and the outer surface
-- For tubes in heat exchangers, boilers and air coolers (fin-fans), ferrous and non-ferrous
-- Tubes must be cleaned and filled with water first
-- Very accurate sizing: often used together with faster screening methods (eddy current, RFET) to confirm and size what they find
-- Benefit: wall-thickness data for every tube, so the customer plugs or replaces only the tubes that need it and plans shutdowns with confidence
-https://youtu.be/yhTewrjTRMQ
-[[product-faq:iris]]
-
-### AI solutions (Terra AI platform)
-![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
-- Terra Drone's own software for the data side of drone operations, so customers get usable results, not just raw files
-- **Terra MapX**: drone survey processing and reporting for mining and earthworks (below)
-- **Terra Survey Suite**: drone survey project management, from inquiry to report (below)
-- **TowerSight** and **Terra SewerX**: inspection platforms for towers and sewer networks (below)
-- **Terra Organize**: project and data management for drone operations: project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
-- **Terra Stream**: live streaming of drone video to the customer or a command center: up to 1080p with adaptive bitrate, sub-second latency, multi-viewer access control, share by link / email / WhatsApp, live telemetry overlay (altitude, speed, battery, GPS), automatic cloud recording
-- Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
-- Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
-https://youtu.be/CZL859mbue4
-
-#### Terra MapX: drone survey processing (Mining Suite)
-![Terra MapX: textured 3D mesh of a bridge](briefing/videos/mapx.jpg)
-- **Terra MapX Mining Suite** ("From drone flight to signed report"), by Terra Drone Arabia: process, explore and report on drone survey data in one platform
-- **Process**: upload imagery, LiDAR, GNSS observations and ground control; declare the survey and the platform checks every required file before a run (photos, camera events, aircraft and base-station GNSS)
-- Ground control checked (e.g. 15 control points marked in 3 or more photographs); process in-platform with adjustable settings, or hand it to the Terra Drone back office and follow every production step (PPK, aerotriangulation, dense cloud, DEM, orthomosaic)
-- **Explore**: centimetre-level orthomosaics over a satellite base map, elevation profiles (grades and angles), cut & fill against a design level (red = cut, blue = fill), point clouds and textured 3D meshes in the browser, and walk-through BIM models (tanks, pumps, pipework)
-- **Report**: reports built from the data (cut & fill, stockpile volumes with materials and densities, highwall slopes, road alignments and cross sections), with checker and approver named and a revision history
-- For mining, quarries, earthworks, construction and plant sites
-briefing/videos/mapx.mp4
-
-#### Terra Survey Suite: drone survey project management
-![Terra Survey Suite: slicing the area into mission blocks](briefing/videos/surveysuite.jpg)
-- **Terra Survey Suite** ("One project. One platform. Every stage."), by Terra Drone Arabia: runs a drone survey business from first inquiry to final report
-- **Sales**: every inquiry in one pipeline; import the client's area (KML, Shapefile, GeoJSON); plan ground control (grid or Voronoi) in minutes; slice the area into flight-sized mission blocks per drone and sensor
-- Price the job from the real scope (personnel, equipment, permits, duration) and get a quote-ready pricing summary (contingency, markup, VAT, price per km²), exported to CSV or PDF
-- **Work planning**: assign team and fleet; schedule built from the estimate (Gantt); HIRADC risk assessments with risk matrix; permits, site access and NOCs filed with the project; resource use across every project
-- **Reporting**: daily logs from the field; progress tracked automatically and shown on the map; plan vs actual per task; deliverables tracked from planned to QC to ready; a live dashboard for management
-briefing/videos/surveysuite.mp4
-
-#### TowerSight: drone tower inspection
-![TowerSight: tower record with every payload photographed](briefing/videos/towersight.jpg)
-- **TowerSight** ("Every tower. Every defect. One platform."), by Terra Drone Arabia: drone-powered tower inspection, from flight to fix
-- Every tower in the region on a map, with a live register of every structure (height, status, defects, open tickets)
-- A digital record per tower: every antenna, camera and light identified and photographed (payload inventory), defects with photos, severity and assignee
-- Ultrasonic thickness: wall loss measured against design thickness, each reading backed by its A-scan trace and GPS position
-- 3D digital twin with every finding pinned to its place, point cloud, 360° view from the top of the tower, geotagged photos by category
-- Inspection history with scored pass / fail checklists; maintenance tickets prioritised and assigned; drawings, manuals and reports kept with the asset
-- For telecom, security and utility towers, masts and other lattice structures
-briefing/videos/towersight.mp4
-
-#### Terra SewerX: CCTV sewer inspection
-![Terra SewerX: defect gallery, every defect photographed, coded and graded](briefing/videos/sewerx.jpg)
-- **Terra SewerX** ("Inspect faster. Report with confidence."), by Terra Drone Arabia: CCTV sewer inspection, from field footage to graded report
-- Every CCTV survey in one workspace: progress, crews and inspected length per project
-- Network map of the whole network, colour-coded by inspection status, then by condition grade
-- Inspection workstation: review the footage frame by frame, capture a frame, code the defect and read the distance from the video (OCR)
-- Defect gallery: every defect photographed, coded and graded; filter by severity, code or asset
-- Reports generated automatically: project summary (sections, manholes, defects, worst sections), per-section report with manholes, map and equipment, pipe profile with every finding plotted, evidence photos linked to the video timestamp
-- Compare inspections to prove the impact of cleaning (e.g. score 121 → 3, grade D → A)
-- For municipalities, water and sewer utilities, and pipeline networks
-briefing/videos/sewerx.mp4
-
-#### Terra VMX: AI video analytics for security
-![Terra VMX console: drones, CCTV and bodycams with AI detections, map and findings](https://vmx.terra-drone.com.sa/landing/hero-poster.webp)
-- **[Terra VMX](https://vmx.terra-drone.com.sa/)** ("Every feed. One console."): real-time AI video analytics for security and public safety, by Terra Drone Arabia
-- Brings drones (DJI via FlightHub 2), CCTV / NVRs (RTSP, RTMP, SRT, HLS), bodycams and field officers' phones into one live console and map
-- AI watches every feed 24/7: detects and tracks people and vehicles (speed, dwell, stop time); aerial model for small, distant objects in drone video; custom ONNX (YOLO) models supported
-- Draw zones (roads, gates, fences, restricted areas) on the camera view or satellite map and set rules in plain language; templates for restricted areas, crowds, loitering, speeding, no-stopping, jaywalking
-- Every finding is logged with evidence: AI-annotated screenshot, time, source, operator and location; register and map view; export to CSV / GeoJSON
-- On-premise on the customer's own GPU server, scales by adding GPU nodes; no inbound ports (outbound HTTPS tunnel); admin, supervisor and operator roles
-- For control rooms, critical sites and perimeter security, patrols, crowd management, incident review
-https://vmx.terra-drone.com.sa/landing/terra-vmx-overview.mp4
-
-#### Interex: AI traffic analytics
-![Interex console: count lines, approaches, speeds and turning movements on a drone video](https://interex.terra-drone.com.sa/static/home/media/console.jpg)
-- **[Interex](https://interex.terra-drone.com.sa/)** ("Drone video in. Traffic data out."): AI traffic analytics from drone or CCTV video, by Terra Drone Arabia
-- Detects, counts and tracks cars, motorcycles, buses, trucks, vans and bicycles (pedestrians optional), with models fine-tuned on aerial imagery
-- Count lines by direction and class, turning movements (origin-destination matrix), per-vehicle speeds (average and 85th percentile), waiting time and indicative HCM level of service
-- Filters out parked vehicles; zones with occupancy, entries and dwell time; camera placed on satellite imagery
-- Live (RTSP, RTMP, HLS, SRT from drones, docks and IP cameras) or from a recorded flight; PDF reports and CSV exports (crossings, vehicles, zone visits, 15-minute counts)
-- Runs on the customer's own Windows / Linux PC with an NVIDIA GPU (real time on a single RTX 4090); web console
-- For traffic surveys and transport studies; on an oil & gas site: traffic at gates, plant roads and logistics yards
-https://interex.terra-drone.com.sa/static/home/media/film.mp4
-
-[[product-faq:ai]]
-
-### Drone flight simulator
-![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
-- Part of our **drone training & consultancy** offer: visitors can try flying at the booth
-- Builds stick skills, procedures and muscle memory with zero risk to aircraft, payloads, people or property
-- Uses the pilot's real DJI remote controller via USB, so the control response matches the real aircraft; DJI's physics engine reproduces each model's flight behaviour
-- Training modules: skills training (take-off, landing, path following, tests), free flight, and application training such as powerline inspection and search & rescue
-- Same flight modes as real flight (P, A, S); simulated wind, ground effect and crash physics can be switched on
-- Emergency drills: loss of GNSS, return-to-home, low battery, ATTI-mode recovery; night and bad-weather conditions
-- Repeatable scoring to assess trainees, and lower training cost and insurance exposure before real flight hours and licence practical tests (e.g. GCAA)
-https://youtu.be/Zb_XKPgr0oo
-[[product-faq:simulator]]
+### DJI M400
+![DJI Matrice 400](https://www-cdn.djiits.com/cms/uploads/3c9712c308bac3e36007c3a9ded88d9d.png)
+- For powerline inspection, oil & gas surveys, mapping, emergency response and asset monitoring
+- Up to 59 minutes flight time
+- Heavy lift: up to 6 kg payload
+- All-weather (IP55): dust, drizzle and harsh environments
+- LiDAR + millimeter-wave radar for 360° obstacle awareness and avoidance
+- O4 Enterprise transmission: stable HD video up to 20 km, automatic frequency switching
+- Hot-swappable batteries: no downtime in the field
+- RTK: centimeter-grade positioning
+- AI flight assistance & mission automation: route planning, repeatable inspection paths, AI object recognition
+- Operates from −20 °C to +50 °C
+https://youtu.be/3UrKq7xj7TI
+[[product-faq:m400]]
 
 ### Voliro T
 ![Voliro T with UT payload](https://cdn.voliro.com/wp-content/uploads/2025/09/Voliro-T-with-UT-payload.webp)
@@ -462,6 +344,29 @@ https://youtu.be/Zb_XKPgr0oo
 https://youtu.be/Q29N_pTc6kA
 [[product-faq:voliro]]
 
+### Elios 3
+![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
+- BVLOS (non-entry) confined space visual inspection & 3D modeling
+- Around 8–12 minutes flight time
+- Needs a 40 cm (16") manhole
+- Needs at least 60 cm (24") space to maneuver
+- LiDAR sensor produces a 3D point cloud (for visualization)
+- Up to 2 cm accuracy with the GeoSLAM feature
+- Virtual inspection in the software
+https://youtu.be/B5s-69mQTSc
+[[product-faq:elios]]
+
+### AheadX QP530
+![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
+- Real-time surveillance
+- VTOL (vertical take-off & landing)
+- Up to 2 hours endurance
+- Up to 60 km radius; 60–80 km straight line in one flight
+- 30x optical EO zoom camera and IR camera for night operation
+- Live stream to the command center
+https://youtu.be/r3k7v1WPDMk
+[[product-faq:aheadx]]
+
 ### Rigitech Eiger
 ![Rigitech Eiger](https://rigi.tech/wp-content/uploads/2024/04/ER03-Closed-Canopy-EDITED_2.png)
 - Long-range automated logistics & delivery (day + night, BVLOS)
@@ -478,20 +383,14 @@ https://youtu.be/Q29N_pTc6kA
 https://youtu.be/oHd-QIXVNoc
 [[product-faq:eiger]]
 
-### DJI M400
-![DJI Matrice 400](https://www-cdn.djiits.com/cms/uploads/3c9712c308bac3e36007c3a9ded88d9d.png)
-- For powerline inspection, oil & gas surveys, mapping, emergency response and asset monitoring
-- Up to 59 minutes flight time
-- Heavy lift: up to 6 kg payload
-- All-weather (IP55): dust, drizzle and harsh environments
-- LiDAR + millimeter-wave radar for 360° obstacle awareness and avoidance
-- O4 Enterprise transmission: stable HD video up to 20 km, automatic frequency switching
-- Hot-swappable batteries: no downtime in the field
-- RTK: centimeter-grade positioning
-- AI flight assistance & mission automation: route planning, repeatable inspection paths, AI object recognition
-- Operates from −20 °C to +50 °C
-https://youtu.be/3UrKq7xj7TI
-[[product-faq:m400]]
+### DJI FlyCart 30
+![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
+- Cargo delivery
+- 1 battery: up to 35 kg payload, 7.5 km travel distance, 7.5 minutes endurance
+- 2 batteries: up to 25 kg payload, 15 km travel distance, 15 minutes endurance
+- Maximum operation radius 5 km
+https://youtu.be/Hhp11I-vGHA
+[[product-faq:flycart]]
 
 ### Drones for cleaning
 ![Example of a cleaning drone (ABZ C10)](https://abzinnovation.com/wp-content/uploads/2026/01/C10-1.webp)
@@ -503,37 +402,135 @@ https://youtu.be/3UrKq7xj7TI
 https://youtu.be/WnYeOUIdnoI
 [[product-faq:cleaning]]
 
-### AheadX QP530
-![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
-- Real-time surveillance
-- VTOL (vertical take-off & landing)
-- Up to 2 hours endurance
-- Up to 60 km radius; 60–80 km straight line in one flight
-- 30x optical EO zoom camera and IR camera for night operation
-- Live stream to the command center
-https://youtu.be/r3k7v1WPDMk
-[[product-faq:aheadx]]
+## Terra AI platform
+### Terra AI platform overview (on the booth)
+![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
+- Terra Drone's own software for the data side of drone operations, so customers get usable results, not just raw files
+- [Terra MapX](#products/terra-mapx): drone survey processing and reporting for mining and earthworks
+- [Terra Survey Suite](#products/terra-survey-suite): drone survey project management, from inquiry to report
+- [TowerSight](#products/towersight) and [Terra SewerX](#products/terra-sewerx): inspection platforms for towers and sewer networks
+- [Terra VMX](#products/terra-vmx): AI video analytics for security; [Interex](#products/interex): AI traffic analytics from drone video
+- **Terra Organize**: project and data management for drone operations: project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
+- **Terra Stream**: live streaming of drone video to the customer or a command center: up to 1080p with adaptive bitrate, sub-second latency, multi-viewer access control, share by link / email / WhatsApp, live telemetry overlay (altitude, speed, battery, GPS), automatic cloud recording
+- Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
+- Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
+https://youtu.be/CZL859mbue4
+[[product-faq:ai]]
 
-### Elios 3
-![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
-- BVLOS (non-entry) confined space visual inspection & 3D modeling
-- Around 8–12 minutes flight time
-- Needs a 40 cm (16") manhole
-- Needs at least 60 cm (24") space to maneuver
-- LiDAR sensor produces a 3D point cloud (for visualization)
-- Up to 2 cm accuracy with the GeoSLAM feature
-- Virtual inspection in the software
-https://youtu.be/B5s-69mQTSc
-[[product-faq:elios]]
+### Terra MapX
+![Terra MapX: textured 3D mesh of a bridge](briefing/videos/mapx.jpg)
+- **Terra MapX Mining Suite** ("From drone flight to signed report"), by Terra Drone Arabia: process, explore and report on drone survey data in one platform
+- **Process**: upload imagery, LiDAR, GNSS observations and ground control; declare the survey and the platform checks every required file before a run (photos, camera events, aircraft and base-station GNSS)
+- Ground control checked (e.g. 15 control points marked in 3 or more photographs); process in-platform with adjustable settings, or hand it to the Terra Drone back office and follow every production step (PPK, aerotriangulation, dense cloud, DEM, orthomosaic)
+- **Explore**: centimetre-level orthomosaics over a satellite base map, elevation profiles (grades and angles), cut & fill against a design level (red = cut, blue = fill), point clouds and textured 3D meshes in the browser, and walk-through BIM models (tanks, pumps, pipework)
+- **Report**: reports built from the data (cut & fill, stockpile volumes with materials and densities, highwall slopes, road alignments and cross sections), with checker and approver named and a revision history
+- For mining, quarries, earthworks, construction and plant sites
+briefing/videos/mapx.mp4
 
-### DJI FlyCart 30
-![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
-- Cargo delivery
-- 1 battery: up to 35 kg payload, 7.5 km travel distance, 7.5 minutes endurance
-- 2 batteries: up to 25 kg payload, 15 km travel distance, 15 minutes endurance
-- Maximum operation radius 5 km
-https://youtu.be/Hhp11I-vGHA
-[[product-faq:flycart]]
+### Terra Survey Suite
+![Terra Survey Suite: slicing the area into mission blocks](briefing/videos/surveysuite.jpg)
+- **Terra Survey Suite** ("One project. One platform. Every stage."), by Terra Drone Arabia: runs a drone survey business from first inquiry to final report
+- **Sales**: every inquiry in one pipeline; import the client's area (KML, Shapefile, GeoJSON); plan ground control (grid or Voronoi) in minutes; slice the area into flight-sized mission blocks per drone and sensor
+- Price the job from the real scope (personnel, equipment, permits, duration) and get a quote-ready pricing summary (contingency, markup, VAT, price per km²), exported to CSV or PDF
+- **Work planning**: assign team and fleet; schedule built from the estimate (Gantt); HIRADC risk assessments with risk matrix; permits, site access and NOCs filed with the project; resource use across every project
+- **Reporting**: daily logs from the field; progress tracked automatically and shown on the map; plan vs actual per task; deliverables tracked from planned to QC to ready; a live dashboard for management
+briefing/videos/surveysuite.mp4
+
+### TowerSight
+![TowerSight: tower record with every payload photographed](briefing/videos/towersight.jpg)
+- **TowerSight** ("Every tower. Every defect. One platform."), by Terra Drone Arabia: drone-powered tower inspection, from flight to fix
+- Every tower in the region on a map, with a live register of every structure (height, status, defects, open tickets)
+- A digital record per tower: every antenna, camera and light identified and photographed (payload inventory), defects with photos, severity and assignee
+- Ultrasonic thickness: wall loss measured against design thickness, each reading backed by its A-scan trace and GPS position
+- 3D digital twin with every finding pinned to its place, point cloud, 360° view from the top of the tower, geotagged photos by category
+- Inspection history with scored pass / fail checklists; maintenance tickets prioritised and assigned; drawings, manuals and reports kept with the asset
+- For telecom, security and utility towers, masts and other lattice structures
+briefing/videos/towersight.mp4
+
+### Terra SewerX
+![Terra SewerX: defect gallery, every defect photographed, coded and graded](briefing/videos/sewerx.jpg)
+- **Terra SewerX** ("Inspect faster. Report with confidence."), by Terra Drone Arabia: CCTV sewer inspection, from field footage to graded report
+- Every CCTV survey in one workspace: progress, crews and inspected length per project
+- Network map of the whole network, colour-coded by inspection status, then by condition grade
+- Inspection workstation: review the footage frame by frame, capture a frame, code the defect and read the distance from the video (OCR)
+- Defect gallery: every defect photographed, coded and graded; filter by severity, code or asset
+- Reports generated automatically: project summary (sections, manholes, defects, worst sections), per-section report with manholes, map and equipment, pipe profile with every finding plotted, evidence photos linked to the video timestamp
+- Compare inspections to prove the impact of cleaning (e.g. score 121 → 3, grade D → A)
+- For municipalities, water and sewer utilities, and pipeline networks
+briefing/videos/sewerx.mp4
+
+### Terra VMX
+![Terra VMX console: drones, CCTV and bodycams with AI detections, map and findings](https://vmx.terra-drone.com.sa/landing/hero-poster.webp)
+- **[Terra VMX](https://vmx.terra-drone.com.sa/)** ("Every feed. One console."): real-time AI video analytics for security and public safety, by Terra Drone Arabia
+- Brings drones (DJI via FlightHub 2), CCTV / NVRs (RTSP, RTMP, SRT, HLS), bodycams and field officers' phones into one live console and map
+- AI watches every feed 24/7: detects and tracks people and vehicles (speed, dwell, stop time); aerial model for small, distant objects in drone video; custom ONNX (YOLO) models supported
+- Draw zones (roads, gates, fences, restricted areas) on the camera view or satellite map and set rules in plain language; templates for restricted areas, crowds, loitering, speeding, no-stopping, jaywalking
+- Every finding is logged with evidence: AI-annotated screenshot, time, source, operator and location; register and map view; export to CSV / GeoJSON
+- On-premise on the customer's own GPU server, scales by adding GPU nodes; no inbound ports (outbound HTTPS tunnel); admin, supervisor and operator roles
+- For control rooms, critical sites and perimeter security, patrols, crowd management, incident review
+https://vmx.terra-drone.com.sa/landing/terra-vmx-overview.mp4
+
+### Interex
+![Interex console: count lines, approaches, speeds and turning movements on a drone video](https://interex.terra-drone.com.sa/static/home/media/console.jpg)
+- **[Interex](https://interex.terra-drone.com.sa/)** ("Drone video in. Traffic data out."): AI traffic analytics from drone or CCTV video, by Terra Drone Arabia
+- Detects, counts and tracks cars, motorcycles, buses, trucks, vans and bicycles (pedestrians optional), with models fine-tuned on aerial imagery
+- Count lines by direction and class, turning movements (origin-destination matrix), per-vehicle speeds (average and 85th percentile), waiting time and indicative HCM level of service
+- Filters out parked vehicles; zones with occupancy, entries and dwell time; camera placed on satellite imagery
+- Live (RTSP, RTMP, HLS, SRT from drones, docks and IP cameras) or from a recorded flight; PDF reports and CSV exports (crossings, vehicles, zone visits, 15-minute counts)
+- Runs on the customer's own Windows / Linux PC with an NVIDIA GPU (real time on a single RTX 4090); web console
+- For traffic surveys and transport studies; on an oil & gas site: traffic at gates, plant roads and logistics yards
+https://interex.terra-drone.com.sa/static/home/media/film.mp4
+
+## Inspection & NDT
+### Digital RT (digital radiography) (on the booth)
+![Portable digital radiography at a refinery](https://img.youtube.com/vi/cJyVyBaAnfM/maxresdefault.jpg)
+- Radiography with a **Digital Detector Array** (flat panel) or computed radiography plates instead of film: the image is on the laptop in seconds, with no chemical processing
+- **In service**: no shutdown, no draining and no insulation removal; standardised in ISO 20769-2
+- Much shorter exposure times than film for the same source (Ir-192, Co-60 or a portable X-ray tube): lower dose, smaller exclusion zones, more shots per shift
+- **Profile (tangential) radiography** images the pipe wall edge to measure remaining wall thickness, pitting and internal / external corrosion through insulation and cladding
+- **CUI screening**: finds corrosion under insulation, wet insulation and cladding damage on insulated lines and pipe racks
+- Real-time radiography and motorised crawlers carry the detector along long pipe runs for fast go / no-go screening (see ART crawler services below)
+- Software measurement (wall thickness, density profiles), contrast enhancement and a permanent digital archive with full traceability, so campaigns can be compared
+- Also used for weld quality, flow-accelerated corrosion, erosion, blockages, valves and small-bore fittings
+- Still a radiation method: controlled areas and licensed radiographers apply
+https://youtu.be/dndIQ5X3pcM
+[[product-faq:digital-rt]]
+
+### IRIS (Internal Rotary Inspection System) (on the booth)
+![IRIS probes and centering devices](https://www.eddyfi.com/doc/ProductImages/STP_IRIS_CD_800x645-01.png)
+- Ultrasonic inspection of tubes **from the inside**: a probe with a rotating mirror, driven by water flow, scans the full circumference as it is pulled through the tube
+- Measures the remaining wall thickness and finds corrosion, erosion, pitting and other wall loss on both the inner and the outer surface
+- For tubes in heat exchangers, boilers and air coolers (fin-fans), ferrous and non-ferrous
+- Tubes must be cleaned and filled with water first
+- Very accurate sizing: often used together with faster screening methods (eddy current, RFET) to confirm and size what they find
+- Benefit: wall-thickness data for every tube, so the customer plugs or replaces only the tubes that need it and plans shutdowns with confidence
+https://youtu.be/yhTewrjTRMQ
+[[product-faq:iris]]
+
+### ART crawler services
+![ART crawler on an insulated pipe](https://www.mistrasgroup.com/media/noqm4ukp/masthead-art-crawler.png)
+- Digital radiography to screen for internal corrosion and corrosion under insulation (CUI) in insulated & uninsulated above-ground piping and pipelines, **even with product flowing**
+- Internal corrosion crawler: through-wall technique, pipes 4–48"
+- CUI crawler: tangential OD radiography, pipes 2–48"
+- 360° crawler: tangential OD radiography, pipes 12–60"
+- Rapid large-scale screening
+- Lines stay in service
+- Permanent digital image archive
+https://youtu.be/JA7Zu1fhfHU
+[[product-faq:art]]
+
+### LiDAR & visual inspection robot (pipe crawler)
+![Example of a pipe inspection crawler](https://envirosight.com/wp-content/uploads/2021/07/laser_main-2-scaled.jpg)
+- LiDAR gives the robot mapping and navigation (Light Detection and Ranging: **a remote sensing method** that measures distances with pulsed laser light)
+- Travels up to 1,000 m
+- Pipes of at least 12 inch diameter
+- Clear 2D & 3D profile mapping
+- Auto-analysis software to identify flaws
+- Flaw measurement / location detection
+- Dimensional measurement
+- Clear, accurate cross-sectional view
+https://youtu.be/9HBf8kSVeos
+[[product-faq:crawler]]
 
 ### Underwater robot
 ![QYSEA FIFISH V6 Expert underwater robot](https://store.qysea.com/cdn/shop/files/fifish-v6-expert.png)
@@ -549,30 +546,48 @@ https://youtu.be/Hhp11I-vGHA
 https://youtu.be/k3rUdNZaBg4
 [[product-faq:rov]]
 
-### LiDAR & visual inspection robot (pipe crawler)
-![Example of a pipe inspection crawler](https://envirosight.com/wp-content/uploads/2021/07/laser_main-2-scaled.jpg)
-- LiDAR gives the robot mapping and navigation (Light Detection and Ranging: **a remote sensing method** that measures distances with pulsed laser light)
-- Travels up to 1,000 m
-- Pipes of at least 12 inch diameter
-- Clear 2D & 3D profile mapping
-- Auto-analysis software to identify flaws
-- Flaw measurement / location detection
-- Dimensional measurement
-- Clear, accurate cross-sectional view
-https://youtu.be/9HBf8kSVeos
-[[product-faq:crawler]]
+## Equipment protection
+### VALSEM (on the booth)
+![ValStrong-protected equipment crate](https://www.valsem.com/_img/uf2boiHKRGIuVb50gE8kPdjiQIc=/844_x_475/filters:quality(95):strip_exif()/reboot/media/922c517a-414f-11e8-a99b-fa163e14ea56/b202d782-251a-11ec-8348-0242ac130004/1-1-572669612.jpg)
+- VALSEM Industries (France, since 1977) protects critical equipment during transport and storage, and keeps proof of its condition over time
+- **ValStrong** membranes (e.g. ValStrong TITAN, VCX anti-corrosion film) shield equipment from corrosion, humidity and damage, crated or crate-less
+- **EXA-AIR**: inflatable anti-shock bags and sheets that cushion equipment inside its packaging
+- **ValTRACK**: embedded sensors record the conditions the equipment is exposed to, as a continuous, traceable record for audits and commissioning
+- Standards: NF H00 310, MIL-PRF-131K, DEF STAN 82-75/2, DIN 55 531, PMUC (nuclear); ~980 industrial customers in energy, nuclear, aerospace and infrastructure
+- **NDTCCS is VALSEM's strategic partner in the GCC**: talk to the team at the VALSEM counter
+- Benefit for the customer: equipment arrives, and stays, in the condition it left the factory, with data to prove it: less corrosion damage in storage and fewer surprises at commissioning
+https://youtu.be/JYsudQpknpU
+[[product-faq:valsem]]
 
-### ART crawler services
-![ART crawler on an insulated pipe](https://www.mistrasgroup.com/media/noqm4ukp/masthead-art-crawler.png)
-- Digital radiography to screen for internal corrosion and corrosion under insulation (CUI) in insulated & uninsulated above-ground piping and pipelines, **even with product flowing**
-- Internal corrosion crawler: through-wall technique, pipes 4–48"
-- CUI crawler: tangential OD radiography, pipes 2–48"
-- 360° crawler: tangential OD radiography, pipes 12–60"
-- Rapid large-scale screening
-- Lines stay in service
-- Permanent digital image archive
-https://youtu.be/JA7Zu1fhfHU
-[[product-faq:art]]`,
+## Training
+### Drone flight simulator (on the booth)
+![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
+- Part of our **drone training & consultancy** offer: visitors can try flying at the booth
+- Builds stick skills, procedures and muscle memory with zero risk to aircraft, payloads, people or property
+- Uses the pilot's real DJI remote controller via USB, so the control response matches the real aircraft; DJI's physics engine reproduces each model's flight behaviour
+- Training modules: skills training (take-off, landing, path following, tests), free flight, and application training such as powerline inspection and search & rescue
+- Same flight modes as real flight (P, A, S); simulated wind, ground effect and crash physics can be switched on
+- Emergency drills: loss of GNSS, return-to-home, low battery, ATTI-mode recovery; night and bad-weather conditions
+- Repeatable scoring to assess trainees, and lower training cost and insurance exposure before real flight hours and licence practical tests (e.g. GCAA)
+https://youtu.be/Zb_XKPgr0oo
+[[product-faq:simulator]]
+
+## Folders, brochures and videos
+| Product | On booth | Folder | Brochure | Video |
+|---|---|---|---|---|
+| [VALSEM](https://www.valsem.com/) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [DJI Dock 4](https://enterprise.dji.com/dock-4) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| Digital RT | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [IRIS](https://eddyfi.com/en/technology/internal-rotary-inspection-system-iris) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [AI solutions](https://terra-drone.co.id/software/) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [Drone flight simulator](https://www.dji.com/simulator) | Yes | [Folder]() | [Brochure]() | [Video]() |
+| [Voliro T](https://voliro.com/voliro-solution/) | | [Folder]() | [Brochure]() | [Video]() |
+| [Rigitech Eiger](https://rigi.tech/eiger/) | | [Folder]() | [Brochure]() | [Video]() |
+| [DJI M400](https://enterprise.dji.com/matrice-400) | | [Folder]() | [Brochure]() | [Video]() |
+| Drones for cleaning | | [Folder]() | [Brochure]() | [Video]() |
+| [AheadX QP530](https://www.aheadx.com/product/qp530a) | | [AheadX]() | [AheadX – QP530.pdf]() | [Showcase]() · [Use case: powerline inspection]() |
+| [Elios 3](https://www.flyability.com/elios-3) | | [Elios 3 – UT]() | [Elios 3 UT Payload.pdf]() | [Elios 3 – Digitizing the industry]() |
+| [DJI FlyCart 30](https://www.dji.com/flycart-30) | | [DJI FlyCart 30]() | [DJI FlyCart 30.pdf]() | [Introducing DJI FlyCart 30]() · [Use case: shore-based last mile delivery]() |`,
     quiz: [
       {
         q: "What does VALSEM protect, and when?",
