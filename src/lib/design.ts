@@ -66,7 +66,7 @@ export function adipecTemplate(): Design {
 /** The NDT booth at ADIPEC 2026 as redesigned by Elegant Qubes (adipec-eq.json). */
 export function adipecEqTemplate(): Design {
   const { meta: _meta, ...design } = eqRaw as unknown as Design & { meta: unknown }
-  return structuredClone(design)
+  return JSON.parse(JSON.stringify(design)) // plain JSON data; structuredClone is missing on older iPads
 }
 
 /** A plain hall with one aisle and an empty 6 × 4 m booth, to start a design from scratch. */

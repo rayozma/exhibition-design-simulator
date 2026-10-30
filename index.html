@@ -16,6 +16,45 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- If the app can't start on this browser (e.g. an older iPad), say why instead of an empty page -->
+    <script>
+      (function () {
+        var shown = false
+        function show(msg) {
+          var root = document.getElementById('root')
+          if (shown || (root && root.childElementCount)) return
+          shown = true
+          var box = document.createElement('div')
+          box.style.cssText =
+            'position:fixed;inset:0;z-index:99999;overflow:auto;background:#0b0f1a;padding:40px max(20px,calc(50% - 360px));color:#fff;font:15px/1.5 system-ui,sans-serif'
+          box.innerHTML =
+            '<h2 style="margin:0 0 8px">The page could not start on this browser</h2>' +
+            '<p style="color:#cbd5e1">Send a photo of this screen to the team. Updating the device (Settings → General → Software Update) usually fixes it.</p>' +
+            '<pre style="white-space:pre-wrap;background:#1f2937;padding:12px;border-radius:8px;font-size:12px"></pre>' +
+            '<button style="padding:8px 14px;border-radius:8px;border:0;font:inherit">Reset offline data and reload</button>'
+          box.querySelector('pre').textContent =
+            msg + '\n\n' + navigator.userAgent + '\nService worker: ' + !!(navigator.serviceWorker && navigator.serviceWorker.controller)
+          box.querySelector('button').onclick = function () {
+            var jobs = []
+            if (navigator.serviceWorker)
+              jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister() })) }))
+            if (window.caches) jobs.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k) })) }))
+            Promise.all(jobs).then(function () { location.reload() }, function () { location.reload() })
+          }
+          document.body.appendChild(box)
+        }
+        addEventListener('error', function (e) {
+          show((e.message || 'Error') + (e.filename ? '\n' + e.filename + ':' + e.lineno + ':' + e.colno : ''))
+        })
+        addEventListener('unhandledrejection', function (e) {
+          var r = e.reason
+          show('Unhandled: ' + ((r && (r.stack || r.message)) || r))
+        })
+        setTimeout(function () {
+          show('Nothing appeared after 10 seconds (no error was reported).')
+        }, 10000)
+      })()
+    </script>
     <script type="module" src="/src/main.tsx"></script>
     <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fb20521615704a2885e33a6e4b1455d1"}'></script><!-- End Cloudflare Web Analytics -->
   </body>
