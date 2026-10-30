@@ -468,7 +468,7 @@ briefing/videos/sewerx.mp4
 - Every finding is logged with evidence: AI-annotated screenshot, time, source, operator and location; register and map view; export to CSV / GeoJSON
 - On-premise on the customer's own GPU server, scales by adding GPU nodes; no inbound ports (outbound HTTPS tunnel); admin, supervisor and operator roles
 - For control rooms, critical sites and perimeter security, patrols, crowd management, incident review
-https://vmx.terra-drone.com.sa/landing/terra-vmx-overview.mp4
+briefing/videos/vmx.mp4
 
 ### Interex
 ![Interex console: count lines, approaches, speeds and turning movements on a drone video](https://interex.terra-drone.com.sa/static/home/media/console.jpg)
@@ -479,7 +479,7 @@ https://vmx.terra-drone.com.sa/landing/terra-vmx-overview.mp4
 - Live (RTSP, RTMP, HLS, SRT from drones, docks and IP cameras) or from a recorded flight; PDF reports and CSV exports (crossings, vehicles, zone visits, 15-minute counts)
 - Runs on the customer's own Windows / Linux PC with an NVIDIA GPU (real time on a single RTX 4090); web console
 - For traffic surveys and transport studies; on an oil & gas site: traffic at gates, plant roads and logistics yards
-https://interex.terra-drone.com.sa/static/home/media/film.mp4
+briefing/videos/interex.mp4
 
 ## Inspection & NDT
 ### Digital RT (digital radiography) (on the booth)

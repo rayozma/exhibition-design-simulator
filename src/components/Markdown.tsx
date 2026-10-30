@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { askConfirm } from '../lib/dialogs'
+import { useOnline } from '../lib/offline'
 
 /**
  * A small markdown subset for briefing text:
@@ -62,19 +63,7 @@ function blocks(lines: string[]): ReactNode[] {
     } else if (video) {
       flush()
       out.push(
-        <div key={out.length} className="md-video">
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${video[1]}`}
-            title="YouTube video"
-            loading="lazy"
-            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
-          <a className="md-video-link" href={`https://youtu.be/${video[1]}`} target="_blank" rel="noopener noreferrer">
-            ▶ Watch on YouTube: youtu.be/{video[1]}
-          </a>
-        </div>,
+        <YouTube key={out.length} id={video[1]} />,
       )
       i++
     } else if (videoSrc) {
@@ -114,6 +103,32 @@ function blocks(lines: string[]): ReactNode[] {
   }
   flush()
   return out
+}
+
+/** Embedded YouTube video; without internet, its picture and a note instead of a dead player. */
+function YouTube({ id }: { id: string }) {
+  const online = useOnline()
+  return (
+    <div className="md-video">
+      {online ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${id}`}
+          title="YouTube video"
+          loading="lazy"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      ) : (
+        <div className="md-video-offline" style={{ backgroundImage: `url(https://img.youtube.com/vi/${id}/hqdefault.jpg)` }}>
+          <span>YouTube video: needs internet</span>
+        </div>
+      )}
+      <a className="md-video-link" href={`https://youtu.be/${id}`} target="_blank" rel="noopener noreferrer">
+        ▶ Watch on YouTube: youtu.be/{id}
+      </a>
+    </div>
+  )
 }
 
 const joinLines = (lines: string[]) =>
@@ -211,7 +226,12 @@ function MdLink({ label, href }: { label: string; href: string }) {
       </span>
     )
   if (href.startsWith('#')) return <a href={href}>{label}</a>
-  if (!/^(https?:|mailto:)/i.test(href)) return <span>{label}</span>
+  if (!/^(https?:|mailto:)/i.test(href)) {
+    // A file of this app, e.g. briefing/brochures/elios3.pdf
+    const file = imageSrc(href)
+    if (!file) return <span>{label}</span>
+    href = file
+  }
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       {label}

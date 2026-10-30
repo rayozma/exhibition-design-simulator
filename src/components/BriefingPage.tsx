@@ -22,6 +22,7 @@ import { askConfirm, askText } from '../lib/dialogs'
 import { parseDesign } from '../lib/design'
 import { isImageLink, uploadImage } from '../lib/images'
 import { supabase } from '../lib/supabase'
+import { loadBriefingCopy, saveBriefingCopy } from '../lib/offline'
 import { loadUser } from '../lib/user'
 import { ExhibitorFinder } from './ExhibitorFinder'
 import { PRODUCT_TOPICS } from '../data/productFaq'
@@ -29,6 +30,7 @@ import { ServiceFaq } from './ServiceFaq'
 import { VisitorCheck } from './VisitorCheck'
 import { Field, RemarksField } from './fields'
 import { Markdown } from './Markdown'
+import { OfflineSave } from './OfflineSave'
 import { ProductCatalog } from './ProductCatalog'
 import { Quiz, QuizEditor, usableQuiz } from './Quiz'
 
@@ -46,12 +48,18 @@ function boothRoom(rooms: Room[], chosen: string | null): Room | null {
 
 /** Team briefing at ?briefing: sections everyone can edit live, a link to the booth in 3D, and a private quiz. */
 export function BriefingPage() {
-  const [sections, setSections] = useState<BriefingSection[] | null>(supabase ? null : DEFAULT_BRIEFING)
+  // The copy saved on this device shows at once (and without internet) until the live briefing arrives.
+  const [sections, setSections] = useState<BriefingSection[] | null>(() => (supabase ? (loadBriefingCopy()?.sections ?? null) : DEFAULT_BRIEFING))
+  const [copyAt, setCopyAt] = useState<string | null>(() => (supabase ? (loadBriefingCopy()?.at ?? null) : null))
+  const [fresh, setFresh] = useState(false)
+  const [unreachable, setUnreachable] = useState(() => !navigator.onLine)
   const [error, setError] = useState<string | null>(null)
   const [editing, setEditing] = useState<string | null>(null)
   const [answers, setAnswers] = useState(loadQuizAnswers)
   const [rooms, setRooms] = useState<Room[] | null>(null)
   const live = !!supabase
+  /** Editing only on the live briefing, not on the saved copy. */
+  const canEdit = live && fresh
 
   useEffect(() => {
     if (!live) return
@@ -63,9 +71,16 @@ export function BriefingPage() {
           await seedBriefing(DEFAULT_BRIEFING, 'seed')
           list = await fetchBriefing()
         }
-        if (!cancelled) setSections(list)
+        if (!cancelled) {
+          setSections(list)
+          setFresh(true)
+          setCopyAt(null)
+        }
       } catch (e) {
-        if (!cancelled) setError((e as Error).message)
+        // No internet: keep the copy saved on this device, if there is one
+        if (cancelled) return
+        if (loadBriefingCopy()) setUnreachable(true)
+        else setError((e as Error).message)
       }
     })()
     fetchRooms()
@@ -80,6 +95,11 @@ export function BriefingPage() {
       off()
     }
   }, [live])
+
+  // Keep the saved copy up to date with the live briefing (including others' edits).
+  useEffect(() => {
+    if (fresh && sections) saveBriefingCopy(sections)
+  }, [fresh, sections])
 
   // Content arrives after the first render: jump to #section once it's there.
   const jumped = useRef(false)
@@ -259,12 +279,19 @@ export function BriefingPage() {
         )}
       </header>
 
+      {live && <OfflineSave sections={sections} />}
+
       {error && (
         <p className="status overlap">
           {error}{' '}
           <button className="link" onClick={() => setError(null)}>
             Dismiss
           </button>
+        </p>
+      )}
+      {live && !fresh && unreachable && copyAt && sections && (
+        <p className="status outside">
+          No internet: showing the copy saved on this device ({when(copyAt)}). Editing is off until you are back online.
         </p>
       )}
       {!live && <p className="status outside">Offline copy: the database is not configured, so the briefing can't be edited here.</p>}
@@ -279,7 +306,7 @@ export function BriefingPage() {
                 {s.title || 'Untitled'}
               </a>
             ))}
-            {live && (
+            {canEdit && (
               <div className="brief-nav-foot">
                 <button className="link small" onClick={() => add(sections.length - 1)}>
                   + Add a section
@@ -297,7 +324,7 @@ export function BriefingPage() {
                   <span className="sec-num">{k + 1}</span>
                   {s.title || 'Untitled'}
                 </h2>
-                {live && (
+                {canEdit && (
                   <div className="briefing-actions no-print">
                     <button className={editing === s.id ? 'active' : ''} onClick={() => setEditing(editing === s.id ? null : s.id)}>
                       {editing === s.id ? 'Done' : 'Edit'}
@@ -341,7 +368,7 @@ export function BriefingPage() {
                 </>
               )}
 
-              {live && (
+              {canEdit && (
                 <button className="link add-section no-print" onClick={() => add(k)}>
                   + Add a section here
                 </button>
@@ -349,7 +376,7 @@ export function BriefingPage() {
             </section>
           ))}
 
-          {live && sections?.length === 0 && (
+          {canEdit && sections?.length === 0 && (
             <button className="no-print" onClick={() => add(-1)}>
               + Add a section
             </button>

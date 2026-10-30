@@ -1952,7 +1952,8 @@ a.button-link.briefing-cta {
   color: #111827;
 }
 
-.brief-progress .bar {
+.brief-progress .bar,
+.offline-box .bar {
   height: 8px;
   margin: 8px 0;
   border-radius: 4px;
@@ -1960,7 +1961,8 @@ a.button-link.briefing-cta {
   overflow: hidden;
 }
 
-.brief-progress .bar div {
+.brief-progress .bar div,
+.offline-box .bar div {
   height: 100%;
   border-radius: 4px;
   background: linear-gradient(90deg, #f59e0b, #facc15);
@@ -3464,4 +3466,65 @@ a.button-link.briefing-cta {
   .pc-print {
     display: block;
   }
+}
+
+/* Offline use of the briefing (Save for offline; see src/lib/offline.ts) */
+.offline-box {
+  margin: -8px 0 20px;
+  padding: 14px 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.offline-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.offline-ok {
+  color: #15803d;
+}
+
+.offline-box .bar {
+  margin: 10px 0 0;
+}
+
+.offline-note {
+  margin: 8px 0 0;
+  color: #4b5563;
+}
+
+.offline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.offline-actions button.primary {
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+
+.md-video-offline {
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  background: #111827 center / cover no-repeat;
+}
+
+.md-video-offline span {
+  margin: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(17, 24, 39, 0.8);
 }
