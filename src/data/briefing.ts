@@ -242,12 +242,12 @@ Sample use cases: [Data Sample 2024]()`,
 ### Service materials
 | Service | Folder | Video | Sample data |
 |---|---|---|---|
-| Flare inspection | [FLARE INSPECTION]() | [Flare Inspection.mp4]() | [Inspection report – Flare]() |
-| Overhead power lines inspection | [OVERHEADLINES]() | [OHL Inspection.mp4]() · [AheadX OHL.mp4]() | [Report visual inspection]() |
-| Pipeline inspection | [PIPELINE INSPECTION]() | [Pipeline Inspection.mp4]() | [ADNOC-DC MOL report]() |
-| In-field patrolling | [INFIELD PATROL]() | [Wellhead Surveillance.mp4]() | [BUH In-field patrol]() |
-| Confined space | [Confined Space Inspection]() | [TDID – Confined Space Inspection]() | [Report inspection]() · [Inspection report]() |
-| Methane gas detection | [METHANE GAS DETECTION]() | [Falcon Methane Gas Detection]() | [ADNOC Onshore – BAB]() |
+| Flare inspection | [FLARE INSPECTION]() | [Flare Inspection.mp4](briefing/videos/flare-inspection.mp4) | [Inspection report – Flare]() |
+| Overhead power lines inspection | [OVERHEADLINES]() | [OHL Inspection.mp4](briefing/videos/ohl-inspection.mp4) · [AheadX OHL.mp4](briefing/videos/aheadx-ohl.mp4) | [Report visual inspection]() |
+| Pipeline inspection | [PIPELINE INSPECTION]() | [Pipeline Inspection.mp4](briefing/videos/pipeline-inspection.mp4) | [ADNOC-DC MOL report]() |
+| In-field patrolling | [INFIELD PATROL]() | [Wellhead Surveillance.mp4](briefing/videos/wellhead-surveillance.mp4) | [BUH In-field patrol]() |
+| Confined space | [Confined Space Inspection]() | [Internal Inspection.mp4](briefing/videos/internal-inspection.mp4) · [TDID – Confined Space Inspection]() | [Report inspection]() · [Inspection report]() |
+| Methane gas detection | [METHANE GAS DETECTION]() | [Falcon Methane Gas Detection](briefing/videos/methane-falcon.mp4) | [ADNOC Onshore – BAB]() |
 | Drone delivery | [DELIVERY]() | [Drone Delivery Bu Hasa]() | [ADNOC-DC BUH final]() |
 | Seismic | | | [ADNOC-SEISMIC report]() |
 | Renewable energy | [Renewable Energy]() | [TDID – Renewable Energy]() | |
@@ -341,6 +341,7 @@ https://youtu.be/3UrKq7xj7TI
 - Optimized for GPS-denied environments (indoor, under structures, tanks, etc)
 - Triple-redundant IMU for stability and safety
 - Ideal for oil & gas, petrochemical, power plant and ship hull inspection
+briefing/videos/voliro-t.mp4
 https://youtu.be/Q29N_pTc6kA
 [[product-faq:voliro]]
 
@@ -353,6 +354,8 @@ https://youtu.be/Q29N_pTc6kA
 - LiDAR sensor produces a 3D point cloud (for visualization)
 - Up to 2 cm accuracy with the GeoSLAM feature
 - Virtual inspection in the software
+briefing/videos/elios3-ut.mp4
+briefing/videos/internal-inspection.mp4
 https://youtu.be/B5s-69mQTSc
 [[product-faq:elios]]
 
@@ -364,6 +367,7 @@ https://youtu.be/B5s-69mQTSc
 - Up to 60 km radius; 60–80 km straight line in one flight
 - 30x optical EO zoom camera and IR camera for night operation
 - Live stream to the command center
+briefing/videos/aheadx-ohl.mp4
 https://youtu.be/r3k7v1WPDMk
 [[product-faq:aheadx]]
 
@@ -380,6 +384,7 @@ https://youtu.be/r3k7v1WPDMk
 - Safety: ballistic parachute, redundant telemetry, failsafe logic
 - Wind-resistant (~15 m/s in fixed-wing mode) and quiet (~51–55 dB at 135 m)
 - Proven use cases: medical deliveries, offshore logistics, island connectivity
+briefing/videos/eiger.mp4
 https://youtu.be/oHd-QIXVNoc
 [[product-faq:eiger]]
 
@@ -389,6 +394,7 @@ https://youtu.be/oHd-QIXVNoc
 - 1 battery: up to 35 kg payload, 7.5 km travel distance, 7.5 minutes endurance
 - 2 batteries: up to 25 kg payload, 15 km travel distance, 15 minutes endurance
 - Maximum operation radius 5 km
+briefing/videos/flycart-offshore.mp4
 https://youtu.be/Hhp11I-vGHA
 [[product-faq:flycart]]
 
@@ -399,8 +405,41 @@ https://youtu.be/Hhp11I-vGHA
 - Stable high-altitude operation
 - Real-time data display
 - Multi-angle, multi-scenario coverage
+briefing/videos/drone-cleaning.mp4
 https://youtu.be/WnYeOUIdnoI
 [[product-faq:cleaning]]
+
+### Nolvis X1
+![Nolvis X1 indoor inspection drone](briefing/videos/nolvis-x1.jpg)
+- **Indoor inspection drone** by Nolvis (Japan), for confined, dark and dusty spaces without GPS: boilers, tanks, ducts, under-deck structures
+- Stable flight without GPS, using **LiDAR + visual odometry**; a protective cage (sold separately) guards the rotors and frame against impact
+- **Real-time 3D point cloud** on the operator's tablet, so the pilot sees surrounding obstacles even beyond line of sight. LiDAR: 200,000 points/s, range 40 m (10 % reflectivity) to 70 m (80 %), precision 2 cm at 10 m
+- **4K camera** (1/1.7-inch, 8 MP) with **180° vertical tilt**, and LED lighting up to **10,480 lumens** for clear footage in darkness
+- **Nolvis X1 Cloud**: images and video linked to the 3D point cloud, for visualization, teamwork and sharing with customers
+- Flight time about **10 min** per battery (3 batteries in the kit, 1 h charge each); 1.8 kg; 36 × 31 × 21 cm; max speed 2.5 m/s; wind up to 3 m/s; 0–45 °C
+- A **tether** to a power pack is shown in the video for longer flights without battery swaps (confirm availability with the team)
+- Kit includes the drone, controller, tablet, 3 batteries and a half-day initial training (required before operation)
+- Same job as the **Elios 3**: compare both for the customer's space and budget
+briefing/videos/nolvis-x1.mp4
+
+### TR9S cargo drone
+![TR9S cargo drone with a delivery box](briefing/videos/tr9s.jpg)
+- Multirotor **logistics drone** by Antwork (China), built on its urban delivery experience (the video cites 600,000 km of city logistics flights)
+- Maximum take-off weight **24.8 kg**, top speed **60 km/h**
+- Quick-swap batteries and interchangeable cargo boxes, including temperature-controlled boxes with full traceability
+- Built for emergency response and medical deliveries, and batch delivery of larger items
+- Compare with the **DJI FlyCart 30** for heavier loads (confirm with the team how we offer the TR9S before quoting it)
+briefing/videos/tr9s.mp4
+
+### Bramor C4Eye (fixed wing)
+![Bramor C4Eye fixed-wing drone in the UAE desert](briefing/videos/c4eye.jpg)
+- **Fixed-wing surveillance drone** (C-Astral Bramor C4Eye), for long pipelines, field patrols and large areas where multirotors run out of range
+- Catapult launch, no runway needed; recovered by parachute
+- Ground control station with live gimbal video (EO camera), target tracking modes and waypoint missions
+- Shown here in the UAE desert, operated alongside a multirotor with zoom camera for close-up checks
+- Fits the **Surveillance** offer: fixed wing for large areas, multirotor for facilities (confirm endurance and range figures with the team)
+briefing/videos/c4eye.mp4
+briefing/videos/bramor-launch.mp4
 
 ## Terra AI platform
 ### Terra AI platform overview (on the booth)
@@ -481,6 +520,17 @@ briefing/videos/vmx.mp4
 - For traffic surveys and transport studies; on an oil & gas site: traffic at gates, plant roads and logistics yards
 briefing/videos/interex.mp4
 
+## Airspace management
+### Unifly UTM
+![Unifly UTM: drones and manned aviation sharing the city airspace](briefing/videos/unifly.jpg)
+- **Unmanned Traffic Management (UTM)** platform by Unifly (Belgium), part of the Terra Drone group
+- Drone operators plan, track and validate their drones and flights in line with international and local regulation
+- Reliable data from worldwide sources: weather, NOTAMs, obstacles and no-fly zones, plus hyper-local aeronautical data
+- Real-time, two-way communication with operators and drones; proximity and collision alerts, including with manned aviation
+- Connects air navigation service providers (ANSPs) and authorities with drone operators, using SWIM, the aviation standard for data exchange
+- For authorities, airports and large operators that run many drones at once (e.g. a drone center with BVLOS flights)
+briefing/videos/unifly-utm.mp4
+
 ## Inspection & NDT
 ### Digital RT (digital radiography) (on the booth)
 ![Portable digital radiography at a refinery](https://img.youtube.com/vi/cJyVyBaAnfM/maxresdefault.jpg)
@@ -543,8 +593,20 @@ https://youtu.be/9HBf8kSVeos
 - Standard 10 cm laser scaler for underwater measurement
 - Robotic arm lifts 10 kg to collect samples or lost items
 - Q-BOX underwater connector hub with 6 ports for a customized robotic arm with NDT tools. Accessories include 2D imaging sonar, Station Lock™, U-QPS, 360° scanning sonar, compass ruler clamp, OPSS (on-shore power supply), mud sampler, water sampler (500 mL), salinity, pH and dissolved oxygen sensors, hydrophone, etc
+briefing/videos/underwater-robot.mp4
+briefing/videos/fifish-w6.mp4
 https://youtu.be/k3rUdNZaBg4
 [[product-faq:rov]]
+
+### NDTCCS Solutions Centre
+![NDTCCS Solutions Centre: ground-penetrating radar demo](briefing/videos/ndtccs-centre.jpg)
+- NDTCCS's demo centre, where customers see the inspection technology working before a project
+- **Ground-penetrating radar** (GPR) cart with display unit, and a sandbox with buried targets to show how GPR finds them
+- **Tube inspection** on a heat-exchanger tube-bundle mock-up, with handheld instruments and flaw detectors
+- Internal **camera inspection** of pipes and vessels
+- **Underwater ROV** in a test tank, driven from a tablet controller
+- Offer a visit to the centre as a next step after ADIPEC (confirm the location and how to book with NDTCCS)
+briefing/videos/ndtccs-centre.mp4
 
 ## Equipment protection
 ### VALSEM (on the booth)
@@ -556,6 +618,7 @@ https://youtu.be/k3rUdNZaBg4
 - Standards: NF H00 310, MIL-PRF-131K, DEF STAN 82-75/2, DIN 55 531, PMUC (nuclear); ~980 industrial customers in energy, nuclear, aerospace and infrastructure
 - **NDTCCS is VALSEM's strategic partner in the GCC**: talk to the team at the VALSEM counter
 - Benefit for the customer: equipment arrives, and stays, in the condition it left the factory, with data to prove it: less corrosion damage in storage and fewer surprises at commissioning
+briefing/videos/valsem-corporate.mp4
 https://youtu.be/JYsudQpknpU
 [[product-faq:valsem]]
 

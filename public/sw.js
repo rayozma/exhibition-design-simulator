@@ -26,7 +26,9 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url)
   if (/\.supabase\.co$/.test(url.hostname)) return // live data: the app keeps its own copy
   const own = url.origin === self.location.origin
-  if (req.mode === 'navigate' && own && url.pathname.startsWith(BASE)) e.respondWith(page(req))
+  // Pages of the app (not files opened directly, like a video or brochure link)
+  const appPage = own && url.pathname.startsWith(BASE) && !/\.[a-z0-9]+$/i.test(url.pathname)
+  if (req.mode === 'navigate' && appPage) e.respondWith(page(req))
   else if (own && url.pathname.startsWith(BASE + 'assets/')) e.respondWith(cacheFirst(req))
   else if (/^fonts\.(googleapis|gstatic)\.com$/.test(url.hostname)) e.respondWith(cacheFirst(req))
   else e.respondWith(media(req))

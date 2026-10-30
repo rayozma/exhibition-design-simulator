@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { askConfirm } from '../lib/dialogs'
 import { useOnline } from '../lib/offline'
 
@@ -232,10 +232,36 @@ function MdLink({ label, href }: { label: string; href: string }) {
     if (!file) return <span>{label}</span>
     href = file
   }
+  // Videos play here, in the page: a new tab would leave the installed (offline) app on an iPad
+  if (/.(mp4|webm)([?#].*)?$/i.test(href)) return <VideoLink label={label} src={href} />
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       {label}
     </a>
+  )
+}
+
+function VideoLink({ label, src }: { label: string; src: string }) {
+  const dialog = useRef<HTMLDialogElement>(null)
+  const close = () => {
+    dialog.current?.querySelector('video')?.pause()
+    dialog.current?.close()
+  }
+  return (
+    <>
+      <button className="link md-video-open" onClick={() => dialog.current?.showModal()}>
+        ▶ {label}
+      </button>
+      <dialog ref={dialog} className="md-video-dialog" onClick={(e) => e.target === dialog.current && close()} onClose={close}>
+        <div className="md-video-dialog-head">
+          <b>{label}</b>
+          <button className="link" onClick={close} aria-label="Close">
+            ✕
+          </button>
+        </div>
+        <video src={src} controls playsInline preload="none" />
+      </dialog>
+    </>
   )
 }
 

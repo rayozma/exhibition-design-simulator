@@ -62,7 +62,7 @@ export function loadBriefingCopy(): BriefingCopy | null {
 
 const IMAGE = /!\[[^\]]*\]\((\S+)\)/g
 const VIDEO_LINE = /^\s*(\S+\.(?:mp4|webm))\s*$/gim
-const DOC_LINK = /\[[^\]]+\]\(([^)\s]+\.(?:pdf|pptx?|docx?|xlsx?))\)/gi
+const DOC_LINK = /\[[^\]]+\]\(([^)\s]+\.(?:pdf|pptx?|docx?|xlsx?|mp4|webm))\)/gi
 const YOUTUBE = /^\s*https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:\S*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/gim
 
 /** Every picture, video and document the briefing shows, as full addresses. */
