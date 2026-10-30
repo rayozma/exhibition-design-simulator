@@ -180,7 +180,7 @@ const TOPICS: ServiceTopic[] = [
     about: 'our AI solutions',
     questions: [
       q('what', 'What software do you have?', {
-        say: 'Terra Drone’s own software for the data side of drone operations: Terra MapX for mapping, Terra Organize for projects and data, Terra Stream for live video.',
+        say: 'The Terra AI platform: Terra MapX for mapping, Terra Organize for projects and data, Terra Stream for live video, Terra VMX for AI video analytics and security, and Interex for traffic analytics.',
         facts: ['Also Terra Checklist: digital pre-flight checklists and compliance.', 'Confirm the Terra MapX name with the team before quoting it in writing.'],
       }),
       q('mapx', 'What does Terra MapX do?', {
@@ -201,6 +201,28 @@ const TOPICS: ServiceTopic[] = [
           'Share by link, email or WhatsApp; live telemetry overlay (altitude, speed, battery, GPS); automatic cloud recording.',
         ],
         ask: ['Who would watch: control room, management, clients?'],
+      }),
+      q('vmx', 'Can AI watch our cameras and drones for us?', {
+        say: 'Yes, with Terra VMX: drones, CCTV, bodycams and phones in one live console and map, and AI watches every feed 24/7 against your rules.',
+        facts: [
+          'Detects and tracks people and vehicles; aerial model for small objects in drone video; custom YOLO models.',
+          'Draw zones on the camera or map and set rules in plain language: restricted areas, crowds, loitering, speeding, no-stopping.',
+          'Every finding is logged with an annotated screenshot, time, source and location; export to CSV / GeoJSON.',
+          'Runs on-premise on your own GPU server; no inbound ports; admin, supervisor and operator roles.',
+        ],
+        show: ['vmx.terra-drone.com.sa'],
+        ask: ['How many cameras and drones do you have today?', 'Who watches them, and what do you want to be alerted about?'],
+      }),
+      q('interex', 'Can you measure traffic from drone video?', {
+        say: 'Yes, with Interex: drone or CCTV video in, traffic data out, live or from a recorded flight.',
+        facts: [
+          'Counts and tracks cars, motorcycles, buses, trucks, vans and bicycles by line, direction and class.',
+          'Turning movements, speeds (average and 85th percentile), waiting time and indicative level of service.',
+          'PDF reports and CSV exports, including 15-minute counts.',
+          'Runs on your own PC with an NVIDIA GPU, in real time on one RTX 4090.',
+        ],
+        show: ['interex.terra-drone.com.sa'],
+        ask: ['Where: site gates, plant roads, logistics yards, or public roads?'],
       }),
       PRICE('software'),
       OTHER,

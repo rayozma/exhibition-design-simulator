@@ -356,13 +356,27 @@ https://youtu.be/dndIQ5X3pcM
 https://youtu.be/yhTewrjTRMQ
 [[product-faq:iris]]
 
-### AI solutions (Terra MapX, Terra Organize, Terra Stream)
+### AI solutions (Terra AI platform: MapX, Organize, Stream, Interex, VMX)
 ![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
 - Terra Drone's own software for the data side of drone operations, so customers get usable results, not just raw files
 - **Terra MapX**: drone mapping / photogrammetry processing: orthophotos, elevation models, point clouds, volumes and contours (confirm the final product name with the Indonesia team; Terra Drone's public mapping product is Terra Mapper)
 - **Terra Organize**: project and data management for drone operations: project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
 - **Terra Stream**: live streaming of drone video to the customer or a command center: up to 1080p with adaptive bitrate, sub-second latency, multi-viewer access control, share by link / email / WhatsApp, live telemetry overlay (altitude, speed, battery, GPS), automatic cloud recording
 - Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
+- **[Terra VMX](https://vmx.terra-drone.com.sa/)** ("Every feed. One console."): real-time AI video analytics for security and public safety, by Terra Drone Arabia
+  - Brings drones (DJI via FlightHub 2), CCTV / NVRs (RTSP, RTMP, SRT, HLS), bodycams and field officers' phones into one live console and map
+  - AI watches every feed 24/7: detects and tracks people and vehicles (speed, dwell, stop time); aerial model for small, distant objects in drone video; custom ONNX (YOLO) models supported
+  - Draw zones (roads, gates, fences, restricted areas) on the camera view or satellite map and set rules in plain language; templates for restricted areas, crowds, loitering, speeding, no-stopping, jaywalking
+  - Every finding is logged with evidence: AI-annotated screenshot, time, source, operator and location; register and map view; export to CSV / GeoJSON
+  - On-premise on the customer's own GPU server, scales by adding GPU nodes; no inbound ports (outbound HTTPS tunnel); admin, supervisor and operator roles
+  - For control rooms, critical sites and perimeter security, patrols, crowd management, incident review
+- **[Interex](https://interex.terra-drone.com.sa/)** ("Drone video in. Traffic data out."): AI traffic analytics from drone or CCTV video, by Terra Drone Arabia
+  - Detects, counts and tracks cars, motorcycles, buses, trucks, vans and bicycles (pedestrians optional), with models fine-tuned on aerial imagery
+  - Count lines by direction and class, turning movements (origin-destination matrix), per-vehicle speeds (average and 85th percentile), waiting time and indicative HCM level of service
+  - Filters out parked vehicles; zones with occupancy, entries and dwell time; camera placed on satellite imagery
+  - Live (RTSP, RTMP, HLS, SRT from drones, docks and IP cameras) or from a recorded flight; PDF reports and CSV exports (crossings, vehicles, zone visits, 15-minute counts)
+  - Runs on the customer's own Windows / Linux PC with an NVIDIA GPU (real time on a single RTX 4090); web console
+  - For traffic surveys and transport studies; on an oil & gas site: traffic at gates, plant roads and logistics yards
 - Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
 https://youtu.be/CZL859mbue4
 [[product-faq:ai]]
