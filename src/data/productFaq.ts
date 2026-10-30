@@ -180,11 +180,44 @@ const TOPICS: ServiceTopic[] = [
     about: 'our AI solutions',
     questions: [
       q('what', 'What software do you have?', {
-        say: 'The Terra AI platform: Terra MapX for mapping, Terra Organize for projects and data, Terra Stream for live video, Terra VMX for AI video analytics and security, and Interex for traffic analytics.',
-        facts: ['Also Terra Checklist: digital pre-flight checklists and compliance.', 'Confirm the Terra MapX name with the team before quoting it in writing.'],
+        say: 'The Terra AI platform: software for every step from survey to decision. Terra MapX processes survey data, Survey Suite runs survey projects, TowerSight and SewerX manage inspections, Terra VMX and Interex analyse video, and Terra Stream shares it live.',
+        facts: ['Also Terra Organize (projects and data) and Terra Checklist (digital pre-flight checklists and compliance).'],
+        show: ['The product videos in the Product reference: MapX, Survey Suite, TowerSight, SewerX'],
       }),
       q('mapx', 'What does Terra MapX do?', {
-        say: 'It processes drone mapping data into orthophotos, elevation models, point clouds, volumes and contours.',
+        say: 'It takes drone survey data from flight to signed report: processing, then orthomosaics, elevation profiles, cut & fill, point clouds and 3D meshes in the browser, then volume and slope reports.',
+        facts: [
+          'The platform checks every required file (photos, GNSS, ground control) before a run.',
+          'Process in-platform, or hand it to the Terra Drone back office and follow each step.',
+          'Reports: cut & fill, stockpile volumes (materials, densities), highwall slopes, road alignments; checker and approver named.',
+        ],
+        ask: ['What do you survey: mines, stockpiles, earthworks?', 'How do you calculate volumes today?'],
+      }),
+      q('surveysuite', 'How do you manage survey projects?', {
+        say: 'With Terra Survey Suite: one platform from first inquiry to final report: quote, plan, fly, track and deliver.',
+        facts: [
+          'Import the client area (KML, Shapefile, GeoJSON), plan ground control and mission blocks in minutes.',
+          'Pricing from the real scope, with a quote-ready summary (contingency, markup, VAT, price per km²).',
+          'Team and fleet, Gantt schedule, risk assessments, permits; daily logs, progress on the map, plan vs actual.',
+        ],
+      }),
+      q('towersight', 'Can you inspect our towers?', {
+        say: 'Yes: we fly the towers and deliver the results in TowerSight, a digital record per tower with every payload, defect, thickness reading and ticket.',
+        facts: [
+          'Payload inventory: every antenna, camera and light identified and photographed.',
+          'Ultrasonic thickness against design, with A-scan trace and GPS; findings pinned on a 3D twin; 360° view from the top.',
+          'Maintenance tickets prioritised and assigned; drawings and reports kept with the asset.',
+        ],
+        ask: ['How many towers, and what type: telecom, security, power?'],
+      }),
+      q('sewerx', 'Do you do sewer inspection?', {
+        say: 'Yes: Terra SewerX turns CCTV sewer footage into graded reports, with every defect photographed, coded and mapped.',
+        facts: [
+          'Network map colour-coded by inspection status and condition grade.',
+          'Frame-by-frame review; distance read from the video (OCR); evidence photos linked to the video timestamp.',
+          'Automatic project and section reports; compare inspections to prove cleaning (e.g. grade D → A).',
+        ],
+        ask: ['How long is the network, and how is it inspected today?'],
       }),
       q('organize', 'What does Terra Organize do?', {
         say: 'It manages drone projects and data from planning to delivery, with a client portal to share results.',

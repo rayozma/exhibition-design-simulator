@@ -356,15 +356,59 @@ https://youtu.be/dndIQ5X3pcM
 https://youtu.be/yhTewrjTRMQ
 [[product-faq:iris]]
 
-### AI solutions (Terra AI platform: MapX, Organize, Stream, Interex, VMX)
+### AI solutions (Terra AI platform)
 ![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
 - Terra Drone's own software for the data side of drone operations, so customers get usable results, not just raw files
-- **Terra MapX**: drone mapping / photogrammetry processing: orthophotos, elevation models, point clouds, volumes and contours (confirm the final product name with the Indonesia team; Terra Drone's public mapping product is Terra Mapper)
+- **Terra MapX**: drone survey processing and reporting for mining and earthworks (below)
+- **Terra Survey Suite**: drone survey project management, from inquiry to report (below)
+- **TowerSight** and **Terra SewerX**: inspection platforms for towers and sewer networks (below)
 - **Terra Organize**: project and data management for drone operations: project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
 - **Terra Stream**: live streaming of drone video to the customer or a command center: up to 1080p with adaptive bitrate, sub-second latency, multi-viewer access control, share by link / email / WhatsApp, live telemetry overlay (altitude, speed, battery, GPS), automatic cloud recording
 - Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
 - Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
 https://youtu.be/CZL859mbue4
+
+#### Terra MapX: drone survey processing (Mining Suite)
+![Terra MapX: textured 3D mesh of a bridge](briefing/videos/mapx.jpg)
+- **Terra MapX Mining Suite** ("From drone flight to signed report"), by Terra Drone Arabia: process, explore and report on drone survey data in one platform
+- **Process**: upload imagery, LiDAR, GNSS observations and ground control; declare the survey and the platform checks every required file before a run (photos, camera events, aircraft and base-station GNSS)
+- Ground control checked (e.g. 15 control points marked in 3 or more photographs); process in-platform with adjustable settings, or hand it to the Terra Drone back office and follow every production step (PPK, aerotriangulation, dense cloud, DEM, orthomosaic)
+- **Explore**: centimetre-level orthomosaics over a satellite base map, elevation profiles (grades and angles), cut & fill against a design level (red = cut, blue = fill), point clouds and textured 3D meshes in the browser, and walk-through BIM models (tanks, pumps, pipework)
+- **Report**: reports built from the data (cut & fill, stockpile volumes with materials and densities, highwall slopes, road alignments and cross sections), with checker and approver named and a revision history
+- For mining, quarries, earthworks, construction and plant sites
+briefing/videos/mapx.mp4
+
+#### Terra Survey Suite: drone survey project management
+![Terra Survey Suite: slicing the area into mission blocks](briefing/videos/surveysuite.jpg)
+- **Terra Survey Suite** ("One project. One platform. Every stage."), by Terra Drone Arabia: runs a drone survey business from first inquiry to final report
+- **Sales**: every inquiry in one pipeline; import the client's area (KML, Shapefile, GeoJSON); plan ground control (grid or Voronoi) in minutes; slice the area into flight-sized mission blocks per drone and sensor
+- Price the job from the real scope (personnel, equipment, permits, duration) and get a quote-ready pricing summary (contingency, markup, VAT, price per km²), exported to CSV or PDF
+- **Work planning**: assign team and fleet; schedule built from the estimate (Gantt); HIRADC risk assessments with risk matrix; permits, site access and NOCs filed with the project; resource use across every project
+- **Reporting**: daily logs from the field; progress tracked automatically and shown on the map; plan vs actual per task; deliverables tracked from planned to QC to ready; a live dashboard for management
+briefing/videos/surveysuite.mp4
+
+#### TowerSight: drone tower inspection
+![TowerSight: tower record with every payload photographed](briefing/videos/towersight.jpg)
+- **TowerSight** ("Every tower. Every defect. One platform."), by Terra Drone Arabia: drone-powered tower inspection, from flight to fix
+- Every tower in the region on a map, with a live register of every structure (height, status, defects, open tickets)
+- A digital record per tower: every antenna, camera and light identified and photographed (payload inventory), defects with photos, severity and assignee
+- Ultrasonic thickness: wall loss measured against design thickness, each reading backed by its A-scan trace and GPS position
+- 3D digital twin with every finding pinned to its place, point cloud, 360° view from the top of the tower, geotagged photos by category
+- Inspection history with scored pass / fail checklists; maintenance tickets prioritised and assigned; drawings, manuals and reports kept with the asset
+- For telecom, security and utility towers, masts and other lattice structures
+briefing/videos/towersight.mp4
+
+#### Terra SewerX: CCTV sewer inspection
+![Terra SewerX: defect gallery, every defect photographed, coded and graded](briefing/videos/sewerx.jpg)
+- **Terra SewerX** ("Inspect faster. Report with confidence."), by Terra Drone Arabia: CCTV sewer inspection, from field footage to graded report
+- Every CCTV survey in one workspace: progress, crews and inspected length per project
+- Network map of the whole network, colour-coded by inspection status, then by condition grade
+- Inspection workstation: review the footage frame by frame, capture a frame, code the defect and read the distance from the video (OCR)
+- Defect gallery: every defect photographed, coded and graded; filter by severity, code or asset
+- Reports generated automatically: project summary (sections, manholes, defects, worst sections), per-section report with manholes, map and equipment, pipe profile with every finding plotted, evidence photos linked to the video timestamp
+- Compare inspections to prove the impact of cleaning (e.g. score 121 → 3, grade D → A)
+- For municipalities, water and sewer utilities, and pipeline networks
+briefing/videos/sewerx.mp4
 
 #### Terra VMX: AI video analytics for security
 ![Terra VMX console: drones, CCTV and bodycams with AI detections, map and findings](https://vmx.terra-drone.com.sa/landing/hero-poster.webp)

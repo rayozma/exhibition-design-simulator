@@ -7,7 +7,8 @@ import { askConfirm } from '../lib/dialogs'
  * **bold**, *italic*, [label](https://…) and bare https links. [label]() = a link still to be added.
  * A line with only ![alt](src) is a picture, shown to the right of the text that follows it;
  * src is a web address or a file in the app's public/ folder (e.g. briefing/voliro-t.jpg).
- * A line with only a YouTube link, or a link to an .mp4 / .webm file, is an embedded video.
+ * A line with only a YouTube link, or an .mp4 / .webm file (web address or public/ file, e.g.
+ * briefing/videos/demo.mp4), is an embedded video.
  */
 export function Markdown({ text }: { text: string }) {
   return <div className="md">{blocks(text.replace(/\r\n?/g, '\n').split('\n'))}</div>
@@ -18,7 +19,7 @@ const TABLE = /^\s*\|/
 const TABLE_RULE = /^\s*\|?\s*:?-{3,}/
 const IMAGE = /^\s*!\[([^\]]*)\]\((\S+)\)\s*$/ // greedy: the address may itself contain ( )
 const YOUTUBE = /^\s*https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:\S*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})\S*\s*$/
-const VIDEO_FILE = /^\s*(https?:\/\/\S+\.(?:mp4|webm)(?:[?#]\S*)?)\s*$/i
+const VIDEO_FILE = /^\s*(\S+\.(?:mp4|webm)(?:[?#]\S*)?)\s*$/i
 
 /** Web address as is; a bare path is a file of this app (public/ folder), under its base URL. */
 export const imageSrc = (src: string) =>
@@ -39,6 +40,7 @@ function blocks(lines: string[]): ReactNode[] {
     const src = image && imageSrc(image[2])
     const video = YOUTUBE.exec(line)
     const videoFile = VIDEO_FILE.exec(line)
+    const videoSrc = videoFile && imageSrc(videoFile[1])
     if (!line.trim()) {
       flush()
       i++
@@ -75,12 +77,12 @@ function blocks(lines: string[]): ReactNode[] {
         </div>,
       )
       i++
-    } else if (videoFile) {
+    } else if (videoSrc) {
       flush()
       out.push(
         <div key={out.length} className="md-video">
-          <video src={videoFile[1]} controls playsInline preload="metadata" />
-          <a className="md-video-link" href={videoFile[1]} target="_blank" rel="noopener noreferrer">
+          <video src={videoSrc} controls playsInline preload="metadata" />
+          <a className="md-video-link" href={videoSrc} target="_blank" rel="noopener noreferrer">
             ▶ Open video in a new tab
           </a>
         </div>,
