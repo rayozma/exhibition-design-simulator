@@ -222,7 +222,7 @@ export function BriefingPage() {
     nav.scrollTo({ left: a.offsetLeft - nav.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' })
   }, [active])
 
-  const catalog = sections?.find((s) => CATALOG_LINE.test(s.body))
+  const catalog = sections?.find((s) => PRODUCT_CATALOG_LINE.test(s.body))
 
   const pct = quizTotals.total ? Math.round((quizTotals.right / quizTotals.total) * 100) : 0
 
@@ -401,8 +401,9 @@ const WIDGETS: Record<string, (arg?: string) => React.ReactNode> = {
 }
 const WIDGET_LINE = /^[ \t]*\[\[((?:exhibitor-finder|visitor-check|service-faq|product-faq)(?::[a-z0-9-]+)?)\]\][ \t]*$/m
 
-/** A line with only [[product-catalog]]: the rest of the section is a searchable product catalog. */
-const CATALOG_LINE = /^[ \t]*\[\[product-catalog\]\][ \t]*$/m
+/** A line with only [[product-catalog]] or [[service-catalog]]: the rest of the section is a searchable catalog. */
+const CATALOG_LINE = /^[ \t]*\[\[(product|service)-catalog\]\][ \t]*$/m
+const PRODUCT_CATALOG_LINE = /^[ \t]*\[\[product-catalog\]\][ \t]*$/m
 
 /** Section text, with interactive blocks where their marker lines are. */
 function Body({ text, sectionId }: { text: string; sectionId?: string }) {
@@ -412,7 +413,12 @@ function Body({ text, sectionId }: { text: string; sectionId?: string }) {
     return (
       <>
         {before.trim() && <Body text={before} />}
-        <ProductCatalog sectionId={sectionId} text={text.slice(catalog.index + catalog[0].length)} render={(t) => <Body text={t} />} />
+        <ProductCatalog
+          sectionId={sectionId}
+          kind={catalog[1] as 'product' | 'service'}
+          text={text.slice(catalog.index + catalog[0].length)}
+          render={(t) => <Body text={t} />}
+        />
       </>
     )
   }
@@ -536,7 +542,7 @@ function SectionEditor({ s, rooms, onPatch, onQuiz, onDelete, onDone }: EditorPr
             Exhibitor search box: a line with only <code>[[exhibitor-finder]]</code>; visitor check: <code>[[visitor-check]]</code>; service FAQ: <code>[[service-faq:survey]]</code> (survey, inspection, surveillance, methane, training, selling); product FAQ: <code>[[product-faq:voliro]]</code>
           </li>
           <li>
-            Product catalog: a line with only <code>[[product-catalog]]</code>; below it, <code>## Category</code> headings with{' '}
+            Product catalog: a line with only <code>[[product-catalog]]</code> (or <code>[[service-catalog]]</code> for services); below it, <code>## Category</code> headings with{' '}
             <code>### Product</code> entries (add <code>(on the booth)</code> to the end of a product heading to mark it). A{' '}
             <code>## Heading</code> with no products under it folds out below the cards
           </li>

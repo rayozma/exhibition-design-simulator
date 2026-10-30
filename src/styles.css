@@ -2800,39 +2800,39 @@ a.button-link.briefing-cta {
   }
 
   /* Tables: one card per row, with the column name on each line */
-  .briefing .md-table {
+  .briefing .md-table:not(.md-table-pairs) {
     overflow: visible;
   }
 
-  .briefing .md-table table,
-  .briefing .md-table tbody,
-  .briefing .md-table tr,
-  .briefing .md-table td {
+  .briefing .md-table:not(.md-table-pairs) table,
+  .briefing .md-table:not(.md-table-pairs) tbody,
+  .briefing .md-table:not(.md-table-pairs) tr,
+  .briefing .md-table:not(.md-table-pairs) td {
     display: block;
     width: 100%;
   }
 
-  .briefing .md-table thead {
+  .briefing .md-table:not(.md-table-pairs) thead {
     display: none;
   }
 
-  .briefing .md-table tr {
+  .briefing .md-table:not(.md-table-pairs) tr {
     margin-bottom: 8px;
     padding: 10px 12px;
     border: 1px solid #e9ecf1;
     border-radius: 12px;
   }
 
-  .briefing .md-table td {
+  .briefing .md-table:not(.md-table-pairs) td {
     padding: 2px 0;
     border: none;
   }
 
-  .briefing .md-table td:empty {
+  .briefing .md-table:not(.md-table-pairs) td:empty {
     display: none;
   }
 
-  .briefing .md-table td::before {
+  .briefing .md-table:not(.md-table-pairs) td::before {
     content: attr(data-label);
     display: inline-block;
     min-width: 90px;
@@ -2844,13 +2844,13 @@ a.button-link.briefing-cta {
     color: #6b7280;
   }
 
-  .briefing .md-table td:first-child {
+  .briefing .md-table:not(.md-table-pairs) td:first-child {
     padding-bottom: 4px;
     font-size: 15px;
     font-weight: 600;
   }
 
-  .briefing .md-table td:first-child::before {
+  .briefing .md-table:not(.md-table-pairs) td:first-child::before {
     display: none;
   }
 
@@ -3648,4 +3648,18 @@ a.button-link.briefing-cta {
   display: inline-block;
   margin-top: 10px;
   color: #fde68a;
+}
+
+/* Two-column tables (spec tables: label | value) stay compact tables on phones too */
+.briefing .md-table-pairs td:first-child {
+  width: 42%;
+  color: #4b5563;
+}
+
+@media (max-width: 640px) {
+  .briefing .md-table-pairs th,
+  .briefing .md-table-pairs td {
+    padding: 7px 8px;
+    font-size: 13.5px;
+  }
 }

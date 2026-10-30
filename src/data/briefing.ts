@@ -184,23 +184,14 @@ Sample use cases: [Data Sample 2024]()`,
   {
     id: 'offer',
     title: 'What do we offer?',
-    body: `### Survey & mapping (photogrammetry & LiDAR survey)
-- Provides a **high resolution, accurate, up-to-date map** / imagery (like Google Maps)
-- Drones achieve **better resolution**: 1 cm/pixel (Google Earth is 0.5–1 m/pixel, the best satellite imagery (Quickbird) is 30 cm/pixel, airborne is 10–15 cm/pixel)
-- Drones produce a **very detailed 3D model** for visualization (a very high Level of Detail / LOD) that other methods can't match
-- Drones produce an **accurate topographic map** (Digital Elevation Model, contours, etc) with cm resolution & accuracy (Google Earth is 10 m/pixel with 30 m accuracy), with minimum interpolation (airborne involves a lot of interpolation to increase resolution & accuracy)
-- Good to discuss with the **survey dept / GIS dept / facility engineering dept / pipeline integrity dept / etc**
-- Use cases:
-  - Pipeline ROW mapping → 3D mapping, topographic map, encroachment, etc
-  - Facility mapping → plan layout, topographic map, inventory, etc
-  - Construction topography survey for initial design
-  - Construction progress monitoring (periodic)
-  - Exploration / seismic → reconnaissance, planning, supporting data collection, etc
-  - Exploration using infra-red data (NDVI, thermal, etc)
-  - Agriculture → tree counting, health assessment, estate design, etc
-[[service-faq:survey]]
+    body: `Every service we offer: what to say, our track record, videos, sample reports and the products we use. Search, or pick a category, then open a service.
 
-### Inspection
+[[service-catalog]]
+
+## Inspection
+### Inspection overview
+![Drone inspecting an industrial plant](briefing/videos/m350.jpg)
+- Five types of drone inspection: external visual, external thermal, internal (confined space), UT thickness and underwater
 - **External visual**
   - Detailed high-resolution images from an ultra-zoom camera to visually inspect & identify defects / damage on structures from a safe distance
   - Mostly for vertical structures (OHL, comm towers, bridges, underdecks, overhanging pipes, etc). Drones remove the need for human inspectors to work at height
@@ -209,50 +200,161 @@ Sample use cases: [Data Sample 2024]()`,
   - Thermal images from an infra-red camera to find temperature / heat anomalies
   - Mostly for objects that deal with heat (flares, thermal oxidizers, etc)
 - **Internal (confined space) close-up visual**
-  - Detailed high-resolution images of internal surfaces in confined spaces (storage tanks, boilers, stacks (shutdown), air ducts, void spaces, caisson legs, etc) without human entry, reducing exposure to toxic gases, high temperatures or structural instability
+  - Detailed high-resolution images of internal surfaces in confined spaces (storage tanks, boilers, stacks (shutdown), air ducts, void spaces, caisson legs, etc) without human entry, reducing exposure to toxic gases, high temperatures and other hazards
 - **UT thickness measurement**
   - Spot UT thickness measurement of a surface (storage tank wall, roof, IPA beam, boiler wall tube)
 - **Underwater inspection**
   - High-resolution photo & video to visually inspect underwater structures & objects
+- Each type has its own card in this list, with videos, reports and the products we use
 [[service-faq:inspection]]
 
+### Flare inspection
+![Drone view of a flare stack in the desert](briefing/videos/flare-inspection.jpg)
+- **External thermal and visual inspection** of flares from a safe distance
+- Thermal images find temperature / heat anomalies; the zoom camera shows defects and damage on the stack
+- Track record: **more than 60 flares inspected** for ADNOC Onshore (Drone Center); flare inspection for ADNOC Refining
+briefing/videos/flare-inspection.mp4
+- **Folder & sample report:** [FLARE INSPECTION]() · [Inspection report – Flare]()
+- **Products we use:** [DJI Zenmuse H30 Series](#products/dji-zenmuse-h30-series) · [DJI M350 RTK](#products/dji-m350-rtk) · [DJI M400](#products/dji-m400)
+
+### Overhead power line inspection
+![Rust and cracks found by drone on power line insulators](briefing/videos/ohl-inspection.jpg)
+- **External visual inspection** of towers, insulators and conductors from a safe distance: drones remove the need for inspectors to work at height
+- Track record: **more than 400 OHL units inspected** for ADNOC Onshore (Drone Center)
+briefing/videos/ohl-inspection.mp4
+- **More videos:** [AheadX OHL inspection](briefing/videos/aheadx-ohl.mp4)
+- **Folder & sample report:** [OVERHEADLINES]() · [Report visual inspection]()
+- **Products we use:** [AheadX QP530](#products/aheadx-qp530) · [DJI Zenmuse H30 Series](#products/dji-zenmuse-h30-series) · [DJI M400](#products/dji-m400)
+
+### Pipeline inspection & ROW mapping
+![Drone footage of a leak along a pipeline](briefing/videos/pipeline-inspection.jpg)
+- Visual and thermal survey of pipelines and their right of way (ROW): leaks and encroachment
+- Pipeline ROW mapping: 3D mapping, topographic map, encroachment
+- Pipeline automatic feature extraction from drone imagery (done for ADNOC Drilling)
+- Track record: **more than 8,000 km of pipeline surveyed** for ADNOC Onshore (Drone Center)
+briefing/videos/pipeline-inspection.mp4
+- **More videos:** [Pipeline centreline mapping](briefing/videos/pipeline-feature-extraction.mp4)
+- **Folder & sample report:** [PIPELINE INSPECTION]() · [ADNOC-DC MOL report]()
+- **Products we use:** [AheadX QP530](#products/aheadx-qp530) · [Bramor C4Eye](#products/bramor-c4eye-fixed-wing) · [Custom AI applications](#products/custom-ai-applications)
+
+### Confined space inspection
+![Drone inspection inside a CO boiler](briefing/videos/internal-inspection.jpg)
+- **Internal close-up visual inspection** of storage tanks, boilers, stacks (shutdown), air ducts, void spaces and caisson legs, without human entry
+- Reduces exposure to toxic gases, high temperatures and other hazards, and the need for scaffolding
+- Track record: internal inspection of cyclone, boiler, reactor, snubber, drying tower and absorbing tower for **ADNOC Refining**; void space and caisson leg inspection for **ADNOC Offshore**; inside EP and silo for **Lafarge Holcim**
+briefing/videos/internal-inspection.mp4
+- **Folder & sample reports:** [Confined Space Inspection]() · [TDID – Confined Space Inspection]() · [Report inspection]() · [Inspection report]()
+- **Products we use:** [Elios 3](#products/elios-3) · [Nolvis X1](#products/nolvis-x1) · [DJI Avata (confined-space inspection)](#products/dji-avata-confined-space-inspection)
+
+### UT thickness measurement
+![Voliro T taking a UT reading on a pipe](briefing/photos/voliro-ut-test.jpg)
+- **Spot UT thickness measurement** by drone on a surface: storage tank wall, roof, IPA beam, boiler wall tube
+- Track record: UT measurement of caisson legs and void spaces for **ADNOC Offshore**; UT using Voliro on several pipes for **Equate (Kuwait)**
+- **Products we use:** [Voliro T](#products/voliro-t) · [Elios 3](#products/elios-3) (UT payload)
+
+### Underwater inspection
+![ROV footage of a subsea structure covered in marine growth](briefing/videos/underwater-robot.jpg)
+- High-resolution photo & video to visually inspect underwater structures & objects, with an underwater robot (ROV)
+briefing/videos/underwater-robot.mp4
+- **More videos:** [Subsea footage 2021](briefing/videos/subsea-2021.mp4) · [Subsea footage 2023](briefing/videos/subsea-2023.mp4)
+- **Products we use:** [Underwater robot](#products/underwater-robot)
+
+### Solar PV inspection
+![Solar PV inspection dashboard with panel issues by type](briefing/videos/solar-pv.jpg)
+- Drone thermal inspection of solar PV plants, with a dashboard of panel issues by type and relevance
+briefing/videos/solar-pv.mp4
+- **Folder & video:** [Renewable Energy]() · [TDID – Renewable Energy]()
+
+## Surveillance & security
 ### Surveillance
+![Fixed-wing surveillance drone launched in the desert](briefing/videos/c4eye.jpg)
 - Real-time live-stream video for security & safety
 - First response in emergencies: real-time information to the command center
 - **Fixed wing** for large areas (e.g. pipelines), **multirotor** for small areas (e.g. facility, plant, complex)
 - Both have a zoom surveillance camera, plus an infra-red thermal camera for night operation
+briefing/videos/c4eye.mp4
+- **Products we use:** [Bramor C4Eye](#products/bramor-c4eye-fixed-wing) · [AheadX QP530](#products/aheadx-qp530) · [DJI Dock 4](#products/dji-dock-4) · [Terra VMX](#products/terra-vmx) · [Terra Stream PPE](#products/terra-stream-ppe-detection)
 [[service-faq:surveillance]]
 
-### Gas leak & methane monitoring
+### In-field patrolling
+![Drone view of a wellhead half buried in sand](briefing/videos/wellhead-surveillance.jpg)
+- Routine drone patrols of oil fields: wellheads, fences, flowlines and access roads, with findings reported (e.g. fence buried in sand, water in a wellhead)
+- Track record: **more than 400 wellheads surveyed** and **more than 3,000 km of in-field security patrolling** for ADNOC Onshore (Drone Center)
+briefing/videos/wellhead-surveillance.mp4
+- **Folder & sample report:** [INFIELD PATROL]() · [BUH In-field patrol]()
+- **Products we use:** [Bramor C4Eye](#products/bramor-c4eye-fixed-wing) · [DJI Dock 4](#products/dji-dock-4) · [DJI Matrice 4 Series](#products/dji-matrice-4-series)
+
+## Gas & methane
+### Methane & gas leak monitoring
+![Methane survey map with gas readings](briefing/videos/methane-falcon.jpg)
 - Real-time data collection and transmission: leaks are found instantly, without exposing personnel
 - Comprehensive reports with geotagged data, aerial images and detailed analysis of detected leaks, for asset integrity
+- Track record: methane gas detection on **BAB & Bu Hasa** fields (ADNOC Onshore); methane emission monitoring for **OGMP** in Fujairah, Das Island and Habshan field (ADNOC Gas)
+briefing/videos/methane-falcon.mp4
+- **Folder & sample report:** [METHANE GAS DETECTION]() · [ADNOC Onshore – BAB]()
 [[service-faq:methane]]
 
+## Survey & mapping
+### Survey & mapping (photogrammetry & LiDAR)
+![Textured 3D mesh of a bridge from a drone survey](briefing/videos/mapx.jpg)
+- Provides a **high resolution, accurate, up-to-date map** / imagery (like Google Maps)
+- Drones achieve **better resolution**: 1 cm/pixel (Google Earth is 0.5–1 m/pixel, the best satellite imagery (Quickbird) is 30 cm/pixel, airborne is 10–15 cm/pixel)
+- Drones produce a **very detailed 3D model** for visualization (a very high Level of Detail / LOD) that other methods can't match
+- Drones produce an **accurate topographic map** (Digital Elevation Model, contours, etc) with cm resolution & accuracy (Google Earth is 10 m/pixel with 30 m accuracy), with minimum interpolation (airborne involves a lot of interpolation)
+- Good to discuss with the **survey dept / GIS dept / facility engineering dept / pipeline integrity dept / etc**
+- Use cases:
+  - Pipeline ROW mapping → 3D mapping, topographic map, encroachment, etc
+  - Facility mapping → plan layout, topographic map, inventory, etc
+  - Construction topography survey for initial design
+  - Construction progress monitoring (periodic)
+- Track record: high resolution and accuracy mapping and LiDAR for **ADNOC Drilling**
+briefing/videos/mapx.mp4
+- **Products we use:** [DJI Zenmuse L2](#products/dji-zenmuse-l2) · [Trinity Pro](#products/trinity-pro-fixed-wing-vtol) · [DJI Mavic 3 Enterprise Series](#products/dji-mavic-3-enterprise-series) · [DJI D-RTK 3](#products/dji-d-rtk-3) · [Terra MapX](#products/terra-mapx) · [Terra Progress](#products/terra-progress)
+[[service-faq:survey]]
+
+### Seismic & exploration support
+![Drone LiDAR survey over a ridge](briefing/videos/zenmuse-l2.jpg)
+- Exploration / seismic → reconnaissance, planning, supporting data collection, etc
+- Exploration using infra-red data (NDVI, thermal, etc)
+- **Sample report:** [ADNOC-SEISMIC report]()
+- **Products we use:** [DJI Zenmuse L2](#products/dji-zenmuse-l2) · [Trinity Pro](#products/trinity-pro-fixed-wing-vtol)
+
+### Agriculture & vegetation management
+![Every palm tree detected and counted from a drone image](briefing/videos/palm-detection.jpg)
+- Agriculture → tree counting, health assessment, estate design, etc
+- Vegetation management, and spraying of fertilisers or pesticides by drone
+briefing/videos/palm-detection.mp4
+- **Folder & video:** [Vegetation management]() · [TDID – Vegetation Management]()
+- **Products we use:** [Aviro E16 spraying drone](#products/aviro-e16-spraying-drone) · [Custom AI applications](#products/custom-ai-applications)
+
+## Delivery & logistics
+### Drone delivery
+![FlyCart 30 landing on an offshore helideck](briefing/videos/flycart-offshore.jpg)
+- Delivery of goods and cargo by drone: to offshore platforms, remote sites and across large fields
+- Track record: **delivery of goods by drone on Bu Hasa field** (ADNOC Onshore); drone delivery and **cargo delivery using FlyCart 30** for ADNOC Offshore
+briefing/videos/flycart-offshore.mp4
+- **Folder & sample report:** [DELIVERY]() · [Drone Delivery Bu Hasa]() · [ADNOC-DC BUH final]()
+- **Products we use:** [DJI FlyCart 30](#products/dji-flycart-30) · [DJI FlyCart 100](#products/dji-flycart-100) · [Rigitech Eiger](#products/rigitech-eiger) · [TR9S cargo drone](#products/tr9s-cargo-drone)
+
+## Training & sales
 ### Drone training & consultancy
+![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
 - Training / workshops for employees: how to operate drones and how to use them in their business
 - An academy (e.g. 2–3 months) for complete knowledge of drone operations
 - Consultancy to build an internal drone program: choosing the right drone, meeting compliance requirements, etc
+- Track record: drone pilot training for **ADNOC personnel** (ADNOC Onshore)
+- **Products we use:** [Drone flight simulator](#products/drone-flight-simulator) · [SkyOps](#products/skyops) · [Terra Organize](#products/terra-organize)
 [[service-faq:training]]
 
 ### Selling drones
+![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
 - We are an **official reseller of DJI Enterprise**
 - We also sell our own fixed-wing drone technology
+- Track record: drone purchasing for ADNOC Onshore (Drone Center)
+- See the **DJI Enterprise** and **Drones & robots** categories in the [Product reference](#products)
 [[service-faq:selling]]
 
-### Service materials
-| Service | Folder | Video | Sample data |
-|---|---|---|---|
-| Flare inspection | [FLARE INSPECTION]() | [Flare Inspection.mp4](briefing/videos/flare-inspection.mp4) | [Inspection report – Flare]() |
-| Overhead power lines inspection | [OVERHEADLINES]() | [OHL Inspection.mp4](briefing/videos/ohl-inspection.mp4) · [AheadX OHL.mp4](briefing/videos/aheadx-ohl.mp4) | [Report visual inspection]() |
-| Pipeline inspection | [PIPELINE INSPECTION]() | [Pipeline Inspection.mp4](briefing/videos/pipeline-inspection.mp4) | [ADNOC-DC MOL report]() |
-| In-field patrolling | [INFIELD PATROL]() | [Wellhead Surveillance.mp4](briefing/videos/wellhead-surveillance.mp4) | [BUH In-field patrol]() |
-| Confined space | [Confined Space Inspection]() | [Internal Inspection.mp4](briefing/videos/internal-inspection.mp4) · [TDID – Confined Space Inspection]() | [Report inspection]() · [Inspection report]() |
-| Methane gas detection | [METHANE GAS DETECTION]() | [Falcon Methane Gas Detection](briefing/videos/methane-falcon.mp4) | [ADNOC Onshore – BAB]() |
-| Drone delivery | [DELIVERY]() | [Drone Delivery Bu Hasa]() | [ADNOC-DC BUH final]() |
-| Seismic | | | [ADNOC-SEISMIC report]() |
-| Renewable energy | [Renewable Energy]() | [Solar PV Inspection.mp4](briefing/videos/solar-pv.mp4) · [TDID – Renewable Energy]() | |
-| Vegetation management | [Vegetation management]() | [TDID – Vegetation Management]() | |
-
+## More samples
 Samples: [Short videos]() · [Videos]()`,
     quiz: [
       {
@@ -300,16 +402,35 @@ Samples: [Short videos]() · [Videos]()`,
 ### DJI Dock 4 (on the booth)
 ![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
 - DJI's newest drone-in-a-box (launched October 2026) for fully autonomous, 24/7 remote operations
-- First DJI dock with **automatic battery swap**: swap in under 25 s, landing-to-takeoff in under 45 s (Dock 3 needs ~30 min to recharge)
-- Stores up to 3 batteries with 2 charging channels; a battery charges 15–95 % in 27 minutes
-- Paired aircraft: **DJI Matrice 5TD**: up to 59 min flight time, 10 km operating radius, IP55, 450 g payload (speaker, spotlight, parachute)
-- M5TD sensors: three 50 MP cameras (wide, medium tele, 252 mm tele; up to 176x hybrid zoom), 1280×1024 thermal, 3,000 m laser rangefinder
-- Wire-level obstacle sensing: millimeter-wave radar + rotating LiDAR + 6-direction vision; onboard AI detects 17 object classes in real time
-- Built for harsh sites: −40 °C to +50 °C, dock IP56, landing in winds up to 12 m/s, battery pre-heating and air-conditioning built in
+- First DJI dock with **automatic battery swap** (Dock 3 needs ~30 min to recharge)
+- Paired aircraft: **DJI Matrice 5TD** (M5TD)
+- Wire-level obstacle sensing, with onboard AI object detection in real time
+- Built for harsh sites: battery pre-heating and air-conditioning built in
 - Needs the DJI O4 Ground Station (RTK base, Ethernet, edge-computing slot); 4G via DJI Cellular Dongle 2
 - Managed in DJI FlightHub 2: virtual cockpit, image/text object search, real-time AI alerts by SMS / email / push
-- Same 400 × 400 mm mounting pattern as Dock 3, so it fits existing sites
+- Same mounting pattern as Dock 3, so it fits existing sites
 - Ideal for oil & gas facilities, pipelines, utilities, security patrols and remote assets where sending people is slow or risky
+| Specification | |
+|---|---|
+| Battery swap time | Under 25 s |
+| Landing-to-takeoff | Under 45 s |
+| Battery storage | Up to 3 batteries |
+| Charging channels | 2 |
+| Battery charge time | 15–95 % in 27 minutes |
+| Flight time (M5TD) | Up to 59 min |
+| Operating radius (M5TD) | 10 km |
+| Protection (M5TD) | IP55 |
+| Payload (M5TD) | 450 g (speaker, spotlight, parachute) |
+| Cameras (M5TD) | Three 50 MP cameras (wide, medium tele, 252 mm tele) |
+| Hybrid zoom (M5TD) | Up to 176x |
+| Thermal camera (M5TD) | 1280×1024 |
+| Laser rangefinder (M5TD) | 3,000 m |
+| Obstacle sensing | Millimeter-wave radar + rotating LiDAR + 6-direction vision |
+| Onboard AI detection | 17 object classes in real time |
+| Operating temperature | −40 °C to +50 °C |
+| Dock protection | IP56 |
+| Landing wind resistance | Up to 12 m/s |
+| Mounting pattern | 400 × 400 mm |
 https://youtu.be/rIznH_5IniM
 [[product-faq:dock4]]
 
@@ -318,23 +439,35 @@ https://youtu.be/rIznH_5IniM
 - **Drone-in-a-box** for continuous remote operations: the drone takes off from and lands in the dock without a pilot on site, for infrastructure inspection, emergency response and security patrols
 - First DJI dock for **vehicle-mounted deployment**: the drone can take off from and land on a moving vehicle
 - Works with the **Matrice 4D** or **Matrice 4TD** drone (same cameras as the Matrice 4 Series, with better flight and protection performance); can also be flown on its own with the DJI RC Plus 2 Enterprise
-- Dock rated **IP56**; drone flight time up to **54 minutes**, max flight distance **43 km**, wind resistance **12 m/s**, operating temperature **-30° to 50° C**
-- Camera: **16x digital zoom (112x hybrid zoom)**, max image size 8192×6144; managed remotely through **DJI FlightHub 2**
+- Managed remotely through **DJI FlightHub 2**
+| Specification | |
+|---|---|
+| Dock protection | IP56 |
+| Drone flight time | Up to 54 minutes |
+| Max flight distance | 43 km |
+| Wind resistance | 12 m/s |
+| Operating temperature | -30° to 50° C |
+| Camera zoom | 16x digital zoom (112x hybrid zoom) |
+| Max image size | 8192×6144 |
 briefing/videos/dock3.mp4
 - **Brochure:** [DJI Dock 3 datasheet](briefing/brochures/dji-dock-3.pdf)
 
 ### DJI M400
 ![DJI Matrice 400](https://www-cdn.djiits.com/cms/uploads/3c9712c308bac3e36007c3a9ded88d9d.png)
 - For powerline inspection, oil & gas surveys, mapping, emergency response and asset monitoring
-- Up to 59 minutes flight time
-- Heavy lift: up to 6 kg payload
-- All-weather (IP55): dust, drizzle and harsh environments
+- Heavy lift and all-weather: dust, drizzle and harsh environments
 - LiDAR + millimeter-wave radar for 360° obstacle awareness and avoidance
-- O4 Enterprise transmission: stable HD video up to 20 km, automatic frequency switching
+- O4 Enterprise transmission with automatic frequency switching
 - Hot-swappable batteries: no downtime in the field
-- RTK: centimeter-grade positioning
 - AI flight assistance & mission automation: route planning, repeatable inspection paths, AI object recognition
-- Operates from −20 °C to +50 °C
+| Specification | |
+|---|---|
+| Flight time | Up to 59 minutes |
+| Max payload | Up to 6 kg |
+| Protection | IP55 |
+| Video transmission | Stable HD video up to 20 km |
+| Positioning | RTK, centimeter-grade |
+| Operating temperature | −20 °C to +50 °C |
 briefing/videos/m400.mp4
 https://youtu.be/3UrKq7xj7TI
 - **Brochure:** [DJI Matrice 400 datasheet](briefing/brochures/dji-m400.pdf)
@@ -343,74 +476,138 @@ https://youtu.be/3UrKq7xj7TI
 ### DJI M350 RTK
 ![DJI M350 RTK drone](briefing/videos/m350.jpg)
 - **Flagship heavy-duty drone platform** for aerial inspection, survey and mapping, with multi-payload support (H20 Series, P1, L1 and other DJI payloads)
-- Max payload **2700 g**; flight time **55 min** (without payload); area coverage **300 ha**; wind resistance **15 m/s**
-- **IP55** protection; **6-directional sensing**; **night vision FPV camera**
-- **DJI O3 Enterprise transmission**, range **20 km**
-- TB65 batteries last up to **400 cycles** (100% more than before), are **hot-swappable** and self-heating, which lowers the cost per flight
+- TB65 batteries are **hot-swappable** and self-heating, which lowers the cost per flight
+| Specification | |
+|---|---|
+| Max payload | 2700 g |
+| Flight time | 55 min (without payload) |
+| Area coverage | 300 ha |
+| Wind resistance | 15 m/s |
+| Protection | IP55 |
+| Obstacle sensing | 6-directional |
+| FPV camera | Night vision |
+| Transmission | DJI O3 Enterprise, range 20 km |
+| Battery life (TB65) | Up to 400 cycles (100% more than before) |
 briefing/videos/m350.mp4
 - **Brochure:** [DJI M350 RTK datasheet](briefing/brochures/dji-m350.pdf)
 
 ### DJI M300 RTK
 ![DJI M300 RTK drone](briefing/videos/m300.jpg)
 - **Heavy-duty inspection platform** built for oil and gas and other industries: high-precision visual inspection of **flare stacks**, power lines and other critical infrastructure, plus survey and mapping
-- Carries up to **three payloads at once**, max payload **2.7 kg** (H20 Series, P1, L1 and other DJI payloads)
-- Flight time up to **55 min** (without payload); area coverage **300 ha**; wind resistance **15 m/s**
-- **IP45**; operating temperature **-20°C to 50°C**; **15 km** transmission with 1080p triple-channel video
-- **6-directional sensing** and **hot-swappable batteries** (change batteries without powering off)
+- Carries up to **three payloads at once** (H20 Series, P1, L1 and other DJI payloads)
+- **Hot-swappable batteries** (change batteries without powering off)
 - Its successor, the **DJI M350 RTK**, has the same payload and flight time with better protection (IP55) and longer transmission (20 km)
+| Specification | |
+|---|---|
+| Max payload | 2.7 kg |
+| Flight time | Up to 55 min (without payload) |
+| Area coverage | 300 ha |
+| Wind resistance | 15 m/s |
+| Protection | IP45 |
+| Operating temperature | -20°C to 50°C |
+| Transmission | 15 km, 1080p triple-channel video |
+| Obstacle sensing | 6-directional |
 briefing/videos/m300.mp4
 - **Brochure:** [DJI M300 RTK datasheet](briefing/brochures/dji-m300.pdf)
 
 ### DJI Matrice 30 Series
 ![DJI Matrice 30 Series drone](briefing/videos/m30.jpg)
 - **Portable all-weather inspection drone** with wide, zoom, laser rangefinder and (on the **M30T**) thermal cameras in one unit
-- Flight time **41 min**; max speed **25 m/s**; wind resistance **15 m/s**; **IP55**; operating temperature **-20° C to 50° C**
-- Zoom camera **5-16x** optical, up to **200x** hybrid; wide camera **12 MP**, 4K/30fps
-- Thermal camera (M30T) **640×512@30fps**, accuracy **±2°C or ±2%**; laser rangefinder **3 m - 1200 m**
-- **DJI Dock ready**: the dock version recharges the battery from **10% to 90% in 25 minutes**, with **7 km** operating range and **-35 ℃ to 50℃** operating temperature
+- **DJI Dock ready**: a dock version is available
+| Specification | |
+|---|---|
+| Flight time | 41 min |
+| Max speed | 25 m/s |
+| Wind resistance | 15 m/s |
+| Protection | IP55 |
+| Operating temperature | -20° C to 50° C |
+| Zoom camera | 5-16x optical, up to 200x hybrid |
+| Wide camera | 12 MP, 4K/30fps |
+| Thermal camera (M30T) | 640×512@30fps |
+| Thermal accuracy (M30T) | ±2°C or ±2% |
+| Laser rangefinder | 3 m - 1200 m |
+| Battery recharge (dock version) | 10% to 90% in 25 minutes |
+| Operating range (dock version) | 7 km |
+| Operating temperature (dock version) | -35 ℃ to 50℃ |
 briefing/videos/m30.mp4
 - **Brochure:** [DJI Matrice 30 Series datasheet](briefing/brochures/dji-m30.pdf)
 
 ### DJI Matrice 4 Series
 ![DJI Matrice 4 Series drone](briefing/videos/matrice-4.jpg)
 - **Compact commercial drone** for surveying, mapping, inspection and public safety; two models: **Matrice 4T** (thermal and low-light work) and **Matrice 4E** (high-precision mapping and 3D models)
-- Flight time **49 min** (standard propellers); max flight distance **35 km**; wind resistance **12 m/s**; operating temperature **-10℃ to 40℃**
-- **112x hybrid zoom**, night vision and a **laser rangefinder**; 4K video at 30fps on a 3-axis gimbal
-- Matrice 4T thermal camera: **640 x 512 px**, temperature measurement **-20℃ to 150℃**
-- **O4 Enterprise transmission** with range up to **25 km**; takeoff weight 1219 g, payload up to **200 g**
+- Night vision and a **laser rangefinder**
 - The **DJI Dock 3** uses the dock versions of this drone (Matrice 4D / 4TD) for fully remote operation
+| Specification | |
+|---|---|
+| Flight time | 49 min (standard propellers) |
+| Max flight distance | 35 km |
+| Wind resistance | 12 m/s |
+| Operating temperature | -10℃ to 40℃ |
+| Hybrid zoom | 112x |
+| Video | 4K at 30fps on a 3-axis gimbal |
+| Thermal camera (4T) | 640 x 512 px |
+| Temperature measurement (4T) | -20℃ to 150℃ |
+| Transmission | O4 Enterprise, range up to 25 km |
+| Takeoff weight | 1219 g |
+| Max payload | Up to 200 g |
 briefing/videos/matrice-4.mp4
 - **Brochure:** [DJI Matrice 4 Series datasheet](briefing/brochures/dji-matrice-4.pdf)
 
 ### DJI Mavic 3 Enterprise Series
 ![DJI Mavic 3 Enterprise drone](briefing/videos/mavic-3e.jpg)
 - **Small, one-hand-carry commercial drone** for mapping, inspection, search and rescue, firefighting and night operations; models **Mavic 3E** (mapping), **Mavic 3T** (thermal) and **Mavic 3 Multispectral**
-- Flight time **45 min**; area coverage **200 ha / flight**; wind resistance **12 m/s**
-- **RTK module** for **centimeter-level** positioning
-- Mavic 3E wide camera: **4/3 CMOS, 20MP** with **mechanical shutter** (no motion blur, 0.7-second interval shooting); **12MP** zoom camera with up to **56x hybrid zoom**
-- Mavic 3T thermal camera: **640 × 512 px**; Multispectral version: **4 × 5 MP** G/R/RE/NIR cameras
-- Weight without batteries **915 g** (3E) / **920 g** (3T); DJI O3 E transmission
+- Mavic 3E wide camera has a **mechanical shutter**: no motion blur
+| Specification | |
+|---|---|
+| Flight time | 45 min |
+| Area coverage | 200 ha / flight |
+| Wind resistance | 12 m/s |
+| Positioning | RTK module, centimeter-level |
+| Wide camera (3E) | 4/3 CMOS, 20MP, mechanical shutter |
+| Interval shooting (3E) | 0.7-second |
+| Zoom camera (3E) | 12MP, up to 56x hybrid zoom |
+| Thermal camera (3T) | 640 × 512 px |
+| Multispectral cameras | 4 × 5 MP G/R/RE/NIR |
+| Weight without batteries | 915 g (3E) / 920 g (3T) |
+| Transmission | DJI O3 E |
 briefing/videos/mavic-3e.mp4
 - **Brochure:** [DJI Mavic 3 Enterprise Series datasheet](briefing/brochures/dji-mavic-3e.pdf)
 
 ### DJI Avata (confined-space inspection)
 ![DJI Avata drone](briefing/videos/avata-2.jpg)
 - **DJI Avata modified by Terra Drone** (Avata INS) for **internal visual inspection in narrow, confined spaces**: tanks, ducts, pipes, boilers, where larger drones can't go
-- Small: **180 mm** wide, needs only **250 mm** diameter to manoeuvre; take-off weight **410 g**
-- Camera **48 MP**, 1/1.7", video up to **4K 60 fps**; tilt **-80 to +65 deg**; resolves **1 mm/pixel** at 0.6 m from the surface, enough to spot small cracks and damage
-- Lighting up to **10k lumens**, 4-side anti-slip wheels, live-stream available
-- Flight time up to **18 minutes**; transmission up to **10 km** line of sight; operating temperature **-10 to 40 degC**; GNSS for outdoor navigation
-briefing/videos/avata-2.mp4
+- Camera detail is enough to spot small cracks and damage
+- 4-side anti-slip wheels, live-stream available; GNSS for outdoor navigation
 - The videos show the standard DJI Avata 2 and Avata, which our version is built on
+| Specification | |
+|---|---|
+| Width | 180 mm |
+| Space needed to manoeuvre | 250 mm diameter |
+| Take-off weight | 410 g |
+| Camera | 48 MP, 1/1.7" |
+| Video | Up to 4K 60 fps |
+| Camera tilt | -80 to +65 deg |
+| Inspection resolution | 1 mm/pixel at 0.6 m from the surface |
+| Lighting | Up to 10k lumens |
+| Flight time | Up to 18 minutes |
+| Transmission | Up to 10 km line of sight |
+| Operating temperature | -10 to 40 degC |
+briefing/videos/avata-2.mp4
 - **More videos:** [DJI Avata (first generation)](briefing/videos/avata.mp4)
 - **Brochure:** [DJI Avata datasheet](briefing/brochures/dji-avata.pdf)
 
 ### DJI FlyCart 30
 ![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
 - Cargo delivery
-- 1 battery: up to 35 kg payload, 7.5 km travel distance, 7.5 minutes endurance
-- 2 batteries: up to 25 kg payload, 15 km travel distance, 15 minutes endurance
-- Maximum operation radius 5 km
+| Specification | |
+|---|---|
+| Max payload (1 battery) | Up to 35 kg |
+| Travel distance (1 battery) | 7.5 km |
+| Endurance (1 battery) | 7.5 minutes |
+| Max payload (2 batteries) | Up to 25 kg |
+| Travel distance (2 batteries) | 15 km |
+| Endurance (2 batteries) | 15 minutes |
+| Max operation radius | 5 km |
 briefing/videos/flycart-offshore.mp4
 https://youtu.be/Hhp11I-vGHA
 - **More videos:** [Offshore delivery](briefing/videos/flycart-delivery-offshore.mp4) · [Offshore delivery (long)](briefing/videos/flycart-delivery-offshore-2.mp4) · [Offshore take-off](briefing/videos/flycart-takeoff-offshore.mp4) · [Landing](briefing/videos/flycart-landing.mp4) · [Winch down](briefing/videos/flycart-winch-down.mp4) · [Winch up](briefing/videos/flycart-winch-up.mp4) · [Dubai 1](briefing/videos/flycart-dubai-1.mp4) · [Dubai 2](briefing/videos/flycart-dubai-2.mp4) · [Dubai 3](briefing/videos/flycart-dubai-3.mp4) · [Test flight](briefing/videos/flycart-test-flight.mp4) · [Introducing FlyCart 30](briefing/videos/flycart-30-intro.mp4) · [FlyCart 30 (long)](briefing/videos/flycart-30-intro-long.mp4)
@@ -420,10 +617,19 @@ https://youtu.be/Hhp11I-vGHA
 ### DJI FlyCart 100
 ![DJI FlyCart 100 heavy-lift delivery drone](briefing/videos/flycart-100.jpg)
 - **Heavy-lift delivery drone** for aerial logistics: moving equipment and supplies to hard-to-reach sites such as construction sites and emergency zones
-- Payload up to **80 kg** (1 battery) or **65 kg** (2 batteries); max takeoff weight **149.9 kg**
-- Two delivery modes: **cargo box** or **automated 30-meter winch** with automatic release
-- Flight range **26 km** without payload; max speed **20 m/s**; **O4** transmission up to **20 km**
-- **IP55**; operating temperature **-20°C to 40°C**; LiDAR obstacle sensing and an **emergency parachute**
+- Two delivery modes: **cargo box** or **automated winch** with automatic release
+- LiDAR obstacle sensing and an **emergency parachute**
+| Specification | |
+|---|---|
+| Max payload (1 battery) | Up to 80 kg |
+| Max payload (2 batteries) | 65 kg |
+| Max takeoff weight | 149.9 kg |
+| Winch length | 30-meter |
+| Flight range | 26 km without payload |
+| Max speed | 20 m/s |
+| Transmission | O4, up to 20 km |
+| Protection | IP55 |
+| Operating temperature | -20°C to 40°C |
 briefing/videos/flycart-100.mp4
 - **Brochure:** [DJI FlyCart 100 datasheet](briefing/brochures/dji-flycart-100.pdf)
 
@@ -431,42 +637,73 @@ briefing/videos/flycart-100.mp4
 ### DJI Zenmuse H30 Series
 ![DJI Zenmuse H30 payload on a Matrice drone](briefing/videos/zenmuse-h30.jpg)
 - **All-weather multi-sensor payload** by DJI with five modules in one: wide-angle camera, zoom camera, **infrared thermal camera**, **laser range finder** and NIR auxiliary light; for energy inspection, public safety, water conservation and forestry, day and night
-- **34x hybrid optical zoom**, up to **400x** max zoom; camera sensor **1/1.8-inch CMOS, 40 MP**
-- Laser range finder (**905 nm**) measures from **3-3000 m**
-- Electronic dehazing for smog or high humidity, and a night scene video mode; video up to **3840×2160@30fps**
-- **920±5 g**, **IP54**, works from **-20° to 50° C**
-- Supported aircraft: **Matrice 350 RTK** and **Matrice 400**
+- Electronic dehazing for smog or high humidity, and a night scene video mode
+| Specification | |
+|---|---|
+| Zoom | 34x hybrid optical, up to 400x max zoom |
+| Camera sensor | 1/1.8-inch CMOS, 40 MP |
+| Laser range finder wavelength | 905 nm |
+| Laser range finder range | 3-3000 m |
+| Video | Up to 3840×2160@30fps |
+| Weight | 920±5 g |
+| Protection | IP54 |
+| Operating temperature | -20° to 50° C |
+| Supported aircraft | Matrice 350 RTK and Matrice 400 |
 briefing/videos/zenmuse-h30.mp4
 - **Brochure:** [DJI Zenmuse H30 Series datasheet](briefing/brochures/dji-zenmuse-h30.pdf)
 
 ### DJI Zenmuse L2
 ![DJI Zenmuse L2 LiDAR drone in flight](briefing/videos/zenmuse-l2.jpg)
 - **LiDAR survey payload** by DJI: LiDAR, a high-precision IMU and an RGB camera in one unit, for accurate 3D mapping, terrain models (DEM) and scanning of complex structures; processed in **DJI Terra**
-- Detection range **450 m** at 50% reflectivity (0 klx), **250 m** at 10% reflectivity (100 klx); up to **5 returns**, so it sees through dense vegetation
-- System accuracy **5 cm horizontal / 4 cm vertical @150 m**; ranging accuracy **2 cm @150 m**
-- Point rate **240,000 pts/s** (single return), **1,200,000 pts/s** (multiple returns); up to **2.5 km²** covered in a single flight
-- Mapping camera **4/3 CMOS, 20 MP**; live point cloud view on site
-- **906 g**, **IP54**; compatible with **M300 RTK** and **M350 RTK**
+- Multiple returns let it see through dense vegetation; live point cloud view on site
+| Specification | |
+|---|---|
+| Detection range | 450 m at 50% reflectivity (0 klx) |
+| Detection range (low reflectivity) | 250 m at 10% reflectivity (100 klx) |
+| Returns | Up to 5 |
+| System accuracy | 5 cm horizontal / 4 cm vertical @150 m |
+| Ranging accuracy | 2 cm @150 m |
+| Point rate (single return) | 240,000 pts/s |
+| Point rate (multiple returns) | 1,200,000 pts/s |
+| Coverage per flight | Up to 2.5 km² |
+| Mapping camera | 4/3 CMOS, 20 MP |
+| Weight | 906 g |
+| Protection | IP54 |
+| Compatible aircraft | M300 RTK and M350 RTK |
 briefing/videos/zenmuse-l2.mp4
 - **Brochure:** [DJI Zenmuse L2 datasheet](briefing/brochures/dji-zenmuse-l2.pdf)
 
 ### DJI Zenmuse V1
 ![DJI Zenmuse V1 speaker mounted on a Matrice drone](briefing/videos/zenmuse-v1.jpg)
 - **Speaker payload**, DJI's first dedicated one: broadcasts live voice, recorded messages and emergency alerts from the air, for public safety, search and rescue and crowd control
-- Effective broadcast distance **500 m**; max sound level **127 dB @1 m**; **25 W** nominal power
 - Controlled from the **DJI Pilot 2** app: record, replay and broadcast with no extra equipment
-- Tilting gimbal (**-120° to +20°** controllable) to aim the sound at a target area
-- **690±10 g**, **IP54**; compatible with **M300 RTK** and **M350 RTK**
+- Tilting gimbal to aim the sound at a target area
+| Specification | |
+|---|---|
+| Effective broadcast distance | 500 m |
+| Max sound level | 127 dB @1 m |
+| Nominal power | 25 W |
+| Gimbal tilt (controllable) | -120° to +20° |
+| Weight | 690±10 g |
+| Protection | IP54 |
+| Compatible aircraft | M300 RTK and M350 RTK |
 briefing/videos/zenmuse-v1.mp4
 - **Brochure:** [DJI Zenmuse V1 datasheet](briefing/brochures/dji-zenmuse-v1.pdf)
 
 ### DJI D-RTK 3
 ![DJI D-RTK 3 station set up in the field](briefing/videos/drtk3-m4t.jpg)
-- **Multifunctional GNSS station** by DJI giving **centimeter-level positioning** for mapping, infrastructure inspection and 3D modelling
+- **Multifunctional GNSS station** by DJI for mapping, infrastructure inspection and 3D modelling
 - Three modes: **base station** (corrections for several drones at once), **relay station** (extends operating range) and **rover station** (with DJI Enterprise app and DJI Terra for survey work)
-- Tracks **GPS, BeiDou, Galileo, GLONASS, QZSS** and L-Band; sends and receives **RTCM3** corrections
-- **IP67**, **6500 mAh** battery, works from **-20° to 55°C**; **1.26 kg**
-- Compatible with **Matrice 4 Series**, **Mavic 3 Enterprise Series**, **Matrice 30 Series** and **Matrice 300/350 RTK**
+| Specification | |
+|---|---|
+| Positioning | Centimeter-level |
+| Satellite systems | GPS, BeiDou, Galileo, GLONASS, QZSS and L-Band |
+| Corrections | RTCM3 (sends and receives) |
+| Protection | IP67 |
+| Battery | 6500 mAh |
+| Operating temperature | -20° to 55°C |
+| Weight | 1.26 kg |
+| Compatible aircraft | Matrice 4 Series, Mavic 3 Enterprise Series, Matrice 30 Series and Matrice 300/350 RTK |
 briefing/videos/drtk3-m4t.mp4
 - **Brochure:** [DJI D-RTK 3 datasheet](briefing/brochures/dji-d-rtk-3.pdf)
 
@@ -476,14 +713,16 @@ briefing/videos/drtk3-m4t.mp4
 - For contact-based industrial inspection and NDT (Non-Destructive Testing)
 - Omnidirectional multirotor drone with 6-DOF (degrees of freedom) flight control
 - Can fly and keep stable contact on vertical, inclined and overhead surfaces
-- Up to 15 minutes endurance (depending on payload)
-- Supports payloads up to 1 kg
-- Can apply up to 30 N contact force on a surface
-- 4K inspector camera and 2K pilot camera
 - Works with NDT payloads such as EMAT, UT, PEC and DFT sensors
 - Optimized for GPS-denied environments (indoor, under structures, tanks, etc)
 - Triple-redundant IMU for stability and safety
 - Ideal for oil & gas, petrochemical, power plant and ship hull inspection
+| Specification | |
+|---|---|
+| Endurance | Up to 15 minutes (depending on payload) |
+| Max payload | Up to 1 kg |
+| Contact force | Up to 30 N on a surface |
+| Cameras | 4K inspector camera and 2K pilot camera |
 briefing/videos/voliro-t.mp4
 https://youtu.be/Q29N_pTc6kA
 - **More videos:** [The benchmark (short)](briefing/videos/voliro-benchmark.mp4) · [Event-screen compilation 2024](briefing/videos/voliro-lps-2024.mp4) · [Screen loop 2026](briefing/videos/voliro-loop-2026.mp4) · [Event-screen compilation 2023](briefing/videos/voliro-compilation-2023.mp4) · [Introducing Version 5](briefing/videos/voliro-v5.mp4) · [Version 5 (short)](briefing/videos/voliro-v5-short.mp4) · [Compilation hero](briefing/videos/voliro-hero.mp4) · [Payload swapping](briefing/videos/voliro-payload-swap.mp4) · [Short video](briefing/videos/voliro-short.mp4)
@@ -494,12 +733,14 @@ https://youtu.be/Q29N_pTc6kA
 ### Elios 3
 ![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
 - BVLOS (non-entry) confined space visual inspection & 3D modeling
-- Around 8–12 minutes flight time
-- Needs a 40 cm (16") manhole
-- Needs at least 60 cm (24") space to maneuver
 - LiDAR sensor produces a 3D point cloud (for visualization)
-- Up to 2 cm accuracy with the GeoSLAM feature
 - Virtual inspection in the software
+| Specification | |
+|---|---|
+| Flight time | Around 8–12 minutes |
+| Minimum manhole | 40 cm (16") |
+| Minimum space to maneuver | At least 60 cm (24") |
+| Accuracy | Up to 2 cm with the GeoSLAM feature |
 briefing/videos/elios3.mp4
 briefing/videos/elios3-ut.mp4
 briefing/videos/internal-inspection.mp4
@@ -512,13 +753,27 @@ https://youtu.be/B5s-69mQTSc
 ![Nolvis X1 indoor inspection drone](briefing/videos/nolvis-x1.jpg)
 - **Indoor inspection drone** by Nolvis (Japan), for confined, dark and dusty spaces without GPS: boilers, tanks, ducts, under-deck structures
 - Stable flight without GPS, using **LiDAR + visual odometry**; a protective cage (sold separately) guards the rotors and frame against impact
-- **Real-time 3D point cloud** on the operator's tablet, so the pilot sees surrounding obstacles even beyond line of sight. LiDAR: 200,000 points/s, range 40 m (10 % reflectivity) to 70 m (80 %), precision 2 cm at 10 m
-- **4K camera** (1/1.7-inch, 8 MP) with **180° vertical tilt**, and LED lighting up to **10,480 lumens** for clear footage in darkness
+- **Real-time 3D point cloud** on the operator's tablet, so the pilot sees surrounding obstacles even beyond line of sight
+- **4K camera** with 180° vertical tilt and strong LED lighting, for clear footage in darkness
 - **Nolvis X1 Cloud**: images and video linked to the 3D point cloud, for visualization, teamwork and sharing with customers
-- Flight time about **10 min** per battery (3 batteries in the kit, 1 h charge each); 1.8 kg; 36 × 31 × 21 cm; max speed 2.5 m/s; wind up to 3 m/s; 0–45 °C
 - A **tether** to a power pack is shown in the video for longer flights without battery swaps (confirm availability with the team)
 - Kit includes the drone, controller, tablet, 3 batteries and a half-day initial training (required before operation)
 - Same job as the **Elios 3**: compare both for the customer's space and budget
+| Specification | |
+|---|---|
+| LiDAR rate | 200,000 points/s |
+| LiDAR range | 40 m (10 % reflectivity) to 70 m (80 %) |
+| LiDAR precision | 2 cm at 10 m |
+| Camera | 4K, 1/1.7-inch, 8 MP |
+| Camera tilt | 180° vertical |
+| LED lighting | Up to 10,480 lumens |
+| Flight time | About 10 min per battery |
+| Batteries | 3 in the kit, 1 h charge each |
+| Weight | 1.8 kg |
+| Dimensions | 36 × 31 × 21 cm |
+| Max speed | 2.5 m/s |
+| Wind resistance | Up to 3 m/s |
+| Operating temperature | 0–45 °C |
 briefing/videos/nolvis-x1.mp4
 - **More videos:** [Flight demo](briefing/videos/nolvis-x1-flight-demo.mp4) · [Workflow](briefing/videos/nolvis-x1-workflow.mp4)
 - **Brochure:** [Nolvis X1 datasheet](briefing/brochures/nolvis-x1.pdf)
@@ -526,11 +781,19 @@ briefing/videos/nolvis-x1.mp4
 ### Nolvis M1
 ![Nolvis M1 industrial drone in flight](briefing/videos/nolvis-m1.jpg)
 - **Field-ready industrial drone** for surveying, mapping, inspection and LiDAR missions; one aircraft, many jobs
-- Up to **90 min** hover time (without payload); max payload **2500 g** (5.5 lb)
 - Quick-release payloads, swapped without tools or recalibration: **LR1 camera**, **NV1 EO/IR**, **NL1 LiDAR**
-- Built-in **NTRIP, RTK and PPK**; dual RTK GNSS with accuracy **1 cm + 1 ppm**
-- Wind resistance **15 m/s**; **IP 44**; max speed **18 m/s**; operating temperature **-10 °C to 50 °C**
-- Transmission up to **10 km** (omnidirectional antenna) or **15 km** (directional antenna); 7-inch, 1,000-nit sunlight-readable controller
+- Built-in **NTRIP, RTK and PPK**; dual RTK GNSS
+| Specification | |
+|---|---|
+| Hover time | Up to 90 min (without payload) |
+| Max payload | 2500 g (5.5 lb) |
+| GNSS accuracy | 1 cm + 1 ppm (dual RTK) |
+| Wind resistance | 15 m/s |
+| IP rating | IP 44 |
+| Max speed | 18 m/s |
+| Operating temperature | -10 °C to 50 °C |
+| Transmission | Up to 10 km (omnidirectional antenna) or 15 km (directional antenna) |
+| Controller | 7-inch, 1,000-nit sunlight-readable |
 briefing/videos/nolvis-m1.mp4
 - **Brochure:** [Nolvis M1 datasheet](briefing/brochures/nolvis-m1.pdf)
 
@@ -538,10 +801,14 @@ briefing/videos/nolvis-m1.mp4
 ![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
 - Real-time surveillance
 - VTOL (vertical take-off & landing)
-- Up to 2 hours endurance
-- Up to 60 km radius; 60–80 km straight line in one flight
-- 30x optical EO zoom camera and IR camera for night operation
+- EO zoom camera and IR camera for night operation
 - Live stream to the command center
+| Specification | |
+|---|---|
+| Endurance | Up to 2 hours |
+| Radius | Up to 60 km |
+| Straight-line distance | 60–80 km in one flight |
+| EO camera zoom | 30x optical |
 briefing/videos/aheadx-ohl.mp4
 https://youtu.be/r3k7v1WPDMk
 - **More videos:** [Showcase](briefing/videos/aheadx-showcase.mp4) · [Use case](briefing/videos/aheadx-use-case.mp4) · [Product video](briefing/videos/aheadx-qp530.mp4)
@@ -563,10 +830,18 @@ briefing/videos/bramor-launch.mp4
 ### Trinity Pro (fixed-wing VTOL)
 ![Trinity Pro fixed-wing VTOL drone carried in the field](briefing/videos/trinity-pro.jpg)
 - **Fixed-wing VTOL mapping drone** by Quantum Systems for large-area data collection in agriculture, forestry, mining and construction; takes off and lands vertically
-- Up to **90 min** flight time; covers **700 ha** in one flight; up to **300 waypoints**
-- Modular payloads (max **1000 g**): **Sony RX1 RII**, **Sony UMC R10C**, **Micasense Altum PT**, **Micasense RedEdge P**, **Oblique D2M**, **Qube 240**
-- Wind resistance **12 m/s**; **IP54**; operating temperature **-12°C to 50°C**; command and control range **5 - 7.5 km**
+- Modular payloads: **Sony RX1 RII**, **Sony UMC R10C**, **Micasense Altum PT**, **Micasense RedEdge P**, **Oblique D2M**, **Qube 240**
 - Mini LiDAR checks the landing zone for obstacles
+| Specification | |
+|---|---|
+| Flight time | Up to 90 min |
+| Coverage per flight | 700 ha |
+| Waypoints | Up to 300 |
+| Max payload | 1000 g |
+| Wind resistance | 12 m/s |
+| IP rating | IP54 |
+| Operating temperature | -12°C to 50°C |
+| Command and control range | 5 - 7.5 km |
 briefing/videos/trinity-pro.mp4
 - **Brochure:** [Trinity Pro datasheet](briefing/brochures/trinity-pro.pdf)
 
@@ -574,15 +849,20 @@ briefing/videos/trinity-pro.mp4
 ![Rigitech Eiger](https://rigi.tech/wp-content/uploads/2024/04/ER03-Closed-Canopy-EDITED_2.png)
 - Long-range automated logistics & delivery (day + night, BVLOS)
 - VTOL + fixed-wing transition flight
-- Up to 100 km one-way range (≈ 54–62 miles)
-- Payload up to 3 kg (≈ 6.6 lb), ~15 L cargo volume
 - Takes off vertically, then cruises on wings for speed & range
 - Precision landing (vision + GNSS + IMU) for constrained surfaces
 - Live video (front- and downward-facing cameras)
 - Airspace awareness (ADS-B / FLARM / Remote ID) for regulated airspace
 - Safety: ballistic parachute, redundant telemetry, failsafe logic
-- Wind-resistant (~15 m/s in fixed-wing mode) and quiet (~51–55 dB at 135 m)
+- Wind-resistant and quiet
 - Proven use cases: medical deliveries, offshore logistics, island connectivity
+| Specification | |
+|---|---|
+| Range | Up to 100 km one-way (≈ 54–62 miles) |
+| Max payload | Up to 3 kg (≈ 6.6 lb) |
+| Cargo volume | ~15 L |
+| Wind resistance | ~15 m/s in fixed-wing mode |
+| Noise | ~51–55 dB at 135 m |
 briefing/videos/eiger.mp4
 https://youtu.be/oHd-QIXVNoc
 - **Brochure:** [Eiger delivery drone datasheet](briefing/brochures/eiger.pdf)
@@ -591,20 +871,31 @@ https://youtu.be/oHd-QIXVNoc
 ### TR9S cargo drone
 ![TR9S cargo drone with a delivery box](briefing/videos/tr9s.jpg)
 - Multirotor **logistics drone** by Antwork (China), built on its urban delivery experience (the video cites 600,000 km of city logistics flights)
-- Maximum take-off weight **24.8 kg**, top speed **60 km/h**
 - Quick-swap batteries and interchangeable cargo boxes, including temperature-controlled boxes with full traceability
 - Built for emergency response and medical deliveries, and batch delivery of larger items
 - Compare with the **DJI FlyCart 30** for heavier loads (confirm with the team how we offer the TR9S before quoting it)
+| Specification | |
+|---|---|
+| Maximum take-off weight | 24.8 kg |
+| Top speed | 60 km/h |
 briefing/videos/tr9s.mp4
 - **Brochure:** [TR9S delivery drone datasheet](briefing/brochures/tr9s.pdf)
 
 ### Aviro E16 spraying drone
 ![Aviro E16 spraying drone in flight](briefing/videos/aviro-e16-usecase.jpg)
 - **Precision agriculture spraying drone** for plantations: sprays fertilisers or pesticides evenly, with less water and chemical waste and up to **40 times faster** than traditional methods
-- **16 liter** tank; covers up to **1.6 ha** per flight; **8 - 12 minutes** working time per flight
-- Spraying swath **4 to 6 meter**, flying **2 to 4 meter** above the crop; 4 nozzles with adjustable flow
 - Built-in **terrain-following sensor**; obstacle avoidance available as an add-on; **RTK** (with RTK base) for centimeter-accurate waypoints
-- 6 rotors; flight radius up to **1.5 km**; flight modes: manual, A-B, waypoints, KML
+- Flight modes: manual, A-B, waypoints, KML
+| Specification | |
+|---|---|
+| Tank | 16 liter |
+| Coverage per flight | Up to 1.6 ha |
+| Working time per flight | 8 - 12 minutes |
+| Spraying swath | 4 to 6 meter |
+| Flying height | 2 to 4 meter above the crop |
+| Nozzles | 4, with adjustable flow |
+| Rotors | 6 |
+| Flight radius | Up to 1.5 km |
 briefing/videos/aviro-e16-usecase.mp4
 - **More videos:** [Spraying for bagworms](briefing/videos/aviro-e16-showcase.mp4)
 - **Brochure:** [Aviro E16 datasheet](briefing/brochures/aviro-e16.pdf)
@@ -612,10 +903,14 @@ briefing/videos/aviro-e16-usecase.mp4
 ### Drones for cleaning
 ![Example of a cleaning drone (ABZ C10)](https://abzinnovation.com/wp-content/uploads/2026/01/C10-1.webp)
 - Replaces manual high-altitude work
-- High-pressure fast cleaning: 800 m²/h, 20 MPa
+- High-pressure fast cleaning
 - Stable high-altitude operation
 - Real-time data display
 - Multi-angle, multi-scenario coverage
+| Specification | |
+|---|---|
+| Cleaning rate | 800 m²/h |
+| Pressure | 20 MPa |
 briefing/videos/drone-cleaning-recap.mp4
 briefing/videos/drone-cleaning.mp4
 https://youtu.be/WnYeOUIdnoI
@@ -803,39 +1098,54 @@ https://youtu.be/yhTewrjTRMQ
 ### ART crawler services
 ![ART crawler on an insulated pipe](https://www.mistrasgroup.com/media/noqm4ukp/masthead-art-crawler.png)
 - Digital radiography to screen for internal corrosion and corrosion under insulation (CUI) in insulated & uninsulated above-ground piping and pipelines, **even with product flowing**
-- Internal corrosion crawler: through-wall technique, pipes 4–48"
-- CUI crawler: tangential OD radiography, pipes 2–48"
-- 360° crawler: tangential OD radiography, pipes 12–60"
+- Internal corrosion crawler: through-wall technique
+- CUI crawler: tangential OD radiography
+- 360° crawler: tangential OD radiography
 - Rapid large-scale screening
 - Lines stay in service
 - Permanent digital image archive
+| Specification | |
+|---|---|
+| Pipe size, internal corrosion crawler | 4–48" |
+| Pipe size, CUI crawler | 2–48" |
+| Pipe size, 360° crawler | 12–60" |
 https://youtu.be/JA7Zu1fhfHU
 [[product-faq:art]]
 
 ### LiDAR & visual inspection robot (pipe crawler)
 ![Example of a pipe inspection crawler](https://envirosight.com/wp-content/uploads/2021/07/laser_main-2-scaled.jpg)
 - LiDAR gives the robot mapping and navigation (Light Detection and Ranging: **a remote sensing method** that measures distances with pulsed laser light)
-- Travels up to 1,000 m
-- Pipes of at least 12 inch diameter
 - Clear 2D & 3D profile mapping
 - Auto-analysis software to identify flaws
 - Flaw measurement / location detection
 - Dimensional measurement
 - Clear, accurate cross-sectional view
+| Specification | |
+|---|---|
+| Travel distance | Up to 1,000 m |
+| Minimum pipe diameter | 12 inch |
 https://youtu.be/9HBf8kSVeos
 [[product-faq:crawler]]
 
 ### Underwater robot
 ![QYSEA FIFISH V6 Expert underwater robot](https://store.qysea.com/cdn/shop/files/fifish-v6-expert.png)
 - Carries visual inspection and NDT tools to analyze material / equipment deterioration
-- 6 vector thrusters™: 6-DoF omnidirectional maneuverability at 3 knots (1.5 m/s)
-- 350 m (over 1,100 ft) depth rating covers 95 % of underwater work
-- Dual cameras for a larger field of view; one camera alone sees up to 166°
-- 4K UHD camera
+- 6 vector thrusters™: 6-DoF omnidirectional maneuverability
+- Depth rating covers 95 % of underwater work
+- Dual cameras for a larger field of view
 - High-capacity, swappable lithium battery
-- Standard 10 cm laser scaler for underwater measurement
-- Robotic arm lifts 10 kg to collect samples or lost items
-- Q-BOX underwater connector hub with 6 ports for a customized robotic arm with NDT tools. Accessories include 2D imaging sonar, Station Lock™, U-QPS, 360° scanning sonar, compass ruler clamp, OPSS (on-shore power supply), mud sampler, water sampler (500 mL), salinity, pH and dissolved oxygen sensors, hydrophone, etc
+- Standard laser scaler for underwater measurement
+- Robotic arm to collect samples or lost items
+- Q-BOX underwater connector hub for a customized robotic arm with NDT tools. Accessories include 2D imaging sonar, Station Lock™, U-QPS, 360° scanning sonar, compass ruler clamp, OPSS (on-shore power supply), mud sampler, water sampler (500 mL), salinity, pH and dissolved oxygen sensors, hydrophone, etc
+| Specification | |
+|---|---|
+| Speed | 3 knots (1.5 m/s) |
+| Depth rating | 350 m (over 1,100 ft) |
+| Camera | 4K UHD |
+| Field of view | Up to 166° (one camera alone) |
+| Laser scaler | 10 cm (standard) |
+| Robotic arm lift | 10 kg |
+| Q-BOX connector hub | 6 ports |
 briefing/videos/underwater-robot.mp4
 briefing/videos/fifish-w6.mp4
 https://youtu.be/k3rUdNZaBg4

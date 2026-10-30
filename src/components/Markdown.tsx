@@ -173,7 +173,7 @@ function Table({ rows }: { rows: string[] }) {
   const [head, ...body] = cells
   if (!head) return null
   return (
-    <div className="md-table">
+    <div className={head.length === 2 ? 'md-table md-table-pairs' : 'md-table'}>
       <table>
         <thead>
           <tr>

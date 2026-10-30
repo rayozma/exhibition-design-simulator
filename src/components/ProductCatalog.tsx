@@ -1,10 +1,12 @@
 import type React from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { PRODUCT_TOPICS } from '../data/productFaq'
+import { SERVICE_TOPICS } from '../data/serviceFaq'
 import { imageSrc } from './Markdown'
 
 /**
- * Product catalog for a briefing section: the text after its [[product-catalog]] line, as
+ * Product (or service) catalog for a briefing section: the text after its [[product-catalog]] (or
+ * [[service-catalog]]) line, as
  * "## Category" groups of "### Product" entries, shown as searchable cards; a product opens on its own
  * (link: #<section>/<product>). "(on the booth)" at the end of a product heading marks it as on the stand.
  * A "## Group" with no products under it is shown as a fold-out block below the cards.
@@ -28,7 +30,7 @@ type Extra = { title: string; body: string }
 const BOOTH = /\s*\(on the booth\)\s*$/i
 const IMAGE = /^\s*!\[([^\]]*)\]\((\S+)\)\s*$/
 const VIDEO = /^\s*(?:https?:\/\/(?:www\.|m\.)?(?:youtube\.com|youtu\.be)\/\S+|\S+\.(?:mp4|webm)(?:[?#]\S*)?)\s*$/i
-const FAQ = /^\s*\[\[product-faq:([a-z0-9-]+)\]\]\s*$/gm
+const FAQ = /^\s*\[\[(product|service)-faq:([a-z0-9-]+)\]\]\s*$/gm
 const GENERIC_FAQ = new Set(['price', 'other', 'permits'])
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'product'
@@ -54,8 +56,8 @@ function summarize(bullet: string, title: string) {
 /** What the visitor FAQs in a product's text say, so a search finds answers too. */
 function faqText(body: string) {
   const out: string[] = []
-  for (const [, id] of body.matchAll(FAQ)) {
-    for (const q of PRODUCT_TOPICS.find((t) => t.id === id)?.questions ?? []) {
+  for (const [, kind, id] of body.matchAll(FAQ)) {
+    for (const q of (kind === 'service' ? SERVICE_TOPICS : PRODUCT_TOPICS).find((t) => t.id === id)?.questions ?? []) {
       if (GENERIC_FAQ.has(q.id) || !q.answer) continue
       out.push(q.q, q.answer.say, ...(q.answer.facts ?? []))
     }
@@ -126,11 +128,19 @@ const BOOTH_FILTER = '\u0000booth'
 type Props = {
   sectionId: string
   text: string
+  /** What the cards are: products (default) or services. */
+  kind?: 'product' | 'service'
   /** Renders a product's text (markdown with widgets). */
   render: (text: string) => React.ReactNode
 }
 
-export function ProductCatalog({ sectionId, text, render }: Props) {
+const WORDS = {
+  product: { one: 'product', many: 'products', search: 'Search products: name, use or spec (e.g. methane, tank, thermal, tower)…' },
+  service: { one: 'service', many: 'services', search: 'Search services: inspection, methane, pipeline, delivery, training…' },
+}
+
+export function ProductCatalog({ sectionId, text, render, kind = 'product' }: Props) {
+  const w = WORDS[kind]
   const { products, extras } = useMemo(() => parseCatalog(text), [text])
   const groups = useMemo(() => [...new Set(products.map((p) => p.group).filter(Boolean))], [products])
   const [query, setQuery] = useState('')
@@ -155,6 +165,7 @@ export function ProductCatalog({ sectionId, text, render }: Props) {
 
   // "/" jumps to the product search from anywhere on the page.
   useEffect(() => {
+    if (kind !== 'product') return
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement
       if (e.key !== '/' || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable) return
@@ -165,7 +176,7 @@ export function ProductCatalog({ sectionId, text, render }: Props) {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [openId, sectionId])
+  }, [openId, sectionId, kind])
 
   const words = query.toLowerCase().split(/\s+/).filter(Boolean)
   const shown = useMemo(() => {
@@ -191,7 +202,7 @@ export function ProductCatalog({ sectionId, text, render }: Props) {
       <div className="pc" ref={root}>
         <div className="pc-detail-bar no-print">
           <a className="pc-back" href={`#${sectionId}`}>
-            ← All products
+            ← All {w.many}
           </a>
           <span className="pc-crumb muted small">
             {open.group && <>{open.group} › </>}
@@ -226,7 +237,7 @@ export function ProductCatalog({ sectionId, text, render }: Props) {
         </article>
         {next && (
           <a className="pc-next no-print" href={href(next)}>
-            <span className="muted small">Next product</span>
+            <span className="muted small">Next {w.one}</span>
             <b>{next.title} ›</b>
           </a>
         )}
@@ -249,14 +260,14 @@ export function ProductCatalog({ sectionId, text, render }: Props) {
           <input
             ref={search}
             type="search"
-            placeholder="Search products: name, use or spec (e.g. methane, tank, thermal, tower)…"
+            placeholder={w.search}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && shown[0]) location.hash = `${sectionId}/${shown[0].id}`
               if (e.key === 'Escape') setQuery('')
             }}
-            aria-label="Search products"
+            aria-label={"Search " + w.many}
           />
         </div>
         <div className="pc-chips" role="group" aria-label="Category">
@@ -270,8 +281,8 @@ export function ProductCatalog({ sectionId, text, render }: Props) {
           {words.length
             ? shown.length
               ? `${shown.length} match${shown.length === 1 ? '' : 'es'} · Enter opens the first`
-              : 'No product matches. Try fewer or different words.'
-            : `${shown.length} products · click one to open it · press / to search`}
+              : 'No ' + w.one + ' matches. Try fewer or different words.'
+            : `${shown.length} ${w.many} · click one to open it${kind === 'product' ? ' · press / to search' : ''}`}
           {(words.length > 0 || filter) && (
             <>
               {' · '}
