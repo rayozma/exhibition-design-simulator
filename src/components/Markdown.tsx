@@ -227,13 +227,17 @@ function MdLink({ label, href }: { label: string; href: string }) {
     )
   if (href.startsWith('#')) return <a href={href}>{label}</a>
   if (!/^(https?:|mailto:)/i.test(href)) {
-    // A file of this app, e.g. briefing/brochures/elios3.pdf
-    const file = imageSrc(href)
+    // A file of this app, e.g. briefing/brochures/elios3.pdf (#pages=5 for a multi-page brochure)
+    const [path, fragment = ''] = href.split('#')
+    const file = imageSrc(path)
     if (!file) return <span>{label}</span>
+    // Brochures and photos open here, in the page: a new tab would leave the installed (offline) app on an iPad
+    if (/\.pdf$/i.test(file)) return <BrochureLink label={label} pdf={file} pages={Number(/pages=(\d+)/.exec(fragment)?.[1] ?? 1)} />
+    if (/\.(jpe?g|png|webp)$/i.test(file)) return <PhotoLink label={label} src={file} />
     href = file
   }
-  // Videos play here, in the page: a new tab would leave the installed (offline) app on an iPad
-  if (/.(mp4|webm)([?#].*)?$/i.test(href)) return <VideoLink label={label} src={href} />
+  // Videos play here, in the page, for the same reason
+  if (/\.(mp4|webm)([?#].*)?$/i.test(href)) return <VideoLink label={label} src={href} />
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       {label}
@@ -241,8 +245,8 @@ function MdLink({ label, href }: { label: string; href: string }) {
   )
 }
 
-/** A plain overlay (not <dialog>, which older iPads lack). */
-function VideoLink({ label, src }: { label: string; src: string }) {
+/** A link that opens its content in a plain overlay (not <dialog>, which older iPads lack). */
+function MediaLink({ label, icon, wide, children }: { label: string; icon: string; wide?: boolean; children: (close: () => void) => ReactNode }) {
   const [open, setOpen] = useState(false)
   useEffect(() => {
     if (!open) return
@@ -250,27 +254,65 @@ function VideoLink({ label, src }: { label: string; src: string }) {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
+  const close = () => setOpen(false)
   return (
     <>
       <button className="link md-video-open" onClick={() => setOpen(true)}>
-        ▶ {label}
+        {icon} {label}
       </button>
       {open && (
-        <div className="md-video-overlay" role="dialog" aria-modal="true" aria-label={label} onClick={(e) => e.target === e.currentTarget && setOpen(false)}>
-          <div className="md-video-dialog">
+        <div className="md-video-overlay" role="dialog" aria-modal="true" aria-label={label} onClick={(e) => e.target === e.currentTarget && close()}>
+          <div className={`md-video-dialog${wide ? ' wide' : ''}`}>
             <div className="md-video-dialog-head">
               <b>{label}</b>
-              <button className="link" onClick={() => setOpen(false)} aria-label="Close">
+              <button className="link" onClick={close} aria-label="Close">
                 ✕
               </button>
             </div>
-            <video src={src} controls playsInline autoPlay />
+            {children(close)}
           </div>
         </div>
       )}
     </>
   )
 }
+
+const VideoLink = ({ label, src }: { label: string; src: string }) => (
+  <MediaLink label={label} icon="▶">
+    {() => <video src={src} controls playsInline autoPlay />}
+  </MediaLink>
+)
+
+const PhotoLink = ({ label, src }: { label: string; src: string }) => (
+  <MediaLink label={label} icon="🖼">
+    {() => (
+      <div className="md-pages">
+        <img src={src} alt={label} />
+      </div>
+    )}
+  </MediaLink>
+)
+
+/** A brochure: its pages as pictures (they work offline and on any iPad), plus the PDF to download. */
+const BrochureLink = ({ label, pdf, pages }: { label: string; pdf: string; pages: number }) => (
+  <MediaLink label={label} icon="📄" wide>
+    {() => (
+      <>
+        <div className="md-pages">
+          {Array.from({ length: pages }, (_, k) => (
+            <img key={k} src={brochurePage(pdf, k + 1)} alt={`${label}, page ${k + 1}`} loading={k ? 'lazy' : undefined} />
+          ))}
+        </div>
+        <a className="md-pages-download" href={pdf} download>
+          Download PDF
+        </a>
+      </>
+    )}
+  </MediaLink>
+)
+
+/** Page n of a brochure, as published next to it: briefing/brochures/x.pdf -> x-n.jpg */
+export const brochurePage = (pdf: string, n: number) => pdf.replace(/\.pdf$/i, `-${n}.jpg`)
 
 const explainMissing = (label: string) =>
   askConfirm(`No link for “${label}” yet`, {

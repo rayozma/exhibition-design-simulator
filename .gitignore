@@ -16,3 +16,8 @@ Thumbs.db
 
 # local data backups (never commit)
 backups/
+
+# half-written video conversions (never commit)
+*.tmp.mp4
+*.part.mp4
+*.p2.mp4

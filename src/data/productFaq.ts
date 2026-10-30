@@ -220,8 +220,10 @@ const TOPICS: ServiceTopic[] = [
         ask: ['How long is the network, and how is it inspected today?'],
       }),
       q('organize', 'What does Terra Organize do?', {
-        say: 'It manages drone projects and data from planning to delivery, with a client portal to share results.',
+        say: 'It runs a drone operation in one place: the fleet, pilots and their training, maintenance, incidents and flight records, plus projects and data with a client portal.',
         facts: [
+          'Dashboard: drones, active projects, pilots, monthly drone usage, pilot flight hours, drones under maintenance.',
+          'Registries for drones, batteries and payloads; pilot licences with expiry dates; incident reports put a drone into maintenance.',
           'Project dashboards, role-based team access, scheduling and progress tracking.',
           'Cloud storage with auto-backup; automatic file naming and tagging.',
           'Digital checklist; branded client portal with secure sharing and auto-generated progress reports.',

@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import type { BriefingSection } from '../lib/briefing'
 import {
   formatBytes,
+  installApp,
+  isAndroid,
+  isInstalledApp,
   isIosBrowserTab,
   loadOfflineStatus,
   missingFiles,
@@ -10,6 +13,7 @@ import {
   useOnline,
   type OfflineStatus,
   type SaveProgress,
+  useCanInstall,
 } from '../lib/offline'
 
 const when = (iso: string) =>
@@ -18,6 +22,7 @@ const when = (iso: string) =>
 /** "Save for offline" for the briefing: saves every picture, video and brochure on this device. */
 export function OfflineSave({ sections }: { sections: BriefingSection[] | null }) {
   const online = useOnline()
+  const canInstall = useCanInstall()
   const [status, setStatus] = useState<OfflineStatus | null>(loadOfflineStatus)
   const [missing, setMissing] = useState<number | null>(null)
   const [progress, setProgress] = useState<SaveProgress | null>(null)
@@ -63,6 +68,7 @@ export function OfflineSave({ sections }: { sections: BriefingSection[] | null }
   }
 
   const ios = isIosBrowserTab()
+  const androidTab = isAndroid() && !isInstalledApp()
   const outdated = !!status && !!missing
 
   return (
@@ -96,6 +102,12 @@ export function OfflineSave({ sections }: { sections: BriefingSection[] | null }
           Files saved in Safari are not available to the home-screen app.
         </p>
       )}
+      {androidTab && !canInstall && (
+        <p className="small offline-note">
+          On an Android tablet or phone: in Chrome, tap the menu <b>⋮ → Add to Home screen</b> (or <b>Install app</b>) to get the briefing
+          as an app. Files saved here are also available in the app.
+        </p>
+      )}
       {error && <p className="status overlap small">{error}</p>}
       <div className="offline-actions">
         {online ? (
@@ -103,6 +115,11 @@ export function OfflineSave({ sections }: { sections: BriefingSection[] | null }
             <button className={!status || outdated ? 'primary' : ''} onClick={() => save()}>
               {!status ? 'Save for offline' : outdated ? 'Save new files' : 'Check for updates'}
             </button>
+            {canInstall && !isInstalledApp() && (
+              <button onClick={() => installApp()} title="Adds the briefing to the home screen / app list, like an app">
+                Install as app
+              </button>
+            )}
             {status && (
               <button className="link small" onClick={() => save(true)}>
                 Download everything again

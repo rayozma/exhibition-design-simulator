@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { imageSrc } from '../components/Markdown'
+import { brochurePage, imageSrc } from '../components/Markdown'
 import type { BriefingSection } from './briefing'
 
 /**
@@ -62,7 +62,8 @@ export function loadBriefingCopy(): BriefingCopy | null {
 
 const IMAGE = /!\[[^\]]*\]\((\S+)\)/g
 const VIDEO_LINE = /^\s*(\S+\.(?:mp4|webm))\s*$/gim
-const DOC_LINK = /\[[^\]]+\]\(([^)\s]+\.(?:pdf|pptx?|docx?|xlsx?|mp4|webm))\)/gi
+// Linked files (videos, photos, brochures); a brochure may say how many pages it has: x.pdf#pages=5
+const DOC_LINK = /\[[^\]]+\]\(([^)\s#]+\.(pdf|pptx?|docx?|xlsx?|mp4|webm|jpe?g|png|webp))(?:#pages=(\d+))?\)/gi
 const YOUTUBE = /^\s*https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:\S*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/gim
 
 /** Every picture, video and document the briefing shows, as full addresses. */
@@ -72,7 +73,12 @@ export function briefingFiles(sections: BriefingSection[]): string[] {
   for (const s of sections) {
     for (const [, src] of s.body.matchAll(IMAGE)) add(imageSrc(src))
     for (const [, src] of s.body.matchAll(VIDEO_LINE)) add(imageSrc(src))
-    for (const [, src] of s.body.matchAll(DOC_LINK)) add(imageSrc(src))
+    for (const [, src, ext, pages] of s.body.matchAll(DOC_LINK)) {
+      const file = imageSrc(src)
+      add(file)
+      // a brochure is shown as its page pictures
+      if (file && ext.toLowerCase() === 'pdf') for (let n = 1; n <= Number(pages ?? 1); n++) add(brochurePage(file, n))
+    }
     // YouTube needs internet; keep at least its picture
     for (const [, id] of s.body.matchAll(YOUTUBE)) add(`https://img.youtube.com/vi/${id}/hqdefault.jpg`)
     s.images.forEach((src) => add(imageSrc(src)))
@@ -174,7 +180,52 @@ export const formatBytes = (n: number) =>
   n >= 1e9 ? `${(n / 1e9).toFixed(1)} GB` : n >= 1e6 ? `${Math.round(n / 1e6)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`
 
 /** iPad / iPhone Safari outside the home-screen app: saved files there don't reach the app. */
-export const isIosBrowserTab = () =>
-  (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
-  !(navigator as Navigator & { standalone?: boolean }).standalone &&
-  !matchMedia('(display-mode: standalone)').matches
+/** Running as the installed app (home-screen icon), not in a browser tab. */
+export const isInstalledApp = () =>
+  !!(navigator as Navigator & { standalone?: boolean }).standalone || matchMedia('(display-mode: standalone)').matches
+
+export const isIos = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+export const isAndroid = () => /Android/i.test(navigator.userAgent)
+
+/** iPad / iPhone Safari outside the home-screen app: saved files there don't reach the app. */
+export const isIosBrowserTab = () => isIos() && !isInstalledApp()
+
+// ─── Installing as an app (Chrome / Edge, incl. Android tablets) ──────────────────────────────
+
+type InstallPrompt = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> }
+let installPrompt: InstallPrompt | null = null
+const INSTALL_EVENT = 'briefing-install-change'
+
+// The browser offers installation once, possibly before the page has drawn: keep the offer for later.
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault()
+    installPrompt = e as InstallPrompt
+    window.dispatchEvent(new Event(INSTALL_EVENT))
+  })
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null
+    window.dispatchEvent(new Event(INSTALL_EVENT))
+  })
+}
+
+/** Whether this browser can install the app right now (Chrome / Edge), updated live. */
+export function useCanInstall() {
+  const [can, setCan] = useState(!!installPrompt)
+  useEffect(() => {
+    const update = () => setCan(!!installPrompt)
+    window.addEventListener(INSTALL_EVENT, update)
+    return () => window.removeEventListener(INSTALL_EVENT, update)
+  }, [])
+  return can
+}
+
+/** Show the browser's "Install app" dialog; true if the person accepted. */
+export async function installApp(): Promise<boolean> {
+  if (!installPrompt) return false
+  const p = installPrompt
+  installPrompt = null
+  window.dispatchEvent(new Event(INSTALL_EVENT))
+  await p.prompt()
+  return (await p.userChoice).outcome === 'accepted'
+}

@@ -3620,3 +3620,32 @@ a.button-link.briefing-cta {
     max-height: 56vw;
   }
 }
+
+/* Brochure pages and photos in the pop-up */
+.md-video-dialog.wide {
+  max-width: 1100px;
+}
+
+.md-pages {
+  max-height: 78vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.md-pages img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.md-pages img + img {
+  border-top: 1px solid #e5e7eb;
+}
+
+.briefing a.md-pages-download {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fde68a;
+}
