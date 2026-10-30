@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { askConfirm } from '../lib/dialogs'
 import { useOnline } from '../lib/offline'
 
@@ -241,26 +241,33 @@ function MdLink({ label, href }: { label: string; href: string }) {
   )
 }
 
+/** A plain overlay (not <dialog>, which older iPads lack). */
 function VideoLink({ label, src }: { label: string; src: string }) {
-  const dialog = useRef<HTMLDialogElement>(null)
-  const close = () => {
-    dialog.current?.querySelector('video')?.pause()
-    dialog.current?.close()
-  }
+  const [open, setOpen] = useState(false)
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
   return (
     <>
-      <button className="link md-video-open" onClick={() => dialog.current?.showModal()}>
+      <button className="link md-video-open" onClick={() => setOpen(true)}>
         ▶ {label}
       </button>
-      <dialog ref={dialog} className="md-video-dialog" onClick={(e) => e.target === dialog.current && close()} onClose={close}>
-        <div className="md-video-dialog-head">
-          <b>{label}</b>
-          <button className="link" onClick={close} aria-label="Close">
-            ✕
-          </button>
+      {open && (
+        <div className="md-video-overlay" role="dialog" aria-modal="true" aria-label={label} onClick={(e) => e.target === e.currentTarget && setOpen(false)}>
+          <div className="md-video-dialog">
+            <div className="md-video-dialog-head">
+              <b>{label}</b>
+              <button className="link" onClick={() => setOpen(false)} aria-label="Close">
+                ✕
+              </button>
+            </div>
+            <video src={src} controls playsInline autoPlay />
+          </div>
         </div>
-        <video src={src} controls playsInline preload="none" />
-      </dialog>
+      )}
     </>
   )
 }

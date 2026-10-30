@@ -250,7 +250,7 @@ Sample use cases: [Data Sample 2024]()`,
 | Methane gas detection | [METHANE GAS DETECTION]() | [Falcon Methane Gas Detection](briefing/videos/methane-falcon.mp4) | [ADNOC Onshore – BAB]() |
 | Drone delivery | [DELIVERY]() | [Drone Delivery Bu Hasa]() | [ADNOC-DC BUH final]() |
 | Seismic | | | [ADNOC-SEISMIC report]() |
-| Renewable energy | [Renewable Energy]() | [TDID – Renewable Energy]() | |
+| Renewable energy | [Renewable Energy]() | [Solar PV Inspection.mp4](briefing/videos/solar-pv.mp4) · [TDID – Renewable Energy]() | |
 | Vegetation management | [Vegetation management]() | [TDID – Vegetation Management]() | |
 
 Samples: [Short videos]() · [Videos]()`,
@@ -343,6 +343,7 @@ https://youtu.be/3UrKq7xj7TI
 - Ideal for oil & gas, petrochemical, power plant and ship hull inspection
 briefing/videos/voliro-t.mp4
 https://youtu.be/Q29N_pTc6kA
+- **More videos:** [The benchmark (short)](briefing/videos/voliro-benchmark.mp4) · [Event-screen compilation 2024](briefing/videos/voliro-lps-2024.mp4) · [Screen loop 2026](briefing/videos/voliro-loop-2026.mp4) · [Event-screen compilation 2023](briefing/videos/voliro-compilation-2023.mp4)
 [[product-faq:voliro]]
 
 ### Elios 3
@@ -396,6 +397,7 @@ https://youtu.be/oHd-QIXVNoc
 - Maximum operation radius 5 km
 briefing/videos/flycart-offshore.mp4
 https://youtu.be/Hhp11I-vGHA
+- **More videos:** [Offshore delivery](briefing/videos/flycart-delivery-offshore.mp4) · [Offshore delivery (long)](briefing/videos/flycart-delivery-offshore-2.mp4) · [Offshore take-off](briefing/videos/flycart-takeoff-offshore.mp4) · [Landing](briefing/videos/flycart-landing.mp4) · [Winch down](briefing/videos/flycart-winch-down.mp4) · [Winch up](briefing/videos/flycart-winch-up.mp4) · [Dubai 1](briefing/videos/flycart-dubai-1.mp4) · [Dubai 2](briefing/videos/flycart-dubai-2.mp4) · [Dubai 3](briefing/videos/flycart-dubai-3.mp4) · [Test flight](briefing/videos/flycart-test-flight.mp4)
 [[product-faq:flycart]]
 
 ### Drones for cleaning
@@ -508,6 +510,7 @@ briefing/videos/sewerx.mp4
 - On-premise on the customer's own GPU server, scales by adding GPU nodes; no inbound ports (outbound HTTPS tunnel); admin, supervisor and operator roles
 - For control rooms, critical sites and perimeter security, patrols, crowd management, incident review
 briefing/videos/vmx.mp4
+- **More videos:** [AI lane separation detection](briefing/videos/ai-lane-separation.mp4) · [AI number-plate detection](briefing/videos/ai-plate-detection.mp4)
 
 ### Interex
 ![Interex console: count lines, approaches, speeds and turning movements on a drone video](https://interex.terra-drone.com.sa/static/home/media/console.jpg)
@@ -519,6 +522,7 @@ briefing/videos/vmx.mp4
 - Runs on the customer's own Windows / Linux PC with an NVIDIA GPU (real time on a single RTX 4090); web console
 - For traffic surveys and transport studies; on an oil & gas site: traffic at gates, plant roads and logistics yards
 briefing/videos/interex.mp4
+- **More videos:** [Full Interex demo (15 min)](briefing/videos/interex-demo.mp4)
 
 ## Airspace management
 ### Unifly UTM
@@ -596,6 +600,7 @@ https://youtu.be/9HBf8kSVeos
 briefing/videos/underwater-robot.mp4
 briefing/videos/fifish-w6.mp4
 https://youtu.be/k3rUdNZaBg4
+- **More videos:** [Subsea footage 2021](briefing/videos/subsea-2021.mp4) · [Subsea footage 2023](briefing/videos/subsea-2023.mp4) · [Robot inspection in a crude oil tank (2021)](briefing/videos/tank-robot-inspection.mp4) · [Robot tank cleaning, 1.5 m sludge (2021)](briefing/videos/tank-robot-cleaning.mp4)
 [[product-faq:rov]]
 
 ### NDTCCS Solutions Centre

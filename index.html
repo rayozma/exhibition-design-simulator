@@ -15,18 +15,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- Shown until the app starts (src/main.tsx removes it); if it can't start (e.g. an older iPad), it says why.
+         Plain old-browser HTML/CSS/JS on purpose. -->
+    <div id="boot" style="padding:40px 20px;max-width:720px;margin:0 auto;color:#fff;font:15px/1.5 -apple-system,Helvetica,Arial,sans-serif">
+      Loading…
+    </div>
     <div id="root"></div>
-    <!-- If the app can't start on this browser (e.g. an older iPad), say why instead of an empty page -->
+    <script nomodule>
+      document.getElementById('boot').innerHTML =
+        '<h2>This browser is too old for the app</h2><p>Please update the device (Settings → General → Software Update), or use another phone or laptop.</p><p style="font-size:12px;color:#cbd5e1">' +
+        navigator.userAgent +
+        '</p>'
+    </script>
     <script>
       (function () {
         var shown = false
         function show(msg) {
+          var boot = document.getElementById('boot')
           var root = document.getElementById('root')
-          if (shown || (root && root.childElementCount)) return
+          if (shown || !boot || (root && root.childElementCount)) return
           shown = true
-          var box = document.createElement('div')
-          box.style.cssText =
-            'position:fixed;inset:0;z-index:99999;overflow:auto;background:#0b0f1a;padding:40px max(20px,calc(50% - 360px));color:#fff;font:15px/1.5 system-ui,sans-serif'
+          var box = boot
           box.innerHTML =
             '<h2 style="margin:0 0 8px">The page could not start on this browser</h2>' +
             '<p style="color:#cbd5e1">Send a photo of this screen to the team. Updating the device (Settings → General → Software Update) usually fixes it.</p>' +
@@ -41,7 +50,6 @@
             if (window.caches) jobs.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k) })) }))
             Promise.all(jobs).then(function () { location.reload() }, function () { location.reload() })
           }
-          document.body.appendChild(box)
         }
         addEventListener('error', function (e) {
           show((e.message || 'Error') + (e.filename ? '\n' + e.filename + ':' + e.lineno + ':' + e.colno : ''))
@@ -51,8 +59,8 @@
           show('Unhandled: ' + ((r && (r.stack || r.message)) || r))
         })
         setTimeout(function () {
-          show('Nothing appeared after 10 seconds (no error was reported).')
-        }, 10000)
+          show('Nothing appeared after 30 seconds (no error was reported). On a slow connection, wait a little longer: this box goes away when the app starts.')
+        }, 30000)
       })()
     </script>
     <script type="module" src="/src/main.tsx"></script>
