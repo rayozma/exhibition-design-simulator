@@ -706,7 +706,7 @@ textarea.remarks {
   height: 100%;
 }
 
-#root:has(.guide) {
+.page-guide #root {
   overflow-y: auto;
 }
 
@@ -1341,7 +1341,7 @@ button.link {
 }
 
 /* Team briefing (?briefing): a light, wide reading page (dialogs on it turn light too) */
-:root:has(.briefing) {
+:root.page-briefing {
   --bg: #ffffff;
   --panel: #f8fafc;
   --border: #e5e7eb;
@@ -1351,7 +1351,7 @@ button.link {
   --heading: #a16207;
 }
 
-#root:has(.briefing) {
+.page-briefing #root {
   background: var(--bg);
 }
 
@@ -1360,49 +1360,49 @@ button.link {
   padding: 24px 32px 48px;
 }
 
-:root:has(.briefing) button,
-:root:has(.briefing) a.button-link {
+:root.page-briefing button,
+:root.page-briefing a.button-link {
   color: var(--text);
   background: #f3f4f6;
   border-color: #d1d5db;
 }
 
-:root:has(.briefing) button:hover,
-:root:has(.briefing) a.button-link:hover {
+:root.page-briefing button:hover,
+:root.page-briefing a.button-link:hover {
   background: #e5e7eb;
 }
 
-:root:has(.briefing) button.primary,
-:root:has(.briefing) button.active {
+:root.page-briefing button.primary,
+:root.page-briefing button.active {
   color: #111;
   background: var(--accent);
   border-color: #eab308;
 }
 
-:root:has(.briefing) button.link {
+:root.page-briefing button.link {
   background: none;
   border: none;
 }
 
-:root:has(.briefing) button.danger {
+:root.page-briefing button.danger {
   color: #b91c1c;
   border-color: #fca5a5;
   background: #fef2f2;
 }
 
-:root:has(.briefing) .field input,
-:root:has(.briefing) textarea.remarks,
-:root:has(.briefing) .dialog-input {
+:root.page-briefing .field input,
+:root.page-briefing textarea.remarks,
+:root.page-briefing .dialog-input {
   color: var(--text);
   background: #ffffff;
   border-color: #d1d5db;
 }
 
-:root:has(.briefing) .overlay {
+:root.page-briefing .overlay {
   background: rgba(17, 24, 39, 0.35);
 }
 
-:root:has(.briefing) .card {
+:root.page-briefing .card {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -2327,11 +2327,37 @@ a.button-link.briefing-cta {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+  /* Section menu: a strip pinned to the top while scrolling (tablets and phones) */
   .brief-nav {
-    position: static;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
     flex-direction: row;
     max-height: none;
     overflow-x: auto;
+    margin: 0 -16px;
+    padding: 6px 12px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    background: rgba(249, 250, 251, 0.96);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    scrollbar-width: none;
+  }
+  .brief-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .briefing section {
+    scroll-margin-top: 64px;
+  }
+  /* the product page's back / next bar would hide under the pinned menu */
+  .pc-detail-bar {
+    position: static;
+  }
+  .pc {
+    scroll-margin-top: 64px;
   }
   .brief-nav a {
     white-space: nowrap;
@@ -2740,6 +2766,7 @@ a.button-link.briefing-cta {
     border-left: none;
     border-right: none;
     background: rgba(249, 250, 251, 0.96);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     scrollbar-width: none;
   }
@@ -2874,7 +2901,7 @@ a.button-link.briefing-cta {
   .briefing .field input,
   .briefing textarea.remarks,
   .briefing select,
-  :root:has(.briefing) .dialog-input {
+  :root.page-briefing .dialog-input {
     font-size: 16px;
   }
 
@@ -3020,7 +3047,7 @@ a.button-link.briefing-cta {
 }
 
 /* ─── Home page (design list): light theme, like the briefing ─────────────────────────────── */
-:root:has(.landing) {
+:root.page-landing {
   --bg: #f6f7f9;
   --panel: #ffffff;
   --border: #e5e7eb;
@@ -3028,7 +3055,7 @@ a.button-link.briefing-cta {
   --muted: #6b7280;
 }
 
-#root:has(.landing) {
+.page-landing #root {
   background: var(--bg);
 }
 
@@ -3094,7 +3121,7 @@ a.button-link.briefing-cta {
 
 .landing .new-design > input,
 .landing .save-row input,
-:root:has(.landing) .dialog-input {
+:root.page-landing .dialog-input {
   color: var(--text);
   background: #fff;
   border-color: #d1d5db;
@@ -3156,11 +3183,11 @@ a.button-link.briefing-cta {
 }
 
 /* Dialogs opened from the home page */
-:root:has(.landing) .overlay {
+:root.page-landing .overlay {
   background: rgba(17, 24, 39, 0.35);
 }
 
-:root:has(.landing) .overlay .card {
+:root.page-landing .overlay .card {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 

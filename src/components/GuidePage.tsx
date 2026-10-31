@@ -1,9 +1,11 @@
 import { APP_TITLE } from '../lib/design'
+import { usePageClass } from '../lib/pageClass'
 
 const home = () => location.pathname
 
 /** Short user guide for the team, at ?guide. */
 export function GuidePage() {
+  usePageClass('page-guide')
   return (
     <div className="guide">
       <header>

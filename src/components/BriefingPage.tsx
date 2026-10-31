@@ -23,6 +23,7 @@ import { parseDesign } from '../lib/design'
 import { isImageLink, uploadImage } from '../lib/images'
 import { supabase } from '../lib/supabase'
 import { loadBriefingCopy, saveBriefingCopy } from '../lib/offline'
+import { usePageClass } from '../lib/pageClass'
 import { loadUser } from '../lib/user'
 import { ExhibitorFinder } from './ExhibitorFinder'
 import { PRODUCT_TOPICS } from '../data/productFaq'
@@ -48,6 +49,7 @@ function boothRoom(rooms: Room[], chosen: string | null): Room | null {
 
 /** Team briefing at ?briefing: sections everyone can edit live, a link to the booth in 3D, and a private quiz. */
 export function BriefingPage() {
+  usePageClass('page-guide', 'page-briefing')
   // The copy saved on this device shows at once (and without internet) until the live briefing arrives.
   const [sections, setSections] = useState<BriefingSection[] | null>(() => (supabase ? (loadBriefingCopy()?.sections ?? null) : DEFAULT_BRIEFING))
   const [copyAt, setCopyAt] = useState<string | null>(() => (supabase ? (loadBriefingCopy()?.at ?? null) : null))

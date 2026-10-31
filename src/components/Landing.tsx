@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createRoom, deleteRoom, fetchRooms, seedRoom, type Room } from '../lib/db'
 import { APP_TITLE, parseDesign, TEMPLATES } from '../lib/design'
+import { usePageClass } from '../lib/pageClass'
 import { loadUser, newRoomId } from '../lib/user'
 
 const when = (iso: string) =>
@@ -12,6 +13,7 @@ const open = (id: string) => {
 
 /** Home page: all designs (each one a shared, live room), plus a form to create a new one from a template. */
 export function Landing() {
+  usePageClass('page-landing')
   const [rooms, setRooms] = useState<Room[] | null>(null)
   const [name, setName] = useState('')
   const [template, setTemplate] = useState(TEMPLATES[0].id)
