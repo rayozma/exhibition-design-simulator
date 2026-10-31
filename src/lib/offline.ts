@@ -99,7 +99,43 @@ function appFiles(): string[] {
 
 // ─── Saving ────────────────────────────────────────────────────────────────────────────────
 
-export type OfflineStatus = { at: string; files: number; bytes: number; failed: string[] }
+export type OfflineStatus = { at: string; files: number; bytes: number; failed: string[]; complete?: boolean }
+
+// Crash safety (older iPads restart the page when it runs out of memory): the file being saved is
+// written down first; if it is still written down on the next save, that file crashed the page and is
+// skipped from then on, so the rest can be saved.
+const CURRENT_KEY = 'ndt-adipec.offline-current'
+const SKIP_KEY = 'ndt-adipec.offline-skip'
+
+function readList(key: string): string[] {
+  try {
+    const v = JSON.parse(localStorage.getItem(key) ?? '[]')
+    return Array.isArray(v) ? v : []
+  } catch {
+    return []
+  }
+}
+
+function store(key: string, value: string | null) {
+  try {
+    if (value === null) localStorage.removeItem(key)
+    else localStorage.setItem(key, value)
+  } catch {
+    // storage blocked: no crash safety, saving still works
+  }
+}
+
+/** Files skipped because saving them restarted the page (see above). */
+function skippedFiles(): Set<string> {
+  const skip = new Set(readList(SKIP_KEY))
+  const crashed = localStorage.getItem(CURRENT_KEY)
+  if (crashed) {
+    skip.add(crashed)
+    store(SKIP_KEY, JSON.stringify([...skip]))
+    store(CURRENT_KEY, null)
+  }
+  return skip
+}
 
 export function loadOfflineStatus(): OfflineStatus | null {
   try {
@@ -113,10 +149,14 @@ export function loadOfflineStatus(): OfflineStatus | null {
 export async function missingFiles(sections: BriefingSection[]): Promise<string[]> {
   if (!offlineSupported()) return []
   const cache = await caches.open(MEDIA_CACHE)
+  const skip = skippedFiles()
   const out: string[] = []
-  for (const url of briefingFiles(sections)) if (!(await cache.match(url, { ignoreVary: true }))) out.push(url)
+  for (const url of briefingFiles(sections)) if (!skip.has(url) && !(await cache.match(url, { ignoreVary: true }))) out.push(url)
   return out
 }
+
+/** Pictures and brochures first, videos (the largest files) last. */
+const videosLast = (a: string, b: string) => Number(/\.(mp4|webm)$/i.test(a)) - Number(/\.(mp4|webm)$/i.test(b))
 
 export type SaveProgress = { done: number; total: number; bytes: number; current: string }
 
@@ -141,39 +181,66 @@ export async function saveForOffline(
   }
 
   const cache = await caches.open(MEDIA_CACHE)
-  const files = briefingFiles(sections)
+  const files = briefingFiles(sections).sort(videosLast)
   const keep = new Set(files)
   for (const req of await cache.keys()) if (!keep.has(req.url)) await cache.delete(req)
 
+  // "Download everything again" also retries files skipped after a crash
+  if (refresh) store(SKIP_KEY, null)
+  const skip = skippedFiles()
+  saveBriefingCopy(sections)
+
   const failed: string[] = []
   let bytes = 0
+  const status = (complete: boolean): OfflineStatus => ({
+    at: new Date().toISOString(),
+    files: files.length - failed.length,
+    bytes,
+    failed,
+    complete,
+  })
   for (let k = 0; k < files.length; k++) {
     const url = files[k]
     onProgress({ done: k, total: files.length, bytes, current: url })
+    if (skip.has(url)) {
+      failed.push(url)
+      continue
+    }
     const have = !refresh && (await cache.match(url, { ignoreVary: true }))
     if (have) {
       bytes += Number(have.headers.get('content-length')) || 0
       continue
     }
-    try {
-      const own = new URL(url).origin === location.origin
-      const res = await fetch(url, own ? { cache: 'reload' } : { mode: 'no-cors' })
-      if (!res.ok && res.type !== 'opaque') throw new Error(String(res.status))
-      bytes += Number(res.headers.get('content-length')) || 0
-      await cache.put(url, res)
-    } catch {
-      failed.push(url)
+    store(CURRENT_KEY, url)
+    // Up to 3 tries: busy exhibition Wi-Fi drops downloads now and then
+    let saved = false
+    for (let attempt = 0; attempt < 3 && !saved; attempt++) {
+      if (attempt) await new Promise((r) => setTimeout(r, 1500 * attempt))
+      try {
+        const own = new URL(url).origin === location.origin
+        // ?offline-save: the service worker lets this download through untouched; it is saved under the plain address
+        const res = own
+          ? await fetch(url + (url.includes('?') ? '&' : '?') + 'offline-save', { cache: 'reload' })
+          : await fetch(url, { mode: 'no-cors' })
+        if (!res.ok && res.type !== 'opaque') throw new Error(String(res.status))
+        const size = Number(res.headers.get('content-length')) || 0
+        await cache.put(url, res)
+        bytes += size
+        saved = true
+      } catch {
+        // try again
+      }
     }
+    if (!saved) failed.push(url)
+    store(CURRENT_KEY, null)
+    // Keep the progress so far (in case the page restarts) and give the browser a moment to free memory
+    store(STATUS_KEY, JSON.stringify(status(false)))
+    await new Promise((r) => setTimeout(r, 80))
   }
   onProgress({ done: files.length, total: files.length, bytes, current: '' })
-  const status: OfflineStatus = { at: new Date().toISOString(), files: files.length - failed.length, bytes, failed }
-  try {
-    localStorage.setItem(STATUS_KEY, JSON.stringify(status))
-  } catch {
-    // not remembered; the files are still saved
-  }
-  saveBriefingCopy(sections)
-  return status
+  const done = status(true)
+  store(STATUS_KEY, JSON.stringify(done))
+  return done
 }
 
 export const formatBytes = (n: number) =>

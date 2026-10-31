@@ -88,10 +88,14 @@ export function OfflineSave({ sections }: { sections: BriefingSection[] | null }
       )}
       {status && status.failed.length > 0 && !outdated && (
         <details className="small offline-note">
-          <summary>{status.failed.length} file(s) couldn't be saved</summary>
+          <summary>{status.failed.length} file(s) couldn't be saved on this device</summary>
+          <p>
+            They still open when there is internet. A file that made the page restart while saving (too big for this
+            device's memory) is skipped, so the rest can be saved; <i>Download everything again</i> retries it.
+          </p>
           <ul>
             {status.failed.map((u) => (
-              <li key={u}>{u}</li>
+              <li key={u}>{decodeURIComponent(u.split('/').pop() ?? u)}</li>
             ))}
           </ul>
         </details>

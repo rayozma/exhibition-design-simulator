@@ -25,6 +25,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return
   const url = new URL(req.url)
   if (/\.supabase\.co$/.test(url.hostname)) return // live data: the app keeps its own copy
+  if (url.searchParams.has('offline-save')) return // "Save for offline" downloads go straight to the network (less memory)
   const own = url.origin === self.location.origin
   // Pages of the app (not files opened directly, like a video or brochure link)
   const appPage = own && url.pathname.startsWith(BASE) && !/\.[a-z0-9]+$/i.test(url.pathname)
@@ -40,7 +41,9 @@ const keep = (key, res) =>
     .open(SHELL)
     .then((c) => c.put(key, res))
     .catch(() => {})
-const saved = (key, opts) => caches.match(key, opts).catch(() => undefined)
+// ignoreVary: a file saved by "Save for offline" (a plain download) must also answer the page's own
+// requests for it, whose headers differ (e.g. a script request sends Origin; servers send "Vary").
+const saved = (key, opts) => caches.match(key, { ignoreVary: true, ...opts }).catch(() => undefined)
 
 async function page(req) {
   try {

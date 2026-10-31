@@ -13,7 +13,7 @@ const SEED: Seed[] = [
     title: 'First time at ADIPEC?',
     body: `**ADIPEC 2026 · 2–5 November 2026 · ADNEC, Abu Dhabi**
 
-![ADIPEC exhibition hall at ADNEC](https://www.adipec.com/media/qp3oxxq0/seoimage.jpg)
+![ADIPEC exhibition hall at ADNEC](briefing/photos/web-adipec-seoimage.jpg)
 
 - One of the largest oil & gas exhibitions in the world
 - 200,000 visitors last year
@@ -347,7 +347,7 @@ briefing/videos/flycart-offshore.mp4
 [[service-faq:training]]
 
 ### Selling drones
-![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
+![DJI Dock 4 with Matrice 5TD](briefing/photos/web-dji-dock-4.jpg)
 - We are an **official reseller of DJI Enterprise**
 - We also sell our own fixed-wing drone technology
 - Track record: drone purchasing for ADNOC Onshore (Drone Center)
@@ -400,7 +400,7 @@ Samples: [Short videos]() · [Videos]()`,
 
 ## DJI Enterprise
 ### DJI Dock 4 (on the booth)
-![DJI Dock 4 with Matrice 5TD](https://www-cdn.djiits.com/cms/uploads/6d68a59801b5acf6962b51b00080b6f9.png)
+![DJI Dock 4 with Matrice 5TD](briefing/photos/web-dji-dock-4.jpg)
 - DJI's newest drone-in-a-box (launched October 2026) for fully autonomous, 24/7 remote operations
 - First DJI dock with **automatic battery swap** (Dock 3 needs ~30 min to recharge)
 - Paired aircraft: **DJI Matrice 5TD** (M5TD)
@@ -453,7 +453,7 @@ briefing/videos/dock3.mp4
 - **Brochure:** [DJI Dock 3 datasheet](briefing/brochures/dji-dock-3.pdf)
 
 ### DJI M400
-![DJI Matrice 400](https://www-cdn.djiits.com/cms/uploads/3c9712c308bac3e36007c3a9ded88d9d.png)
+![DJI Matrice 400](briefing/photos/web-dji-m400.jpg)
 - For powerline inspection, oil & gas surveys, mapping, emergency response and asset monitoring
 - Heavy lift and all-weather: dust, drizzle and harsh environments
 - LiDAR + millimeter-wave radar for 360° obstacle awareness and avoidance
@@ -596,7 +596,7 @@ briefing/videos/avata-2.mp4
 - **Brochure:** [DJI Avata datasheet](briefing/brochures/dji-avata.pdf)
 
 ### DJI FlyCart 30
-![DJI FlyCart 30](https://www-cdn.djiits.com/cms/uploads/6309da752b25bee607f0c785de57085e.png)
+![DJI FlyCart 30](briefing/photos/web-dji-flycart-30.jpg)
 - Cargo delivery
 | Specification | |
 |---|---|
@@ -708,7 +708,7 @@ briefing/videos/drtk3-m4t.mp4
 
 ## Drones & robots
 ### Voliro T
-![Voliro T with UT payload](https://cdn.voliro.com/wp-content/uploads/2025/09/Voliro-T-with-UT-payload.webp)
+![Voliro T with UT payload](briefing/photos/web-voliro-voliro-t-with-ut-payload.jpg)
 - For contact-based industrial inspection and NDT (Non-Destructive Testing)
 - Omnidirectional multirotor drone with 6-DOF (degrees of freedom) flight control
 - Can fly and keep stable contact on vertical, inclined and overhead surfaces
@@ -742,7 +742,7 @@ briefing/videos/voliro-t-intro.mp4
 [[product-faq:voliro]]
 
 ### Elios 3
-![Flyability Elios 3](https://www.flyability.com/hubfs/Elios%203%20image.png)
+![Flyability Elios 3](briefing/photos/web-flyability-elios-3-image.jpg)
 - BVLOS (non-entry) confined space visual inspection & 3D modeling
 - LiDAR sensor produces a 3D point cloud (for visualization)
 - Virtual inspection in the software
@@ -808,7 +808,7 @@ briefing/videos/nolvis-m1.mp4
 - **Brochure:** [Nolvis M1 datasheet](briefing/brochures/nolvis-m1.pdf)
 
 ### AheadX QP530
-![AheadX QP530A](https://static.aheadx.com/website/pc-ssr/cn-pc/images/qp530a/QP530A.png)
+![AheadX QP530A](briefing/photos/web-aheadx-qp530a.jpg)
 - Real-time surveillance
 - VTOL (vertical take-off & landing)
 - EO zoom camera and IR camera for night operation
@@ -855,7 +855,7 @@ briefing/videos/trinity-pro.mp4
 - **Brochure:** [Trinity Pro datasheet](briefing/brochures/trinity-pro.pdf)
 
 ### Rigitech Eiger
-![Rigitech Eiger](https://rigi.tech/wp-content/uploads/2024/04/ER03-Closed-Canopy-EDITED_2.png)
+![Rigitech Eiger](briefing/photos/web-rigi-er03-closed-canopy-edited-2.jpg)
 - Long-range automated logistics & delivery (day + night, BVLOS)
 - VTOL + fixed-wing transition flight
 - Takes off vertically, then cruises on wings for speed & range
@@ -910,7 +910,7 @@ briefing/videos/aviro-e16-usecase.mp4
 - **Brochure:** [Aviro E16 datasheet](briefing/brochures/aviro-e16.pdf)
 
 ### Drones for cleaning
-![Example of a cleaning drone (ABZ C10)](https://abzinnovation.com/wp-content/uploads/2026/01/C10-1.webp)
+![Example of a cleaning drone (ABZ C10)](briefing/photos/web-abzinnovation-c10-1.jpg)
 - Replaces manual high-altitude work
 - High-pressure fast cleaning
 - Stable high-altitude operation
@@ -996,7 +996,7 @@ briefing/videos/towersight.mp4
 briefing/videos/sewerx.mp4
 
 ### Terra VMX
-![Terra VMX console: drones, CCTV and bodycams with AI detections, map and findings](https://vmx.terra-drone.com.sa/landing/hero-poster.webp)
+![Terra VMX console: drones, CCTV and bodycams with AI detections, map and findings](briefing/photos/web-vmx-hero-poster.jpg)
 - **[Terra VMX](https://vmx.terra-drone.com.sa/)** ("Every feed. One console."): real-time AI video analytics for security and public safety, by Terra Drone Arabia
 - Brings drones (DJI via FlightHub 2), CCTV / NVRs (RTSP, RTMP, SRT, HLS), bodycams and field officers' phones into one live console and map
 - AI watches every feed 24/7: detects and tracks people and vehicles (speed, dwell, stop time); aerial model for small, distant objects in drone video; custom ONNX (YOLO) models supported
@@ -1008,7 +1008,7 @@ briefing/videos/vmx.mp4
 - **More videos:** [AI lane separation detection](briefing/videos/ai-lane-separation.mp4) · [AI number-plate detection](briefing/videos/ai-plate-detection.mp4)
 
 ### Interex
-![Interex console: count lines, approaches, speeds and turning movements on a drone video](https://interex.terra-drone.com.sa/static/home/media/console.jpg)
+![Interex console: count lines, approaches, speeds and turning movements on a drone video](briefing/photos/web-interex-console.jpg)
 - **[Interex](https://interex.terra-drone.com.sa/)** ("Drone video in. Traffic data out."): AI traffic analytics from drone or CCTV video, by Terra Drone Arabia
 - Detects, counts and tracks cars, motorcycles, buses, trucks, vans and bicycles (pedestrians optional), with models fine-tuned on aerial imagery
 - Count lines by direction and class, turning movements (origin-destination matrix), per-vehicle speeds (average and 85th percentile), waiting time and indicative HCM level of service
@@ -1103,7 +1103,7 @@ briefing/videos/digital-rt.mp4
 [[product-faq:digital-rt]]
 
 ### IRIS (Internal Rotary Inspection System) (on the booth)
-![IRIS probes and centering devices](https://www.eddyfi.com/doc/ProductImages/STP_IRIS_CD_800x645-01.png)
+![IRIS probes and centering devices](briefing/photos/web-eddyfi-stp-iris-cd-800x645-01.jpg)
 - Ultrasonic inspection of tubes **from the inside**: a probe with a rotating mirror, driven by water flow, scans the full circumference as it is pulled through the tube
 - Measures the remaining wall thickness and finds corrosion, erosion, pitting and other wall loss on both the inner and the outer surface
 - For tubes in heat exchangers, boilers and air coolers (fin-fans), ferrous and non-ferrous
@@ -1114,7 +1114,7 @@ briefing/videos/iris.mp4
 [[product-faq:iris]]
 
 ### ART crawler services
-![ART crawler on an insulated pipe](https://www.mistrasgroup.com/media/noqm4ukp/masthead-art-crawler.png)
+![ART crawler on an insulated pipe](briefing/photos/web-mistrasgroup-masthead-art-crawler.jpg)
 - Digital radiography to screen for internal corrosion and corrosion under insulation (CUI) in insulated & uninsulated above-ground piping and pipelines, **even with product flowing**
 - Internal corrosion crawler: through-wall technique
 - CUI crawler: tangential OD radiography
@@ -1131,7 +1131,7 @@ briefing/videos/art-crawler.mp4
 [[product-faq:art]]
 
 ### LiDAR & visual inspection robot (pipe crawler)
-![Example of a pipe inspection crawler](https://envirosight.com/wp-content/uploads/2021/07/laser_main-2-scaled.jpg)
+![Example of a pipe inspection crawler](briefing/photos/web-envirosight-laser-main-2-scaled.jpg)
 - LiDAR gives the robot mapping and navigation (Light Detection and Ranging: **a remote sensing method** that measures distances with pulsed laser light)
 - Clear 2D & 3D profile mapping
 - Auto-analysis software to identify flaws
@@ -1146,7 +1146,7 @@ briefing/videos/pipe-crawler.mp4
 [[product-faq:crawler]]
 
 ### Underwater robot
-![QYSEA FIFISH V6 Expert underwater robot](https://store.qysea.com/cdn/shop/files/fifish-v6-expert.png)
+![QYSEA FIFISH V6 Expert underwater robot](briefing/photos/web-qysea-fifish-v6-expert.jpg)
 - Carries visual inspection and NDT tools to analyze material / equipment deterioration
 - 6 vector thrusters™: 6-DoF omnidirectional maneuverability
 - Depth rating covers 95 % of underwater work
@@ -1184,7 +1184,7 @@ briefing/videos/ndtccs-centre.mp4
 
 ## Equipment protection
 ### VALSEM (on the booth)
-![ValStrong-protected equipment crate](https://www.valsem.com/_img/uf2boiHKRGIuVb50gE8kPdjiQIc=/844_x_475/filters:quality(95):strip_exif()/reboot/media/922c517a-414f-11e8-a99b-fa163e14ea56/b202d782-251a-11ec-8348-0242ac130004/1-1-572669612.jpg)
+![ValStrong-protected equipment crate](briefing/photos/web-valsem-1-1-572669612.jpg)
 - VALSEM Industries (France, since 1977) protects critical equipment during transport and storage, and keeps proof of its condition over time
 - **ValStrong** membranes (e.g. ValStrong TITAN, VCX anti-corrosion film) shield equipment from corrosion, humidity and damage, crated or crate-less
 - **EXA-AIR**: inflatable anti-shock bags and sheets that cushion equipment inside its packaging
