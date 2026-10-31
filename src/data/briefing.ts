@@ -20,7 +20,7 @@ const SEED: Seed[] = [
 - Huge venue (ADNEC) with hundreds of exhibitors
 - Come early every morning (8 AM to 4 PM)
 - Be fit: it will be a long but very exciting week
-https://youtu.be/suRPKB9GTec`,
+briefing/videos/adipec-2026.mp4`,
     quiz: [
       {
         q: 'What are the booth hours you should plan around each day?',
@@ -338,7 +338,7 @@ briefing/videos/flycart-offshore.mp4
 
 ## Training & sales
 ### Drone training & consultancy
-![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
+![Pilot training on the DJI Flight Simulator](briefing/videos/flight-simulator.jpg)
 - Training / workshops for employees: how to operate drones and how to use them in their business
 - An academy (e.g. 2–3 months) for complete knowledge of drone operations
 - Consultancy to build an internal drone program: choosing the right drone, meeting compliance requirements, etc
@@ -431,7 +431,7 @@ Samples: [Short videos]() · [Videos]()`,
 | Dock protection | IP56 |
 | Landing wind resistance | Up to 12 m/s |
 | Mounting pattern | 400 × 400 mm |
-https://youtu.be/rIznH_5IniM
+briefing/videos/dock4.mp4
 [[product-faq:dock4]]
 
 ### DJI Dock 3
@@ -469,7 +469,6 @@ briefing/videos/dock3.mp4
 | Positioning | RTK, centimeter-grade |
 | Operating temperature | −20 °C to +50 °C |
 briefing/videos/m400.mp4
-https://youtu.be/3UrKq7xj7TI
 - **Brochure:** [DJI Matrice 400 datasheet](briefing/brochures/dji-m400.pdf)
 [[product-faq:m400]]
 
@@ -609,8 +608,8 @@ briefing/videos/avata-2.mp4
 | Endurance (2 batteries) | 15 minutes |
 | Max operation radius | 5 km |
 briefing/videos/flycart-offshore.mp4
-https://youtu.be/Hhp11I-vGHA
-- **More videos:** [Offshore delivery](briefing/videos/flycart-delivery-offshore.mp4) · [Offshore delivery (long)](briefing/videos/flycart-delivery-offshore-2.mp4) · [Offshore take-off](briefing/videos/flycart-takeoff-offshore.mp4) · [Landing](briefing/videos/flycart-landing.mp4) · [Winch down](briefing/videos/flycart-winch-down.mp4) · [Winch up](briefing/videos/flycart-winch-up.mp4) · [Dubai 1](briefing/videos/flycart-dubai-1.mp4) · [Dubai 2](briefing/videos/flycart-dubai-2.mp4) · [Dubai 3](briefing/videos/flycart-dubai-3.mp4) · [Test flight](briefing/videos/flycart-test-flight.mp4) · [Introducing FlyCart 30](briefing/videos/flycart-30-intro.mp4) · [FlyCart 30 (long)](briefing/videos/flycart-30-intro-long.mp4)
+briefing/videos/flycart-30-official.mp4
+- **More videos:** [Terra Drone FlyCart 30 demonstration](briefing/videos/flycart-30-demo.mp4) · [Offshore delivery](briefing/videos/flycart-delivery-offshore.mp4) · [Offshore delivery (long)](briefing/videos/flycart-delivery-offshore-2.mp4) · [Offshore take-off](briefing/videos/flycart-takeoff-offshore.mp4) · [Landing](briefing/videos/flycart-landing.mp4) · [Winch down](briefing/videos/flycart-winch-down.mp4) · [Winch up](briefing/videos/flycart-winch-up.mp4) · [Dubai 1](briefing/videos/flycart-dubai-1.mp4) · [Dubai 2](briefing/videos/flycart-dubai-2.mp4) · [Dubai 3](briefing/videos/flycart-dubai-3.mp4) · [Test flight](briefing/videos/flycart-test-flight.mp4) · [Introducing FlyCart 30](briefing/videos/flycart-30-intro.mp4) · [FlyCart 30 (long)](briefing/videos/flycart-30-intro-long.mp4)
 - **Brochure:** [DJI FlyCart 30 datasheet](briefing/brochures/dji-flycart-30.pdf)
 [[product-faq:flycart]]
 
@@ -714,6 +713,12 @@ briefing/videos/drtk3-m4t.mp4
 - Omnidirectional multirotor drone with 6-DOF (degrees of freedom) flight control
 - Can fly and keep stable contact on vertical, inclined and overhead surfaces
 - Works with NDT payloads such as EMAT, UT, PEC and DFT sensors
+- **Maintenance & repair too:** surface-preparation (Aeroblaster) and coating (roller) payloads for corrosion spot repair at height, without scaffolding or rope access
+- **Case study, spot repair on a cement silo** (Voliro field validation): **3 corrosion patches** of about **30 × 30 cm** each on a steel silo were repaired in **under one hour**, from the ground, with **zero production downtime**; conventional repair would take **2–4 days** with scaffolding, or weeks of lead time for rope access
+  - Surface prepared to **SSPC-SP 11 (≥ 25 µm profile)** with the Aeroblaster (co-developed with MontiPower), validated by an independent lab and reviewed by SGK (Swiss Society for Corrosion Protection)
+  - Coated with **PPG Sigmashield 880** (2K protective coating); photos and video of every patch stored in the Voliro Cloud as a timestamped record
+  - Inspection payloads (UT, PEC, DFT) on the same drone mean corrosion can be found and fixed in one visit
+  - Read the case study: [Voliro: 3 spot repairs on a cement silo in under one hour](https://voliro.com/blog/drone-based-spot-repair-field-validation-3-spot-repairs-on-a-cement-silo-in-under-one-hour/)
 - Optimized for GPS-denied environments (indoor, under structures, tanks, etc)
 - Triple-redundant IMU for stability and safety
 - Ideal for oil & gas, petrochemical, power plant and ship hull inspection
@@ -724,9 +729,15 @@ briefing/videos/drtk3-m4t.mp4
 | Contact force | Up to 30 N on a surface |
 | Cameras | 4K inspector camera and 2K pilot camera |
 briefing/videos/voliro-t.mp4
-https://youtu.be/Q29N_pTc6kA
+briefing/videos/voliro-spot-repair.mp4
+briefing/videos/voliro-t-intro.mp4
 - **More videos:** [The benchmark (short)](briefing/videos/voliro-benchmark.mp4) · [Event-screen compilation 2024](briefing/videos/voliro-lps-2024.mp4) · [Screen loop 2026](briefing/videos/voliro-loop-2026.mp4) · [Event-screen compilation 2023](briefing/videos/voliro-compilation-2023.mp4) · [Introducing Version 5](briefing/videos/voliro-v5.mp4) · [Version 5 (short)](briefing/videos/voliro-v5-short.mp4) · [Compilation hero](briefing/videos/voliro-hero.mp4) · [Payload swapping](briefing/videos/voliro-payload-swap.mp4) · [Short video](briefing/videos/voliro-short.mp4)
 - **Photos:** [Top view](briefing/photos/voliro-t-top.jpg) · [With payload](briefing/photos/voliro-t-payload.jpg) · [UT test on a pipe](briefing/photos/voliro-ut-test.jpg)
+- **Photos, spot repair:** [Surface prep 1](briefing/photos/voliro-surface-prep-1.jpg) · [Surface prep 2](briefing/photos/voliro-surface-prep-2.jpg) · [Surface prep 3](briefing/photos/voliro-surface-prep-3.jpg) · [Coating 1](briefing/photos/voliro-coating-1.jpg) · [Coating 2](briefing/photos/voliro-coating-2.jpg) · [Coating 3](briefing/photos/voliro-coating-3.jpg)
+- **Photos, UT:** [Close-up](briefing/photos/voliro-ut-closeup.jpg) · [Silo](briefing/photos/voliro-ut-silo.jpg) · [Storage tank 1](briefing/photos/voliro-ut-tank-1.jpg) · [Storage tank 2](briefing/photos/voliro-ut-tank-2.jpg) · [Storage tank 3](briefing/photos/voliro-ut-tank-3.jpg) · [Stack](briefing/photos/voliro-ut-stack.jpg) · [High-temperature stack](briefing/photos/voliro-ut-hot-stack.jpg) · [Power line 1](briefing/photos/voliro-ut-powerline-1.jpg) · [Power line 2](briefing/photos/voliro-ut-powerline-2.jpg) · [Power line 3](briefing/photos/voliro-ut-powerline-3.jpg)
+- **Photos, EMAT / PEC / DFT:** [EMAT smokestack 1](briefing/photos/voliro-emat-stack-1.jpg) · [EMAT smokestack 2](briefing/photos/voliro-emat-stack-2.jpg) · [EMAT smokestack 3](briefing/photos/voliro-emat-stack-3.jpg) · [EMAT kiln wall](briefing/photos/voliro-emat-kiln.jpg) · [EMAT pipe wall](briefing/photos/voliro-emat-pipe.jpg) · [PEC insulated pipe 1](briefing/photos/voliro-pec-1.jpg) · [PEC insulated pipe 2](briefing/photos/voliro-pec-2.jpg) · [PEC insulated pipe 3](briefing/photos/voliro-pec-3.jpg) · [PEC 4](briefing/photos/voliro-pec-4.jpg) · [PEC 5](briefing/photos/voliro-pec-5.jpg) · [DFT coating thickness on a power pylon](briefing/photos/voliro-dft-pylon.jpg)
+- **Photos, lightning protection (LPS) tests:** [LPS 1](briefing/photos/voliro-lps-1.jpg) · [LPS 2](briefing/photos/voliro-lps-2.jpg) · [LPS 3](briefing/photos/voliro-lps-3.jpg) · [LPS 4](briefing/photos/voliro-lps-4.jpg) · [Wind turbine](briefing/photos/voliro-lps-turbine.jpg) · [Offshore wind turbine](briefing/photos/voliro-lps-turbine-offshore.jpg)
+- **Photos, smart batteries:** [Batteries 1](briefing/photos/voliro-batteries-1.jpg) · [Batteries 2](briefing/photos/voliro-batteries-2.jpg) · [Batteries 3](briefing/photos/voliro-batteries-3.jpg) · [Batteries 4](briefing/photos/voliro-batteries-4.jpg)
 - **Brochure:** [Voliro T datasheet](briefing/brochures/voliro-t.pdf) · [Keynote slides](briefing/brochures/voliro-t-keynote-slides.pdf#pages=5) · [Keynote](briefing/brochures/voliro-t-keynote.pdf)
 [[product-faq:voliro]]
 
@@ -744,7 +755,6 @@ https://youtu.be/Q29N_pTc6kA
 briefing/videos/elios3.mp4
 briefing/videos/elios3-ut.mp4
 briefing/videos/internal-inspection.mp4
-https://youtu.be/B5s-69mQTSc
 - **Photos:** [Elios 3](briefing/photos/elios3-branded.jpg) · [With UT payload](briefing/photos/elios3-ut-payload.jpg) · [Entering a manhole](briefing/photos/elios3-manhole.jpg) · [Manhole close-up](briefing/photos/elios3-manhole-close.jpg) · [Inside a tank](briefing/photos/elios3-tank.jpg) · [In a dark cavity](briefing/photos/elios3-cavity.jpg) · [Studio shot](briefing/photos/elios3-studio.jpg)
 - **Brochure:** [Elios 3 datasheet](briefing/brochures/elios3.pdf) · [Elios 3 UT payload datasheet](briefing/brochures/elios3-ut.pdf)
 [[product-faq:elios]]
@@ -810,7 +820,6 @@ briefing/videos/nolvis-m1.mp4
 | Straight-line distance | 60–80 km in one flight |
 | EO camera zoom | 30x optical |
 briefing/videos/aheadx-ohl.mp4
-https://youtu.be/r3k7v1WPDMk
 - **More videos:** [Showcase](briefing/videos/aheadx-showcase.mp4) · [Use case](briefing/videos/aheadx-use-case.mp4) · [Product video](briefing/videos/aheadx-qp530.mp4)
 - **Brochure:** [AheadX QP530 datasheet](briefing/brochures/aheadx-qp530.pdf)
 [[product-faq:aheadx]]
@@ -864,7 +873,7 @@ briefing/videos/trinity-pro.mp4
 | Wind resistance | ~15 m/s in fixed-wing mode |
 | Noise | ~51–55 dB at 135 m |
 briefing/videos/eiger.mp4
-https://youtu.be/oHd-QIXVNoc
+briefing/videos/eiger-offshore.mp4
 - **Brochure:** [Eiger delivery drone datasheet](briefing/brochures/eiger.pdf)
 [[product-faq:eiger]]
 
@@ -913,27 +922,36 @@ briefing/videos/aviro-e16-usecase.mp4
 | Pressure | 20 MPa |
 briefing/videos/drone-cleaning-recap.mp4
 briefing/videos/drone-cleaning.mp4
-https://youtu.be/WnYeOUIdnoI
+briefing/videos/drone-cleaning-abz.mp4
 - **More videos:** [Drone cleaning](briefing/videos/drone-cleaning-2.mp4) · [Raw footage 1](briefing/videos/drone-cleaning-raw-1.mp4) · [Raw footage 2](briefing/videos/drone-cleaning-raw-2.mp4) · [Raw footage 3](briefing/videos/drone-cleaning-raw-3.mp4) · [Raw footage 4](briefing/videos/drone-cleaning-raw-4.mp4)
 - **Brochure:** [Drone cleaning datasheet](briefing/brochures/drone-cleaning.pdf)
 [[product-faq:cleaning]]
 
 ## Terra AI platform
 ### Terra AI platform overview (on the booth)
-![Terra Drone Indonesia team with drones](https://img.youtube.com/vi/CZL859mbue4/maxresdefault.jpg)
+![Terra software at a glance: MapX, VMX, Interex, SewerX, Stream PPE and Terra AI](briefing/videos/terra-software.jpg)
 - Terra Drone's own software for the data side of drone operations, so customers get usable results, not just raw files
-- [Terra MapX](#products/terra-mapx): drone survey processing and reporting for mining and earthworks
-- [Terra Survey Suite](#products/terra-survey-suite): drone survey project management, from inquiry to report
-- [TowerSight](#products/towersight) and [Terra SewerX](#products/terra-sewerx): inspection platforms for towers and sewer networks
-- [Terra VMX](#products/terra-vmx): AI video analytics for security; [Interex](#products/interex): AI traffic analytics from drone video
-- Operations and data: [SkyOps](#products/skyops) (checklists and equipment), [Terra Organize](#products/terra-organize) (fleet and pilots), [Terra Progress](#products/terra-progress) (site progress), [Terra 360](#products/terra-360) (geotagged 360° video), [Terra Stream PPE](#products/terra-stream-ppe-detection) (live PPE detection) and [Custom AI applications](#products/custom-ai-applications)
-- **Terra Organize**: drone fleet and operation management: drones, batteries, payloads, pilots and training, maintenance, incidents and flight records; also project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
+- Tap a name in the table to open its own page, with video, details and visitor FAQ
+| Software | What it does |
+|---|---|
+| [Terra MapX](#products/terra-mapx) | Drone survey processing and reporting for mining and earthworks |
+| [Terra Survey Suite](#products/terra-survey-suite) | Drone survey project management, from inquiry to report |
+| [TowerSight](#products/towersight) | Drone tower inspection: every tower, payload, defect and thickness reading in one record |
+| [Terra SewerX](#products/terra-sewerx) | CCTV sewer inspection, from field footage to graded report |
+| [Terra VMX](#products/terra-vmx) | AI video analytics for security: drones, CCTV, bodycams and phones in one console |
+| [Interex](#products/interex) | AI traffic analytics from drone or CCTV video |
+| [SkyOps](#products/skyops) | Pre-flight checklists and equipment check-out / check-in |
+| [Terra Organize](#products/terra-organize) | Drone fleet and operations: drones, batteries, payloads, pilots, maintenance and flight records |
+| [Terra Progress](#products/terra-progress) | Site progress monitoring with aerial imagery over time |
+| [Terra 360](#products/terra-360) | Adds GPS position and altitude to 360° drone video |
+| [Terra Stream PPE](#products/terra-stream-ppe-detection) | Live drone video with PPE detection, alerts and reports |
+| [Custom AI applications](#products/custom-ai-applications) | Detection and counting models: palm trees, pipelines, vehicles, oil spills, cracks and more |
+- **Terra Organize** also covers projects and data: project dashboards, role-based team access, scheduling and progress tracking, cloud storage with auto-backup, automatic file naming and tagging, a digital checklist, and a branded client portal with secure file sharing and auto-generated progress reports
 - **Terra Stream**: live streaming of drone video to the customer or a command center: up to 1080p with adaptive bitrate, sub-second latency, multi-viewer access control, share by link / email / WhatsApp, live telemetry overlay (altitude, speed, battery, GPS), automatic cloud recording
 - Use cases: client presentations, emergency response, remote supervision of works, inspection QA, training
 - Also: **Terra Checklist**, a digital pre-flight checklist and compliance tool with templates per mission type, digital signatures and an audit trail
-https://youtu.be/CZL859mbue4
+briefing/videos/terra-software-reel.mp4
 [[product-faq:ai]]
-
 ### Terra MapX
 ![Terra MapX: textured 3D mesh of a bridge](briefing/videos/mapx.jpg)
 - **Terra MapX Mining Suite** ("From drone flight to signed report"), by Terra Drone Arabia: process, explore and report on drone survey data in one platform
@@ -1071,7 +1089,7 @@ briefing/videos/unifly-utm.mp4
 
 ## Inspection & NDT
 ### Digital RT (digital radiography) (on the booth)
-![Portable digital radiography at a refinery](https://img.youtube.com/vi/cJyVyBaAnfM/maxresdefault.jpg)
+![Portable digital radiography at a refinery](briefing/videos/digital-rt.jpg)
 - Radiography with a **Digital Detector Array** (flat panel) or computed radiography plates instead of film: the image is on the laptop in seconds, with no chemical processing
 - **In service**: no shutdown, no draining and no insulation removal; standardised in ISO 20769-2
 - Much shorter exposure times than film for the same source (Ir-192, Co-60 or a portable X-ray tube): lower dose, smaller exclusion zones, more shots per shift
@@ -1081,7 +1099,7 @@ briefing/videos/unifly-utm.mp4
 - Software measurement (wall thickness, density profiles), contrast enhancement and a permanent digital archive with full traceability, so campaigns can be compared
 - Also used for weld quality, flow-accelerated corrosion, erosion, blockages, valves and small-bore fittings
 - Still a radiation method: controlled areas and licensed radiographers apply
-https://youtu.be/dndIQ5X3pcM
+briefing/videos/digital-rt.mp4
 [[product-faq:digital-rt]]
 
 ### IRIS (Internal Rotary Inspection System) (on the booth)
@@ -1092,7 +1110,7 @@ https://youtu.be/dndIQ5X3pcM
 - Tubes must be cleaned and filled with water first
 - Very accurate sizing: often used together with faster screening methods (eddy current, RFET) to confirm and size what they find
 - Benefit: wall-thickness data for every tube, so the customer plugs or replaces only the tubes that need it and plans shutdowns with confidence
-https://youtu.be/yhTewrjTRMQ
+briefing/videos/iris.mp4
 [[product-faq:iris]]
 
 ### ART crawler services
@@ -1109,7 +1127,7 @@ https://youtu.be/yhTewrjTRMQ
 | Pipe size, internal corrosion crawler | 4–48" |
 | Pipe size, CUI crawler | 2–48" |
 | Pipe size, 360° crawler | 12–60" |
-https://youtu.be/JA7Zu1fhfHU
+briefing/videos/art-crawler.mp4
 [[product-faq:art]]
 
 ### LiDAR & visual inspection robot (pipe crawler)
@@ -1124,7 +1142,7 @@ https://youtu.be/JA7Zu1fhfHU
 |---|---|
 | Travel distance | Up to 1,000 m |
 | Minimum pipe diameter | 12 inch |
-https://youtu.be/9HBf8kSVeos
+briefing/videos/pipe-crawler.mp4
 [[product-faq:crawler]]
 
 ### Underwater robot
@@ -1148,7 +1166,7 @@ https://youtu.be/9HBf8kSVeos
 | Q-BOX connector hub | 6 ports |
 briefing/videos/underwater-robot.mp4
 briefing/videos/fifish-w6.mp4
-https://youtu.be/k3rUdNZaBg4
+briefing/videos/fifish-v6-expert.mp4
 - **More videos:** [Subsea footage 2021](briefing/videos/subsea-2021.mp4) · [Subsea footage 2023](briefing/videos/subsea-2023.mp4) · [Robot inspection in a crude oil tank (2021)](briefing/videos/tank-robot-inspection.mp4) · [Robot tank cleaning, 1.5 m sludge (2021)](briefing/videos/tank-robot-cleaning.mp4) · [FIFISH PRO W6 official ad](briefing/videos/fifish-w6-ad.mp4) · [FIFISH PRO W6 (short)](briefing/videos/fifish-w6-short.mp4)
 - **Photos:** [FIFISH PRO W6](briefing/photos/fifish-w6-branded.jpg) · [Front view](briefing/photos/fifish-w6-front.jpg) · [Side view](briefing/photos/fifish-w6-side.jpg) · [With robotic arm](briefing/photos/fifish-w6-arm.jpg) · [Deployed from a boat](briefing/photos/fifish-w6-boat.jpg) · [Payloads and accessories](briefing/photos/fifish-w6-payloads.jpg) · [Key features](briefing/photos/fifish-w6-features.jpg)
 - **Brochure:** [FIFISH W6 datasheet](briefing/brochures/fifish-w6.pdf)
@@ -1175,12 +1193,12 @@ briefing/videos/ndtccs-centre.mp4
 - **NDTCCS is VALSEM's strategic partner in the GCC**: talk to the team at the VALSEM counter
 - Benefit for the customer: equipment arrives, and stays, in the condition it left the factory, with data to prove it: less corrosion damage in storage and fewer surprises at commissioning
 briefing/videos/valsem-corporate.mp4
-https://youtu.be/JYsudQpknpU
+briefing/videos/valsem-titan.mp4
 [[product-faq:valsem]]
 
 ## Training
 ### Drone flight simulator (on the booth)
-![Pilot training on the DJI Flight Simulator](https://img.youtube.com/vi/Zb_XKPgr0oo/maxresdefault.jpg)
+![Pilot training on the DJI Flight Simulator](briefing/videos/flight-simulator.jpg)
 - Part of our **drone training & consultancy** offer: visitors can try flying at the booth
 - Builds stick skills, procedures and muscle memory with zero risk to aircraft, payloads, people or property
 - Uses the pilot's real DJI remote controller via USB, so the control response matches the real aircraft; DJI's physics engine reproduces each model's flight behaviour
@@ -1188,7 +1206,7 @@ https://youtu.be/JYsudQpknpU
 - Same flight modes as real flight (P, A, S); simulated wind, ground effect and crash physics can be switched on
 - Emergency drills: loss of GNSS, return-to-home, low battery, ATTI-mode recovery; night and bad-weather conditions
 - Repeatable scoring to assess trainees, and lower training cost and insurance exposure before real flight hours and licence practical tests (e.g. GCAA)
-https://youtu.be/Zb_XKPgr0oo
+briefing/videos/flight-simulator.mp4
 [[product-faq:simulator]]
 
 ## Folders, brochures and videos
