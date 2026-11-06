@@ -1,4 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { askConfirm } from '../lib/dialogs'
 import { useOnline } from '../lib/offline'
 
@@ -6,6 +7,8 @@ import { useOnline } from '../lib/offline'
  * A small markdown subset for briefing text:
  * ### / #### headings, - or 1. lists (indent 2 spaces to nest), | tables |, > callouts,
  * **bold**, *italic*, [label](https://…) and bare https links. [label]() = a link still to be added.
+ * Two or more photo links on one line, e.g. [Front](briefing/photos/a.jpg) · [Side](briefing/photos/b.jpg),
+ * become a strip of thumbnails that opens a swipeable gallery.
  * A line with only ![alt](src) is a picture, shown to the right of the text that follows it;
  * src is a web address or a file in the app's public/ folder (e.g. briefing/voliro-t.jpg).
  * A line with only a YouTube link, or an .mp4 / .webm file (web address or public/ file, e.g.
@@ -200,15 +203,42 @@ function Table({ rows }: { rows: string[] }) {
 
 const TOKEN = /(\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\([^)\s]*\)|https?:\/\/[^\s)]+)/g
 
+const LINK = /^\[([^\]]+)\]\(([^)\s]*)\)$/
+
+type Photo = { label: string; src: string }
+
+/** A [label](file.jpg) link to a photo of this app, or null. */
+function photoOf(part: string): Photo | null {
+  const link = LINK.exec(part)
+  if (!link || /^(https?:|mailto:|#)/i.test(link[2])) return null
+  const src = imageSrc(link[2].split('#')[0])
+  return src && /\.(jpe?g|png|webp)$/i.test(src) ? { label: link[1], src } : null
+}
+
 function inline(text: string): ReactNode[] {
-  return text.split(TOKEN).map((part, k) => {
-    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <b key={k}>{part.slice(2, -2)}</b>
-    if (/^\*[^*\s]/.test(part) && part.endsWith('*') && part.length > 2) return <i key={k}>{part.slice(1, -1)}</i>
-    const link = /^\[([^\]]+)\]\(([^)\s]*)\)$/.exec(part)
-    if (link) return <MdLink key={k} label={link[1]} href={link[2]} />
-    if (/^https?:\/\//.test(part)) return <MdLink key={k} label={part} href={part} />
-    return part
+  const parts = text.split(TOKEN)
+  const photos = parts.map(photoOf)
+  const gallery = photos.filter((x): x is Photo => !!x)
+  if (gallery.length < 2) return parts.map(inlinePart)
+  // The photos (and the " · " between them) become one gallery, where the first one was.
+  const out: ReactNode[] = []
+  let placed = false
+  parts.forEach((part, k) => {
+    if (photos[k]) {
+      if (!placed) out.push(<PhotoGallery key={k} photos={gallery} />)
+      placed = true
+    } else if (!(placed && /^[\s·•,|/-]*$/.test(part))) out.push(inlinePart(part, k))
   })
+  return out
+}
+
+function inlinePart(part: string, k: number): ReactNode {
+  if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <b key={k}>{part.slice(2, -2)}</b>
+  if (/^\*[^*\s]/.test(part) && part.endsWith('*') && part.length > 2) return <i key={k}>{part.slice(1, -1)}</i>
+  const link = LINK.exec(part)
+  if (link) return <MdLink key={k} label={link[1]} href={link[2]} />
+  if (/^https?:\/\//.test(part)) return <MdLink key={k} label={part} href={part} />
+  return part
 }
 
 function MdLink({ label, href }: { label: string; href: string }) {
@@ -245,19 +275,38 @@ function MdLink({ label, href }: { label: string; href: string }) {
   )
 }
 
-/** A link that opens its content in a plain overlay (not <dialog>, which older iPads lack). */
-function MediaLink({ label, icon, wide, children }: { label: string; icon: string; wide?: boolean; children: (close: () => void) => ReactNode }) {
-  const [open, setOpen] = useState(false)
+/**
+ * A pop-up's open state (a value, e.g. which photo), as a step in the browser history:
+ * the phone's or iPad's Back button closes the pop-up instead of leaving the page. Escape closes it too.
+ */
+function useOverlay<T>() {
+  const [value, setValue] = useState<T | null>(null)
+  const open = value !== null
+  const close = () => (history.state?.mdOverlay ? history.back() : setValue(null))
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    const onPop = () => setValue(null)
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    window.addEventListener('popstate', onPop)
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
-  const close = () => setOpen(false)
+    return () => {
+      window.removeEventListener('popstate', onPop)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
+  const show = (v: T) => {
+    if (!open) history.pushState({ mdOverlay: true }, '')
+    setValue(v)
+  }
+  return [value, show, close] as const
+}
+
+/** A link that opens its content in a plain overlay (not <dialog>, which older iPads lack). */
+function MediaLink({ label, icon, wide, children }: { label: string; icon: string; wide?: boolean; children: (close: () => void) => ReactNode }) {
+  const [open, show, close] = useOverlay<true>()
   return (
     <>
-      <button className="link md-video-open" onClick={() => setOpen(true)}>
+      <button className="link md-video-open" onClick={() => show(true)}>
         {icon} {label}
       </button>
       {open && (
@@ -283,15 +332,100 @@ const VideoLink = ({ label, src }: { label: string; src: string }) => (
   </MediaLink>
 )
 
-const PhotoLink = ({ label, src }: { label: string; src: string }) => (
-  <MediaLink label={label} icon="🖼">
-    {() => (
-      <div className="md-pages">
-        <img src={src} alt={label} />
+function PhotoLink({ label, src }: Photo) {
+  const [at, show, close] = useOverlay<number>()
+  return (
+    <>
+      <button className="link md-video-open" onClick={() => show(0)}>
+        🖼 {label}
+      </button>
+      {at !== null && <Lightbox photos={[{ label, src }]} start={at} onClose={close} />}
+    </>
+  )
+}
+
+/** A row of photo thumbnails (scrolls sideways); a tap opens the gallery at that photo. */
+function PhotoGallery({ photos }: { photos: Photo[] }) {
+  const [at, show, close] = useOverlay<number>()
+  return (
+    <>
+      <span className="md-gallery" aria-label={`${photos.length} photos`}>
+        {photos.map((p, k) => (
+          <button key={p.src + k} className="md-gallery-thumb" onClick={() => show(k)} title={p.label}>
+            <img src={p.src} alt={p.label} loading="lazy" />
+            <span>{p.label}</span>
+          </button>
+        ))}
+      </span>
+      {at !== null && <Lightbox photos={photos} start={at} onClose={close} />}
+    </>
+  )
+}
+
+/** Full-screen photos side by side: swipe (or ‹ ›, arrow keys) to go through them. */
+function Lightbox({ photos, start, onClose }: { photos: Photo[]; start: number; onClose: () => void }) {
+  const track = useRef<HTMLDivElement>(null)
+  const [at, setAt] = useState(start)
+  const atRef = useRef(at)
+  atRef.current = at
+  const go = (k: number) => {
+    const t = track.current
+    if (t) t.scrollTo({ left: Math.max(0, Math.min(photos.length - 1, k)) * t.clientWidth, behavior: 'smooth' })
+  }
+  useEffect(() => {
+    const t = track.current
+    if (t) t.scrollLeft = start * t.clientWidth
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') go(atRef.current + 1)
+      if (e.key === 'ArrowLeft') go(atRef.current - 1)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  const many = photos.length > 1
+  const closeOnBackdrop = (e: MouseEvent) => e.target === e.currentTarget && onClose()
+  return createPortal(
+    <div className="md-video-overlay md-lightbox" role="dialog" aria-modal="true" aria-label="Photos" onClick={closeOnBackdrop}>
+      <div className="md-lightbox-head">
+        <b>{photos[at]?.label}</b>
+        {many && (
+          <span className="md-lightbox-count">
+            {at + 1} / {photos.length}
+          </span>
+        )}
+        <button className="link" onClick={onClose} aria-label="Close">
+          ✕
+        </button>
       </div>
-    )}
-  </MediaLink>
-)
+      <div
+        className="md-lightbox-track"
+        ref={track}
+        onClick={closeOnBackdrop}
+        onScroll={(e) => {
+          const t = e.currentTarget
+          setAt(Math.min(photos.length - 1, Math.max(0, Math.round(t.scrollLeft / t.clientWidth))))
+        }}
+      >
+        {photos.map((p, k) => (
+          <div key={p.src + k} className="md-lightbox-slide" onClick={closeOnBackdrop}>
+            <img src={p.src} alt={p.label} loading={Math.abs(k - start) > 1 ? 'lazy' : undefined} />
+          </div>
+        ))}
+      </div>
+      {many && (
+        <>
+          <button className="md-lightbox-nav prev" onClick={() => go(at - 1)} disabled={at === 0} aria-label="Previous photo">
+            ‹
+          </button>
+          <button className="md-lightbox-nav next" onClick={() => go(at + 1)} disabled={at === photos.length - 1} aria-label="Next photo">
+            ›
+          </button>
+        </>
+      )}
+    </div>,
+    document.body,
+  )
+}
 
 /** A brochure: its pages as pictures (they work offline and on any iPad), plus the PDF to download. */
 const BrochureLink = ({ label, pdf, pages }: { label: string; pdf: string; pages: number }) => (

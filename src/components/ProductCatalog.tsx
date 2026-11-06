@@ -148,13 +148,24 @@ export function ProductCatalog({ sectionId, text, render, kind = 'product' }: Pr
   const [openId, setOpenId] = useState<string | null>(null)
   const root = useRef<HTMLDivElement>(null)
   const search = useRef<HTMLInputElement>(null)
+  const fromList = useRef(false)
+  const lastOpen = useRef<string | null>(null)
 
   // The open product follows the address (#products/dji-dock-4), so links, Back and sharing work.
   useEffect(() => {
     const sync = () => {
       const [sec, id] = decodeURIComponent(location.hash.slice(1)).split('/')
-      if (sec !== sectionId) return
-      setOpenId(id || null)
+      // Another section, or no # at all (Back from a product opened at the top of the page): the list
+      if (sec !== sectionId) {
+        fromList.current = false
+        setOpenId(null)
+        return
+      }
+      setOpenId((was) => {
+        // Opened from the list (not with Previous / Next): "All products" can then simply go Back.
+        if (id) fromList.current = !was
+        return id || null
+      })
       if (id) root.current?.scrollIntoView({ block: 'start' })
       else if (location.hash.slice(1) === sectionId) search.current?.focus({ preventScroll: true })
     }
@@ -162,6 +173,17 @@ export function ProductCatalog({ sectionId, text, render, kind = 'product' }: Pr
     window.addEventListener('hashchange', sync)
     return () => window.removeEventListener('hashchange', sync)
   }, [sectionId])
+
+  // Back on the list: show the card of the product that was open, where the visitor left off.
+  useEffect(() => {
+    if (openId) {
+      lastOpen.current = openId
+      return
+    }
+    const id = lastOpen.current
+    lastOpen.current = null
+    if (id) root.current?.querySelector(`[data-id="${id}"]`)?.scrollIntoView({ block: 'center' })
+  }, [openId])
 
   // "/" jumps to the product search from anywhere on the page.
   useEffect(() => {
@@ -201,7 +223,16 @@ export function ProductCatalog({ sectionId, text, render, kind = 'product' }: Pr
     return (
       <div className="pc" ref={root}>
         <div className="pc-detail-bar no-print">
-          <a className="pc-back" href={`#${sectionId}`}>
+          <a
+            className="pc-back"
+            href={`#${sectionId}`}
+            onClick={(e) => {
+              // Same as the device's Back button, so Back afterwards doesn't reopen the product
+              if (!fromList.current) return
+              e.preventDefault()
+              history.back()
+            }}
+          >
             ← All {w.many}
           </a>
           <span className="pc-crumb muted small">
@@ -344,7 +375,7 @@ function Cards({ list, href, words, showGroup = true }: { list: Product[]; href:
       {list.map((p) => {
         const hint = words.length && !words.every((w) => `${p.title} ${p.summary}`.toLowerCase().includes(w)) ? snippet(p, words) : null
         return (
-          <a key={p.id} className="pc-card" href={href(p)}>
+          <a key={p.id} className="pc-card" href={href(p)} data-id={p.id}>
             <div className="pc-thumb">
               {p.image ? <img src={p.image.src} alt={p.image.alt} loading="lazy" /> : <span>{p.title.slice(0, 1)}</span>}
               <div className="pc-badges">
