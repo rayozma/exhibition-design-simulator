@@ -53,6 +53,28 @@ The crowd simulation runs only in your own browser and isn't shared.
 
 ---
 
+## Team briefing (`?briefing`)
+
+The briefing page holds the show information for the team, in sections everyone can edit live. It works on phones and iPads, including as an installed app.
+
+- **Product and service catalogs:** searchable cards, filterable by category. A card opens the product's details, with **‹ Previous / Next ›** to step through them. The device's **Back** button (or swipe back) returns to the list, at the card you opened.
+- **Photos:** two or more photo links on one line become a row of thumbnails you scroll sideways. Tap one to open a full-screen gallery and swipe between photos (‹ › or arrow keys on a computer). **Back** closes the gallery.
+- **Brochures and videos** open in a pop-up inside the page, so the installed app is never left. **Back** closes these too.
+
+Writing section text (a small Markdown subset):
+
+| To get | Write |
+|---|---|
+| A photo gallery | `**Photos:** [Front view](briefing/photos/a.jpg) · [Side view](briefing/photos/b.jpg)` (all on one line) |
+| A single photo link | `[Front view](briefing/photos/a.jpg)` |
+| A picture beside the text | `![Description](briefing/photos/a.jpg)` on its own line |
+| A brochure | `[Datasheet](briefing/brochures/x.pdf#pages=3)`, with its pages published next to it as `x-1.jpg`, `x-2.jpg`, … |
+| An embedded video | A YouTube link, or an `.mp4` / `.webm` file, on its own line |
+
+File paths point into the [`public/`](public/) folder.
+
+---
+
 ## Setup (for developers)
 
 Requirements: [Node.js](https://nodejs.org) 22 or newer (24 recommended) and git.
